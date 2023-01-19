@@ -15,10 +15,14 @@ import {
 
 import { Menu as MenuIcon } from "@mui/icons-material";
 
-import NavbarNotificationsDropdown from "./NavbarNotificationsDropdown";
-import NavbarMessagesDropdown from "./NavbarMessagesDropdown";
-import NavbarLanguagesDropdown from "./NavbarLanguagesDropdown";
-import NavbarUserDropdown from "./NavbarUserDropdown";
+// import NavbarNotificationsDropdown from "./NavbarNotificationsDropdown";
+// import NavbarMessagesDropdown from "./NavbarMessagesDropdown";
+// import NavbarLanguagesDropdown from "./NavbarLanguagesDropdown";
+// import NavbarUserDropdown from "./NavbarUserDropdown";
+import UserMessageDropDown from "./UserMessageDropDown";
+import userIcon from "../../asserts/userIcon.svg";
+import borgorIcon from "../../asserts/BurgerIcon.svg";
+import logo from "../../asserts/Logo.svg";
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -95,19 +99,30 @@ const Navbar = ({ onDrawerToggle }) => {
               </IconButton>
             </Grid>
             <Grid item>
-              <Search>
+              {/* <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
                 <Input placeholder={t("Search")} />
-              </Search>
+              </Search> */}
+              <img
+                src={logo}
+                alt="logo"
+                style={{
+                  width: "9rem",
+                  marginTop: ".2rem",
+                  marginLeft: "-2rem",
+                }}
+              />
             </Grid>
             <Grid item xs />
             <Grid item>
-              <NavbarMessagesDropdown />
-              <NavbarNotificationsDropdown />
+              <UserMessageDropDown message={"User"} icon={userIcon} />
+              <UserMessageDropDown message={"Details"} icon={borgorIcon} />
+              {/* <NavbarMessagesDropdown /> */}
+              {/* <NavbarNotificationsDropdown />
               <NavbarLanguagesDropdown />
-              <NavbarUserDropdown />
+              <NavbarUserDropdown /> */}
             </Grid>
           </Grid>
         </Toolbar>

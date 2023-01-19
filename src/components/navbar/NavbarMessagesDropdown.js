@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
+import userIcon from "../../asserts/userIcon.svg";
 
 import {
   Avatar as MuiAvatar,
@@ -74,14 +75,15 @@ function NavbarMessagesDropdown() {
 
   return (
     <React.Fragment>
-      <Tooltip title="Messages">
+      <Tooltip title="User">
         <IconButton color="inherit" ref={ref} onClick={handleOpen} size="large">
-          <Indicator badgeContent={3}>
-            <MessageSquare />
-          </Indicator>
+          {/* <Indicator badgeContent={3}> */}
+          {/* <MessageSquare /> */}
+          <img src={userIcon} alt={"user"} style={{ width: "1.3rem" }} />
+          {/* </Indicator> */}
         </IconButton>
       </Tooltip>
-      <Popover
+      {/* <Popover
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -119,7 +121,7 @@ function NavbarMessagesDropdown() {
             </Button>
           </Box>
         </React.Fragment>
-      </Popover>
+      </Popover> */}
     </React.Fragment>
   );
 }

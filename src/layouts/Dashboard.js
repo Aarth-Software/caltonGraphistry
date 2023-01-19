@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Outlet } from "react-router-dom";
 
-import { Box, CssBaseline, Paper as MuiPaper } from "@mui/material";
+import { Box, CssBaseline, Grid, Paper as MuiPaper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { spacing } from "@mui/system";
+import { bgcolor, spacing } from "@mui/system";
 
 import GlobalStyle from "../components/GlobalStyle";
 import Navbar from "../components/navbar/Navbar";
@@ -13,6 +13,8 @@ import dashboardItems from "../components/sidebar/dashboardItems";
 import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/Footer";
 import Settings from "../components/Settings";
+import Stats from "../pages/dashboards/Default/Stats";
+import { green, red } from "@mui/material/colors";
 
 const drawerWidth = 258;
 
@@ -64,30 +66,12 @@ const Dashboard = ({ children }) => {
     <Root>
       <CssBaseline />
       <GlobalStyle />
-      <Drawer>
-        <Box sx={{ display: { xs: "block", lg: "none" } }}>
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            items={dashboardItems}
-          />
-        </Box>
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            items={dashboardItems}
-          />
-        </Box>
-      </Drawer>
       <AppContent>
         <Navbar onDrawerToggle={handleDrawerToggle} />
-        <MainContent p={isLgUp ? 12 : 5}>
+        <MainContent p={isLgUp ? 6 : 4}>
           {children}
           <Outlet />
         </MainContent>
-        <Footer />
       </AppContent>
       <Settings />
     </Root>

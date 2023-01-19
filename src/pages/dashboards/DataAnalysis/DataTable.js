@@ -55,7 +55,7 @@ const RedText = styled.span`
   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
 `;
 
-const DoughnutChart = ({ theme }) => {
+const DoughnutChart = ({ theme, condition }) => {
   const data = {
     labels: ["Social", "Search Engines", "Direct", "Other"],
     datasets: [
@@ -86,25 +86,35 @@ const DoughnutChart = ({ theme }) => {
   return (
     <Card mb={6}>
       <CardHeader
-        action={
-          <IconButton aria-label="settings" size="large">
-            <MoreVertical />
-          </IconButton>
-        }
+        sx={{ color: "#F96167", fontSize: "2rem" }}
         title="Weekly sales"
-        // sx={{ bgcolor: "red" }}
       />
+      {condition && (
+        <div
+          style={{
+            width: "100%",
+            height: "2.5rem",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+          }}
+        >
+          <input
+            style={{
+              width: "96%",
+              height: "100%",
+              outline: "none",
+              border: ".005rem solid #E0E0E0",
+              borderRadius: ".3rem",
+              paddingLeft: "1rem",
+            }}
+            placeholder="Search"
+            type="text"
+          />
+        </div>
+      )}
 
-      <CardContent
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
-        <ChartWrapper>
-          <DoughnutInner>
-            <Typography variant="h4">+27%</Typography>
-            <Typography variant="caption">more sales</Typography>
-          </DoughnutInner>
-          <Doughnut data={data} options={options} />
-        </ChartWrapper>
+      <CardContent>
         <Table>
           <TableHead>
             <TableRow>
