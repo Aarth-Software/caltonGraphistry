@@ -2,10 +2,23 @@ import { Box } from "@mui/material";
 import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import { flexSpaceAround } from "../../../../libs/JSS/Jss";
-
+import { rgba } from "polished";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 const SaveButtonsContainer = () => {
+  const illustrationCardStyle = (props) => css`
+    background: ${rgba(props.theme.palette.primary.main, 0.125)};
+    color: ${props.theme.palette.primary.main};
+  `;
+  const Card = styled(Box)``;
+  const Save = styled(StandardButton)`
+    background-color: ${(props) => props.theme.palette.secondary.main};
+  `;
+  const SavedGraphBtn = styled(StandardButton)`
+    background-color: ${(props) => props.theme.palette.secondary.main};
+  `;
   return (
-    <Box
+    <Card
       sx={{
         flexGrow: 0,
         bgcolor: "#FFFFFF",
@@ -17,20 +30,20 @@ const SaveButtonsContainer = () => {
         flexDirection: "column",
       }}
     >
-      <StandardButton
+      <SavedGraphBtn
         text="Saved graphs"
-        bgcolor="#FFFFFF"
-        hoverColor="#FFFFFF"
-        color="#e86a6a"
+        bgcolor="none"
+        hoverColor="none"
+        // color="#e86a6a"
         mt={2}
         fontWeight={600}
         sx={{ textDecoration: "underline" }}
         fontSize=".7rem"
       />
-      <StandardButton
+      <Save
         text="Save"
-        bgcolor="#e86a6a"
-        hoverColor="#e86a6a"
+        // bgcolor="#e86a6a"
+        // hoverColor="#e86a6a"
         color="#FFFFFF"
         varient="contained"
         px={6}
@@ -38,7 +51,7 @@ const SaveButtonsContainer = () => {
         fontSize=".7rem"
         fontWeight={600}
       />
-    </Box>
+    </Card>
   );
 };
 

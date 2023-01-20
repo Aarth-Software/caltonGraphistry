@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
-import { green, grey, indigo } from "@mui/material/colors";
+import { green, grey, indigo, red } from "@mui/material/colors";
 import { Palette as PaletteIcon } from "@mui/icons-material";
 import {
   Alert,
@@ -74,6 +74,11 @@ const DemoButtonInner = styled.div`
     css`
       background: linear-gradient(-45deg, ${indigo[500]} 50%, ${grey[100]} 0);
     `}
+  ${(props) =>
+    props.selectedTheme === THEMES.RED &&
+    css`
+      background: linear-gradient(-45deg, ${red[500]} 50%, ${grey[100]} 0);
+    `}
 `;
 
 const DemoTitle = styled(Typography)`
@@ -141,10 +146,11 @@ function Demos() {
           <Demo title="Blue" themeVariant={THEMES.BLUE} />
           <Demo title="Green" themeVariant={THEMES.GREEN} />
           <Demo title="Indigo" themeVariant={THEMES.INDIGO} />
+          <Demo title="red" themeVariant={THEMES.RED} />
         </Grid>
       </Box>
 
-      <Box my={3} mx={4}>
+      {/* <Box my={3} mx={4}>
         <Button
           component={Link}
           to="/documentation/welcome"
@@ -155,8 +161,8 @@ function Demos() {
         >
           Documentation
         </Button>
-      </Box>
-      <Box my={3} mx={4}>
+      </Box> */}
+      {/* <Box my={3} mx={4}>
         <Button
           href="https://mui.com/store/items/mira-pro-react-material-admin-dashboard/"
           variant="contained"
@@ -167,7 +173,7 @@ function Demos() {
         >
           Get Mira Pro
         </Button>
-      </Box>
+      </Box> */}
     </Wrapper>
   );
 }

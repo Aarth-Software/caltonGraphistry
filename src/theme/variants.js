@@ -245,6 +245,46 @@ const indigoVariant = merge(defaultVariant, {
     },
   },
 });
+const redVariant = merge(defaultVariant, {
+  name: THEMES.RED,
+  palette: {
+    primary: {
+      main: red[300],
+      contrastText: "#FFF",
+    },
+    secondary: {
+      main: red[300],
+      contrastText: "#FFF",
+    },
+  },
+  header: {
+    indicator: {
+      background: red[300],
+    },
+  },
+  sidebar: {
+    color: "#FFF",
+    background: red[400],
+    header: {
+      color: "#FFF",
+      background: red[300],
+      brand: {
+        color: "#FFFFFF",
+      },
+    },
+    footer: {
+      color: "#FFF",
+      background: red[300],
+      online: {
+        background: "#FFF",
+      },
+    },
+    badge: {
+      color: "#000",
+      background: "#FFF",
+    },
+  },
+});
 
 const variants = [
   defaultVariant,
@@ -253,6 +293,7 @@ const variants = [
   blueVariant,
   greenVariant,
   indigoVariant,
+  redVariant,
 ];
 
 export default variants;

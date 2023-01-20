@@ -39,6 +39,9 @@ const DoughnutInner = styled.div`
 const TableRow = styled(MuiTableRow)`
   height: 42px;
 `;
+const TitleHeader = styled(CardHeader)`
+  color: ${(props) => props.theme.palette.secondary.main};
+`;
 
 const TableCell = styled(MuiTableCell)`
   padding-top: 0;
@@ -85,10 +88,7 @@ const DoughnutChart = ({ theme, condition }) => {
 
   return (
     <Card mb={6}>
-      <CardHeader
-        sx={{ color: "#F96167", fontSize: "2rem" }}
-        title="Weekly sales"
-      />
+      <TitleHeader sx={{ fontSize: "2rem" }} title="Weekly sales" />
       {condition && (
         <div
           style={{

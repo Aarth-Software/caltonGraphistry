@@ -2,8 +2,13 @@ import styled from "@emotion/styled";
 import { Box, Button } from "@mui/material";
 import React from "react";
 import StandardButton from "../../../../../libs/Buttons/StandardButton";
+import AffiliationSelectBox from "./AffiliationSelectBox";
 
 const StandardAffiliationBar = ({ sx }) => {
+  const AffiliationDropDown = styled(StandardButton)`
+    border: 0.005rem solid ${(props) => props.theme.palette.secondary.main};
+    color: ${(props) => props.theme.palette.secondary.main};
+  `;
   const AffiliateInput = styled("input")({
     height: "1.6rem",
     width: "auto",
@@ -29,17 +34,19 @@ const StandardAffiliationBar = ({ sx }) => {
       }}
     >
       <AffiliateInput placeholder="Keyword" />
-      <StandardButton
+      <AffiliationSelectBox />
+      {/* <AffiliationDropDown
         bgcolor="#FFFFFF"
         text="affiliations"
+        varient="outlined"
         px={3}
         py={1}
-        color="#e86a6a"
-        sx={{ border: ".05rem solid #e86a6a" }}
+        // color="#e86a6a"
+        // sx={{ border: ".05rem solid #e86a6a" }}
         fontSize=".7rem"
         fontWeight={600}
         borderRadius={1}
-      />
+      /> */}
     </Box>
   );
 };

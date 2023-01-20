@@ -54,6 +54,9 @@ const RedText = styled.span`
   color: ${() => red[400]};
   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
 `;
+const TitleHeader = styled(CardHeader)`
+  color: ${(props) => props.theme.palette.secondary.main};
+`;
 
 const DoughnutChart = ({ theme }) => {
   const data = {
@@ -85,7 +88,7 @@ const DoughnutChart = ({ theme }) => {
 
   return (
     <Card mb={6}>
-      <CardHeader
+      <TitleHeader
         action={
           <IconButton aria-label="settings" size="large">
             <MoreVertical />

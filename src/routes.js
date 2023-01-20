@@ -235,32 +235,32 @@ const routes = [
   //     },
   //   ],
   // },
-  // {
-  //   path: "auth",
-  //   element: <AuthLayout />,
-  //   children: [
-  //     {
-  //       path: "sign-in",
-  //       element: <SignIn />,
-  //     },
-  //     {
-  //       path: "sign-up",
-  //       element: <SignUp />,
-  //     },
-  //     {
-  //       path: "reset-password",
-  //       element: <ResetPassword />,
-  //     },
-  //     {
-  //       path: "404",
-  //       element: <Page404 />,
-  //     },
-  //     {
-  //       path: "500",
-  //       element: <Page500 />,
-  //     },
-  //   ],
-  // },
+  {
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "sign-in",
+        element: <SignIn />,
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "404",
+        element: <Page404 />,
+      },
+      {
+        path: "500",
+        element: <Page500 />,
+      },
+    ],
+  },
   // {
   //   path: "components",
   //   element: <DashboardLayout />,

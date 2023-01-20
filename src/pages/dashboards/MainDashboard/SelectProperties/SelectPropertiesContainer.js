@@ -6,8 +6,21 @@ import React from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { flexCenter, flexItemCenterStart } from "../../../../libs/JSS/Jss";
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
+import { rgba } from "polished";
+import { css } from "@emotion/react";
 
 const SelectPropertiesContainer = () => {
+  const illustrationCardStyle = (props) => css`
+    ${props.theme.palette.mode !== "dark" &&
+    `
+    background: ${rgba(props.theme.palette.primary.main, 0.125)};
+    color: ${props.theme.palette.primary.main};
+  `}
+  `;
+  const Card = styled(Box)`
+    ${illustrationCardStyle}
+  `;
+  console.log(illustrationCardStyle);
   const Line = styled("span")({
     flexGrow: 1,
     height: ".1rem",
@@ -17,6 +30,7 @@ const SelectPropertiesContainer = () => {
     ...flexCenter,
     justifyContent: "flex-end",
   });
+
   return (
     <>
       <Box

@@ -54,6 +54,9 @@ const RedText = styled.span`
   color: ${() => red[400]};
   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
 `;
+const TitleHeader = styled(CardHeader)`
+  color: ${(props) => props.theme.palette.secondary.main};
+`;
 
 const ManagedSavedGraphs = ({ theme, condition }) => {
   const data = {
@@ -85,10 +88,7 @@ const ManagedSavedGraphs = ({ theme, condition }) => {
 
   return (
     <Card mb={6}>
-      <CardHeader
-        sx={{ color: "#F96167", fontSize: "2rem" }}
-        title="Weekly sales"
-      />
+      <TitleHeader sx={{ fontSize: "2rem" }} title="Weekly sales" />
       {condition && (
         <div
           style={{

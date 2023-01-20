@@ -6,4 +6,5 @@ export const THEMES = {
   BLUE: "BLUE",
   GREEN: "GREEN",
   INDIGO: "INDIGO",
+  RED: "RED",
 };

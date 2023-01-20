@@ -9,7 +9,18 @@ import SaveButtonsContainer from "./SaveBtnsContainer/SaveButtonsContainer";
 import SelectButtons from "./SelectPattern/SelectButtons";
 import SelectPropertiesContainer from "./SelectProperties/SelectPropertiesContainer";
 
+import { rgba } from "polished";
+import { css } from "@emotion/react";
 const FallDashboard = () => {
+  const illustrationCardStyle = (props) => css`
+    background: ${rgba(props.theme.palette.primary.main, 0.125)};
+    color: ${props.theme.palette.primary.main};
+  `;
+  const Card = styled(Box)``;
+  const RunGraphButton = styled(StandardButton)`
+    background: ${(props) => props.theme.palette.secondary.main};
+  `;
+
   const Controls = {
     width: "100%",
     height: "9rem",
@@ -26,7 +37,7 @@ const FallDashboard = () => {
   return (
     <Stack sx={{ width: "100%", height: "100%" }}>
       <Box sx={Controls}>
-        <Box
+        <Card
           sx={{
             flexGrow: 0,
             bgcolor: "#FFFFFF",
@@ -41,8 +52,8 @@ const FallDashboard = () => {
             1. Select relationship
           </Typography>
           <SelectButtons />
-        </Box>
-        <Box
+        </Card>
+        <Card
           sx={{
             flexGrow: 1,
             bgcolor: "#FFFFFF",
@@ -93,11 +104,11 @@ const FallDashboard = () => {
                 py: 2,
               }}
             >
-              <StandardButton
+              <RunGraphButton
                 text="Graph"
-                bgcolor="#e86a6a"
-                hoverColor="#e86a6a"
-                color="#FFFFFF"
+                // bgcolor="#e86a6a"
+                // hoverColor="#e86a6a"
+                // color="#FFFFFF"
                 varient="contained"
                 px={6}
                 mt={0.8}
@@ -106,7 +117,7 @@ const FallDashboard = () => {
               />
             </Box>
           </Box>
-        </Box>
+        </Card>
         <SaveButtonsContainer />
       </Box>
       <GraphistryContainer

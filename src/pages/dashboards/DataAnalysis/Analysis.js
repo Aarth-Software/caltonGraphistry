@@ -17,88 +17,84 @@ const Analysis = () => {
       <Helmet title="Analytics Dashboard" />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} lg={6}>
-          <Grid container spacing={6}>
-            <Grid item xs={12} lg={12}>
-              <Grid container spacing={4}>
-                <Grid item xs={12} sm={12} md={6} sx={{ height: "3rem" }}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-              </Grid>
+        <Grid item xs={12} lg={5}>
+          {/* <Grid container spacing={6}>
+            <Grid item xs={12} lg={12}> */}
+          <Grid container spacing={5}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
             </Grid>
-            <Grid item xs={12} lg={12}>
-              <Grid container spacing={4}>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Stats
-                    title="Bounce"
-                    amount="12.364"
-                    chip="Yearly"
-                    percentagetext="+27%"
-                    percentagecolor={green[500]}
-                  />
-                </Grid>
-              </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
             </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Stats
+                title="Bounce"
+                amount="12.364"
+                chip="Yearly"
+                percentagetext="+27%"
+                percentagecolor={green[500]}
+              />
+            </Grid>
+            {/* </Grid>
+            </Grid> */}
 
             {/* <Grid item xs={12} sm={12} md={6}>
               <Stats
@@ -120,7 +116,7 @@ const Analysis = () => {
             </Grid> */}
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={7}>
           <Grid container spacing={0}>
             <Grid item xs={12} md={12}>
               <DataTable condition={false} />
