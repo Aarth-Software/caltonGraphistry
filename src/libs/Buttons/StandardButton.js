@@ -15,7 +15,9 @@ const StandardButton = ({
   fontSize,
   varient,
   borderRadius,
+  mr,
   sx,
+  onClick,
 }) => {
   return (
     <Button
@@ -26,6 +28,7 @@ const StandardButton = ({
         px: px,
         py: py,
         mt: mt,
+        mr: mr,
         bgcolor: bgcolor,
         color: color,
         borderRadius: borderRadius ?? 1,
@@ -37,6 +40,7 @@ const StandardButton = ({
         },
         ...sx,
       }}
+      onClick={onClick}
     >
       {text}
     </Button>

@@ -1,42 +1,37 @@
+import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import SelectButtons from "./SelectButtons";
-
-const SelectPatternContainer = () => {
+const Card = styled(Box)``;
+const SelectPatternContainer = ({
+  btnArray,
+  activePattern,
+  setActivePattern,
+  getPatternChange,
+}) => {
   return (
     <>
-      <Box
+      <Card
         sx={{
-          height: "8rem",
-          width: "15rem",
+          flexGrow: 0,
           bgcolor: "#FFFFFF",
-          borderRadius: "15px",
-          boxShadow: "0px 3.5px 5.5px rgba(0, 0, 0, 0.02);",
+          height: "7.4rem",
+          width: "14rem",
+          borderRadius: 1.5,
+          px: 2,
+          boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            height: 1 / 8,
-            mt: 0.5,
-            px: 2,
-          }}
-        >
-          <Typography
-            variant="p"
-            sx={{
-              fontWeight: 600,
-              color: "#259DF8",
-              fontSize: ".8rem",
-            }}
-          >
-            1. Select relationship
-          </Typography>
-        </Box>
-        <SelectButtons />
-      </Box>
+        <Typography varient="p" sx={{ mt: 1, color: "#259DF8" }}>
+          1. Select relationship
+        </Typography>
+        <SelectButtons
+          btnArray={btnArray}
+          activePattern={activePattern}
+          setActivePattern={setActivePattern}
+          getPatternChange={getPatternChange}
+        />
+      </Card>
     </>
   );
 };

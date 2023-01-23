@@ -2,31 +2,52 @@ import * as React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import styled from "@emotion/styled";
+import "../../../../../App.css";
 
-const AffiliationSelectBox = () => {
-  const [age, setAge] = React.useState("");
+const AffiliationSelectBox = ({ value, name, onselect }) => {
+  const DropDownContainer = styled("div")({
+    position: "absolute",
+    top: "-.4rem",
+    right: ".5rem",
+    backgroundColor: "#fffff",
+  });
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const CssTextField = styled(Select)({
+    ".MuiSvgIcon-root": {
+      color: "#e86a6a",
+    },
+    ".MuiSelect-standard": {
+      color: "#e86a6a",
+    },
+  });
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <Select
-          value={age}
-          onChange={handleChange}
+    <DropDownContainer>
+      <FormControl sx={{ minWidth: 100, height: "1rem", bgcolor: "white" }}>
+        <CssTextField
+          value={value}
+          onChange={onselect}
+          name={name}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
-          sx={{ height: "2rem", borderRadius: 1 }}
+          variant="standard"
+          disableUnderline
+          sx={{
+            height: "1rem",
+            borderRadius: 1,
+            bgcolor: "#fffff",
+            outline: "none",
+            padding: "0rem",
+          }}
         >
-          <MenuItem value="">Affiliation</MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
+          <MenuItem value="">Choose</MenuItem>
+          <MenuItem value={"Ten"}>Ten</MenuItem>
+          <MenuItem value={"Twenty"}>Twenty</MenuItem>
+          <MenuItem value={"Thirty"}>Thirty</MenuItem>
+        </CssTextField>
       </FormControl>
-    </div>
+    </DropDownContainer>
   );
 };
 export default AffiliationSelectBox;

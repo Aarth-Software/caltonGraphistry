@@ -18,7 +18,7 @@ import { Menu as MenuIcon } from "@mui/icons-material";
 // import NavbarNotificationsDropdown from "./NavbarNotificationsDropdown";
 // import NavbarMessagesDropdown from "./NavbarMessagesDropdown";
 // import NavbarLanguagesDropdown from "./NavbarLanguagesDropdown";
-// import NavbarUserDropdown from "./NavbarUserDropdown";
+import NavbarUserDropdown from "./NavbarUserDropdown";
 import UserMessageDropDown from "./UserMessageDropDown";
 import userIcon from "../../asserts/userIcon.svg";
 import borgorIcon from "../../asserts/BurgerIcon.svg";
@@ -119,10 +119,10 @@ const Navbar = ({ onDrawerToggle }) => {
             <Grid item>
               <UserMessageDropDown message={"User"} icon={userIcon} />
               <UserMessageDropDown message={"Details"} icon={borgorIcon} />
-              {/* <NavbarMessagesDropdown /> */}
-              {/* <NavbarNotificationsDropdown />
-              <NavbarLanguagesDropdown />
-              <NavbarUserDropdown /> */}
+              {/* <NavbarMessagesDropdown />
+              <NavbarNotificationsDropdown />
+              <NavbarLanguagesDropdown /> */}
+              {/* <NavbarUserDropdown /> */}
             </Grid>
           </Grid>
         </Toolbar>

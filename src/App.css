@@ -1,0 +1,32 @@
+.MuiSelect-select{
+  padding: 0 !important;
+  padding-left : .6rem !important ;
+  outline : none !important ;
+  border : none !important ;
+}
+.MuiInputBase-root{
+    border : none !important ;
+    outline: none !important;
+}
+.MuiFormControl-root{
+    border: none !important;
+}
+/* .MuiSelect-outlined{
+    color : #e86a6a ;
+    font-weight: bolder;
+}
+.MuiSelect-iconOutlined{
+    color : #e86a6a;
+} */
+/* .MuiSvgIcon-root{
+    color : #e86a6a  ;
+} */
+.MuiInputBase-formControl{
+    outline :none !important ;
+    border: none !important;
+}
+.Mui-focused{
+    outline :none !important ;
+    border: none !important;
+}
+
