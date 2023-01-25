@@ -32,7 +32,17 @@ import {
 } from "../../../asserts/index";
 import SelectPatternContainer from "./SelectPattern/SelectPatternContainer";
 import RunButton from "./SelectProperties/RunButton";
+import {
+  Controls,
+  moreOptionStyle,
+  patternContainerStyle,
+  selectPropContainerStyle,
+} from "../../../libs/JSS/Jss";
+import PopModal from "../../../libs/Modal/PopModal";
+import GraphistryGraph from "../MainDashboard/Graphistry/GraphistryGraph";
+import { getAccessPatternVariables } from "../../../libs/Switches/SelectionSwitches";
 
+const Card = styled(Box)``;
 const FallDashboard = () => {
   const [pattern, setPattern] = React.useState({
     nodeA: true,
@@ -47,6 +57,7 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: false,
       nodeC: false,
+      code: "sN",
     },
     {
       btn: singleNodeB,
@@ -55,6 +66,8 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: false,
       nodeC: true,
+      unUsedC: true,
+      code: "doubleNrD",
     },
     {
       btn: singleNodeC,
@@ -63,6 +76,7 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: false,
       nodeC: true,
+      code: "doubleN",
     },
     {
       btn: singleNodeD,
@@ -71,6 +85,8 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: false,
       nodeC: true,
+      unUsedA: true,
+      code: "doubleNlD",
     },
     {
       btn: doubleNodeA,
@@ -80,6 +96,8 @@ const FallDashboard = () => {
       nodeB: true,
       nodeC: true,
       series: true,
+      unUsedB: true,
+      code: "tripleNcD",
     },
     {
       btn: doubleNodeB,
@@ -89,6 +107,8 @@ const FallDashboard = () => {
       nodeB: true,
       nodeC: true,
       series: true,
+      unUsedC: true,
+      code: "tripleNrD",
     },
     {
       btn: doubleNodeC,
@@ -98,6 +118,8 @@ const FallDashboard = () => {
       nodeB: true,
       nodeC: true,
       series: true,
+      unUsedA: true,
+      code: "tripleNlD",
     },
     {
       btn: doubleNodeD,
@@ -107,6 +129,9 @@ const FallDashboard = () => {
       nodeB: true,
       nodeC: true,
       series: true,
+      unUsedA: true,
+      unUsedC: true,
+      code: "tripleNcA",
     },
     {
       btn: tripleNodeA,
@@ -115,6 +140,9 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: true,
       nodeC: true,
+      unUsedA: true,
+      unUsedC: true,
+      code: "triplePerNcA",
     },
     {
       btn: tripleNodeB,
@@ -123,6 +151,8 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: true,
       nodeC: true,
+      unUsedA: true,
+      code: "triplePerNlD",
     },
     {
       btn: tripleNodeC,
@@ -131,6 +161,8 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: true,
       nodeC: true,
+      unUsedC: true,
+      code: "triplePerNrD",
     },
     {
       btn: tripleNodeD,
@@ -139,104 +171,91 @@ const FallDashboard = () => {
       nodeA: true,
       nodeB: true,
       nodeC: true,
+      unUsedB: true,
+      code: "triplePerNcD",
     },
   ];
 
   const [activePattern, setActivePattern] = React.useState(
     new Array(btnArray.length).fill(false)
   );
-  const inputRef = React.useRef();
+  const [open, setOpen] = React.useState(false);
+  const [nodeState, setNodeState] = React.useState({
+    nodeA: { value: "", inputValue: "", disableInput: true },
+    nodeB: { value: "", inputValue: "", disableInput: true },
+    nodeC: { value: "", inputValue: "", disableInput: true },
+  });
   // const illustrationCardStyle = (props) => css`
   //   background: ${rgba(props.theme.palette.primary.main, 0.125)};
   //   color: ${props.theme.palette.primary.main};
   // `;
-  const Card = styled(Box)``;
-  const Controls = {
-    width: "100%",
-    height: "9rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  };
   const getPatternChange = (e) => {
+    setNodeState(getAccessPatternVariables(e.code));
     setPattern(e);
+    // setNodeState(getAccessPatternVariables(e.code));
   };
-
-  const GraphistryContainer = styled(Box)({
-    width: "100%",
-    height: "100%",
-  });
-
+  const [data, setData] = React.useState(null);
+  const [status, setStatus] = React.useState(null);
+  const executeQuery = (query) => {
+    setStatus(false);
+    console.log(query);
+    fetch(`http://localhost:3000/runQuery?cypherQuery=${query}`, {
+      method: "GET",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((resp) => resp.json())
+      .then((result) => {
+        console.log(result[0]);
+        setData(result[0]);
+        setStatus(true);
+        console.log(result);
+      })
+      .catch((err) => {
+        setStatus(false);
+      });
+  };
+  const run = () => {
+    // executeQuery(textRef.current.value);
+    executeQuery("MATCH (c1)-[r]-(c2) RETURN c1,r,c2 LIMIT 10");
+  };
+  // console.log(nodeState);
   return (
-    <Stack sx={{ width: "100%", height: "100%" }}>
-      <Box sx={Controls}>
-        <SelectPatternContainer
-          btnArray={btnArray}
-          activePattern={activePattern}
-          setActivePattern={setActivePattern}
-          getPatternChange={getPatternChange}
-        />
-        <Card
-          sx={{
-            flexGrow: 1,
-            bgcolor: "#FFFFFF",
-            height: "7.4rem",
-            ml: 5,
-            borderRadius: 1.5,
-            px: 2,
-            boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
-            position: "relative",
-          }}
-        >
-          <Typography
-            varient="p"
-            sx={{ mt: 1, position: "absolute", color: "#259DF8" }}
-          >
-            2. Select relationship
-          </Typography>
-          <div
-            style={{
-              position: "absolute",
-              color: "black",
-              top: "-.2rem",
-              right: "-0.5rem",
-            }}
-          >
-            <MoreOptions />
-          </div>
-          <Box
-            sx={{
-              width: "100%",
-              height: "7.2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            <SelectPropertiesContainer
-              pattern={pattern}
-              // inputValues={inputValues}
-              // change={inputChange}
-            />
-
-            <RunButton />
-          </Box>
-        </Card>
-      </Box>
-      <GraphistryContainer
-        sx={{
-          mt: 5,
-          bgcolor: "#FFFFFF",
-          border: ".05rem solid #DBDCDF",
-          borderRadius: 1.5,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/* <GraphistryGraph /> */}
-      </GraphistryContainer>
-    </Stack>
+    <>
+      <Stack sx={{ width: "100%", height: "100%" }}>
+        <Box sx={Controls}>
+          <SelectPatternContainer
+            btnArray={btnArray}
+            activePattern={activePattern}
+            setActivePattern={setActivePattern}
+            getPatternChange={getPatternChange}
+          />
+          <Card sx={{ ...patternContainerStyle }}>
+            <Typography
+              varient="p"
+              sx={{ mt: 1, position: "absolute", color: "#259DF8" }}
+            >
+              2. Select relationship
+            </Typography>
+            <div style={moreOptionStyle}>
+              <MoreOptions setOpen={setOpen} />
+            </div>
+            <Box sx={selectPropContainerStyle}>
+              <SelectPropertiesContainer
+                pattern={pattern}
+                nodeState={nodeState}
+                setNodeState={setNodeState}
+              />
+              <RunButton />
+            </Box>
+          </Card>
+        </Box>
+        {status === false && <div className="lodingContainer">loading...</div>}
+        {status === null && <div className="lodingContainer">Insert query</div>}
+        {status && <GraphistryGraph name="graph" set={data} />}
+      </Stack>
+      <PopModal open={open} setOpen={setOpen} />
+    </>
   );
 };
 

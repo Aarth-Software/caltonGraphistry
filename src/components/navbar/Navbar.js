@@ -109,9 +109,9 @@ const Navbar = ({ onDrawerToggle }) => {
                 src={logo}
                 alt="logo"
                 style={{
-                  width: "9rem",
+                  width: "5rem",
                   marginTop: ".2rem",
-                  marginLeft: "-2rem",
+                  marginLeft: "0rem",
                 }}
               />
             </Grid>

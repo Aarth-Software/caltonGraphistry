@@ -118,10 +118,10 @@ const ManagedSavedGraphs = ({ theme, condition }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Source</TableCell>
-              <TableCell align="left">Revenue</TableCell>
-              <TableCell align="left">Value</TableCell>
-              <TableCell align="left">Value</TableCell>
+              <TableCell align="left">Keywords</TableCell>
+              <TableCell align="left">As</TableCell>
+              <TableCell align="left">Title</TableCell>
+              <TableCell align="left">Date</TableCell>
               <TableCell align="right">
                 <MoreVertical />
               </TableCell>

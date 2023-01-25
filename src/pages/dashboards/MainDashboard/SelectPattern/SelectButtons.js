@@ -2,12 +2,8 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React from "react";
 
-const SelectButtons = ({
-  btnArray,
-  activePattern,
-  setActivePattern,
-  getPatternChange,
-}) => {
+const SelectButtons = React.memo((props) => {
+  const { btnArray, activePattern, setActivePattern, getPatternChange } = props;
   const SvgButtons = styled("img")({
     color: "darkslategray",
     padding: 4,
@@ -50,6 +46,6 @@ const SelectButtons = ({
       ))}
     </Box>
   );
-};
+});
 
 export default SelectButtons;

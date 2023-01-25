@@ -18,7 +18,8 @@ const IconButton = styled(MuiIconButton)`
   }
 `;
 
-function MoreOptions() {
+const MoreOptions = React.memo((props) => {
+  const { setOpen } = props;
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const navigate = useNavigate();
   const { signOut } = useAuth();
@@ -38,7 +39,7 @@ function MoreOptions() {
 
   return (
     <React.Fragment>
-      <Tooltip title="Account">
+      <Tooltip title="More options">
         <IconButton
           aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
           aria-haspopup="true"
@@ -46,7 +47,6 @@ function MoreOptions() {
           color="inherit"
           size="large"
         >
-          {/* <Power /> */}
           <MoreVertical />
         </IconButton>
       </Tooltip>
@@ -57,10 +57,10 @@ function MoreOptions() {
         onClose={closeMenu}
       >
         <MenuItem sx={{ color: "#e86a6a" }}>Save</MenuItem>
-        <MenuItem>Saved Graphs</MenuItem>
+        <MenuItem onClick={() => setOpen(true)}>Saved Graphs</MenuItem>
       </Menu>
     </React.Fragment>
   );
-}
+});
 
 export default MoreOptions;

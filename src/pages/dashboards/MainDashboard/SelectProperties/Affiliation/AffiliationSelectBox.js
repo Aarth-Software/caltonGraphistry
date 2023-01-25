@@ -4,8 +4,23 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import styled from "@emotion/styled";
 import "../../../../../App.css";
+const CssTextField = styled(Select)({
+  ".MuiSvgIcon-root": {
+    color: "#e86a6a",
+  },
+  ".MuiSelect-standard": {
+    color: "#e86a6a",
+  },
+  "& .MuiInputBase-input.Mui-disabled": {
+    WebkitTextFillColor: "gray",
+    cursor: "not-allowed",
+  },
+  "& .MuiSvgIcon-root.Mui-disabled": {
+    color: "gray",
+  },
+});
 
-const AffiliationSelectBox = ({ value, name, onselect }) => {
+const AffiliationSelectBox = ({ value, name, onselect, dropdownDesable }) => {
   const DropDownContainer = styled("div")({
     position: "absolute",
     top: "-.4rem",
@@ -13,18 +28,12 @@ const AffiliationSelectBox = ({ value, name, onselect }) => {
     backgroundColor: "#fffff",
   });
 
-  const CssTextField = styled(Select)({
-    ".MuiSvgIcon-root": {
-      color: "#e86a6a",
-    },
-    ".MuiSelect-standard": {
-      color: "#e86a6a",
-    },
-  });
-
   return (
     <DropDownContainer>
-      <FormControl sx={{ minWidth: 100, height: "1rem", bgcolor: "white" }}>
+      <FormControl
+        sx={{ minWidth: 100, height: "1rem", bgcolor: "white" }}
+        disabled={dropdownDesable}
+      >
         <CssTextField
           value={value}
           onChange={onselect}

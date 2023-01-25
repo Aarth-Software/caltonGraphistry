@@ -35,6 +35,7 @@ const AppContent = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 100%;
+  background: "#FFFFF";
 `;
 
 const Paper = styled(MuiPaper)(spacing);
