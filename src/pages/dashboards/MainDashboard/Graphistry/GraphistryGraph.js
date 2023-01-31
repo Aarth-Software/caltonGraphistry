@@ -15,14 +15,14 @@ const GraphistryContainer = styled(Box)({
   height: "100%",
 });
 const GraphistryGraph = React.memo((props) => {
-  const { name, set } = props;
+  const { name } = props;
   // console.log("donnnn");
   return (
     <GraphistryContainer sx={graphContainerStyle}>
       <Frame
         className="iframe-container"
         id="myIframe"
-        src={`https://hub.graphistry.com/graph/graph.html?dataset=${set}`}
+        src={`https://hub.graphistry.com/graph/graph.html?dataset=${"Miserables"}`}
         title="GraphistryIframe"
         sx={{ borderRadius: 1.5 }}
       />

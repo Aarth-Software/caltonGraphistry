@@ -55,10 +55,18 @@ const SelectPropertiesContainer = React.memo((props) => {
         },
       });
     } else if (!!value) {
-      setNodeState({
-        ...nodeState,
-        [name]: { ...nodeState[name], value: value, disableInput: false },
-      });
+      const { disableInput } = nodeState[name];
+      if (disableInput !== undefined) {
+        setNodeState({
+          ...nodeState,
+          [name]: { ...nodeState[name], value: value, disableInput: false },
+        });
+      } else {
+        setNodeState({
+          ...nodeState,
+          [name]: { ...nodeState[name], value: value },
+        });
+      }
     }
   };
   const inputChange = (e) => {
@@ -71,11 +79,9 @@ const SelectPropertiesContainer = React.memo((props) => {
   const nodeAComStyles = !pattern?.unUsedA
     ? secondInputComStyle
     : { "&::after": { ...nodeACircleStyleProp, ...unUsedNodeStyleProp } };
-  // console.log(nodeAComStyles);
   const nodeBComStyles = !pattern?.unUsedB
     ? firstInputComStyle
     : { "&::after": { ...nodeBCircleStyleProp, ...unUsedNodeStyleProp } };
-  // console.log(nodeBComStyles);
   const nodeCComStyles = !pattern?.unUsedC
     ? thirdInputComStyles
     : { "&::after": { ...nodeCCircleStyleProp, ...unUsedNodeStyleProp } };

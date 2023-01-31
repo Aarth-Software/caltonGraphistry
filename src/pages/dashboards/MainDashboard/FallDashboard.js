@@ -36,11 +36,16 @@ import {
   Controls,
   moreOptionStyle,
   patternContainerStyle,
+  popModalContainer,
+  popSaveModalContainer,
   selectPropContainerStyle,
 } from "../../../libs/JSS/Jss";
 import PopModal from "../../../libs/Modal/PopModal";
 import GraphistryGraph from "../MainDashboard/Graphistry/GraphistryGraph";
 import { getAccessPatternVariables } from "../../../libs/Switches/SelectionSwitches";
+import SavedGraphsPop from "./SavedGraphs/SavedGraphsPop";
+import StandardButton from "../../../libs/Buttons/StandardButton";
+import SavePopPanel from "./SavedGraphs/SavePopPanel";
 
 const Card = styled(Box)``;
 const FallDashboard = () => {
@@ -180,6 +185,7 @@ const FallDashboard = () => {
     new Array(btnArray.length).fill(false)
   );
   const [open, setOpen] = React.useState(false);
+  const [openSavePanel, seOpenSavePanel] = React.useState(false);
   const [nodeState, setNodeState] = React.useState({
     nodeA: { value: "", inputValue: "", disableInput: true },
     nodeB: { value: "", inputValue: "", disableInput: true },
@@ -216,10 +222,23 @@ const FallDashboard = () => {
       });
   };
   const run = () => {
-    // executeQuery(textRef.current.value);
     executeQuery("MATCH (c1)-[r]-(c2) RETURN c1,r,c2 LIMIT 10");
   };
-  // console.log(nodeState);
+  const generateGraph = () => {
+    const cloneObject = { ...nodeState };
+    console.log(cloneObject);
+    for (let x in cloneObject) {
+      if (
+        !cloneObject[x].inputValue &&
+        cloneObject[x].disableInput !== undefined
+      ) {
+        cloneObject[x].error = true;
+      } else {
+        cloneObject[x].error = false;
+      }
+    }
+    setNodeState(cloneObject);
+  };
   return (
     <>
       <Stack sx={{ width: "100%", height: "100%" }}>
@@ -238,7 +257,10 @@ const FallDashboard = () => {
               2. Select relationship
             </Typography>
             <div style={moreOptionStyle}>
-              <MoreOptions setOpen={setOpen} />
+              <MoreOptions
+                seOpenSavePanel={seOpenSavePanel}
+                setOpen={setOpen}
+              />
             </div>
             <Box sx={selectPropContainerStyle}>
               <SelectPropertiesContainer
@@ -246,15 +268,40 @@ const FallDashboard = () => {
                 nodeState={nodeState}
                 setNodeState={setNodeState}
               />
-              <RunButton />
+              <RunButton onClick={generateGraph} />
             </Box>
           </Card>
         </Box>
-        {status === false && <div className="lodingContainer">loading...</div>}
-        {status === null && <div className="lodingContainer">Insert query</div>}
-        {status && <GraphistryGraph name="graph" set={data} />}
+        {/* {status === false && <div className="lodingContainer">loading...</div>}
+        {status === null && <div className="lodingContainer">Insert query</div>} */}
+        <GraphistryGraph name="graph" set={data} />
       </Stack>
-      <PopModal open={open} setOpen={setOpen} />
+      <PopModal
+        openModal={openSavePanel}
+        setModalOpen={seOpenSavePanel}
+        child={<SavePopPanel />}
+        classProp={{ ...popModalContainer, ...popSaveModalContainer }}
+      />
+      <PopModal
+        openModal={open}
+        setModalOpen={setOpen}
+        child={
+          <SavedGraphsPop
+            btn={
+              <StandardButton
+                text="Graph"
+                varient="contained"
+                px={8}
+                mt={0.8}
+                mr={0.4}
+                fontSize=".7rem"
+                fontWeight={600}
+              />
+            }
+          />
+        }
+        classProp={popModalContainer}
+      />
     </>
   );
 };

@@ -19,7 +19,7 @@ const IconButton = styled(MuiIconButton)`
 `;
 
 const MoreOptions = React.memo((props) => {
-  const { setOpen } = props;
+  const { setOpen, seOpenSavePanel } = props;
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const navigate = useNavigate();
   const { signOut } = useAuth();
@@ -56,7 +56,12 @@ const MoreOptions = React.memo((props) => {
         open={Boolean(anchorMenu)}
         onClose={closeMenu}
       >
-        <MenuItem sx={{ color: "#e86a6a" }}>Save</MenuItem>
+        <MenuItem
+          sx={{ color: "#e86a6a" }}
+          onClick={() => seOpenSavePanel(true)}
+        >
+          Save
+        </MenuItem>
         <MenuItem onClick={() => setOpen(true)}>Saved Graphs</MenuItem>
       </Menu>
     </React.Fragment>

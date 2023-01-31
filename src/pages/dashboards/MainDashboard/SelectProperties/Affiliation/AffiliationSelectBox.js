@@ -33,6 +33,7 @@ const AffiliationSelectBox = ({ value, name, onselect, dropdownDesable }) => {
       <FormControl
         sx={{ minWidth: 100, height: "1rem", bgcolor: "white" }}
         disabled={dropdownDesable}
+        required={true}
       >
         <CssTextField
           value={value}
@@ -50,7 +51,7 @@ const AffiliationSelectBox = ({ value, name, onselect, dropdownDesable }) => {
             padding: "0rem",
           }}
         >
-          <MenuItem value="">Choose</MenuItem>
+          <MenuItem value="">Choose *</MenuItem>
           <MenuItem value={"Ten"}>Ten</MenuItem>
           <MenuItem value={"Twenty"}>Twenty</MenuItem>
           <MenuItem value={"Thirty"}>Thirty</MenuItem>

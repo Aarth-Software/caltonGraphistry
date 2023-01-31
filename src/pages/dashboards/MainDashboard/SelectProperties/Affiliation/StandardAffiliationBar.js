@@ -8,6 +8,7 @@ import {
 } from "../../../../../libs/JSS/Jss";
 import AffiliationSelectBox from "./AffiliationSelectBox";
 const AffiliateInput = styled("input")(actualInputStyles);
+
 const AffiliationDropDown = styled(StandardButton)`
   border: 0.005rem solid ${(props) => props.theme.palette.secondary.main};
   color: ${(props) => props.theme.palette.secondary.main};
@@ -21,24 +22,37 @@ const StandardAffiliationBar = ({
   change,
   unUsed,
 }) => {
-  const { value, inputValue, disableInput, disableDropDown } = nodeProp;
+  const { value, inputValue, disableInput, disableDropDown, error } = nodeProp;
   // console.log(disableInput);
+
   return (
-    <Box sx={{ ...inputAndSelectPlaceContainer, ...sx }}>
+    <Box
+      sx={{
+        ...inputAndSelectPlaceContainer,
+        ...sx,
+        border: error ? ".00005rem solid red" : ".005rem solid #DBDCDF",
+      }}
+    >
       <AffiliationSelectBox
         value={!value ? "" : value}
         name={name}
         onselect={onselect}
-        dropdownDesable={!!unUsed || !!disableDropDown}
+        dropdownDesable={!!disableDropDown}
       />
-      <AffiliateInput
-        placeholder="Keyword"
+      <input
+        placeholder={!!unUsed || !!disableInput ? "Disable" : "Keyword *"}
         value={!inputValue ? "" : inputValue}
         onChange={change}
         name={name}
         variant="standard"
-        sx={{ input: { color: "red" } }}
+        sx={{
+          input: { color: "red" },
+        }}
         disabled={!!unUsed || !!disableInput}
+        required={!!unUsed || !!disableInput ? false : true}
+        className={`disabledInputClass ${
+          (!!unUsed || !!disableInput) && "activeInput"
+        }`}
       />
     </Box>
   );

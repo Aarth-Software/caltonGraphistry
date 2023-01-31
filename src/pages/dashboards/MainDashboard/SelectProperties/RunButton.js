@@ -5,7 +5,7 @@ import StandardButton from "../../../../libs/Buttons/StandardButton";
 const RunGraphButton = styled(StandardButton)`
   background: ${(props) => props.theme.palette.secondary.main};
 `;
-const RunButton = ({ inputChange }) => {
+const RunButton = ({ onClick }) => {
   return (
     <Box
       sx={{
@@ -27,7 +27,7 @@ const RunButton = ({ inputChange }) => {
         mr={0.4}
         fontSize=".7rem"
         fontWeight={600}
-        onClick={inputChange}
+        onClick={onClick}
       />
     </Box>
   );

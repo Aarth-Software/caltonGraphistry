@@ -30,3 +30,22 @@
     border: none !important;
 }
 
+.disabledInputClass{
+    height: 1.6rem ;
+    width: 15rem;
+    border: none;
+    outline: none;
+    padding-left: .7rem ;
+    background-color: white;
+}
+.disabledInputClass:disabled{
+    cursor: not-allowed;
+    background: "white",
+}
+.disabledInputClass::placeholder{
+    color: rgb(110, 110, 110);
+}
+.activeInput::placeholder{
+    color: rgb(197, 197, 197);
+}
+

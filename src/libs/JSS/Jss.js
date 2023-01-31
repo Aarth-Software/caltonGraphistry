@@ -96,7 +96,7 @@ export const secondInputComStyle = {
     width: "1.5rem",
     bgcolor: "#DBDCDF",
     top: `calc(50% - .75rem)`,
-    left: `100%`,
+    left: `100.5%`,
     position: "absolute",
     borderRadius: "50%",
   },
@@ -153,9 +153,9 @@ export const actualInputStyles = {
   border: "none",
   outline: "none",
   paddingLeft: ".7rem",
-  "&::placeholder": {
-    fontSize: ".7rem",
-  },
+  // "&::placeholder": {
+  //   fontSize: ".7rem",
+  // },
   "&:disabled": {
     background: "white",
     cursor: "not-allowed",
@@ -166,13 +166,17 @@ export const popModalContainer = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "75%",
-  height: "75%",
+  width: "70%",
+  height: "70%",
   bgcolor: "background.paper",
   // border: "2px solid #000",
   borderRadius: 1,
   boxShadow: 24,
   p: 4,
+};
+export const popSaveModalContainer = {
+  width: "27%",
+  height: "27%",
 };
 export const Controls = {
   width: "100%",

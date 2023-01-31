@@ -37,12 +37,12 @@ const DoughnutInner = styled.div`
 `;
 
 const TableRow = styled(MuiTableRow)`
-  height: 42px;
+  height: 46px;
 `;
 
 const TableCell = styled(MuiTableCell)`
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 `;
 
 const GreenText = styled.span`
@@ -58,7 +58,7 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const ManagedSavedGraphs = ({ theme, condition, btn }) => {
+const SavedGraphsPop = ({ theme, condition, btn }) => {
   const data = {
     labels: ["Social", "Search Engines", "Direct", "Other"],
     datasets: [
@@ -88,39 +88,37 @@ const ManagedSavedGraphs = ({ theme, condition, btn }) => {
 
   return (
     <Card mb={6}>
-      <TitleHeader sx={{ fontSize: "2rem" }} title="Weekly sales" />
-      {condition && (
-        <div
+      <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
+
+      <div
+        style={{
+          width: "100%",
+          height: "2.5rem",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+      >
+        <input
           style={{
-            width: "100%",
-            height: "2.5rem",
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
+            width: "96%",
+            height: "100%",
+            outline: "none",
+            border: ".005rem solid #E0E0E0",
+            borderRadius: ".3rem",
+            paddingLeft: "1rem",
           }}
-        >
-          <input
-            style={{
-              width: "96%",
-              height: "100%",
-              outline: "none",
-              border: ".005rem solid #E0E0E0",
-              borderRadius: ".3rem",
-              paddingLeft: "1rem",
-            }}
-            placeholder="Search"
-            type="text"
-          />
-        </div>
-      )}
+          placeholder="Search"
+          type="text"
+        />
+      </div>
 
       <CardContent>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Keywords</TableCell>
-              <TableCell align="left">As</TableCell>
               <TableCell align="left">Title</TableCell>
+              <TableCell align="left">Query</TableCell>
               <TableCell align="left">Date</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
@@ -130,13 +128,8 @@ const ManagedSavedGraphs = ({ theme, condition, btn }) => {
               <TableCell component="th" scope="row">
                 Social
               </TableCell>
-              <TableCell>260</TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
+              <TableCell>Project Aurora</TableCell>
+              <TableCell>31/06/2019</TableCell>
               <TableCell align="right">
                 {!btn ? <MoreVertical /> : btn}
               </TableCell>
@@ -145,13 +138,8 @@ const ManagedSavedGraphs = ({ theme, condition, btn }) => {
               <TableCell component="th" scope="row">
                 Search Engines
               </TableCell>
-              <TableCell>125</TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
+              <TableCell>Project Aurora</TableCell>
+              <TableCell>31/06/2019</TableCell>
               <TableCell align="right">
                 {!btn ? <MoreVertical /> : btn}
               </TableCell>
@@ -160,28 +148,8 @@ const ManagedSavedGraphs = ({ theme, condition, btn }) => {
               <TableCell component="th" scope="row">
                 Direct
               </TableCell>
-              <TableCell>54</TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Other
-              </TableCell>
-              <TableCell>146</TableCell>
-              <TableCell>
-                <GreenText>+24%</GreenText>
-              </TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
+              <TableCell>Project Aurora</TableCell>
+              <TableCell>31/06/2019</TableCell>
               <TableCell align="right">
                 {!btn ? <MoreVertical /> : btn}
               </TableCell>
@@ -193,4 +161,4 @@ const ManagedSavedGraphs = ({ theme, condition, btn }) => {
   );
 };
 
-export default withTheme(ManagedSavedGraphs);
+export default withTheme(SavedGraphsPop);
