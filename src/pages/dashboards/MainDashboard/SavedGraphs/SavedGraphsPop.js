@@ -17,7 +17,12 @@ import {
   TableRow as MuiTableRow,
   Typography,
 } from "@mui/material";
-import { spacing } from "@mui/system";
+import { Box, spacing } from "@mui/system";
+import usePagination from "../../../../hooks/usePagenation";
+import { flexCenter } from "../../../../libs/JSS/Jss";
+import StandardButton from "../../../../libs/Buttons/StandardButton";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -58,38 +63,15 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const SavedGraphsPop = ({ theme, condition, btn }) => {
-  const data = {
-    labels: ["Social", "Search Engines", "Direct", "Other"],
-    datasets: [
-      {
-        data: [260, 125, 54, 146],
-        backgroundColor: [
-          theme.palette.secondary.main,
-          red[500],
-          orange[500],
-          theme.palette.grey[200],
-        ],
-        borderWidth: 5,
-        borderColor: theme.palette.background.paper,
-      },
-    ],
-  };
-
-  const options = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    cutout: "70%",
-  };
+const SavedGraphsPop = ({ theme, btn, record }) => {
+  const { pageElements, page, pages, prevClick, nextClick } = usePagination(
+    record,
+    6
+  );
 
   return (
     <Card mb={6}>
       <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
-
       <div
         style={{
           width: "100%",
@@ -124,39 +106,63 @@ const SavedGraphsPop = ({ theme, condition, btn }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Social
-              </TableCell>
-              <TableCell>Project Aurora</TableCell>
-              <TableCell>31/06/2019</TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Search Engines
-              </TableCell>
-              <TableCell>Project Aurora</TableCell>
-              <TableCell>31/06/2019</TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Direct
-              </TableCell>
-              <TableCell>Project Aurora</TableCell>
-              <TableCell>31/06/2019</TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
+            {pageElements.map((e, i) => (
+              <TableRow key={i}>
+                <TableCell component="th" scope="row">
+                  {e.title}
+                </TableCell>
+                <TableCell>{e.query}</TableCell>
+                <TableCell>{e.date}</TableCell>
+                <TableCell align="right">
+                  {!btn ? <MoreVertical /> : btn}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
+        {/* <PagenationControls elements={record} page={page} setPage={setPage} /> */}
       </CardContent>
+      <Box
+        sx={{
+          width: "100%",
+          height: "auto",
+          ...flexCenter,
+          position: "absolute",
+          bottom: 10,
+        }}
+      >
+        <StandardButton
+          text={<KeyboardArrowLeftIcon />}
+          varient="contained"
+          // px={8}
+          mt={0.8}
+          mr={0.4}
+          fontSize=".7rem"
+          fontWeight={600}
+          onClick={prevClick}
+          disabled={page === 1}
+          color="black"
+          bgcolor="white"
+          hoverColor="white"
+        />
+        <span>
+          {page} / {pages}
+        </span>
+        <StandardButton
+          text={<KeyboardArrowRightIcon />}
+          varient="contained"
+          // px={8}
+          mt={0.8}
+          mr={0.4}
+          fontSize=".7rem"
+          fontWeight={600}
+          onClick={nextClick}
+          disabled={page === pages}
+          color="black"
+          bgcolor="white"
+          hoverColor="white"
+        />
+      </Box>
     </Card>
   );
 };

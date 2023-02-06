@@ -129,7 +129,7 @@ const routes = [
     ],
   },
   {
-    path: "dashboard",
+    path: "generateQuery",
     element: <DashboardLayout />,
     children: [
       {

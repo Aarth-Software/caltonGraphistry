@@ -88,6 +88,17 @@ export const firstInputComStyle = {
     borderRadius: "50%",
     // bgcolor: "green",
   },
+  // "& ::before": {
+  //   content: '""',
+  //   height: "1.5rem",
+  //   width: "1.5rem",
+  //   // bgcolor: "#DBDCDF",
+  //   top: "102%",
+  //   left: `calc(50% - .7rem)`,
+  //   position: "absolute",
+  //   borderRadius: "50%",
+  //   border: ".05rem solid #DBDCDF",
+  // },
 };
 export const secondInputComStyle = {
   "&::after": {
@@ -96,7 +107,7 @@ export const secondInputComStyle = {
     width: "1.5rem",
     bgcolor: "#DBDCDF",
     top: `calc(50% - .75rem)`,
-    left: `100.5%`,
+    right: `-1.55rem`,
     position: "absolute",
     borderRadius: "50%",
   },
@@ -107,7 +118,7 @@ export const thirdInputComStyles = {
     height: "1.49rem",
     width: "1.49rem",
     top: `calc(50% - .75rem)`,
-    right: `100.5%`,
+    left: `-1.55rem`,
     position: "absolute",
     borderRadius: "50%",
     bgcolor: "#DBDCDF",
@@ -115,9 +126,18 @@ export const thirdInputComStyles = {
 };
 export const lineArrowStyles = {
   fontSize: "medium",
-  bgcolor: "#FFFFFF",
+  bgcolor: "transperent",
   p: 0,
-  color: "#e5eaf1",
+  color: "#DBDCDF",
+};
+export const downArrowStyle = {
+  fontSize: "medium",
+  bgcolor: "transperent",
+  p: 0,
+  color: "#DBDCDF",
+  position: "absolute",
+  top: "calc(100% + 1rem)",
+  left: "49.3%",
 };
 export const horizentalLineStyles = {
   flexGrow: 1,
@@ -126,6 +146,8 @@ export const horizentalLineStyles = {
   ...flexCenter,
   justifyContent: "flex-end",
   postion: "relative",
+  // background: "green",
+  paddingRight: "1.3rem",
 };
 export const firstInputLineStyles = {
   "&::before": {
@@ -137,6 +159,15 @@ export const firstInputLineStyles = {
     left: "50%",
     position: "absolute",
   },
+  // "&::after": {
+  //   content: '""',
+  //   height: "2.5rem",
+  //   width: ".1rem",
+  //   bgcolor: "#DBDCDF",
+  //   top: "100%",
+  //   left: "30%",
+  //   position: "absolute",
+  // },
 };
 export const inputAndSelectPlaceContainer = {
   border: ".005rem solid #DBDCDF",
@@ -184,6 +215,7 @@ export const Controls = {
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-start",
+  // bgcolor: "green",
 };
 export const patternContainerStyles = {
   flexGrow: 0,
@@ -203,11 +235,12 @@ export const nodeBCircleStyleProp = {
   content: '""',
   height: "1.5rem",
   width: "1.5rem",
-  bgcolor: "#DBDCDF",
+  // bgcolor: "#DBDCDF",
   top: "102%",
   left: `calc(50% - .7rem)`,
   position: "absolute",
   borderRadius: "50%",
+  border: ".05rem solid #DBDCDF",
 };
 export const nodeACircleStyleProp = {
   content: '""',
@@ -215,9 +248,10 @@ export const nodeACircleStyleProp = {
   width: "1.5rem",
   bgcolor: "#DBDCDF",
   top: `calc(50% - .75rem)`,
-  left: `100%`,
+  right: `-1.55rem`,
   position: "absolute",
   borderRadius: "50%",
+  border: ".05rem solid #DBDCDF",
 };
 export const nodeCCircleStyleProp = {
   content: '""',
@@ -225,8 +259,20 @@ export const nodeCCircleStyleProp = {
   width: "1.49rem",
   bgcolor: "#ffffff",
   top: `calc(50% - .75rem)`,
-  right: `100.5%`,
+  left: `-1.55rem`,
   position: "absolute",
   borderRadius: "50%",
   border: ".05rem solid #DBDCDF",
+};
+export const saveAndGraphBtnContainer = {
+  flexGrow: 0,
+  bgcolor: "#FFFFFF",
+  height: "7.4rem",
+  width: "9rem",
+  borderRadius: 1.5,
+  px: 2,
+  boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
+  border: ".05rem solid #DBDCDF",
+  ml: 5,
+  position: "relative",
 };

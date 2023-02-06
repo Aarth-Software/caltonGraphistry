@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { CssBaseline } from "@mui/material";
@@ -22,17 +22,22 @@ const AppContent = styled.div`
 `;
 
 const Presentation = ({ children }) => {
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    navigate("/generateQuery");
+  }, []);
   return (
-    <MuiThemeProvider theme={createTheme(THEMES.DEFAULT)}>
-      <Root>
-        <CssBaseline />
-        <GlobalStyle />
-        <AppContent>
-          {children}
-          <Outlet />
-        </AppContent>
-      </Root>
-    </MuiThemeProvider>
+    // <MuiThemeProvider theme={createTheme(THEMES.DEFAULT)}>
+    //   <Root>
+    //     <CssBaseline />
+    //     <GlobalStyle />
+    //     <AppContent>
+    //       {children}
+    //       <Outlet />
+    //     </AppContent>
+    //   </Root>
+    // </MuiThemeProvider>
+    <span>loading..</span>
   );
 };
 

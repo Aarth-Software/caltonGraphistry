@@ -42,7 +42,7 @@ const BtnFlex = styled("div")({
   //   marginTop: ".7rem",
 });
 
-const SavePopPanel = () => {
+const SavePopPanel = ({ getSave, setSaveName }) => {
   return (
     <SavePopContainer>
       <FlexItems>
@@ -61,6 +61,7 @@ const SavePopPanel = () => {
           size="large"
           variant="standard"
           fullWidth
+          onChange={(e) => setSaveName(e.target.value)}
         />
       </Items>
       <BtnFlex>
@@ -81,6 +82,7 @@ const SavePopPanel = () => {
           mr={0.4}
           fontSize=".7rem"
           fontWeight={600}
+          onClick={getSave}
         />
       </BtnFlex>
     </SavePopContainer>

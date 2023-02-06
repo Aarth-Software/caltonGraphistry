@@ -21,6 +21,7 @@ const StandardAffiliationBar = ({
   name,
   change,
   unUsed,
+  options,
 }) => {
   const { value, inputValue, disableInput, disableDropDown, error } = nodeProp;
   // console.log(disableInput);
@@ -38,6 +39,7 @@ const StandardAffiliationBar = ({
         name={name}
         onselect={onselect}
         dropdownDesable={!!disableDropDown}
+        options={options}
       />
       <input
         placeholder={!!unUsed || !!disableInput ? "Disable" : "Keyword *"}

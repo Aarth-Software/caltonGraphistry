@@ -58,7 +58,7 @@ const RedText = styled.span`
   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
 `;
 
-const DoughnutChart = ({ theme, condition }) => {
+const DoughnutChart = ({ theme, condition, title }) => {
   const data = {
     labels: ["Social", "Search Engines", "Direct", "Other"],
     datasets: [
@@ -88,7 +88,7 @@ const DoughnutChart = ({ theme, condition }) => {
 
   return (
     <Card mb={6}>
-      <TitleHeader sx={{ fontSize: "2rem" }} title="Weekly sales" />
+      <TitleHeader sx={{ fontSize: "2rem" }} title={title} />
       {condition && (
         <div
           style={{
@@ -118,9 +118,9 @@ const DoughnutChart = ({ theme, condition }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Source</TableCell>
-              <TableCell>Revenue</TableCell>
-              <TableCell>Value</TableCell>
+              <TableCell>Journal Names</TableCell>
+              <TableCell>Years</TableCell>
+              <TableCell>No. of Papers</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

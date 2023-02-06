@@ -58,7 +58,7 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const DoughnutChart = ({ theme }) => {
+const DoughnutChart = ({ theme, title }) => {
   const data = {
     labels: ["Social", "Search Engines", "Direct", "Other"],
     datasets: [
@@ -94,7 +94,7 @@ const DoughnutChart = ({ theme }) => {
             <MoreVertical />
           </IconButton>
         }
-        title="Weekly sales"
+        title={title}
         // sx={{ bgcolor: "red" }}
       />
 

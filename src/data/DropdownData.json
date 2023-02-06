@@ -1,0 +1,142 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "selection_type": "1node",
+        "node_1": {
+          "value": [
+            "Publisher",
+            "Proposition",
+            "Keyword",
+            "Journal Paper",
+            "Hypothesis",
+            "Funding",
+            "Construct",
+            "Author",
+            "Affiliation"
+          ]
+        },
+        "node_2": {},
+        "node_3": {}
+      },
+      {
+        "id": 3,
+        "selection_type": "3node",
+        "node_1": {
+          "value": [
+            "Construct (Ind. Var.)"
+          ]
+        },
+        "node_2": {
+          "Construct (Ind. Var.)": [
+            "Construct (Mediator)",
+            "Construct (Moderator)"
+          ]
+        },
+        "node_3": {
+          "Construct (Mediator)": ["Construct (Dep. Var.)"],
+          "Construct (Moderator)": ["Construct (Mediator)"]
+        }
+      },
+      {
+        "id": 2,
+        "selection_type": "2node",
+        "node_1": {
+          "value": [
+            "Ind. Var.",
+            "Hypothesis",
+            "Proposition",
+            "Journal Paper",
+            "Journal Publication",
+            "Publisher",
+            "Author",
+            "Affiliation"
+          ]
+        },
+        "node_2": {
+          "Construct (Ind. Var.)": [
+            "Construct (Dep. Var.)"
+          ],
+          "Hypothesis": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)"
+          ],
+          "Proposition": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)"
+          ],
+          "Journal Paper": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)",
+            "Hypothesis",
+            "Proposition",
+            "Keyword"
+          ],
+          "Journal Publication": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)",
+            "Hypothesis",
+            "Proposition",
+            "Journal Paper",
+            "Author",
+            "Keyword",
+            "Affiliation",
+            "Funding"
+          ],
+          "Publisher": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)",
+            "Hypothesis",
+            "Proposition",
+            "Journal Paper",
+            "Author",
+            "Keyword",
+            "Affiliation",
+            "Funding"
+          ],
+          "Author": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)",
+            "Hypothesis",
+            "Proposition",
+            "Journal Paper",
+            "Keyword",
+            "Funding"
+          ],
+          "Affiliation": [
+            "Construct",
+            "Construct (Ind. Var.)",
+            "Construct (Dep. Var.)",
+            "Construct (Mediator)",
+            "Construct (Moderator)",
+            "Hypothesis",
+            "Proposition",
+            "Journal Paper",
+            "Journal Publication",
+            "Author",
+            "Keyword",
+            "Funding"
+          ]
+        },
+        "node_3": {}
+      }
+    ]
+  }

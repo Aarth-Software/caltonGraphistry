@@ -38,6 +38,7 @@ import {
   patternContainerStyle,
   popModalContainer,
   popSaveModalContainer,
+  saveAndGraphBtnContainer,
   selectPropContainerStyle,
 } from "../../../libs/JSS/Jss";
 import PopModal from "../../../libs/Modal/PopModal";
@@ -46,9 +47,11 @@ import { getAccessPatternVariables } from "../../../libs/Switches/SelectionSwitc
 import SavedGraphsPop from "./SavedGraphs/SavedGraphsPop";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import SavePopPanel from "./SavedGraphs/SavePopPanel";
+import dropdownData from "../../../data/DropdownData.json";
 
 const Card = styled(Box)``;
 const FallDashboard = () => {
+  console.log(dropdownData);
   const [pattern, setPattern] = React.useState({
     nodeA: true,
     nodeB: true,
@@ -63,6 +66,7 @@ const FallDashboard = () => {
       nodeB: false,
       nodeC: false,
       code: "sN",
+      selection_type: "1node",
     },
     {
       btn: singleNodeB,
@@ -73,6 +77,7 @@ const FallDashboard = () => {
       nodeC: true,
       unUsedC: true,
       code: "doubleNrD",
+      selection_type: "2node",
     },
     {
       btn: singleNodeC,
@@ -82,6 +87,7 @@ const FallDashboard = () => {
       nodeB: false,
       nodeC: true,
       code: "doubleN",
+      selection_type: "2node",
     },
     {
       btn: singleNodeD,
@@ -92,6 +98,7 @@ const FallDashboard = () => {
       nodeC: true,
       unUsedA: true,
       code: "doubleNlD",
+      selection_type: "2node",
     },
     {
       btn: doubleNodeA,
@@ -103,6 +110,7 @@ const FallDashboard = () => {
       series: true,
       unUsedB: true,
       code: "tripleNcD",
+      selection_type: "3node",
     },
     {
       btn: doubleNodeB,
@@ -114,6 +122,7 @@ const FallDashboard = () => {
       series: true,
       unUsedC: true,
       code: "tripleNrD",
+      selection_type: "3node",
     },
     {
       btn: doubleNodeC,
@@ -125,6 +134,7 @@ const FallDashboard = () => {
       series: true,
       unUsedA: true,
       code: "tripleNlD",
+      selection_type: "3node",
     },
     {
       btn: doubleNodeD,
@@ -137,6 +147,7 @@ const FallDashboard = () => {
       unUsedA: true,
       unUsedC: true,
       code: "tripleNcA",
+      selection_type: "3node",
     },
     {
       btn: tripleNodeA,
@@ -148,6 +159,7 @@ const FallDashboard = () => {
       unUsedA: true,
       unUsedC: true,
       code: "triplePerNcA",
+      selection_type: "3node",
     },
     {
       btn: tripleNodeB,
@@ -158,6 +170,7 @@ const FallDashboard = () => {
       nodeC: true,
       unUsedA: true,
       code: "triplePerNlD",
+      selection_type: "3node",
     },
     {
       btn: tripleNodeC,
@@ -168,6 +181,7 @@ const FallDashboard = () => {
       nodeC: true,
       unUsedC: true,
       code: "triplePerNrD",
+      selection_type: "3node",
     },
     {
       btn: tripleNodeD,
@@ -178,6 +192,7 @@ const FallDashboard = () => {
       nodeC: true,
       unUsedB: true,
       code: "triplePerNcD",
+      selection_type: "3node",
     },
   ];
 
@@ -186,58 +201,101 @@ const FallDashboard = () => {
   );
   const [open, setOpen] = React.useState(false);
   const [openSavePanel, seOpenSavePanel] = React.useState(false);
+  const [selectParams, setSelectParams] = React.useState({});
+  const [saveName, setSaveName] = React.useState("");
+  const [dropdownOptions, setdropDownOptions] = React.useState({
+    id: 1,
+    node_1: { value: ["don", "con", "ban"] },
+    node_2: {},
+    node_3: {},
+    selection_type: "1node",
+  });
+  const [record, setRecord] = React.useState([
+    { title: "custom", query: "nodeA+nodeC", date: "12/6/20" },
+    { title: "Darci", query: "nodeB", date: "31/6/20" },
+    { title: "Brooke", query: "nodeC", date: "16/7/20" },
+    { title: "Jack", query: "nodeB+nodeC", date: "21/08/21" },
+    { title: "Great", query: "nodeA+nodeC", date: "12/6/20" },
+    { title: "Jin", query: "nodeB", date: "31/6/20" },
+    { title: "Lisa", query: "nodeC", date: "16/7/20" },
+    { title: "Jennie", query: "nodeB+nodeC", date: "21/08/21" },
+  ]);
   const [nodeState, setNodeState] = React.useState({
     nodeA: { value: "", inputValue: "", disableInput: true },
     nodeB: { value: "", inputValue: "", disableInput: true },
     nodeC: { value: "", inputValue: "", disableInput: true },
   });
-  // const illustrationCardStyle = (props) => css`
-  //   background: ${rgba(props.theme.palette.primary.main, 0.125)};
-  //   color: ${props.theme.palette.primary.main};
-  // `;
+
   const getPatternChange = (e) => {
     setNodeState(getAccessPatternVariables(e.code));
     setPattern(e);
-    // setNodeState(getAccessPatternVariables(e.code));
+    const specificObject = dropdownData.data.find(
+      (d) => d.selection_type === e.selection_type
+    );
+    setdropDownOptions(specificObject);
   };
-  const [data, setData] = React.useState(null);
-  const [status, setStatus] = React.useState(null);
-  const executeQuery = (query) => {
-    setStatus(false);
-    console.log(query);
-    fetch(`http://localhost:3000/runQuery?cypherQuery=${query}`, {
-      method: "GET",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((resp) => resp.json())
-      .then((result) => {
-        console.log(result[0]);
-        setData(result[0]);
-        setStatus(true);
-        console.log(result);
-      })
-      .catch((err) => {
-        setStatus(false);
-      });
-  };
-  const run = () => {
-    executeQuery("MATCH (c1)-[r]-(c2) RETURN c1,r,c2 LIMIT 10");
-  };
+  // const [data, setData] = React.useState(null);
+  // const [status, setStatus] = React.useState(null);
+  // const executeQuery = (query) => {
+  //   setStatus(false);
+  //   console.log(query);
+  //   fetch(`http://localhost:3000/runQuery?cypherQuery=${query}`, {
+  //     method: "GET",
+  //     mode: "cors",
+  //     headers: { "Content-Type": "application/json" },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((result) => {
+  //       console.log(result[0]);
+  //       setData(result[0]);
+  //       setStatus(true);
+  //       console.log(result);
+  //     })
+  //     .catch((err) => {
+  //       setStatus(false);
+  //     });
+  // };
+  // const run = () => {
+  //   executeQuery("MATCH (c1)-[r]-(c2) RETURN c1,r,c2 LIMIT 10");
+  // };
   const generateGraph = () => {
     const cloneObject = { ...nodeState };
-    console.log(cloneObject);
     for (let x in cloneObject) {
-      if (
-        !cloneObject[x].inputValue &&
-        cloneObject[x].disableInput !== undefined
-      ) {
-        cloneObject[x].error = true;
-      } else {
-        cloneObject[x].error = false;
-      }
+      cloneObject[x].error =
+        !cloneObject[x].inputValue && cloneObject[x].disableInput !== undefined;
     }
+    const mergeObjects = (obj) =>
+      ["nodeA", "nodeB", "nodeC"].reduce((result, key) => {
+        result[key] = obj[key]?.value || null;
+        result[key.replace("node", "keyword")] = obj[key]?.inputValue || null;
+        return result;
+      }, {});
+    const valueObj = mergeObjects(cloneObject);
+    setSelectParams(valueObj);
     setNodeState(cloneObject);
+  };
+  const saveOnClick = () => {
+    seOpenSavePanel(true);
+  };
+  const savedGraphOnClick = () => {
+    setOpen(true);
+  };
+  const getSave = () => {
+    var query = "";
+    const date = new Date()
+      .toLocaleDateString("default", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+      .replace(",", "");
+    for (let x in selectParams) {
+      query += selectParams[x] + "/";
+    }
+    if (record.every((e, i) => e.title !== saveName)) {
+      console.log("submitted");
+      setRecord([...record, { title: saveName, query: query, date: date }]);
+    }
   };
   return (
     <>
@@ -256,30 +314,36 @@ const FallDashboard = () => {
             >
               2. Select relationship
             </Typography>
-            <div style={moreOptionStyle}>
-              <MoreOptions
-                seOpenSavePanel={seOpenSavePanel}
-                setOpen={setOpen}
-              />
-            </div>
+
             <Box sx={selectPropContainerStyle}>
               <SelectPropertiesContainer
                 pattern={pattern}
                 nodeState={nodeState}
                 setNodeState={setNodeState}
+                dropdownOptions={dropdownOptions}
               />
-              <RunButton onClick={generateGraph} />
             </Box>
           </Card>
+          <Box sx={saveAndGraphBtnContainer}>
+            <Typography varient="p" sx={{ mt: 1, color: "#259DF8" }}>
+              3. Graph & Save
+            </Typography>
+            <div style={moreOptionStyle}>
+              <MoreOptions
+                saveOnClick={saveOnClick}
+                savedGraphOnClick={savedGraphOnClick}
+              />
+            </div>
+
+            <RunButton onClick={generateGraph} />
+          </Box>
         </Box>
-        {/* {status === false && <div className="lodingContainer">loading...</div>}
-        {status === null && <div className="lodingContainer">Insert query</div>} */}
-        <GraphistryGraph name="graph" set={data} />
+        {/* <GraphistryGraph name="graph" set={data} /> */}
       </Stack>
       <PopModal
         openModal={openSavePanel}
         setModalOpen={seOpenSavePanel}
-        child={<SavePopPanel />}
+        child={<SavePopPanel getSave={getSave} setSaveName={setSaveName} />}
         classProp={{ ...popModalContainer, ...popSaveModalContainer }}
       />
       <PopModal
@@ -287,6 +351,7 @@ const FallDashboard = () => {
         setModalOpen={setOpen}
         child={
           <SavedGraphsPop
+            record={record}
             btn={
               <StandardButton
                 text="Graph"

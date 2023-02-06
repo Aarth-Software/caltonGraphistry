@@ -10,13 +10,14 @@ const RunButton = ({ onClick }) => {
     <Box
       sx={{
         width: "auto",
-        height: "7.2rem",
+        height: "5.7rem",
         display: "flex",
         alignItems: "flex-end",
         flexGraw: 1,
         justifyContent: "center",
         flexDirection: "row",
         py: 2,
+        // bgcolor: "red",
       }}
     >
       <RunGraphButton

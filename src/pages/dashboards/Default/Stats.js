@@ -92,37 +92,17 @@ const IllustrationImage = styled.img`
   }
 `;
 
-const Stats = ({
-  title,
-  amount,
-  chip,
-  percentagetext,
-  percentagecolor,
-  illustration,
-}) => {
+const Stats = ({ title, amount, illustration }) => {
   return (
     <Card illustration={illustration} sx={{ pt: 0, pl: 0 }}>
       <CardContent>
-        <Typography variant="h6" mb={4}>
+        <Typography sx={{ color: "#259DF8" }} variant="h6" mb={4}>
           {title}
         </Typography>
         <Typography variant="h3" mb={3} sx={{ pb: 3.6 }}>
           <Box fontWeight="fontWeightRegular">{amount}</Box>
         </Typography>
-        {/* <Percentage
-          variant="subtitle2"
-          color="textSecondary"
-          percentagecolor={percentagecolor}
-          illustration={illustration}
-        >
-          <span>{percentagetext}</span> Since last month
-        </Percentage> */}
-        {/* {!illustration && <Chip label={chip} />} */}
       </CardContent>
-
-      {/* {!!illustration && (
-        <IllustrationImage src={illustration} alt="Illustration" />
-      )} */}
     </Card>
   );
 };

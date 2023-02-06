@@ -3,6 +3,7 @@ import { styled } from "@mui/system";
 import React from "react";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import {
   firstInputComStyle,
   firstInputLineStyles,
@@ -17,6 +18,7 @@ import {
   nodeCCircleStyleProp,
   nodeACircleStyleProp,
   nodeBCircleStyleProp,
+  downArrowStyle,
 } from "../../../../libs/JSS/Jss";
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 // import { rgba } from "polished";
@@ -35,13 +37,18 @@ import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
-  const { pattern, nodeState, setNodeState } = props;
+  const { pattern, nodeState, setNodeState, dropdownOptions } = props;
+  console.log(dropdownOptions);
   const { nodeA, nodeB, nodeC } = pattern;
   const rowNodePattern = pattern?.series
     ? { top: "1.7rem" }
     : firstInputLineStyles;
   const selectDropDownValue = (e) => {
     const { name, value } = e.target;
+
+    if (value === "No options") {
+      return;
+    }
     if (!!nodeState[name].pointer && !!value) {
       setNodeState({
         ...nodeState,
@@ -85,7 +92,7 @@ const SelectPropertiesContainer = React.memo((props) => {
   const nodeCComStyles = !pattern?.unUsedC
     ? thirdInputComStyles
     : { "&::after": { ...nodeCCircleStyleProp, ...unUsedNodeStyleProp } };
-  console.log(["nodeC", nodeCComStyles]);
+
   return (
     <Box sx={inputBoxConStyle}>
       <Box
@@ -93,22 +100,30 @@ const SelectPropertiesContainer = React.memo((props) => {
           width: "100%",
           height: 1 / 2,
           ...flexCenter,
+          position: "relative",
         }}
       >
         {nodeB && (
-          <StandardAffiliationBar
-            onselect={selectDropDownValue}
-            nodeProp={nodeState?.nodeB}
-            name="nodeB"
-            sx={{ ...nodeBComStyles, ...rowNodePattern }}
-            change={inputChange}
-            unUsed={pattern?.unUsedB}
-          />
+          <>
+            <StandardAffiliationBar
+              onselect={selectDropDownValue}
+              nodeProp={nodeState?.nodeB}
+              name="nodeB"
+              sx={{ ...nodeBComStyles, ...rowNodePattern }}
+              change={inputChange}
+              unUsed={pattern?.unUsedB}
+              options={
+                dropdownOptions.selection_type === "3node" &&
+                dropdownOptions?.node_2[nodeState?.nodeA?.value]
+              }
+            />
+            <ArrowDownwardIcon sx={downArrowStyle} />
+          </>
         )}
       </Box>
       <Box
         sx={{
-          width: "85%",
+          width: "95%",
           height: 1 / 2,
           ...flexItemCenterStart,
           px: 1,
@@ -122,6 +137,7 @@ const SelectPropertiesContainer = React.memo((props) => {
             sx={nodeAComStyles}
             change={inputChange}
             unUsed={pattern?.unUsedA}
+            options={dropdownOptions?.node_1.value}
           />
         )}
         {nodeC && (
@@ -136,6 +152,12 @@ const SelectPropertiesContainer = React.memo((props) => {
               sx={nodeCComStyles}
               change={inputChange}
               unUsed={pattern?.unUsedC}
+              options={
+                dropdownOptions.selection_type === "2node"
+                  ? dropdownOptions?.node_2[nodeState?.nodeA?.value]
+                  : dropdownOptions.selection_type === "3node" &&
+                    dropdownOptions?.node_3[nodeState?.nodeB?.value]
+              }
             />
           </>
         )}

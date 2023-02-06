@@ -9,7 +9,6 @@ import {
   MenuItem,
   IconButton as MuiIconButton,
 } from "@mui/material";
-import useAuth from "../../../../hooks/useAuth";
 
 const IconButton = styled(MuiIconButton)`
   svg {
@@ -19,10 +18,8 @@ const IconButton = styled(MuiIconButton)`
 `;
 
 const MoreOptions = React.memo((props) => {
-  const { setOpen, seOpenSavePanel } = props;
+  const { saveOnClick, savedGraphOnClick } = props;
   const [anchorMenu, setAnchorMenu] = React.useState(null);
-  const navigate = useNavigate();
-  const { signOut } = useAuth();
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
@@ -30,11 +27,6 @@ const MoreOptions = React.memo((props) => {
 
   const closeMenu = () => {
     setAnchorMenu(null);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/auth/sign-in");
   };
 
   return (
@@ -56,13 +48,10 @@ const MoreOptions = React.memo((props) => {
         open={Boolean(anchorMenu)}
         onClose={closeMenu}
       >
-        <MenuItem
-          sx={{ color: "#e86a6a" }}
-          onClick={() => seOpenSavePanel(true)}
-        >
+        <MenuItem sx={{ color: "#e86a6a" }} onClick={saveOnClick}>
           Save
         </MenuItem>
-        <MenuItem onClick={() => setOpen(true)}>Saved Graphs</MenuItem>
+        <MenuItem onClick={savedGraphOnClick}>Saved Graphs</MenuItem>
       </Menu>
     </React.Fragment>
   );

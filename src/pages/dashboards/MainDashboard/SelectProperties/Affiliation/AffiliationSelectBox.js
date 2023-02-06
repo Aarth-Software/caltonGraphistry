@@ -7,6 +7,7 @@ import "../../../../../App.css";
 const CssTextField = styled(Select)({
   ".MuiSvgIcon-root": {
     color: "#e86a6a",
+    // paddingLeft: "1rem",
   },
   ".MuiSelect-standard": {
     color: "#e86a6a",
@@ -20,18 +21,32 @@ const CssTextField = styled(Select)({
   },
 });
 
-const AffiliationSelectBox = ({ value, name, onselect, dropdownDesable }) => {
+const AffiliationSelectBox = ({
+  value,
+  name,
+  onselect,
+  dropdownDesable,
+  options,
+}) => {
   const DropDownContainer = styled("div")({
     position: "absolute",
     top: "-.4rem",
     right: ".5rem",
     backgroundColor: "#fffff",
   });
+  console.log(options);
+  const getOptions = !options ? ["No options"] : options;
+
+  const dropdownValues = getOptions?.map((e, i) => (
+    <MenuItem key={e || i} value={e}>
+      {e}
+    </MenuItem>
+  ));
 
   return (
     <DropDownContainer>
       <FormControl
-        sx={{ minWidth: 100, height: "1rem", bgcolor: "white" }}
+        sx={{ minWidth: 70, height: "1rem", bgcolor: "white" }}
         disabled={dropdownDesable}
         required={true}
       >
@@ -49,12 +64,12 @@ const AffiliationSelectBox = ({ value, name, onselect, dropdownDesable }) => {
             bgcolor: "#fffff",
             outline: "none",
             padding: "0rem",
+            // bgcolor: "green",
+            paddingRight: "1.5rem",
           }}
         >
           <MenuItem value="">Choose *</MenuItem>
-          <MenuItem value={"Ten"}>Ten</MenuItem>
-          <MenuItem value={"Twenty"}>Twenty</MenuItem>
-          <MenuItem value={"Thirty"}>Thirty</MenuItem>
+          {dropdownValues}
         </CssTextField>
       </FormControl>
     </DropDownContainer>

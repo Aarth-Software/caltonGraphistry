@@ -12,6 +12,16 @@ import DataTable from "./DataTable";
 import ManageSavedGarphs from "./ManageSavedGarphs";
 
 const Analysis = () => {
+  const data = [
+    { title: "custom", query: "nodeA+nodeC", date: "12/6/20" },
+    { title: "Darci", query: "nodeB", date: "31/6/20" },
+    { title: "Brooke", query: "nodeC", date: "16/7/20" },
+    { title: "jack", query: "nodeB+nodeC", date: "21/08/21" },
+    { title: "custom", query: "nodeA+nodeC", date: "12/6/20" },
+    { title: "Darci", query: "nodeB", date: "31/6/20" },
+    { title: "Brooke", query: "nodeC", date: "16/7/20" },
+    { title: "jack", query: "nodeB+nodeC", date: "21/08/21" },
+  ];
   return (
     <React.Fragment>
       <Helmet title="Analytics Dashboard" />
@@ -23,8 +33,8 @@ const Analysis = () => {
           <Grid container spacing={5}>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Journals"
+                amount="2324"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -32,8 +42,8 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Papers"
+                amount="4325"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -41,8 +51,8 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Hypotheses"
+                amount="1341"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -50,8 +60,8 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Prepositions"
+                amount="6564"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -59,8 +69,8 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Constructs"
+                amount="64235"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -68,8 +78,8 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Authors"
+                amount="123"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -77,8 +87,8 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Affiliations"
+                amount="7658"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
@@ -86,43 +96,22 @@ const Analysis = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Stats
-                title="Bounce"
-                amount="12.364"
+                title="Publishers"
+                amount="4576"
                 chip="Yearly"
                 percentagetext="+27%"
                 percentagecolor={green[500]}
               />
             </Grid>
-            {/* </Grid>
-            </Grid> */}
-
-            {/* <Grid item xs={12} sm={12} md={6}>
-              <Stats
-                title="Bounce"
-                amount="12.364"
-                chip="Yearly"
-                percentagetext="+27%"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
-              <Stats
-                title="Bounce"
-                amount="12.364"
-                chip="Yearly"
-                percentagetext="+27%"
-                percentagecolor={green[500]}
-              />
-            </Grid> */}
           </Grid>
         </Grid>
         <Grid item xs={12} lg={7}>
           <Grid container spacing={0}>
             <Grid item xs={12} md={12}>
-              <DataTable condition={false} />
+              <DataTable title="Journal Details" condition={false} />
             </Grid>
             <Grid item xs={12} md={12}>
-              <DoughnutChart />
+              <DoughnutChart title="Construct Statistics" />
             </Grid>
           </Grid>
         </Grid>
@@ -131,11 +120,25 @@ const Analysis = () => {
       <Grid container spacing={6}>
         <Grid item xs={12} lg={6}>
           {/* <WorldMap /> */}
-          <ManageSavedGarphs condition={true} />
+          <ManageSavedGarphs
+            colFirstTitle="Graph Title"
+            colSecondTitle="Query Parameters"
+            colThirdTitle="Date & Time"
+            title="Manage Saved Graphs"
+            condition={true}
+            data={data}
+          />
         </Grid>
         <Grid item xs={12} lg={6}>
           {/* <LanguagesTable /> */}
-          <ManageSavedGarphs condition={true} />
+          <ManageSavedGarphs
+            title="Keyword History"
+            colFirstTitle="Keywords"
+            colSecondTitle="As"
+            colThirdTitle="Date & Time"
+            condition={true}
+            data={data}
+          />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -17,7 +17,12 @@ import {
   TableRow as MuiTableRow,
   Typography,
 } from "@mui/material";
-import { spacing } from "@mui/system";
+import { Box, spacing } from "@mui/system";
+import usePagination from "../../../hooks/usePagenation";
+import { flexCenter } from "../../../libs/JSS/Jss";
+import StandardButton from "../../../libs/Buttons/StandardButton";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -58,37 +63,24 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const ManagedSavedGraphs = ({ theme, condition, btn }) => {
-  const data = {
-    labels: ["Social", "Search Engines", "Direct", "Other"],
-    datasets: [
-      {
-        data: [260, 125, 54, 146],
-        backgroundColor: [
-          theme.palette.secondary.main,
-          red[500],
-          orange[500],
-          theme.palette.grey[200],
-        ],
-        borderWidth: 5,
-        borderColor: theme.palette.background.paper,
-      },
-    ],
-  };
-
-  const options = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    cutout: "70%",
-  };
+const ManagedSavedGraphs = ({
+  theme,
+  condition,
+  btn,
+  title,
+  colFirstTitle,
+  colSecondTitle,
+  colThirdTitle,
+  data,
+}) => {
+  const { pageElements, page, pages, prevClick, nextClick } = usePagination(
+    data,
+    7
+  );
 
   return (
-    <Card mb={6}>
-      <TitleHeader sx={{ fontSize: "2rem" }} title="Weekly sales" />
+    <Card mb={6} sx={{ position: "relative", pb: 14 }}>
+      <TitleHeader sx={{ fontSize: "2rem" }} title={title} />
       {condition && (
         <div
           style={{
@@ -118,77 +110,69 @@ const ManagedSavedGraphs = ({ theme, condition, btn }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Keywords</TableCell>
-              <TableCell align="left">As</TableCell>
-              <TableCell align="left">Title</TableCell>
-              <TableCell align="left">Date</TableCell>
+              <TableCell align="left">{colFirstTitle}</TableCell>
+              <TableCell align="left">{colSecondTitle}</TableCell>
+              <TableCell align="left">{colThirdTitle}</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Social
-              </TableCell>
-              <TableCell>260</TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Search Engines
-              </TableCell>
-              <TableCell>125</TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Direct
-              </TableCell>
-              <TableCell>54</TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Other
-              </TableCell>
-              <TableCell>146</TableCell>
-              <TableCell>
-                <GreenText>+24%</GreenText>
-              </TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-              <TableCell align="right">
-                {!btn ? <MoreVertical /> : btn}
-              </TableCell>
-            </TableRow>
+            {pageElements.map((e, i) => (
+              <TableRow key={i}>
+                <TableCell component="th" scope="row">
+                  {e.title}
+                </TableCell>
+                <TableCell>{e.query}</TableCell>
+                <TableCell>{e.date}</TableCell>
+                <TableCell align="right">
+                  {!btn ? <MoreVertical /> : btn}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>
+      <Box
+        sx={{
+          width: "100%",
+          height: "auto",
+          ...flexCenter,
+          position: "absolute",
+          bottom: 20,
+        }}
+      >
+        <StandardButton
+          text={<KeyboardArrowLeftIcon />}
+          varient="contained"
+          // px={8}
+          mt={0.8}
+          mr={0.4}
+          fontSize=".7rem"
+          fontWeight={600}
+          onClick={prevClick}
+          disabled={page === 1}
+          color="black"
+          bgcolor="white"
+          hoverColor="white"
+        />
+        <span>
+          {page} / {pages}
+        </span>
+        <StandardButton
+          text={<KeyboardArrowRightIcon />}
+          varient="contained"
+          // px={8}
+          mt={0.8}
+          mr={0.4}
+          fontSize=".7rem"
+          fontWeight={600}
+          onClick={nextClick}
+          disabled={page === pages}
+          color="black"
+          bgcolor="white"
+          hoverColor="white"
+        />
+      </Box>
     </Card>
   );
 };
