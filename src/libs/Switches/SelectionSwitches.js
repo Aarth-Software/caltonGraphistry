@@ -3,7 +3,13 @@ const nodeDesables = {
     nodeA: { value: "", inputValue: "", disableInput: true, error: false },
   },
   doubleNrD: {
-    nodeA: { value: "", inputValue: "", disableInput: true, error: false },
+    nodeA: {
+      value: "",
+      inputValue: "",
+      disableInput: true,
+      error: false,
+      pointer: "nodeC",
+    },
     nodeC: { value: "", disableDropDown: false, error: false },
   },
   doubleN: {
@@ -23,18 +29,28 @@ const nodeDesables = {
     },
   },
   doubleNlD: {
-    nodeA: { value: "", disableDropDown: false, error: false },
+    nodeA: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeC",
+    },
     nodeC: { value: "", inputValue: "", disableInput: true, error: false },
   },
   tripleNcD: {
     nodeA: {
       value: "",
       inputValue: "",
-      pointer: "nodeC",
+      pointer: "nodeB",
       disableInput: true,
       error: false,
     },
-    nodeB: { value: "", disableDropDown: false, error: false },
+    nodeB: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeC",
+    },
     nodeC: {
       value: "",
       inputValue: "",
@@ -57,11 +73,17 @@ const nodeDesables = {
       disableInput: true,
       disableDropDown: true,
       error: false,
+      pointer: "nodeC",
     },
     nodeC: { value: "", disableDropDown: false, error: false },
   },
   tripleNlD: {
-    nodeA: { value: "", disableDropDown: false, error: false },
+    nodeA: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeB",
+    },
     nodeB: {
       value: "",
       inputValue: "",
@@ -78,17 +100,44 @@ const nodeDesables = {
     },
   },
   tripleNcA: {
-    nodeA: { value: "", disableDropDown: false, error: false },
-    nodeB: { value: "", inputValue: "", disableInput: true, error: false },
+    nodeA: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeB",
+    },
+    nodeB: {
+      value: "",
+      inputValue: "",
+      disableInput: true,
+      error: false,
+      pointer: "nodeC",
+    },
     nodeC: { value: "", disableDropDown: false, error: false },
   },
   triplePerNcA: {
-    nodeA: { value: "", disableDropDown: false, error: false },
-    nodeB: { value: "", inputValue: "", disableInput: true, error: false },
+    nodeA: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeB",
+    },
+    nodeB: {
+      value: "",
+      inputValue: "",
+      disableInput: true,
+      error: false,
+      pointer: "nodeC",
+    },
     nodeC: { value: "", disableDropDown: false, error: false },
   },
   triplePerNlD: {
-    nodeA: { value: "", disableDropDown: false, error: false },
+    nodeA: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeB",
+    },
     nodeB: {
       value: "",
       inputValue: "",
@@ -108,7 +157,7 @@ const nodeDesables = {
     nodeA: {
       value: "",
       inputValue: "",
-      pointer: "nodeA",
+      pointer: "nodeB",
       disableInput: true,
       error: false,
     },
@@ -118,6 +167,7 @@ const nodeDesables = {
       disableInput: true,
       disableDropDown: true,
       error: false,
+      pointer: "nodeC",
     },
     nodeC: { value: "", disableDropDown: false, error: false },
   },
@@ -125,11 +175,16 @@ const nodeDesables = {
     nodeA: {
       value: "",
       inputValue: "",
-      pointer: "nodeC",
+      pointer: "nodeB",
       disableInput: true,
       error: false,
     },
-    nodeB: { value: "", disableDropDown: false, error: false },
+    nodeB: {
+      value: "",
+      disableDropDown: false,
+      error: false,
+      pointer: "nodeC",
+    },
     nodeC: {
       value: "",
       inputValue: "",

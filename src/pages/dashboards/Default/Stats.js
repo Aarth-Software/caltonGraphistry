@@ -7,7 +7,6 @@ import {
   Box,
   Card as MuiCard,
   CardContent as MuiCardContent,
-  Chip as MuiChip,
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
@@ -35,60 +34,6 @@ const CardContent = styled(MuiCardContent)`
 
   &:last-child {
     padding-bottom: ${(props) => props.theme.spacing(4)};
-  }
-`;
-
-const Chip = styled(MuiChip)`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  height: 20px;
-  padding: 4px 0;
-  font-size: 85%;
-  background-color: ${(props) => props.theme.palette.secondary.main};
-  color: ${(props) => props.theme.palette.common.white};
-  margin-bottom: ${(props) => props.theme.spacing(4)};
-
-  span {
-    padding-left: ${(props) => props.theme.spacing(2)};
-    padding-right: ${(props) => props.theme.spacing(2)};
-  }
-`;
-
-const illustrationPercentageStyle = (props) => css`
-  ${props.illustration &&
-  props.theme.palette.mode !== "dark" &&
-  `
-    color: ${rgba(props.theme.palette.primary.main, 0.85)};
-  `}
-`;
-
-const Percentage = styled(MuiTypography)`
-  span {
-    color: ${(props) => props.percentagecolor};
-    font-weight: ${(props) => props.theme.typography.fontWeightBold};
-    background: ${(props) => rgba(props.percentagecolor, 0.1)};
-    padding: 2px;
-    border-radius: 3px;
-    margin-right: ${(props) => props.theme.spacing(2)};
-  }
-
-  ${illustrationPercentageStyle}
-`;
-
-const IllustrationImage = styled.img`
-  height: 100px;
-  position: absolute;
-  right: ${(props) => props.theme.spacing(1)};
-  bottom: ${(props) => props.theme.spacing(1)};
-  display: none;
-
-  ${(props) => props.theme.breakpoints.between("xs", "lg")} {
-    display: block;
-  }
-
-  @media (min-width: 1600px) {
-    display: block;
   }
 `;
 

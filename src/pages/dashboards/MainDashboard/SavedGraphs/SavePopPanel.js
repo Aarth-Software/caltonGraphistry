@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Card, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import CloseIcon from "@mui/icons-material/Close";

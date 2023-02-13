@@ -34,7 +34,7 @@ const AffiliationSelectBox = ({
     right: ".5rem",
     backgroundColor: "#fffff",
   });
-  console.log(options);
+  // console.log(options);
   const getOptions = !options ? ["No options"] : options;
 
   const dropdownValues = getOptions?.map((e, i) => (

@@ -3,7 +3,6 @@ import { styled } from "@mui/system";
 import React from "react";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import {
   firstInputComStyle,
   firstInputLineStyles,
@@ -18,7 +17,6 @@ import {
   nodeCCircleStyleProp,
   nodeACircleStyleProp,
   nodeBCircleStyleProp,
-  downArrowStyle,
 } from "../../../../libs/JSS/Jss";
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 // import { rgba } from "polished";
@@ -38,14 +36,16 @@ const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
   const { pattern, nodeState, setNodeState, dropdownOptions } = props;
-  console.log(dropdownOptions);
+  // console.log(dropdownOptions);
   const { nodeA, nodeB, nodeC } = pattern;
   const rowNodePattern = pattern?.series
     ? { top: "1.7rem" }
     : firstInputLineStyles;
+
   const selectDropDownValue = (e) => {
     const { name, value } = e.target;
-
+    console.log([name, value]);
+    console.log(nodeState);
     if (value === "No options") {
       return;
     }
@@ -117,7 +117,7 @@ const SelectPropertiesContainer = React.memo((props) => {
                 dropdownOptions?.node_2[nodeState?.nodeA?.value]
               }
             />
-            <ArrowDownwardIcon sx={downArrowStyle} />
+            {/* <ArrowDownwardIcon sx={downArrowStyle} /> */}
           </>
         )}
       </Box>

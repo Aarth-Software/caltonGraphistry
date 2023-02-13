@@ -1,11 +1,8 @@
-import { Grid, Table, Typography } from "@mui/material";
-import { green, red } from "@mui/material/colors";
+import { Grid } from "@mui/material";
+import { green } from "@mui/material/colors";
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import LanguagesTable from "../Analytics/LanguagesTable";
-import WorldMap from "../Analytics/WorldMap";
-import Actions from "../Default/Actions";
-import BarChart from "../Default/BarChart";
+
 import DoughnutChart from "../Default/DoughnutChart";
 import Stats from "../Default/Stats";
 import DataTable from "./DataTable";

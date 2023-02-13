@@ -1,17 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Helmet } from "react-helmet-async";
-import { useTranslation } from "react-i18next";
 
-import {
-  Grid,
-  Divider as MuiDivider,
-  Typography as MuiTypography,
-} from "@mui/material";
+import { Grid, Divider as MuiDivider } from "@mui/material";
 import { green, red } from "@mui/material/colors";
 import { spacing } from "@mui/system";
 
-import Actions from "./Actions";
 import BarChart from "./BarChart";
 import DoughnutChart from "./DoughnutChart";
 import LanguagesTable from "./LanguagesTable";
@@ -21,11 +15,7 @@ import WorldMap from "./WorldMap";
 
 const Divider = styled(MuiDivider)(spacing);
 
-const Typography = styled(MuiTypography)(spacing);
-
 function Analytics() {
-  const { t } = useTranslation();
-
   return (
     <React.Fragment>
       <Helmet title="Analytics Dashboard" />

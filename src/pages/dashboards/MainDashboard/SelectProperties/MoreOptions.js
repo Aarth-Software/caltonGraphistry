@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { MoreVertical, Power } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { MoreVertical } from "react-feather";
 
 import {
   Tooltip,

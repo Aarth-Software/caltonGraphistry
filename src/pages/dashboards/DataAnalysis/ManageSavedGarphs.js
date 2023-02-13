@@ -1,21 +1,16 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { withTheme } from "@emotion/react";
-import { Doughnut } from "react-chartjs-2";
 import { MoreVertical } from "react-feather";
-
-import { orange, green, red } from "@mui/material/colors";
 import {
   Card as MuiCard,
   CardContent,
   CardHeader,
-  IconButton,
   Table,
   TableBody,
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
-  Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
@@ -26,21 +21,6 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const Card = styled(MuiCard)(spacing);
 
-const ChartWrapper = styled.div`
-  height: 168px;
-  position: relative;
-`;
-
-const DoughnutInner = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  margin-top: -22px;
-  text-align: center;
-  z-index: 0;
-`;
-
 const TableRow = styled(MuiTableRow)`
   height: 42px;
 `;
@@ -50,15 +30,6 @@ const TableCell = styled(MuiTableCell)`
   padding-bottom: 0;
 `;
 
-const GreenText = styled.span`
-  color: ${() => green[400]};
-  font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-`;
-
-const RedText = styled.span`
-  color: ${() => red[400]};
-  font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-`;
 const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;

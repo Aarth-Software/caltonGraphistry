@@ -1,31 +1,10 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import styled from "@emotion/styled";
-
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-
-import { THEMES } from "../constants";
-import createTheme from "../theme";
-
-import GlobalStyle from "../components/GlobalStyle";
-
-const Root = styled.div`
-  display: flex;
-  min-height: 100vh;
-`;
-
-const AppContent = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-`;
-
+import { useNavigate } from "react-router-dom";
 const Presentation = ({ children }) => {
   const navigate = useNavigate();
   React.useEffect(() => {
     navigate("/generateQuery");
-  }, []);
+  }, [navigate]);
   return (
     // <MuiThemeProvider theme={createTheme(THEMES.DEFAULT)}>
     //   <Root>

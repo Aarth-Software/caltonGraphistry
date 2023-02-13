@@ -9,7 +9,7 @@ import "chart.js/auto";
 import App from "./App";
 import reportWebVitals from "./utils/reportWebVitals";
 import { ThemeProvider } from "./contexts/ThemeContext";
-
+import { SnackbarProvider } from "notistack";
 // Note: Remove the following line if you want to disable the API mocks.
 import "./mocks";
 
@@ -17,11 +17,18 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <BrowserRouter>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </BrowserRouter>
+  <>
+    <BrowserRouter>
+      <ThemeProvider>
+        <SnackbarProvider
+          maxSnack={1}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <App />
+        </SnackbarProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function

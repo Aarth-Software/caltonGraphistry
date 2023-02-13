@@ -1,18 +1,8 @@
-import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 import React from "react";
-import StandardButton from "../../../../../libs/Buttons/StandardButton";
-import {
-  actualInputStyles,
-  inputAndSelectPlaceContainer,
-} from "../../../../../libs/JSS/Jss";
-import AffiliationSelectBox from "./AffiliationSelectBox";
-const AffiliateInput = styled("input")(actualInputStyles);
 
-const AffiliationDropDown = styled(StandardButton)`
-  border: 0.005rem solid ${(props) => props.theme.palette.secondary.main};
-  color: ${(props) => props.theme.palette.secondary.main};
-`;
+import { inputAndSelectPlaceContainer } from "../../../../../libs/JSS/Jss";
+import AffiliationSelectBox from "./AffiliationSelectBox";
 
 const StandardAffiliationBar = ({
   onselect,
@@ -31,7 +21,8 @@ const StandardAffiliationBar = ({
       sx={{
         ...inputAndSelectPlaceContainer,
         ...sx,
-        border: error ? ".00005rem solid red" : ".005rem solid #DBDCDF",
+        border:
+          error && !unUsed ? ".00005rem solid red" : ".005rem solid #DBDCDF",
       }}
     >
       <AffiliationSelectBox
@@ -42,7 +33,13 @@ const StandardAffiliationBar = ({
         options={options}
       />
       <input
-        placeholder={!!unUsed || !!disableInput ? "Disable" : "Keyword *"}
+        placeholder={
+          unUsed || disableInput
+            ? "Disable"
+            : error && !unUsed
+            ? "fill * fileds"
+            : "keyword"
+        }
         value={!inputValue ? "" : inputValue}
         onChange={change}
         name={name}
@@ -54,7 +51,7 @@ const StandardAffiliationBar = ({
         required={!!unUsed || !!disableInput ? false : true}
         className={`disabledInputClass ${
           (!!unUsed || !!disableInput) && "activeInput"
-        }`}
+        } ${error && !unUsed && "changePlaceHolderColor"}`}
       />
     </Box>
   );

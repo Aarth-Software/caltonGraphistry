@@ -42,16 +42,17 @@ import {
   selectPropContainerStyle,
 } from "../../../libs/JSS/Jss";
 import PopModal from "../../../libs/Modal/PopModal";
-import GraphistryGraph from "../MainDashboard/Graphistry/GraphistryGraph";
 import { getAccessPatternVariables } from "../../../libs/Switches/SelectionSwitches";
 import SavedGraphsPop from "./SavedGraphs/SavedGraphsPop";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import SavePopPanel from "./SavedGraphs/SavePopPanel";
 import dropdownData from "../../../data/DropdownData.json";
+import { useSnackbar } from "notistack";
 
 const Card = styled(Box)``;
 const FallDashboard = () => {
-  console.log(dropdownData);
+  // console.log(dropdownData);
+  const { enqueueSnackbar } = useSnackbar();
   const [pattern, setPattern] = React.useState({
     nodeA: true,
     nodeB: true,
@@ -234,35 +235,12 @@ const FallDashboard = () => {
     );
     setdropDownOptions(specificObject);
   };
-  // const [data, setData] = React.useState(null);
-  // const [status, setStatus] = React.useState(null);
-  // const executeQuery = (query) => {
-  //   setStatus(false);
-  //   console.log(query);
-  //   fetch(`http://localhost:3000/runQuery?cypherQuery=${query}`, {
-  //     method: "GET",
-  //     mode: "cors",
-  //     headers: { "Content-Type": "application/json" },
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((result) => {
-  //       console.log(result[0]);
-  //       setData(result[0]);
-  //       setStatus(true);
-  //       console.log(result);
-  //     })
-  //     .catch((err) => {
-  //       setStatus(false);
-  //     });
-  // };
-  // const run = () => {
-  //   executeQuery("MATCH (c1)-[r]-(c2) RETURN c1,r,c2 LIMIT 10");
-  // };
   const generateGraph = () => {
     const cloneObject = { ...nodeState };
     for (let x in cloneObject) {
       cloneObject[x].error =
-        !cloneObject[x].inputValue && cloneObject[x].disableInput !== undefined;
+        (!cloneObject[x].inputValue || !cloneObject[x].value) &&
+        cloneObject[x].disableInput !== undefined;
     }
     const mergeObjects = (obj) =>
       ["nodeA", "nodeB", "nodeC"].reduce((result, key) => {
@@ -273,6 +251,16 @@ const FallDashboard = () => {
     const valueObj = mergeObjects(cloneObject);
     setSelectParams(valueObj);
     setNodeState(cloneObject);
+    console.log(cloneObject);
+    for (let d in cloneObject) {
+      if (cloneObject[d].error === true) {
+        return enqueueSnackbar("please fill mandatory(*) fields", {
+          variant: "error",
+          autoHideDuration: 2000,
+          style: { width: 300, left: "calc(50% - 150px)" },
+        });
+      }
+    }
   };
   const saveOnClick = () => {
     seOpenSavePanel(true);

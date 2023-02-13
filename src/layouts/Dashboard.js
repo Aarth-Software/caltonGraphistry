@@ -2,32 +2,19 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Outlet } from "react-router-dom";
 
-import { Box, CssBaseline, Grid, Paper as MuiPaper } from "@mui/material";
+import { CssBaseline, Paper as MuiPaper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { bgcolor, spacing } from "@mui/system";
+import { spacing } from "@mui/system";
 
 import GlobalStyle from "../components/GlobalStyle";
 import Navbar from "../components/navbar/Navbar";
-import dashboardItems from "../components/sidebar/dashboardItems";
-import Sidebar from "../components/sidebar/Sidebar";
-import Footer from "../components/Footer";
-import Settings from "../components/Settings";
-import Stats from "../pages/dashboards/Default/Stats";
-import { green, red } from "@mui/material/colors";
 
-const drawerWidth = 258;
+import Settings from "../components/Settings";
 
 const Root = styled.div`
   display: flex;
   min-height: 100vh;
-`;
-
-const Drawer = styled.div`
-  ${(props) => props.theme.breakpoints.up("md")} {
-    width: ${drawerWidth}px;
-    flex-shrink: 0;
-  }
 `;
 
 const AppContent = styled.div`
