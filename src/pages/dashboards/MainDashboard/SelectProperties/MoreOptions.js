@@ -30,28 +30,35 @@ const MoreOptions = React.memo((props) => {
 
   return (
     <React.Fragment>
-      <Tooltip title="More options">
-        <IconButton
-          aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
-          aria-haspopup="true"
-          onClick={toggleMenu}
-          color="inherit"
-          size="large"
+      <div className="dropdown-menu-container">
+        <div className="icon-container">
+          <IconButton
+            aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
+            aria-haspopup="true"
+            onClick={toggleMenu}
+            color="inherit"
+            size="large"
+            className="remove-padding"
+          >
+            <Tooltip title="More options">
+              <MoreVertical />
+            </Tooltip>
+          </IconButton>
+        </div>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorMenu}
+          open={Boolean(anchorMenu)}
+          onClose={closeMenu}
         >
-          <MoreVertical />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorMenu}
-        open={Boolean(anchorMenu)}
-        onClose={closeMenu}
-      >
-        <MenuItem sx={{ color: "#e86a6a" }} onClick={saveOnClick}>
-          Save
-        </MenuItem>
-        <MenuItem onClick={savedGraphOnClick}>Saved Graphs</MenuItem>
-      </Menu>
+          {/* <div class="dropdown-menu"> */}
+          <MenuItem sx={{ color: "#e86a6a" }} onClick={saveOnClick}>
+            Save
+          </MenuItem>
+          <MenuItem onClick={savedGraphOnClick}>Saved Graphs</MenuItem>
+          {/* </div> */}
+        </Menu>
+      </div>
     </React.Fragment>
   );
 });

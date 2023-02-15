@@ -51,4 +51,63 @@
 .changePlaceHolderColor::placeholder{
     color: red;
 }
+.no-padding-icon-button {
+    padding: 0 !important;
+  }
+.remove-padding{
+    padding: 0;
+}
+
+/* ========================================= */
+.dropdown-menu-container {
+    position: relative;
+    width : 3rem
+  }
+  
+  .icon-container {
+    width : auto;
+    position: relative;
+    padding : 0rem;
+    background-color: green;
+    width : 1.2rem
+  }
+  
+  .icon-container img {
+    display: block;
+    background-color: green; /* Set the background color of the icon */
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: green; /* Set the background color of the dropdown menu */
+    padding: 10px;
+    width : 8rem;
+    z-index: 10;
+  }
+  
+  .dropdown-menu-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: blue; 
+    z-index: -1;
+  }
+  
+  .dropdown-menu-container:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-menu-container:hover::before {
+    background-color: green; /* Change the background color of the pseudo-element */
+  }
+  .imaging{
+    width : 1rem
+     
+  }
 

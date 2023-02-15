@@ -1,16 +1,30 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { patternContainerStyles } from "../../../../libs/JSS/Jss";
+import {
+  flexSpaceBetween,
+  patternContainerStyles,
+} from "../../../../libs/JSS/Jss";
 import SelectButtons from "./SelectButtons";
+import TooltipComp from "../../../../libs/Tooltip/Tooltip";
+import info from "../../../../asserts/info.svg";
+
 // const Card = styled(Box)``;
 const SelectPatternContainer = React.memo((props) => {
   const { btnArray, activePattern, setActivePattern, getPatternChange } = props;
   console.log("pattern");
   return (
     <Box sx={patternContainerStyles}>
-      <Typography varient="p" sx={{ mt: 1, color: "#259DF8" }}>
-        1. Select relationship
-      </Typography>
+      <div style={{ width: "100%", ...flexSpaceBetween }}>
+        <Typography varient="p" sx={{ mt: 1, color: "#259DF8" }}>
+          1. Select relationship
+        </Typography>
+        <TooltipComp
+          className="no-padding-icon-button"
+          size="1rem"
+          icon={info}
+          message={"this is selected pattern info"}
+        />
+      </div>
       <SelectButtons
         btnArray={btnArray}
         activePattern={activePattern}

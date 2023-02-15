@@ -26,7 +26,7 @@ const SelectButtons = React.memo((props) => {
         justifyContent: "center",
         columnGap: 0.9,
         rowGap: 0.5,
-        pt: 0.5,
+        pt: -2,
       }}
     >
       {btnArray.map((e, i) => (

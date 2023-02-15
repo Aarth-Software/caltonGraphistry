@@ -11,13 +11,9 @@ import {
 
 import { Menu as MenuIcon } from "@mui/icons-material";
 
-// import NavbarNotificationsDropdown from "./NavbarNotificationsDropdown";
-// import NavbarMessagesDropdown from "./NavbarMessagesDropdown";
-// import NavbarLanguagesDropdown from "./NavbarLanguagesDropdown";
-import UserMessageDropDown from "./UserMessageDropDown";
-import userIcon from "../../asserts/userIcon.svg";
 import borgorIcon from "../../asserts/BurgerIcon.svg";
 import logo from "../../asserts/Logo.svg";
+import TooltipComp from "../../libs/Tooltip/Tooltip";
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -48,12 +44,6 @@ const Navbar = ({ onDrawerToggle }) => {
               </IconButton>
             </Grid>
             <Grid item>
-              {/* <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <Input placeholder={t("Search")} />
-              </Search> */}
               <img
                 src={logo}
                 alt="logo"
@@ -66,12 +56,7 @@ const Navbar = ({ onDrawerToggle }) => {
             </Grid>
             <Grid item xs />
             <Grid item>
-              <UserMessageDropDown message={"User"} icon={userIcon} />
-              <UserMessageDropDown message={"Details"} icon={borgorIcon} />
-              {/* <NavbarMessagesDropdown />
-              <NavbarNotificationsDropdown />
-              <NavbarLanguagesDropdown /> */}
-              {/* <NavbarUserDropdown /> */}
+              <TooltipComp message={"Details"} icon={borgorIcon} />
             </Grid>
           </Grid>
         </Toolbar>

@@ -30,6 +30,7 @@ import {
   aTripleNodeC,
   aTripleNodeD,
 } from "../../../asserts/index";
+import filterInActive from "../../../asserts/filterInActive.svg";
 import SelectPatternContainer from "./SelectPattern/SelectPatternContainer";
 import RunButton from "./SelectProperties/RunButton";
 import {
@@ -48,6 +49,8 @@ import StandardButton from "../../../libs/Buttons/StandardButton";
 import SavePopPanel from "./SavedGraphs/SavePopPanel";
 import dropdownData from "../../../data/DropdownData.json";
 import { useSnackbar } from "notistack";
+import TooltipComp from "../../../libs/Tooltip/Tooltip";
+import info from "../../../asserts/info.svg";
 
 const Card = styled(Box)``;
 const FallDashboard = () => {
@@ -302,6 +305,38 @@ const FallDashboard = () => {
             >
               2. Select relationship
             </Typography>
+            <Box
+              sx={{
+                mt: 1,
+                position: "absolute",
+                color: "#259DF8",
+                right: ".5rem",
+                zIndex: 2,
+              }}
+            >
+              <TooltipComp
+                className="no-padding-icon-button"
+                size="1rem"
+                icon={info}
+                message={"this is selected drop info"}
+              />
+            </Box>
+            <Box
+              sx={{
+                mt: 1,
+                position: "absolute",
+                color: "#259DF8",
+                right: "2.5rem",
+                zIndex: 2,
+              }}
+            >
+              <TooltipComp
+                className="no-padding-icon-button"
+                size="1rem"
+                icon={filterInActive}
+                message={"this is selected drop info"}
+              />
+            </Box>
 
             <Box sx={selectPropContainerStyle}>
               <SelectPropertiesContainer
