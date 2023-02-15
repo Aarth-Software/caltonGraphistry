@@ -48,10 +48,10 @@ import StandardButton from "../../../libs/Buttons/StandardButton";
 import SavePopPanel from "./SavedGraphs/SavePopPanel";
 import dropdownData from "../../../data/DropdownData.json";
 import { useSnackbar } from "notistack";
+import GraphistryGraph from "../MainDashboard/Graphistry/GraphistryGraph";
 
 const Card = styled(Box)``;
 const FallDashboard = () => {
-  // console.log(dropdownData);
   const { enqueueSnackbar } = useSnackbar();
   const [pattern, setPattern] = React.useState({
     nodeA: true,
@@ -196,6 +196,7 @@ const FallDashboard = () => {
       selection_type: "3node",
     },
   ];
+  console.log("hello");
 
   const [activePattern, setActivePattern] = React.useState(
     new Array(btnArray.length).fill(false)
@@ -298,7 +299,12 @@ const FallDashboard = () => {
           <Card sx={{ ...patternContainerStyle }}>
             <Typography
               varient="p"
-              sx={{ mt: 1, position: "absolute", color: "#259DF8" }}
+              sx={{
+                mt: 1,
+                position: "absolute",
+                color: "#259DF8",
+                fontSize: ".9rem",
+              }}
             >
               2. Select relationship
             </Typography>
@@ -313,7 +319,10 @@ const FallDashboard = () => {
             </Box>
           </Card>
           <Box sx={saveAndGraphBtnContainer}>
-            <Typography varient="p" sx={{ mt: 1, color: "#259DF8" }}>
+            <Typography
+              varient="p"
+              sx={{ mt: 1, color: "#259DF8", fontSize: ".9rem" }}
+            >
               3. Graph & Save
             </Typography>
             <div style={moreOptionStyle}>
@@ -326,7 +335,7 @@ const FallDashboard = () => {
             <RunButton onClick={generateGraph} />
           </Box>
         </Box>
-        {/* <GraphistryGraph name="graph" set={data} /> */}
+        <GraphistryGraph name="graph" />
       </Stack>
       <PopModal
         openModal={openSavePanel}

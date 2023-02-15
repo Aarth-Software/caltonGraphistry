@@ -8,7 +8,10 @@ const SelectPatternContainer = React.memo((props) => {
   console.log("pattern");
   return (
     <Box sx={patternContainerStyles}>
-      <Typography varient="p" sx={{ mt: 1, color: "#259DF8" }}>
+      <Typography
+        varient="p"
+        sx={{ mt: 1, color: "#259DF8", fontSize: ".9rem" }}
+      >
         1. Select relationship
       </Typography>
       <SelectButtons

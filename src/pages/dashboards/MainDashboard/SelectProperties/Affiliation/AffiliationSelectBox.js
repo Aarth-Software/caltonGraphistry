@@ -38,7 +38,7 @@ const AffiliationSelectBox = ({
   const getOptions = !options ? ["No options"] : options;
 
   const dropdownValues = getOptions?.map((e, i) => (
-    <MenuItem key={e || i} value={e}>
+    <MenuItem sx={{ fontSize: ".9rem" }} key={e || i} value={e}>
       {e}
     </MenuItem>
   ));
@@ -66,9 +66,12 @@ const AffiliationSelectBox = ({
             padding: "0rem",
             // bgcolor: "green",
             paddingRight: "1.5rem",
+            fontSize: ".8rem",
           }}
         >
-          <MenuItem value="">Choose *</MenuItem>
+          <MenuItem value="" sx={{ fontSize: ".9rem" }}>
+            Choose *
+          </MenuItem>
           {dropdownValues}
         </CssTextField>
       </FormControl>

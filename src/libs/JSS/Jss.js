@@ -36,7 +36,7 @@ export const flexItemCenterStart = {
 export const patternContainerStyle = {
   flexGrow: 1,
   bgcolor: "#FFFFFF",
-  height: "7.4rem",
+  height: "8.5rem",
   ml: 5,
   borderRadius: 1.5,
   px: 2,
@@ -220,7 +220,7 @@ export const Controls = {
 export const patternContainerStyles = {
   flexGrow: 0,
   bgcolor: "#FFFFFF",
-  height: "7.4rem",
+  height: "8.5rem",
   width: "14rem",
   borderRadius: 1.5,
   px: 2,
@@ -267,8 +267,8 @@ export const nodeCCircleStyleProp = {
 export const saveAndGraphBtnContainer = {
   flexGrow: 0,
   bgcolor: "#FFFFFF",
-  height: "7.4rem",
-  width: "9rem",
+  height: "8.5rem",
+  width: "12rem",
   borderRadius: 1.5,
   px: 2,
   boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
