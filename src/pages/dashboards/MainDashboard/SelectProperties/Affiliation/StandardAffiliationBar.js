@@ -21,8 +21,10 @@ const StandardAffiliationBar = ({
       sx={{
         ...inputAndSelectPlaceContainer,
         ...sx,
-        border:
-          error && !unUsed ? ".00005rem solid red" : ".005rem solid #DBDCDF",
+        border: error
+          ? //  && !unUsed
+            ".00005rem solid red"
+          : ".005rem solid #DBDCDF",
       }}
     >
       <AffiliationSelectBox
@@ -35,9 +37,9 @@ const StandardAffiliationBar = ({
       <input
         placeholder={
           unUsed || disableInput
-            ? "Disable"
+            ? "Disable(open ended)"
             : error && !unUsed
-            ? "fill * fileds"
+            ? "Required field*"
             : "keyword"
         }
         value={!inputValue ? "" : inputValue}

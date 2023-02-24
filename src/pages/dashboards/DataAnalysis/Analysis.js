@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { green } from "@mui/material/colors";
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { useFetch } from "../../../utils/useFetch";
 
 import DoughnutChart from "../Default/DoughnutChart";
 import Stats from "../Default/Stats";
@@ -19,6 +20,18 @@ const Analysis = () => {
     { title: "Brooke", query: "nodeC", date: "16/7/20" },
     { title: "jack", query: "nodeB+nodeC", date: "21/08/21" },
   ];
+  const baseURL = process.env.REACT_APP_BASE_URL;
+  const [loading, records] = useFetch(`${baseURL}/dashboardQuery`, true);
+
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const response = await dashBoardData();
+  //     console.log(JSON.parse(response.data));
+  //   })();
+  // }, []);
+
+  const conditionalData = records?.query1?.length > 0 ? records.query1[0] : {};
+
   return (
     <React.Fragment>
       <Helmet title="Analytics Dashboard" />
@@ -27,26 +40,23 @@ const Analysis = () => {
         <Grid item xs={12} lg={5}>
           {/* <Grid container spacing={6}>
             <Grid item xs={12} lg={12}> */}
+
           <Grid container spacing={5}>
-            <Grid item xs={12} sm={12} md={6}>
-              <Stats
-                title="Journals"
-                amount="2324"
-                chip="Yearly"
-                percentagetext="+27%"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
-              <Stats
-                title="Papers"
-                amount="4325"
-                chip="Yearly"
-                percentagetext="+27%"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
+            {loading && <h6>Loading...</h6>}
+            {!loading &&
+              Object.entries(conditionalData).map((el, i) => (
+                <Grid key={i} item xs={12} sm={12} md={6}>
+                  <Stats
+                    title={el[0]}
+                    amount={el[1]}
+                    chip="Yearly"
+                    percentagetext="+27%"
+                    percentagecolor={green[500]}
+                  />
+                </Grid>
+              ))}
+
+            {/* <Grid item xs={12} sm={12} md={6}>
               <Stats
                 title="Hypotheses"
                 amount="1341"
@@ -99,7 +109,7 @@ const Analysis = () => {
                 percentagetext="+27%"
                 percentagecolor={green[500]}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
         <Grid item xs={12} lg={7}>

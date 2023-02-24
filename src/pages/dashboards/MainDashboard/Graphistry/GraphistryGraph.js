@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import React, { memo } from "react";
+import React from "react";
 import { graphContainerStyle } from "../../../../libs/JSS/Jss";
 
 const Frame = styled("iframe")({
@@ -15,14 +15,14 @@ const GraphistryContainer = styled(Box)({
   height: "100%",
 });
 const GraphistryGraph = React.memo((props) => {
-  const { name } = props;
+  const { dataSet } = props;
   // console.log("donnnn");
   return (
     <GraphistryContainer sx={graphContainerStyle}>
       <Frame
         className="iframe-container"
         id="myIframe"
-        src={`https://hub.graphistry.com/graph/graph.html?dataset=${"Miserables"}`}
+        src={`https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}`}
         title="GraphistryIframe"
         sx={{ borderRadius: 1.5 }}
       />

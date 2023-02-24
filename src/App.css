@@ -1,3 +1,7 @@
+html{
+  font-size: 12px;
+}
+
 .MuiSelect-select{
   padding: 0 !important;
   padding-left : .6rem !important ;
@@ -11,16 +15,7 @@
 .MuiFormControl-root{
     border: none !important;
 }
-/* .MuiSelect-outlined{
-    color : #e86a6a ;
-    font-weight: bolder;
-}
-.MuiSelect-iconOutlined{
-    color : #e86a6a;
-} */
-/* .MuiSvgIcon-root{
-    color : #e86a6a  ;
-} */
+
 .MuiInputBase-formControl{
     outline :none !important ;
     border: none !important;
@@ -29,7 +24,6 @@
     outline :none !important ;
     border: none !important;
 }
-
 .disabledInputClass{
     height: 1.6rem ;
     width: 15rem;
@@ -51,4 +45,63 @@
 .changePlaceHolderColor::placeholder{
     color: red;
 }
+.no-padding-icon-button {
+    padding: 0 !important;
+  }
+.remove-padding{
+    padding: 0;
+}
+
+/* ========================================= */
+.dropdown-menu-container {
+    position: relative;
+    width : 1rem
+  }
+  
+  .icon-container {
+    width : auto;
+    position: relative;
+    padding : 0rem;
+    /* background-color: green; */
+    width : 3rem
+  }
+  
+  .icon-container img {
+    display: block;
+    background-color: green; /* Set the background color of the icon */
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: green; /* Set the background color of the dropdown menu */
+    padding: 10px;
+    width : 8rem;
+    z-index: 10;
+  }
+  
+  .dropdown-menu-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: blue; 
+    z-index: -1;
+  }
+  
+  .dropdown-menu-container:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-menu-container:hover::before {
+    background-color: green; /* Change the background color of the pseudo-element */
+  }
+  .imaging{
+    width : 1rem
+     
+  }
 

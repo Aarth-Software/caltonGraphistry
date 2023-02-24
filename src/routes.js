@@ -53,6 +53,26 @@ const routes = [
     ],
   },
   {
+    path: "/login",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "",
+        element: <SignIn />,
+      },
+    ],
+  },
+  {
+    path: "/signUp",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "",
+        element: <SignUp />,
+      },
+    ],
+  },
+  {
     path: "generateQuery",
     element: <DashboardLayout />,
     children: [

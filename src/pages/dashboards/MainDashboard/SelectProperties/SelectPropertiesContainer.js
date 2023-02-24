@@ -46,36 +46,85 @@ const SelectPropertiesContainer = React.memo((props) => {
     const { name, value } = e.target;
     console.log([name, value]);
     console.log(nodeState);
-    if (value === "No options") {
-      return;
-    }
-    if (!!nodeState[name].pointer && !!value) {
-      setNodeState({
-        ...nodeState,
-        [name]: { ...nodeState[name], value: value, disableInput: false },
-        [nodeState[name].pointer]: {
-          ...nodeState[nodeState[name].pointer],
-          value: "",
-          inputValue: "",
-          disableDropDown: false,
-          disableInput: true,
-        },
-      });
-    } else if (!!value) {
-      const { disableInput } = nodeState[name];
-      if (disableInput !== undefined) {
-        setNodeState({
-          ...nodeState,
-          [name]: { ...nodeState[name], value: value, disableInput: false },
-        });
-      } else {
+    // if (value === "No options") {
+    //   return;
+    // }
+
+    if (!!nodeState[name].pointer) {
+      console.log("havePointer");
+      let nextUnUsed =
+        nodeState[nodeState[name].pointer].disableInput === undefined &&
+        nodeState[nodeState[name].pointer].inputValue === undefined;
+      console.log(nextUnUsed);
+      if (!nextUnUsed && nodeState[name].disableInput === undefined) {
         setNodeState({
           ...nodeState,
           [name]: { ...nodeState[name], value: value },
+          [nodeState[name].pointer]: {
+            ...nodeState[nodeState[name].pointer],
+            value: "",
+            error: false,
+            disableDropDown: false,
+            message: "",
+          },
+        });
+      } else if (nextUnUsed) {
+        console.log("unSolidNode");
+        setNodeState({
+          ...nodeState,
+          [name]: { ...nodeState[name], value: value, disableInput: false },
+          [nodeState[name].pointer]: {
+            ...nodeState[nodeState[name].pointer],
+            value: "",
+            error: false,
+            disableDropDown: false,
+            message: "",
+          },
+        });
+      } else if (!nextUnUsed) {
+        console.log("solidNode");
+        setNodeState({
+          ...nodeState,
+          [name]: { ...nodeState[name], value: value, disableInput: false },
+          [nodeState[name].pointer]: {
+            ...nodeState[nodeState[name].pointer],
+            value: "",
+            disableInput: true,
+            error: false,
+            inputValue: "",
+            disableDropDown: false,
+            message: "",
+          },
+        });
+      }
+    }
+    let Pointer = !!nodeState[name].pointer;
+    if (!Pointer) {
+      let unUsed =
+        nodeState[name].disableInput === undefined &&
+        nodeState[name].inputValue === undefined;
+      console.log("no pointer");
+      if (unUsed) {
+        console.log("unSolidNode");
+        setNodeState({
+          ...nodeState,
+          [name]: { ...nodeState[name], value: value, message: "" },
+        });
+      } else if (!unUsed) {
+        console.log("solidNode");
+        setNodeState({
+          ...nodeState,
+          [name]: {
+            ...nodeState[name],
+            value: value,
+            disableInput: false,
+            message: "",
+          },
         });
       }
     }
   };
+
   const inputChange = (e) => {
     let { name, value } = e.target;
     setNodeState({

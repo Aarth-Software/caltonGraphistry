@@ -62,9 +62,12 @@ export const selectPropContainerStyle = {
 };
 export const moreOptionStyle = {
   position: "absolute",
-  color: "black",
-  top: "-.2rem",
-  right: "-0.5rem",
+
+  top: "5%",
+  left: "80%",
+  background: "white",
+  height: "2rem",
+  width: "2rem",
 };
 export const inputBoxConStyle = {
   width: "100%",
@@ -81,7 +84,7 @@ export const firstInputComStyle = {
     content: '""',
     height: "1.5rem",
     width: "1.5rem",
-    bgcolor: "#DBDCDF",
+    bgcolor: "#666666",
     top: "102%",
     left: `calc(50% - .7rem)`,
     position: "absolute",
@@ -105,7 +108,7 @@ export const secondInputComStyle = {
     content: '""',
     height: "1.5rem",
     width: "1.5rem",
-    bgcolor: "#DBDCDF",
+    bgcolor: "#666666",
     top: `calc(50% - .75rem)`,
     right: `-1.55rem`,
     position: "absolute",
@@ -121,14 +124,14 @@ export const thirdInputComStyles = {
     left: `-1.55rem`,
     position: "absolute",
     borderRadius: "50%",
-    bgcolor: "#DBDCDF",
+    bgcolor: "#666666",
   },
 };
 export const lineArrowStyles = {
   fontSize: "medium",
   bgcolor: "transperent",
   p: 0,
-  color: "#DBDCDF",
+  color: "#666666",
 };
 export const downArrowStyle = {
   fontSize: "medium",
@@ -142,7 +145,7 @@ export const downArrowStyle = {
 export const horizentalLineStyles = {
   flexGrow: 1,
   height: ".1rem",
-  background: "#DBDCDF",
+  background: "#666666",
   ...flexCenter,
   justifyContent: "flex-end",
   postion: "relative",
@@ -154,7 +157,7 @@ export const firstInputLineStyles = {
     content: '""',
     height: "2.5rem",
     width: ".1rem",
-    bgcolor: "#DBDCDF",
+    bgcolor: "#666666",
     top: "100%",
     left: "50%",
     position: "absolute",
@@ -228,7 +231,7 @@ export const patternContainerStyles = {
   border: ".05rem solid #DBDCDF",
 };
 export const unUsedNodeStyleProp = {
-  border: ".05rem solid #DBDCDF",
+  border: ".05rem solid #666666",
   bgcolor: "#ffffff",
 };
 export const nodeBCircleStyleProp = {

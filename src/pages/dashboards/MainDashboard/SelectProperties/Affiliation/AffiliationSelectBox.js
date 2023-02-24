@@ -6,11 +6,11 @@ import styled from "@emotion/styled";
 import "../../../../../App.css";
 const CssTextField = styled(Select)({
   ".MuiSvgIcon-root": {
-    color: "#e86a6a",
+    color: "#666666",
     // paddingLeft: "1rem",
   },
   ".MuiSelect-standard": {
-    color: "#e86a6a",
+    color: "#666666",
   },
   "& .MuiInputBase-input.Mui-disabled": {
     WebkitTextFillColor: "gray",

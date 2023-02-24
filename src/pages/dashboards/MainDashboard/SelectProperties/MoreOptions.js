@@ -17,41 +17,64 @@ const IconButton = styled(MuiIconButton)`
 `;
 
 const MoreOptions = React.memo((props) => {
-  const { saveOnClick, savedGraphOnClick } = props;
-  const [anchorMenu, setAnchorMenu] = React.useState(null);
+  const {
+    saveOnClick,
+    savedGraphOnClick,
+    anchorMenu,
+    setAnchorMenu,
+    index,
+    setActiveBg,
+  } = props;
 
   const toggleMenu = (event) => {
+    setAnchorMenu(event.currentTarget);
+  };
+  const multiMenuValue = (event, idx) => {
+    setActiveBg(idx);
     setAnchorMenu(event.currentTarget);
   };
 
   const closeMenu = () => {
     setAnchorMenu(null);
+    if (setActiveBg !== undefined) setActiveBg("");
   };
 
   return (
     <React.Fragment>
-      <Tooltip title="More options">
-        <IconButton
-          aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
-          aria-haspopup="true"
-          onClick={toggleMenu}
-          color="inherit"
-          size="large"
+      <div className="dropdown-menu-container">
+        <div className="icon-container">
+          <IconButton
+            aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
+            aria-haspopup="true"
+            onClick={
+              index !== undefined
+                ? (eve) => multiMenuValue(eve, index)
+                : toggleMenu
+            }
+            color="inherit"
+            size="large"
+            className="remove-padding"
+          >
+            <Tooltip title="More options">
+              <MoreVertical />
+            </Tooltip>
+          </IconButton>
+        </div>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorMenu}
+          open={Boolean(anchorMenu)}
+          onClose={closeMenu}
+          sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)" }}
         >
-          <MoreVertical />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorMenu}
-        open={Boolean(anchorMenu)}
-        onClose={closeMenu}
-      >
-        <MenuItem sx={{ color: "#e86a6a" }} onClick={saveOnClick}>
-          Save
-        </MenuItem>
-        <MenuItem onClick={savedGraphOnClick}>Saved Graphs</MenuItem>
-      </Menu>
+          {/* <div class="dropdown-menu"> */}
+          <MenuItem sx={{ color: "#e86a6a" }} onClick={saveOnClick}>
+            Save
+          </MenuItem>
+          <MenuItem onClick={savedGraphOnClick}>Saved Graphs</MenuItem>
+          {/* </div> */}
+        </Menu>
+      </div>
     </React.Fragment>
   );
 });

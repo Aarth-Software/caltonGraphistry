@@ -1,51 +1,52 @@
 import singleNodeA from "./singleNodeA.svg";
-import singleNodeB from "./singleNodeB.svg";
-import singleNodeC from "./singleNodeC.svg";
-import singleNodeD from "./singleNodeD.svg";
 import doubleNodeA from "./doubleNodeA.svg";
 import doubleNodeB from "./doubleNodeB.svg";
 import doubleNodeC from "./doubleNodeC.svg";
-import doubleNodeD from "./doubleNodeD.svg";
 import tripleNodeA from "./tripleNodeA.svg";
 import tripleNodeB from "./tripleNodeB.svg";
 import tripleNodeC from "./tripleNodeC.svg";
 import tripleNodeD from "./tripleNodeD.svg";
+import pTripleNodeA from "./pTripleNodeA.svg";
+import pTripleNodeB from "./pTripleNodeB.svg";
+import pTripleNodeC from "./pTripleNodeC.svg";
+import pTripleNodeD from "./pTripleNodeD.svg";
 import aSingleNodeA from "./aSingleNodeA.svg";
-import aSingleNodeB from "./aSingleNodeB.svg";
-import aSingleNodeC from "./aSingleNodeC.svg";
-import aSingleNodeD from "./aSingleNodeD.svg";
 import aDoubleNodeA from "./aDoubleNodeA.svg";
 import aDoubleNodeB from "./aDoubleNodeB.svg";
 import aDoubleNodeC from "./aDoubleNodeC.svg";
-import aDoubleNodeD from "./aDoubleNodeD.svg";
 import aTripleNodeA from "./aTripleNodeA.svg";
 import aTripleNodeB from "./aTripleNodeB.svg";
 import aTripleNodeC from "./aTripleNodeC.svg";
 import aTripleNodeD from "./aTripleNodeD.svg";
+import aPtripleNodeA from "./aPtripleNodeA.svg";
+import aPtripleNodeB from "./aPtripleNodeB.svg";
+import aPtripleNodeC from "./aPtripleNodeC.svg";
+import aPtripleNodeD from "./aPtripleNodeD.svg";
 
 export {
   singleNodeA,
-  singleNodeB,
-  singleNodeC,
-  singleNodeD,
   doubleNodeA,
   doubleNodeB,
   doubleNodeC,
-  doubleNodeD,
   tripleNodeA,
   tripleNodeB,
   tripleNodeC,
   tripleNodeD,
+  pTripleNodeA,
+  pTripleNodeB,
+  pTripleNodeC,
+  pTripleNodeD,
+  // ==================
   aSingleNodeA,
-  aSingleNodeB,
-  aSingleNodeC,
-  aSingleNodeD,
   aDoubleNodeA,
   aDoubleNodeB,
   aDoubleNodeC,
-  aDoubleNodeD,
   aTripleNodeA,
   aTripleNodeB,
   aTripleNodeC,
   aTripleNodeD,
+  aPtripleNodeA,
+  aPtripleNodeB,
+  aPtripleNodeC,
+  aPtripleNodeD,
 };

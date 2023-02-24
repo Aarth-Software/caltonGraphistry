@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { withTheme } from "@emotion/react";
-import { MoreVertical } from "react-feather";
+
 import {
   Card as MuiCard,
   CardContent,
@@ -18,6 +18,7 @@ import { flexCenter } from "../../../libs/JSS/Jss";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import MoreOptions from "../MainDashboard/SelectProperties/MoreOptions";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -44,10 +45,15 @@ const ManagedSavedGraphs = ({
   colThirdTitle,
   data,
 }) => {
+  const [anchorMenu, setAnchorMenu] = React.useState(null);
+  const [activeBg, setActiveBg] = React.useState("");
   const { pageElements, page, pages, prevClick, nextClick } = usePagination(
     data,
     7
   );
+  const saveOnClick = () => {};
+  const savedGraphOnClick = () => {};
+  console.log(activeBg);
 
   return (
     <Card mb={6} sx={{ position: "relative", pb: 14 }}>
@@ -96,7 +102,30 @@ const ManagedSavedGraphs = ({
                 <TableCell>{e.query}</TableCell>
                 <TableCell>{e.date}</TableCell>
                 <TableCell align="right">
-                  {!btn ? <MoreVertical /> : btn}
+                  {/* {!btn ? <MoreVertical /> : btn} */}
+                  {!btn ? (
+                    <div
+                      style={{
+                        // width: "4rem",
+                        // boxShadow:
+                        //   activeBg !== i
+                        //     ? ""
+                        //     : "0px .6px 3px rgba(0, 0, 0, 0.06)",
+                        color: activeBg !== i ? "black" : "#e57373",
+                      }}
+                    >
+                      <MoreOptions
+                        saveOnClick={saveOnClick}
+                        savedGraphOnClick={savedGraphOnClick}
+                        anchorMenu={anchorMenu}
+                        setAnchorMenu={setAnchorMenu}
+                        setActiveBg={setActiveBg}
+                        index={i}
+                      />
+                    </div>
+                  ) : (
+                    btn
+                  )}
                 </TableCell>
               </TableRow>
             ))}
