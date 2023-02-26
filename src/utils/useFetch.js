@@ -21,7 +21,11 @@ export const useFetch = (url, parse) => {
         }
         setLoading(false);
       })
-      .catch((err) => setError(true));
+      .catch((err) => {
+        setError(true);
+        setLoading(false);
+        console.log(err);
+      });
   }, [url, parse]);
   React.useEffect(() => {
     getFetch();
