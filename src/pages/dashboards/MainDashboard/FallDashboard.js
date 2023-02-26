@@ -80,13 +80,7 @@ const FallDashboard = () => {
     `${baseURL}/getDropdownValues`,
     false
   );
-
-  React.useEffect(() => {
-    (async () => {
-      const response = await getDropdowns();
-      console.log(response.data.data);
-    })();
-  }, []);
+  console.log([loading, data, error]);
 
   const getPatternChange = (e) => {
     setNodeState(getAccessPatternVariables(e.code));
