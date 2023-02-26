@@ -307,9 +307,9 @@ const FallDashboard = () => {
             <RunButton onClick={generateGraph} />
           </Box>
         </Box>
-        {!values.loading && values.data !== "No records found" && (
-          <GraphistryGraph name="graph" dataSet={values.data} />
-        )}
+        {!values.loading &&
+          values.data !== "No records found" &&
+          values.data && <GraphistryGraph name="graph" dataSet={values.data} />}
         {!values.loading &&
           (!values.data || values.data === "No records found") && (
             <Box sx={{ height: "100%", width: "100%", ...flexCenter }}>

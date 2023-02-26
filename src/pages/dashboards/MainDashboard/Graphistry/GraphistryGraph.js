@@ -22,7 +22,9 @@ const GraphistryGraph = React.memo((props) => {
       <Frame
         className="iframe-container"
         id="myIframe"
-        src={`https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}`}
+        src={`https://hub.graphistry.com/graph/graph.html?dataset=${
+          dataSet ? dataSet : "f243cdbe22da4cb2a860239c87cf2d09"
+        }`}
         title="GraphistryIframe"
         sx={{ borderRadius: 1.5 }}
       />
