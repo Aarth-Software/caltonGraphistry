@@ -13,7 +13,6 @@ import {
   TextField as MuiTextField,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-
 import useAuth from "../../hooks/useAuth";
 
 const Alert = styled(MuiAlert)(spacing);
@@ -21,8 +20,7 @@ const Alert = styled(MuiAlert)(spacing);
 const TextField = styled(MuiTextField)(spacing);
 
 function SignIn() {
-  const navigate = useNavigate();
-  const { signIn } = useAuth();
+  // const { signIn } = useAuth();
 
   return (
     <Formik
@@ -39,17 +37,16 @@ function SignIn() {
         password: Yup.string().max(255).required("Password is required"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        try {
-          await signIn(values.email, values.password);
-
-          navigate("/private");
-        } catch (error) {
-          const message = error.message || "Something went wrong";
-
-          setStatus({ success: false });
-          setErrors({ submit: message });
-          setSubmitting(false);
-        }
+        // try {
+        //   await signIn(values.email, values.password);
+        //   navigate("/private");
+        // } catch (error) {
+        //   const message = error.message || "Something went wrong";
+        //   setStatus({ success: false });
+        //   setErrors({ submit: message });
+        //   setSubmitting(false);
+        // }
+        // ApplicationToken();
       }}
     >
       {({
@@ -62,10 +59,10 @@ function SignIn() {
         values,
       }) => (
         <form noValidate onSubmit={handleSubmit}>
-          <Alert mt={3} mb={3} severity="info">
+          {/* <Alert mt={3} mb={3} severity="info">
             Use <strong>demo@bootlab.io</strong> and{" "}
             <strong>unsafepassword</strong> to sign in
-          </Alert>
+          </Alert> */}
           {errors.submit && (
             <Alert mt={2} mb={3} severity="warning">
               {errors.submit}

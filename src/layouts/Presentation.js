@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const Presentation = ({ children }) => {
   const navigate = useNavigate();
   React.useEffect(() => {
-    navigate("/generateQuery");
+    navigate("/userLanding");
   }, [navigate]);
   return (
     // <MuiThemeProvider theme={createTheme(THEMES.DEFAULT)}>

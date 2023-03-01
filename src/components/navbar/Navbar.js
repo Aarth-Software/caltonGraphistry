@@ -14,6 +14,8 @@ import { Menu as MenuIcon } from "@mui/icons-material";
 import borgorIcon from "../../asserts/BurgerIcon.svg";
 import logo from "../../asserts/Logo.svg";
 import TooltipComp from "../../libs/Tooltip/Tooltip";
+import { useKeycloak } from "@react-keycloak/web";
+import NavbarUserDropdown from "./NavbarUserDropdown";
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -28,6 +30,7 @@ const IconButton = styled(MuiIconButton)`
 `;
 
 const Navbar = ({ onDrawerToggle }) => {
+  const { keycloak } = useKeycloak();
   return (
     <React.Fragment>
       <AppBar position="sticky" elevation={0}>
@@ -52,11 +55,15 @@ const Navbar = ({ onDrawerToggle }) => {
                   marginTop: ".2rem",
                   marginLeft: "0rem",
                 }}
+                onClick={() => keycloak.logout()}
               />
             </Grid>
             <Grid item xs />
-            <Grid item>
+            {/* <Grid item>
               <TooltipComp message={"Details"} icon={borgorIcon} />
+            </Grid> */}
+            <Grid item>
+              <NavbarUserDropdown icon={borgorIcon} />
             </Grid>
           </Grid>
         </Toolbar>

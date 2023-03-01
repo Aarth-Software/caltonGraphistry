@@ -29,6 +29,7 @@ import Landing from "./pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
+import AuthLanding from "./layouts/AuthLanding";
 // import Analysis from "./pages/dashboards/DataAnalysis/Analysis";
 const Analysis = async(() =>
   import("./pages/dashboards/DataAnalysis/Analysis")
@@ -53,11 +54,15 @@ const routes = [
     ],
   },
   {
-    path: "/login",
-    element: <DashboardLayout />,
+    path: "/userLanding",
+    element: <AuthLayout />,
     children: [
       {
         path: "",
+        element: <AuthLanding />,
+      },
+      {
+        path: "login",
         element: <SignIn />,
       },
     ],
@@ -74,7 +79,11 @@ const routes = [
   },
   {
     path: "generateQuery",
-    element: <DashboardLayout />,
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
     children: [
       {
         path: "",
@@ -149,6 +158,20 @@ const routes = [
       },
     ],
   },
+  // {
+  //   path: "private1",
+  //   element: (
+  //     <AuthGuard>
+  //       <DashboardLayout />
+  //     </AuthGuard>
+  //   ),
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: <FallDashboard />,
+  //     },
+  //   ],
+  // },
   {
     path: "*",
     element: <AuthLayout />,

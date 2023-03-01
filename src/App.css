@@ -38,6 +38,7 @@ html{
 }
 .disabledInputClass::placeholder{
     color: rgb(110, 110, 110);
+    font-size: .9rem;
 }
 .activeInput::placeholder{
     color: rgb(197, 197, 197);

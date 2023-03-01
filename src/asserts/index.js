@@ -22,6 +22,7 @@ import aPtripleNodeA from "./aPtripleNodeA.svg";
 import aPtripleNodeB from "./aPtripleNodeB.svg";
 import aPtripleNodeC from "./aPtripleNodeC.svg";
 import aPtripleNodeD from "./aPtripleNodeD.svg";
+import litDigBigLogo from "./litDigBigLogo.svg";
 
 export {
   singleNodeA,
@@ -49,4 +50,5 @@ export {
   aPtripleNodeB,
   aPtripleNodeC,
   aPtripleNodeD,
+  litDigBigLogo,
 };

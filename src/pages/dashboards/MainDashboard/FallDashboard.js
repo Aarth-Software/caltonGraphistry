@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import styled from "@emotion/styled";
 import { Box, Stack, Typography } from "@mui/material";
@@ -35,6 +36,7 @@ import { getDropdowns } from "../../../services/service";
 import { useFetch } from "../../../utils/useFetch";
 import { red } from "@mui/material/colors";
 import FiltersComponent from "./SelectProperties/filters/Filters";
+import { useKeycloak } from "@react-keycloak/web";
 
 const Card = styled(Box)``;
 const FallDashboard = () => {
@@ -75,6 +77,8 @@ const FallDashboard = () => {
     nodeB: { value: "", inputValue: "", disableInput: true },
     nodeC: { value: "", inputValue: "", disableInput: true },
   });
+  const { keycloak, initialized } = useKeycloak();
+
   const baseURL = process.env.REACT_APP_BASE_URL;
   const [loading, data, error] = useFetch(
     `${baseURL}/getDropdownValues`,
@@ -98,7 +102,6 @@ const FallDashboard = () => {
     setValues({ ...values, loading: true });
     fetch(
       `${baseURL}/buildQuery?node1=${nodeA}&keyword1=${keywordA}&node2=${nodeB}&keyword2=${keywordB}&node3=${nodeC}&keyword3=${keywordC}`,
-      // `http://3.99.53.148/app2/buildQuery?node1=${nodeA}&keyword1=${keywordA}&node2=${nodeB}`,
       {
         method: "GET",
         mode: "cors",
@@ -208,6 +211,14 @@ const FallDashboard = () => {
       setRecord([...record, { title: saveName, query: query, date: date }]);
     }
   };
+
+  React.useEffect(() => {
+    enqueueSnackbar("authentication successfull", {
+      variant: "success",
+      autoHideDuration: 2000,
+      style: { width: 300, left: "calc(50% - 150px)" },
+    });
+  }, [keycloak?.idTokenParsed?.sub]);
   return (
     <>
       <Stack sx={{ width: "100%", height: "100%" }}>

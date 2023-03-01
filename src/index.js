@@ -12,22 +12,26 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { SnackbarProvider } from "notistack";
 // Note: Remove the following line if you want to disable the API mocks.
 import "./mocks";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+import keycloak from "./Keycloak";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <>
-    <BrowserRouter>
-      <ThemeProvider>
-        <SnackbarProvider
-          maxSnack={1}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <App />
-        </SnackbarProvider>
-      </ThemeProvider>
-    </BrowserRouter>
+    <ReactKeycloakProvider authClient={keycloak}>
+      <BrowserRouter>
+        <ThemeProvider>
+          <SnackbarProvider
+            maxSnack={1}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <App />
+          </SnackbarProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </ReactKeycloakProvider>
   </>
 );
 

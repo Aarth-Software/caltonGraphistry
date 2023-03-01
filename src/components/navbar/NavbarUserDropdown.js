@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Power } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   Tooltip,
@@ -10,7 +9,8 @@ import {
   IconButton as MuiIconButton,
 } from "@mui/material";
 
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
+import keycloak from "../../Keycloak";
 
 const IconButton = styled(MuiIconButton)`
   svg {
@@ -19,10 +19,11 @@ const IconButton = styled(MuiIconButton)`
   }
 `;
 
-function NavbarUserDropdown() {
+function NavbarUserDropdown({ icon, size }) {
+  const location = useLocation().pathname.split("/");
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  // const { signOut } = useAuth();
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
@@ -31,15 +32,24 @@ function NavbarUserDropdown() {
   const closeMenu = () => {
     setAnchorMenu(null);
   };
+  const dashboard = () => {
+    navigate("/generateQuery/analysis");
+    setAnchorMenu(null);
+  };
+  const generateQuery = () => {
+    navigate("/generateQuery");
+    setAnchorMenu(null);
+  };
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate("/auth/sign-in");
+    // await signOut();
+    await keycloak.logout();
+    navigate("/userLanding");
   };
 
   return (
     <React.Fragment>
-      <Tooltip title="Account">
+      <Tooltip title="Details">
         <IconButton
           aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
           aria-haspopup="true"
@@ -47,7 +57,11 @@ function NavbarUserDropdown() {
           color="inherit"
           size="large"
         >
-          <Power />
+          <img
+            src={icon}
+            alt={"user"}
+            style={{ width: !!size ? size : "1.1rem" }}
+          />
         </IconButton>
       </Tooltip>
       <Menu
@@ -57,6 +71,12 @@ function NavbarUserDropdown() {
         onClose={closeMenu}
       >
         <MenuItem onClick={closeMenu}>Profile</MenuItem>
+        {location[2] === "analysis" ? (
+          <MenuItem onClick={generateQuery}>Query</MenuItem>
+        ) : (
+          <MenuItem onClick={dashboard}>Dashboard</MenuItem>
+        )}
+
         <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
       </Menu>
     </React.Fragment>

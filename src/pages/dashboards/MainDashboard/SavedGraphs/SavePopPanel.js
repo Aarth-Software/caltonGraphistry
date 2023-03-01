@@ -56,7 +56,7 @@ const SavePopPanel = ({ getSave, setSaveName }) => {
       </FlexItems>
       <Items>
         <TextField
-          label="Size"
+          label="title"
           id="standard-size-large"
           size="large"
           variant="standard"
