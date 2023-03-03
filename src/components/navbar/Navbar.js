@@ -53,7 +53,7 @@ const Navbar = ({ onDrawerToggle }) => {
                 style={{
                   width: "5rem",
                   marginTop: ".2rem",
-                  marginLeft: "0rem",
+                  marginLeft: "1rem",
                 }}
                 onClick={() => keycloak.logout()}
               />

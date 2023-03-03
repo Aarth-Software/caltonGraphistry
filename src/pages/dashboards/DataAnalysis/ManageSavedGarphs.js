@@ -11,14 +11,23 @@ import {
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
+  Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
-import { flexCenter } from "../../../libs/JSS/Jss";
+import {
+  flexCenter,
+  popModalContainer,
+  popSaveModalContainer,
+} from "../../../libs/JSS/Jss";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import MoreOptions from "../MainDashboard/SelectProperties/MoreOptions";
+import { deleteRecord, updateRecord } from "../../../services/service";
+import { useSnackbar } from "notistack";
+import SavePopPanel from "../MainDashboard/SavedGraphs/SavePopPanel";
+import PopModal from "../../../libs/Modal/PopModal";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -44,16 +53,77 @@ const ManagedSavedGraphs = ({
   colSecondTitle,
   colThirdTitle,
   data,
+  setApiRecords,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const [activeBg, setActiveBg] = React.useState("");
+  const [editPannel, setEditPannel] = React.useState(false);
+  const [editedValue, setEditedValue] = React.useState("");
   const { pageElements, page, pages, prevClick, nextClick } = usePagination(
     data,
     7
   );
-  const saveOnClick = () => {};
-  const savedGraphOnClick = () => {};
-  console.log(activeBg);
+  const updateRecords = async (ele) => {
+    setEditPannel(true);
+  };
+  const deleteRecords = async (ele) => {
+    try {
+      console.log(ele);
+      await deleteRecord({
+        uuid: data[ele].uuid,
+      });
+      setAnchorMenu(false);
+      setActiveBg(null);
+      enqueueSnackbar(
+        `Query with title with ${data[ele].query_name} successfully deleted`,
+        {
+          variant: "success",
+          autoHideDuration: 2000,
+          style: { width: 600, left: "calc(50% - 300px)" },
+        }
+      );
+      setApiRecords(data.filter((_, i) => i !== ele));
+    } catch (err) {
+      setAnchorMenu(false);
+      setActiveBg(null);
+      enqueueSnackbar(`Delete action unsuccessfull`, {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+    }
+  };
+  const getEditSave = async () => {
+    try {
+      await updateRecord({
+        uuid: data[activeBg].uuid,
+        query_name: editedValue,
+      });
+      setAnchorMenu(false);
+      setActiveBg(null);
+      enqueueSnackbar(`Query name successfully updated`, {
+        variant: "success",
+        autoHideDuration: 2000,
+        style: { width: 400, left: "calc(50% - 200px)" },
+      });
+      setApiRecords(
+        data.map((eg, i) =>
+          i === activeBg ? { ...eg, query_name: editedValue } : eg
+        )
+      );
+      setEditPannel(false);
+    } catch (err) {
+      console.log(err);
+      setAnchorMenu(false);
+      setActiveBg(null);
+      enqueueSnackbar(`Update action unsuccessfull`, {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+    }
+  };
 
   return (
     <Card mb={6} sx={{ position: "relative", pb: 14 }}>
@@ -97,10 +167,10 @@ const ManagedSavedGraphs = ({
             {pageElements.map((e, i) => (
               <TableRow key={i}>
                 <TableCell component="th" scope="row">
-                  {e.title}
+                  {e.query_name}
                 </TableCell>
-                <TableCell>{e.query}</TableCell>
-                <TableCell>{e.date}</TableCell>
+                <TableCell>{e.selected_query}</TableCell>
+                <TableCell>{e.save_time}</TableCell>
                 <TableCell align="right">
                   {/* {!btn ? <MoreVertical /> : btn} */}
                   {!btn ? (
@@ -115,12 +185,16 @@ const ManagedSavedGraphs = ({
                       }}
                     >
                       <MoreOptions
-                        saveOnClick={saveOnClick}
-                        savedGraphOnClick={savedGraphOnClick}
+                        saveOnClick={updateRecords}
+                        savedGraphOnClick={deleteRecords}
                         anchorMenu={anchorMenu}
                         setAnchorMenu={setAnchorMenu}
                         setActiveBg={setActiveBg}
                         index={i}
+                        text1={"Update"}
+                        text2={"Delete"}
+                        ele={e}
+                        activeBg={activeBg}
                       />
                     </div>
                   ) : (
@@ -173,6 +247,14 @@ const ManagedSavedGraphs = ({
           hoverColor="white"
         />
       </Box>
+      <PopModal
+        openModal={editPannel}
+        setModalOpen={setEditPannel}
+        child={
+          <SavePopPanel getSave={getEditSave} setSaveName={setEditedValue} />
+        }
+        classProp={{ ...popModalContainer, ...popSaveModalContainer }}
+      />
     </Card>
   );
 };

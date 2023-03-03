@@ -1,6 +1,7 @@
 import { useKeycloak } from "@react-keycloak/web";
 import React from "react";
 import { Navigate } from "react-router-dom";
+import Loader from "../Loader";
 
 // For routes that can only be accessed by authenticated users
 
@@ -15,7 +16,7 @@ function AuthGuard({ children }) {
   }, [initialized]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (!keycloak.authenticated) {

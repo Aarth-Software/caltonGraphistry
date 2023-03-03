@@ -39,7 +39,7 @@ const RedText = styled.span`
   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
 `;
 
-const DoughnutChart = ({ theme, condition, title }) => {
+const DoughnutChart = ({ theme, condition, title, data }) => {
   return (
     <Card mb={6}>
       <TitleHeader sx={{ fontSize: "2rem" }} title={title} />
@@ -78,42 +78,15 @@ const DoughnutChart = ({ theme, condition, title }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Social
-              </TableCell>
-              <TableCell>260</TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Search Engines
-              </TableCell>
-              <TableCell>125</TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Direct
-              </TableCell>
-              <TableCell>54</TableCell>
-              <TableCell>
-                <GreenText>+46%</GreenText>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Other
-              </TableCell>
-              <TableCell>146</TableCell>
-              <TableCell>
-                <GreenText>+24%</GreenText>
-              </TableCell>
-            </TableRow>
+            {data?.map((eg, i) => (
+              <TableRow key={i}>
+                <TableCell component="th" scope="row">
+                  {eg.JournalName}
+                </TableCell>
+                <TableCell>{eg.Years}</TableCell>
+                <TableCell>{eg.NumOfPapers}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>

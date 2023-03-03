@@ -9,7 +9,7 @@ const Root = styled.div`
   min-height: 100%;
 `;
 
-function Loader() {
+function Loader({ color }) {
   return (
     <Root>
       <CircularProgress color="secondary" />

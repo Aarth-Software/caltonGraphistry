@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
 
-export const useFetch = (url, parse) => {
+const baseURL = process.env.REACT_APP_BASE_URL;
+export const useFetch = (endPoint, parse) => {
   const [loading, setLoading] = React.useState(null);
   const [data, setData] = React.useState([]);
   const [error, setError] = React.useState(false);
   const getFetch = useCallback(() => {
     console.log("loaded");
     setLoading(true);
-    fetch(url, {
+    fetch(`${baseURL}/${endPoint}`, {
       method: "GET",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -26,7 +27,7 @@ export const useFetch = (url, parse) => {
         setLoading(false);
         console.log(err);
       });
-  }, [url, parse]);
+  }, [endPoint, parse]);
   React.useEffect(() => {
     getFetch();
   }, [getFetch]);

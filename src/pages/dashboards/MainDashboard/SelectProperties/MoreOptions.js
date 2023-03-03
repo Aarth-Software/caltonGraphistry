@@ -24,12 +24,17 @@ const MoreOptions = React.memo((props) => {
     setAnchorMenu,
     index,
     setActiveBg,
+    text1,
+    text2,
+    ele,
+    activeBg,
   } = props;
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
   };
   const multiMenuValue = (event, idx) => {
+    console.log(idx);
     setActiveBg(idx);
     setAnchorMenu(event.currentTarget);
   };
@@ -68,10 +73,15 @@ const MoreOptions = React.memo((props) => {
           sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)" }}
         >
           {/* <div class="dropdown-menu"> */}
-          <MenuItem sx={{ color: "#e86a6a" }} onClick={saveOnClick}>
-            Save
+          <MenuItem
+            sx={{ color: "#e86a6a" }}
+            onClick={() => saveOnClick(activeBg)}
+          >
+            {text1}
           </MenuItem>
-          <MenuItem onClick={savedGraphOnClick}>Saved Graphs</MenuItem>
+          <MenuItem onClick={() => savedGraphOnClick(activeBg)}>
+            {text2}
+          </MenuItem>
           {/* </div> */}
         </Menu>
       </div>

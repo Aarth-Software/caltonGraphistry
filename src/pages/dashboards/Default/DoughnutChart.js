@@ -58,12 +58,13 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const DoughnutChart = ({ theme, title }) => {
+const DoughnutChart = ({ theme, title, graphData }) => {
+  console.log(graphData);
   const data = {
-    labels: ["Social", "Search Engines", "Direct", "Other"],
+    labels: graphData?.map((eg) => eg.role),
     datasets: [
       {
-        data: [260, 125, 54, 146],
+        data: graphData?.map((eg) => eg.count),
         backgroundColor: [
           theme.palette.secondary.main,
           red[500],
@@ -104,7 +105,7 @@ const DoughnutChart = ({ theme, title }) => {
         <ChartWrapper>
           <DoughnutInner>
             <Typography variant="h4">+27%</Typography>
-            <Typography variant="caption">more sales</Typography>
+            <Typography variant="caption">more visitors</Typography>
           </DoughnutInner>
           <Doughnut data={data} options={options} />
         </ChartWrapper>
@@ -112,47 +113,20 @@ const DoughnutChart = ({ theme, title }) => {
           <TableHead>
             <TableRow>
               <TableCell>Source</TableCell>
-              <TableCell>Revenue</TableCell>
-              <TableCell>Value</TableCell>
+              <TableCell>Count</TableCell>
+              <TableCell>Percentage</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Social
-              </TableCell>
-              <TableCell>260</TableCell>
-              <TableCell>
-                <GreenText>+35%</GreenText>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Search Engines
-              </TableCell>
-              <TableCell>125</TableCell>
-              <TableCell>
-                <RedText>-12%</RedText>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Direct
-              </TableCell>
-              <TableCell>54</TableCell>
-              <TableCell>
-                <GreenText>+46%</GreenText>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                Other
-              </TableCell>
-              <TableCell>146</TableCell>
-              <TableCell>
-                <GreenText>+24%</GreenText>
-              </TableCell>
-            </TableRow>
+            {graphData?.map((eg, i) => (
+              <TableRow key={i}>
+                <TableCell component="th" scope="row">
+                  {eg.role}
+                </TableCell>
+                <TableCell>{eg.count}</TableCell>
+                <TableCell>{eg.percentage.toFixed(2)} %</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>

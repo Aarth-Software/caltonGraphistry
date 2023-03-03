@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 const Presentation = ({ children }) => {
   const navigate = useNavigate();
   React.useEffect(() => {
@@ -16,7 +17,7 @@ const Presentation = ({ children }) => {
     //     </AppContent>
     //   </Root>
     // </MuiThemeProvider>
-    <span>loading..</span>
+    <Loader />
   );
 };
 

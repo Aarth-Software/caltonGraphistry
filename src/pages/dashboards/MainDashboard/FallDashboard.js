@@ -13,6 +13,7 @@ import RunButton from "./SelectProperties/RunButton";
 import {
   Controls,
   flexCenter,
+  graphContainerStyle,
   moreOptionStyle,
   patternContainerStyle,
   popModalContainer,
@@ -32,12 +33,16 @@ import { useSnackbar } from "notistack";
 import GraphistryGraph from "../MainDashboard/Graphistry/GraphistryGraph";
 import TooltipComp from "../../../libs/Tooltip/Tooltip";
 import info from "../../../asserts/info.svg";
-import { getDropdowns } from "../../../services/service";
+import { GenerateDataSet, postQuery } from "../../../services/service";
 import { useFetch } from "../../../utils/useFetch";
 import { red } from "@mui/material/colors";
 import FiltersComponent from "./SelectProperties/filters/Filters";
 import { useKeycloak } from "@react-keycloak/web";
-
+import Loader from "../../../components/Loader";
+const LoaderContainer = styled(Box)({
+  width: "100%",
+  height: "100%",
+});
 const Card = styled(Box)``;
 const FallDashboard = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -62,69 +67,66 @@ const FallDashboard = () => {
     selection_type: "1node",
   });
   const [values, setValues] = React.useState({ data: [], loading: null });
-  const [record, setRecord] = React.useState([
-    { title: "custom", query: "nodeA+nodeC", date: "12/6/20" },
-    { title: "Darci", query: "nodeB", date: "31/6/20" },
-    { title: "Brooke", query: "nodeC", date: "16/7/20" },
-    { title: "Jack", query: "nodeB+nodeC", date: "21/08/21" },
-    { title: "Great", query: "nodeA+nodeC", date: "12/6/20" },
-    { title: "Jin", query: "nodeB", date: "31/6/20" },
-    { title: "Lisa", query: "nodeC", date: "16/7/20" },
-    { title: "Jennie", query: "nodeB+nodeC", date: "21/08/21" },
-  ]);
   const [nodeState, setNodeState] = React.useState({
     nodeA: { value: "", inputValue: "", disableInput: true },
     nodeB: { value: "", inputValue: "", disableInput: true },
     nodeC: { value: "", inputValue: "", disableInput: true },
   });
+  const [savedDataSet, setSaveDataSet] = React.useState({
+    status: false,
+    data: null,
+  });
   const { keycloak, initialized } = useKeycloak();
 
   const baseURL = process.env.REACT_APP_BASE_URL;
-  const [loading, data, error] = useFetch(
-    `${baseURL}/getDropdownValues`,
-    false
+  const [loading, data, error] = useFetch(`getDropdownValues`, false);
+  const [recordsLoading, records, recordsError] = useFetch(
+    `userQueries/${keycloak.idTokenParsed.sub}`
   );
-  console.log([loading, data, error]);
 
   const getPatternChange = (e) => {
+    console.log(e);
     setNodeState(getAccessPatternVariables(e.code));
     setPattern(e);
-    const specificObject = data.data.find(
+    const specificObject = data?.data?.find(
       (d) => d.selection_type === e.selection_type
     );
+    console.log(specificObject);
     setdropDownOptions(specificObject);
   };
 
-  const getId = (obj) => {
-    const baseURL = process.env.REACT_APP_BASE_URL;
-    const { nodeA, nodeB, nodeC, keywordA, keywordB, keywordC } = obj;
-    console.log(nodeA, nodeB, keywordA);
+  const getId = async (obj, errorCatch) => {
+    if (errorCatch.some((eg) => eg)) {
+      return;
+    }
     setValues({ ...values, loading: true });
-    fetch(
-      `${baseURL}/buildQuery?node1=${nodeA}&keyword1=${keywordA}&node2=${nodeB}&keyword2=${keywordB}&node3=${nodeC}&keyword3=${keywordC}`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
+    try {
+      const response = await GenerateDataSet(obj);
+      if (response.data === "No records found") {
+        setValues({ data: response.data, loading: false });
+      } else {
+        setValues({ data: response.data[0], loading: false });
+        enqueueSnackbar("Renerate graph successfull", {
+          variant: "success",
+          autoHideDuration: 2000,
+          style: { width: 300, left: "calc(50% - 150px)" },
+        });
       }
-    )
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        if (result === "No records found") {
-          setValues({ data: result, loading: false });
-        } else {
-          setValues({ data: result[0], loading: false });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setValues({ ...values, loading: false });
+    } catch (err) {
+      console.log(err);
+      setValues({ ...values, loading: false });
+      enqueueSnackbar("Renerate graph unsuccessfull", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
       });
+    }
   };
   const generateGraph = async () => {
     // let inputValuError, valueError;
+    let errorCatch = [];
     const cloneObject = { ...nodeState };
+    console.log(cloneObject);
     for (let x in cloneObject) {
       if (cloneObject[x].disableInput !== undefined) {
         if (cloneObject[x].inputValue === "" && cloneObject[x].value === "") {
@@ -136,15 +138,16 @@ const FallDashboard = () => {
         }
         cloneObject[x].error =
           !cloneObject[x].inputValue || !cloneObject[x].value;
+        errorCatch.push(cloneObject[x].error);
       } else if (cloneObject[x].disableInput === undefined) {
         if (cloneObject[x].value === "") {
           // cloneObject[x].message = "select value mandatory";
           // valueError = true;
         }
         cloneObject[x].error = !cloneObject[x].value;
+        errorCatch.push(cloneObject[x].error);
       }
     }
-
     const mergeObjects = (obj) => {
       const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
         (result, key) => {
@@ -155,7 +158,6 @@ const FallDashboard = () => {
         {}
       );
       if (Object.keys(obj).length === 2) {
-        console.log("second");
         const getproperMap = [dropDownSelectedValues].map((el, i) => {
           const data = {
             ...el,
@@ -172,10 +174,9 @@ const FallDashboard = () => {
     };
 
     const valueObj = mergeObjects(cloneObject);
-    console.log(valueObj);
     setSelectParams(valueObj);
     setNodeState(cloneObject);
-    getId(valueObj);
+    getId(valueObj, errorCatch);
     console.log(valueObj);
     for (let d in cloneObject) {
       if (cloneObject[d].error) {
@@ -190,35 +191,71 @@ const FallDashboard = () => {
 
   const saveOnClick = () => {
     seOpenSavePanel(true);
+    setAnchorMenu(false);
   };
   const savedGraphOnClick = () => {
     setOpen(true);
+    setAnchorMenu(false);
   };
-  const getSave = () => {
-    var query = "";
-    const date = new Date()
-      .toLocaleDateString("default", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
-      .replace(",", "");
-    for (let x in selectParams) {
-      query += selectParams[x] + "/";
+  const getSave = async () => {
+    console.log(values?.data);
+    if (!values?.data) {
+      seOpenSavePanel(false);
+      setSaveName(false);
+      enqueueSnackbar("Please generate Graph", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+      return;
     }
-    if (record.every((e, i) => e.title !== saveName)) {
-      console.log("submitted");
-      setRecord([...record, { title: saveName, query: query, date: date }]);
+    const [changeKeys] = [selectParams].map((eg) => {
+      return {
+        user_id: keycloak.idTokenParsed.sub,
+        node1: eg.nodeA,
+        node2: eg.nodeB,
+        node3: eg.nodeC,
+        keyword1: eg.keywordA,
+        keyword2: eg.keywordB,
+        keyword3: eg.keywordC,
+        query_name: saveName,
+        dataset: values.data,
+        selection_type: `node${Object.keys(nodeState).length}`,
+      };
+    });
+
+    if (saveName.split("").length < 2) {
+      enqueueSnackbar("fill mandatory fields", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+      return;
     }
+
+    try {
+      const response = await postQuery(changeKeys);
+      console.log(response);
+      seOpenSavePanel(false);
+      setSaveName(false);
+      enqueueSnackbar(response.data.message, {
+        variant: "success",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleClick = (el) => {
+    console.log(el);
+    console.log(el.dataset);
+    setSaveDataSet({ status: true, data: el.dataset });
+    setOpen(false);
   };
 
-  React.useEffect(() => {
-    enqueueSnackbar("authentication successfull", {
-      variant: "success",
-      autoHideDuration: 2000,
-      style: { width: 300, left: "calc(50% - 150px)" },
-    });
-  }, [keycloak?.idTokenParsed?.sub]);
+  console.log(pattern);
+
   return (
     <>
       <Stack sx={{ width: "100%", height: "100%" }}>
@@ -267,12 +304,6 @@ const FallDashboard = () => {
                 zIndex: 2,
               }}
             >
-              {/* <TooltipComp
-                className="no-padding-icon-button"
-                size="1rem"
-                icon={filterInActive}
-                message={"this is selected drop info"}
-              /> */}
               <FiltersComponent icon={filterInActive} />
             </Box>
 
@@ -312,15 +343,27 @@ const FallDashboard = () => {
                 savedGraphOnClick={savedGraphOnClick}
                 anchorMenu={anchorMenu}
                 setAnchorMenu={setAnchorMenu}
+                text1={"Save"}
+                text2={"Saved Graphs"}
               />
             </div>
 
             <RunButton onClick={generateGraph} />
           </Box>
         </Box>
+        {values.loading && (
+          <LoaderContainer sx={graphContainerStyle}>
+            <Loader />
+          </LoaderContainer>
+        )}
         {!values.loading &&
           values.data !== "No records found" &&
-          values.data && <GraphistryGraph name="graph" dataSet={values.data} />}
+          !!values.data.length && (
+            <GraphistryGraph name="graph" dataSet={values.data} />
+          )}
+        {!!savedDataSet.status && (
+          <GraphistryGraph name="graph" dataSet={savedDataSet.data} />
+        )}
         {!values.loading &&
           (!values.data || values.data === "No records found") && (
             <Box sx={{ height: "100%", width: "100%", ...flexCenter }}>
@@ -343,8 +386,8 @@ const FallDashboard = () => {
         setModalOpen={setOpen}
         child={
           <SavedGraphsPop
-            record={record}
-            btn={
+            record={records}
+            Btn={
               <StandardButton
                 text="Graph"
                 varient="contained"
@@ -355,6 +398,7 @@ const FallDashboard = () => {
                 fontWeight={600}
               />
             }
+            click={handleClick}
           />
         }
         classProp={popModalContainer}

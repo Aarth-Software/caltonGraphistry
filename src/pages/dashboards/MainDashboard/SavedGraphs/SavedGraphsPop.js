@@ -36,12 +36,12 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const SavedGraphsPop = ({ theme, btn, record }) => {
+const SavedGraphsPop = ({ theme, Btn, record, click }) => {
   const { pageElements, page, pages, prevClick, nextClick } = usePagination(
     record,
     6
   );
-
+  console.log();
   return (
     <Card mb={6}>
       <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
@@ -82,12 +82,16 @@ const SavedGraphsPop = ({ theme, btn, record }) => {
             {pageElements.map((e, i) => (
               <TableRow key={i}>
                 <TableCell component="th" scope="row">
-                  {e.title}
+                  {e.query_name}
                 </TableCell>
-                <TableCell>{e.query}</TableCell>
-                <TableCell>{e.date}</TableCell>
+                <TableCell>{e.selected_query}</TableCell>
+                <TableCell>{e.save_time}</TableCell>
                 <TableCell align="right">
-                  {!btn ? <MoreVertical /> : btn}
+                  {!Btn ? (
+                    <MoreVertical />
+                  ) : (
+                    React.cloneElement(Btn, { onClick: () => click(e) })
+                  )}
                 </TableCell>
               </TableRow>
             ))}

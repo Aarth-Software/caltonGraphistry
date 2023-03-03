@@ -30,6 +30,7 @@ import Landing from "./pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import AuthLanding from "./layouts/AuthLanding";
+import FallDashboard from "./pages/dashboards/MainDashboard/FallDashboard";
 // import Analysis from "./pages/dashboards/DataAnalysis/Analysis";
 const Analysis = async(() =>
   import("./pages/dashboards/DataAnalysis/Analysis")
@@ -38,9 +39,6 @@ const Analysis = async(() =>
 const Default = async(() => import("./pages/dashboards/Default"));
 const Analytics = async(() => import("./pages/dashboards/Analytics"));
 const SaaS = async(() => import("./pages/dashboards/SaaS"));
-const FallDashboard = async(() =>
-  import("./pages/dashboards/MainDashboard/FallDashboard")
-);
 
 const routes = [
   {
