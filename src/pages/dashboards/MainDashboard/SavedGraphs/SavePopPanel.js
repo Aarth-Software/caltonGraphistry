@@ -42,7 +42,14 @@ const BtnFlex = styled("div")({
   //   marginTop: ".7rem",
 });
 
-const SavePopPanel = ({ getSave, setSaveName }) => {
+const SavePopPanel = ({
+  getSave,
+  inputValue,
+  setSaveName,
+  closeWithCrossICon,
+  headTitle,
+  close,
+}) => {
   return (
     <SavePopContainer>
       <FlexItems>
@@ -50,9 +57,9 @@ const SavePopPanel = ({ getSave, setSaveName }) => {
           varient="h3"
           sx={{ fontWeight: "bold", fontSize: "1.2rem" }}
         >
-          Save
+          {headTitle}
         </Typography>
-        <CloseIcon sx={{ fontSize: "2rem" }} />
+        <CloseIcon sx={{ fontSize: "2rem" }} onClick={closeWithCrossICon} />
       </FlexItems>
       <Items>
         <TextField
@@ -60,6 +67,7 @@ const SavePopPanel = ({ getSave, setSaveName }) => {
           id="standard-size-large"
           size="large"
           variant="standard"
+          value={inputValue}
           fullWidth
           onChange={(e) => setSaveName(e.target.value)}
         />
@@ -73,6 +81,7 @@ const SavePopPanel = ({ getSave, setSaveName }) => {
           mr={0.4}
           fontSize=".7rem"
           fontWeight={600}
+          onClick={close}
         />
         <StandardButton
           text="Save"

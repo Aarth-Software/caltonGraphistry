@@ -64,7 +64,10 @@ html{
     position: relative;
     padding : 0rem;
     /* background-color: green; */
-    width : 3rem
+    width : 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .icon-container img {

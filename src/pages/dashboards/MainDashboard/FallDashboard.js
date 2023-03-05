@@ -60,11 +60,20 @@ const FallDashboard = () => {
   const [saveName, setSaveName] = React.useState("");
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const [dropdownOptions, setdropDownOptions] = React.useState({
-    id: 1,
-    node_1: { value: ["don", "con", "ban"] },
-    node_2: {},
-    node_3: {},
-    selection_type: "1node",
+    node_1: {
+      value: ["Construct (Ind. Var.)"],
+    },
+    node_2: {
+      "Construct (Ind. Var.)": [
+        "Construct (Mediator)",
+        "Construct (Moderator)",
+      ],
+    },
+    node_3: {
+      "Construct (Mediator)": ["Construct (Dep. Var.)"],
+      "Construct (Moderator)": ["Construct (Dep. Var.)"],
+    },
+    selection_type: "3node",
   });
   const [values, setValues] = React.useState({ data: [], loading: null });
   const [nodeState, setNodeState] = React.useState({
@@ -80,7 +89,7 @@ const FallDashboard = () => {
 
   const baseURL = process.env.REACT_APP_BASE_URL;
   const [loading, data, error] = useFetch(`getDropdownValues`, false);
-  const [recordsLoading, records, recordsError] = useFetch(
+  const [recordsLoading, records, recordsError, refetch] = useFetch(
     `userQueries/${keycloak.idTokenParsed.sub}`
   );
 
@@ -104,22 +113,25 @@ const FallDashboard = () => {
       const response = await GenerateDataSet(obj);
       if (response.data === "No records found") {
         setValues({ data: response.data, loading: false });
+        setSaveDataSet({ status: false, data: null });
       } else {
         setValues({ data: response.data[0], loading: false });
-        enqueueSnackbar("Renerate graph successfull", {
+        enqueueSnackbar("Generate graph successfull", {
           variant: "success",
           autoHideDuration: 2000,
           style: { width: 300, left: "calc(50% - 150px)" },
         });
+        setSaveDataSet({ status: false, data: null });
       }
     } catch (err) {
       console.log(err);
       setValues({ ...values, loading: false });
-      enqueueSnackbar("Renerate graph unsuccessfull", {
+      enqueueSnackbar("Generate graph unsuccessfull", {
         variant: "error",
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
+      setSaveDataSet({ status: false, data: null });
     }
   };
   const generateGraph = async () => {
@@ -188,7 +200,6 @@ const FallDashboard = () => {
       }
     }
   };
-
   const saveOnClick = () => {
     seOpenSavePanel(true);
     setAnchorMenu(false);
@@ -198,8 +209,8 @@ const FallDashboard = () => {
     setAnchorMenu(false);
   };
   const getSave = async () => {
-    console.log(values?.data);
-    if (!values?.data) {
+    console.log(selectParams);
+    if (!values?.data || !Object.keys(selectParams).length) {
       seOpenSavePanel(false);
       setSaveName(false);
       enqueueSnackbar("Please generate Graph", {
@@ -220,7 +231,8 @@ const FallDashboard = () => {
         keyword3: eg.keywordC,
         query_name: saveName,
         dataset: values.data,
-        selection_type: `node${Object.keys(nodeState).length}`,
+        selection_type: `${Object.keys(nodeState).length}node`,
+        selection_code: pattern.code,
       };
     });
 
@@ -243,18 +255,73 @@ const FallDashboard = () => {
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
+      refetch();
     } catch (err) {
       console.log(err);
     }
   };
-  const handleClick = (el) => {
-    console.log(el);
-    console.log(el.dataset);
-    setSaveDataSet({ status: true, data: el.dataset });
+  const retriveGraph = (e) => {
+    setNodeState(getAccessPatternVariables(e.selection_code));
+    setNodeState((prev) => {
+      const updatedState = {};
+      for (const [idx, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
+        if (prev.hasOwnProperty(key)) {
+          updatedState[key] = {
+            ...prev[key],
+            ...(prev[key].disableDropDown !== undefined && {
+              disableDropDown: true,
+            }),
+            ...(prev[key].error !== undefined && {
+              error: false,
+            }),
+            ...(prev[key].disableInput !== undefined && { disableInput: true }),
+            ...(prev[key].error !== undefined && {
+              error: false,
+            }),
+            value:
+              e[
+                `node${
+                  e.selection_type === "2node"
+                    ? parseInt(idx) !== 2
+                      ? parseInt(idx) + 1
+                      : parseInt(idx)
+                    : parseInt(idx) + 1
+                }`
+              ],
+            inputValue:
+              e[
+                `keyword${
+                  e.selection_type === "2node"
+                    ? parseInt(idx) !== 2
+                      ? parseInt(idx) + 1
+                      : parseInt(idx)
+                    : parseInt(idx) + 1
+                }`
+              ],
+          };
+        }
+      }
+      return { ...prev, ...updatedState };
+    });
+    const fixPattern = btnArray.findIndex((eg) => eg.code === e.selection_code);
+    setPattern(btnArray[fixPattern]);
+    setActivePattern(
+      activePattern.map((ek, i) => (i === fixPattern ? !ek : false))
+    );
+    const specificObject = data?.data?.find(
+      (d) => d.selection_type === e.selection_type
+    );
+    setdropDownOptions(specificObject);
+    setSaveDataSet({ status: true, data: e.dataset });
+    setAnchorMenu(null);
     setOpen(false);
   };
-
-  console.log(pattern);
+  const closeWithCrossICon = () => {
+    seOpenSavePanel(false);
+  };
+  const closePannel = () => {
+    seOpenSavePanel(false);
+  };
 
   return (
     <>
@@ -307,8 +374,13 @@ const FallDashboard = () => {
               <FiltersComponent icon={filterInActive} />
             </Box>
 
+            {loading && (
+              <Box sx={{ ...selectPropContainerStyle, ...flexCenter }}>
+                <Loader />
+              </Box>
+            )}
             <Box sx={selectPropContainerStyle}>
-              {data?.data?.length && (
+              {!loading && (
                 <SelectPropertiesContainer
                   pattern={pattern}
                   nodeState={nodeState}
@@ -336,6 +408,7 @@ const FallDashboard = () => {
                 boxShadow:
                   anchorMenu === null ? "" : "0px .6px 3px rgba(0, 0, 0, 0.06)",
                 color: anchorMenu === null ? "black" : "#e57373",
+                ...flexCenter,
               }}
             >
               <MoreOptions
@@ -358,13 +431,15 @@ const FallDashboard = () => {
         )}
         {!values.loading &&
           values.data !== "No records found" &&
-          !!values.data.length && (
+          !!values.data.length &&
+          !savedDataSet.status && (
             <GraphistryGraph name="graph" dataSet={values.data} />
           )}
-        {!!savedDataSet.status && (
+        {!!savedDataSet.status && !values.loading && (
           <GraphistryGraph name="graph" dataSet={savedDataSet.data} />
         )}
         {!values.loading &&
+          !savedDataSet.status &&
           (!values.data || values.data === "No records found") && (
             <Box sx={{ height: "100%", width: "100%", ...flexCenter }}>
               there is not data available with this{" "}
@@ -378,7 +453,15 @@ const FallDashboard = () => {
       <PopModal
         openModal={openSavePanel}
         setModalOpen={seOpenSavePanel}
-        child={<SavePopPanel getSave={getSave} setSaveName={setSaveName} />}
+        child={
+          <SavePopPanel
+            getSave={getSave}
+            setSaveName={setSaveName}
+            closeWithCrossICon={closeWithCrossICon}
+            headTitle="Save"
+            close={closePannel}
+          />
+        }
         classProp={{ ...popModalContainer, ...popSaveModalContainer }}
       />
       <PopModal
@@ -398,7 +481,7 @@ const FallDashboard = () => {
                 fontWeight={600}
               />
             }
-            click={handleClick}
+            click={retriveGraph}
           />
         }
         classProp={popModalContainer}

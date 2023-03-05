@@ -31,5 +31,5 @@ export const useFetch = (endPoint, parse) => {
   React.useEffect(() => {
     getFetch();
   }, [getFetch]);
-  return [loading, data, error];
+  return [loading, data, error, getFetch];
 };

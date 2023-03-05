@@ -64,8 +64,10 @@ const ManagedSavedGraphs = ({
     data,
     7
   );
-  const updateRecords = async (ele) => {
+  const updateRecords = (ele) => {
+    console.log(data[ele].query_name);
     setEditPannel(true);
+    setEditedValue(data[ele].query_name);
   };
   const deleteRecords = async (ele) => {
     try {
@@ -123,6 +125,13 @@ const ManagedSavedGraphs = ({
         style: { width: 300, left: "calc(50% - 150px)" },
       });
     }
+  };
+
+  const closeWithCrossICon = () => {
+    setEditPannel(false);
+  };
+  const closeEditPannel = () => {
+    setEditPannel(false);
   };
 
   return (
@@ -251,7 +260,14 @@ const ManagedSavedGraphs = ({
         openModal={editPannel}
         setModalOpen={setEditPannel}
         child={
-          <SavePopPanel getSave={getEditSave} setSaveName={setEditedValue} />
+          <SavePopPanel
+            getSave={getEditSave}
+            inputValue={editedValue}
+            setSaveName={setEditedValue}
+            closeWithCrossICon={closeWithCrossICon}
+            headTitle="Rename"
+            close={closeEditPannel}
+          />
         }
         classProp={{ ...popModalContainer, ...popSaveModalContainer }}
       />

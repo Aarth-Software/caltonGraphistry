@@ -19,6 +19,7 @@ import {
   nodeBCircleStyleProp,
 } from "../../../../libs/JSS/Jss";
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
+import { useSnackbar } from "notistack";
 // import { rgba } from "polished";
 // import { css } from "@emotion/react";
 
@@ -36,6 +37,7 @@ const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
   const { pattern, nodeState, setNodeState, dropdownOptions } = props;
+  const { enqueueSnackbar } = useSnackbar();
   // console.log(dropdownOptions);
   const { nodeA, nodeB, nodeC } = pattern;
   const rowNodePattern = pattern?.series
@@ -46,12 +48,15 @@ const SelectPropertiesContainer = React.memo((props) => {
     const { name, value } = e.target;
     console.log([name, value]);
     console.log(nodeState);
-    // if (value === "No options") {
-    //   return;
-    // }
+    if (value === "No options") {
+      return enqueueSnackbar("Please select the previous node", {
+        variant: "warning",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+    }
 
     if (!!nodeState[name].pointer) {
-      console.log("havePointer");
       let nextUnUsed =
         nodeState[nodeState[name].pointer].disableInput === undefined &&
         nodeState[nodeState[name].pointer].inputValue === undefined;
@@ -69,7 +74,6 @@ const SelectPropertiesContainer = React.memo((props) => {
           },
         });
       } else if (nextUnUsed) {
-        console.log("unSolidNode");
         setNodeState({
           ...nodeState,
           [name]: { ...nodeState[name], value: value, disableInput: false },
@@ -82,7 +86,6 @@ const SelectPropertiesContainer = React.memo((props) => {
           },
         });
       } else if (!nextUnUsed) {
-        console.log("solidNode");
         setNodeState({
           ...nodeState,
           [name]: { ...nodeState[name], value: value, disableInput: false },
@@ -103,7 +106,6 @@ const SelectPropertiesContainer = React.memo((props) => {
       let unUsed =
         nodeState[name].disableInput === undefined &&
         nodeState[name].inputValue === undefined;
-      console.log("no pointer");
       if (unUsed) {
         console.log("unSolidNode");
         setNodeState({
@@ -202,9 +204,9 @@ const SelectPropertiesContainer = React.memo((props) => {
               change={inputChange}
               unUsed={pattern?.unUsedC}
               options={
-                dropdownOptions.selection_type === "2node"
+                dropdownOptions?.selection_type === "2node"
                   ? dropdownOptions?.node_2[nodeState?.nodeA?.value]
-                  : dropdownOptions.selection_type === "3node" &&
+                  : dropdownOptions?.selection_type === "3node" &&
                     dropdownOptions?.node_3[nodeState?.nodeB?.value]
               }
             />

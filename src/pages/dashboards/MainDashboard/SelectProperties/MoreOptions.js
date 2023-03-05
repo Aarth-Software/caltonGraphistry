@@ -26,7 +26,6 @@ const MoreOptions = React.memo((props) => {
     setActiveBg,
     text1,
     text2,
-    ele,
     activeBg,
   } = props;
 
@@ -57,8 +56,9 @@ const MoreOptions = React.memo((props) => {
                 : toggleMenu
             }
             color="inherit"
-            size="large"
+            size="small"
             className="remove-padding"
+            sx={{ mr: 6 }}
           >
             <Tooltip title="More options">
               <MoreVertical />
@@ -70,7 +70,7 @@ const MoreOptions = React.memo((props) => {
           anchorEl={anchorMenu}
           open={Boolean(anchorMenu)}
           onClose={closeMenu}
-          sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)" }}
+          sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)", pt: 0, mt: -1 }}
         >
           {/* <div class="dropdown-menu"> */}
           <MenuItem
