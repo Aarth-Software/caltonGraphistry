@@ -20,19 +20,7 @@ import {
 } from "../../../../libs/JSS/Jss";
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 import { useSnackbar } from "notistack";
-// import { rgba } from "polished";
-// import { css } from "@emotion/react";
-
-// const illustrationCardStyle = (props) => css`
-//   ${props.theme.palette.mode !== "dark" &&
-//   `
-//     background: ${rgba(props.theme.palette.primary.main, 0.125)};
-//     color: ${props.theme.palette.primary.main};
-//   `}
-// `;
-// const Card = styled(Box)`
-//   ${illustrationCardStyle}
-// `;
+import { selectDropDownValues } from "../../../../libs/HigherOrderFunctions";
 const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
@@ -45,86 +33,7 @@ const SelectPropertiesContainer = React.memo((props) => {
     : firstInputLineStyles;
 
   const selectDropDownValue = (e) => {
-    const { name, value } = e.target;
-    console.log([name, value]);
-    console.log(nodeState);
-    if (value === "No options") {
-      return enqueueSnackbar("Please select the previous node", {
-        variant: "warning",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
-    }
-
-    if (!!nodeState[name].pointer) {
-      let nextUnUsed =
-        nodeState[nodeState[name].pointer].disableInput === undefined &&
-        nodeState[nodeState[name].pointer].inputValue === undefined;
-      console.log(nextUnUsed);
-      if (!nextUnUsed && nodeState[name].disableInput === undefined) {
-        setNodeState({
-          ...nodeState,
-          [name]: { ...nodeState[name], value: value },
-          [nodeState[name].pointer]: {
-            ...nodeState[nodeState[name].pointer],
-            value: "",
-            error: false,
-            disableDropDown: false,
-            message: "",
-          },
-        });
-      } else if (nextUnUsed) {
-        setNodeState({
-          ...nodeState,
-          [name]: { ...nodeState[name], value: value, disableInput: false },
-          [nodeState[name].pointer]: {
-            ...nodeState[nodeState[name].pointer],
-            value: "",
-            error: false,
-            disableDropDown: false,
-            message: "",
-          },
-        });
-      } else if (!nextUnUsed) {
-        setNodeState({
-          ...nodeState,
-          [name]: { ...nodeState[name], value: value, disableInput: false },
-          [nodeState[name].pointer]: {
-            ...nodeState[nodeState[name].pointer],
-            value: "",
-            disableInput: true,
-            error: false,
-            inputValue: "",
-            disableDropDown: false,
-            message: "",
-          },
-        });
-      }
-    }
-    let Pointer = !!nodeState[name].pointer;
-    if (!Pointer) {
-      let unUsed =
-        nodeState[name].disableInput === undefined &&
-        nodeState[name].inputValue === undefined;
-      if (unUsed) {
-        console.log("unSolidNode");
-        setNodeState({
-          ...nodeState,
-          [name]: { ...nodeState[name], value: value, message: "" },
-        });
-      } else if (!unUsed) {
-        console.log("solidNode");
-        setNodeState({
-          ...nodeState,
-          [name]: {
-            ...nodeState[name],
-            value: value,
-            disableInput: false,
-            message: "",
-          },
-        });
-      }
-    }
+    selectDropDownValues(e, nodeState, setNodeState, enqueueSnackbar);
   };
 
   const inputChange = (e) => {

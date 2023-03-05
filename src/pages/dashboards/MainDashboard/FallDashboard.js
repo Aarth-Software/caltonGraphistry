@@ -39,6 +39,10 @@ import { red } from "@mui/material/colors";
 import FiltersComponent from "./SelectProperties/filters/Filters";
 import { useKeycloak } from "@react-keycloak/web";
 import Loader from "../../../components/Loader";
+import {
+  refreshState,
+  retriveSavedGraphValues,
+} from "../../../libs/HigherOrderFunctions";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
@@ -94,8 +98,8 @@ const FallDashboard = () => {
   );
 
   const getPatternChange = (e) => {
-    console.log(e);
     setNodeState(getAccessPatternVariables(e.code));
+    refreshState(setNodeState);
     setPattern(e);
     const specificObject = data?.data?.find(
       (d) => d.selection_type === e.selection_type
@@ -138,7 +142,6 @@ const FallDashboard = () => {
     // let inputValuError, valueError;
     let errorCatch = [];
     const cloneObject = { ...nodeState };
-    console.log(cloneObject);
     for (let x in cloneObject) {
       if (cloneObject[x].disableInput !== undefined) {
         if (cloneObject[x].inputValue === "" && cloneObject[x].value === "") {
@@ -262,47 +265,7 @@ const FallDashboard = () => {
   };
   const retriveGraph = (e) => {
     setNodeState(getAccessPatternVariables(e.selection_code));
-    setNodeState((prev) => {
-      const updatedState = {};
-      for (const [idx, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
-        if (prev.hasOwnProperty(key)) {
-          updatedState[key] = {
-            ...prev[key],
-            ...(prev[key].disableDropDown !== undefined && {
-              disableDropDown: true,
-            }),
-            ...(prev[key].error !== undefined && {
-              error: false,
-            }),
-            ...(prev[key].disableInput !== undefined && { disableInput: true }),
-            ...(prev[key].error !== undefined && {
-              error: false,
-            }),
-            value:
-              e[
-                `node${
-                  e.selection_type === "2node"
-                    ? parseInt(idx) !== 2
-                      ? parseInt(idx) + 1
-                      : parseInt(idx)
-                    : parseInt(idx) + 1
-                }`
-              ],
-            inputValue:
-              e[
-                `keyword${
-                  e.selection_type === "2node"
-                    ? parseInt(idx) !== 2
-                      ? parseInt(idx) + 1
-                      : parseInt(idx)
-                    : parseInt(idx) + 1
-                }`
-              ],
-          };
-        }
-      }
-      return { ...prev, ...updatedState };
-    });
+    retriveSavedGraphValues(e, setNodeState);
     const fixPattern = btnArray.findIndex((eg) => eg.code === e.selection_code);
     setPattern(btnArray[fixPattern]);
     setActivePattern(
@@ -322,6 +285,7 @@ const FallDashboard = () => {
   const closePannel = () => {
     seOpenSavePanel(false);
   };
+  console.log(nodeState);
 
   return (
     <>
