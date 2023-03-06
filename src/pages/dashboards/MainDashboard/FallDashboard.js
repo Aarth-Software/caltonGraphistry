@@ -40,6 +40,8 @@ import FiltersComponent from "./SelectProperties/filters/Filters";
 import { useKeycloak } from "@react-keycloak/web";
 import Loader from "../../../components/Loader";
 import {
+  checkError,
+  mergeObjects,
   refreshState,
   retriveSavedGraphValues,
 } from "../../../libs/HigherOrderFunctions";
@@ -139,55 +141,9 @@ const FallDashboard = () => {
     }
   };
   const generateGraph = async () => {
-    // let inputValuError, valueError;
     let errorCatch = [];
     const cloneObject = { ...nodeState };
-    for (let x in cloneObject) {
-      if (cloneObject[x].disableInput !== undefined) {
-        if (cloneObject[x].inputValue === "" && cloneObject[x].value === "") {
-          // cloneObject[x].message = "input and select values are mandatory";
-          // valueError = true;
-          // inputValuError = true;
-        } else if (cloneObject[x].inputValue === "") {
-          // cloneObject[x].message = "input value mandatory";
-        }
-        cloneObject[x].error =
-          !cloneObject[x].inputValue || !cloneObject[x].value;
-        errorCatch.push(cloneObject[x].error);
-      } else if (cloneObject[x].disableInput === undefined) {
-        if (cloneObject[x].value === "") {
-          // cloneObject[x].message = "select value mandatory";
-          // valueError = true;
-        }
-        cloneObject[x].error = !cloneObject[x].value;
-        errorCatch.push(cloneObject[x].error);
-      }
-    }
-    const mergeObjects = (obj) => {
-      const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
-        (result, key) => {
-          result[key] = obj[key]?.value || null;
-          result[key.replace("node", "keyword")] = obj[key]?.inputValue || null;
-          return result;
-        },
-        {}
-      );
-      if (Object.keys(obj).length === 2) {
-        const getproperMap = [dropDownSelectedValues].map((el, i) => {
-          const data = {
-            ...el,
-            nodeB: el.nodeC,
-            nodeC: el.nodeB,
-            keywordB: el.keywordC,
-            keywordC: el.keywordB,
-          };
-          return data;
-        });
-        return getproperMap[0];
-      }
-      return dropDownSelectedValues;
-    };
-
+    checkError(cloneObject, errorCatch);
     const valueObj = mergeObjects(cloneObject);
     setSelectParams(valueObj);
     setNodeState(cloneObject);
@@ -212,7 +168,6 @@ const FallDashboard = () => {
     setAnchorMenu(false);
   };
   const getSave = async () => {
-    console.log(selectParams);
     if (!values?.data || !Object.keys(selectParams).length) {
       seOpenSavePanel(false);
       setSaveName(false);
@@ -250,7 +205,6 @@ const FallDashboard = () => {
 
     try {
       const response = await postQuery(changeKeys);
-      console.log(response);
       seOpenSavePanel(false);
       setSaveName(false);
       enqueueSnackbar(response.data.message, {
@@ -260,6 +214,11 @@ const FallDashboard = () => {
       });
       refetch();
     } catch (err) {
+      enqueueSnackbar("Save graph unsuccessfull", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
       console.log(err);
     }
   };
@@ -285,7 +244,6 @@ const FallDashboard = () => {
   const closePannel = () => {
     seOpenSavePanel(false);
   };
-  console.log(nodeState);
 
   return (
     <>
@@ -382,6 +340,7 @@ const FallDashboard = () => {
                 setAnchorMenu={setAnchorMenu}
                 text1={"Save"}
                 text2={"Saved Graphs"}
+                iconCondition={true}
               />
             </div>
 

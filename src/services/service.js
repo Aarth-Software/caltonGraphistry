@@ -23,3 +23,6 @@ export const deleteRecord = (body) => api.post("deleteSavedQuery", body);
 
 // update Record using Record ID and new name parameter
 export const updateRecord = (body) => api.post("updateSavedQuery", body);
+
+export const getKeywords = (params) =>
+  api.get(`/userKeywords/${params.userId}`);

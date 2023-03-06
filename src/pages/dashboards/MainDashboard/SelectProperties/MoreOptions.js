@@ -15,6 +15,12 @@ const IconButton = styled(MuiIconButton)`
     height: 22px;
   }
 `;
+const SaveMenuItem = styled(MenuItem)`
+  color: ${(props) => props.theme.palette.secondary.main};
+`;
+const ThreenDotOptions = styled(MoreVertical)`
+  color: ${(props) => props.theme.palette.text.primary};
+`;
 
 const MoreOptions = React.memo((props) => {
   const {
@@ -27,12 +33,20 @@ const MoreOptions = React.memo((props) => {
     text1,
     text2,
     activeBg,
+    iconCondition,
+    hideControls,
   } = props;
 
   const toggleMenu = (event) => {
+    if (hideControls) {
+      return;
+    }
     setAnchorMenu(event.currentTarget);
   };
   const multiMenuValue = (event, idx) => {
+    if (hideControls) {
+      return;
+    }
     console.log(idx);
     setActiveBg(idx);
     setAnchorMenu(event.currentTarget);
@@ -60,8 +74,8 @@ const MoreOptions = React.memo((props) => {
             className="remove-padding"
             sx={{ mr: 6 }}
           >
-            <Tooltip title="More options">
-              <MoreVertical />
+            <Tooltip title={hideControls ? "" : "More options"}>
+              {!!iconCondition ? <MoreVertical /> : <ThreenDotOptions />}
             </Tooltip>
           </IconButton>
         </div>
@@ -73,12 +87,9 @@ const MoreOptions = React.memo((props) => {
           sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)", pt: 0, mt: -1 }}
         >
           {/* <div class="dropdown-menu"> */}
-          <MenuItem
-            sx={{ color: "#e86a6a" }}
-            onClick={() => saveOnClick(activeBg)}
-          >
+          <SaveMenuItem onClick={() => saveOnClick(activeBg)}>
             {text1}
-          </MenuItem>
+          </SaveMenuItem>
           <MenuItem onClick={() => savedGraphOnClick(activeBg)}>
             {text2}
           </MenuItem>

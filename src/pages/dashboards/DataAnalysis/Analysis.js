@@ -1,11 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { Grid } from "@mui/material";
 import { green } from "@mui/material/colors";
 import { useKeycloak } from "@react-keycloak/web";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import Loader from "../../../components/Loader";
-import { dashBoardData, getUserRecords } from "../../../services/service";
+import AuthLanding from "../../../layouts/AuthLanding";
+import { getKeywords, getUserRecords } from "../../../services/service";
 import { useFetch } from "../../../utils/useFetch";
+
+import Page500 from "../../auth/Page500";
+import AuthLayout from "../../../layouts/Auth";
 
 import DoughnutChart from "../Default/DoughnutChart";
 import Stats from "../Default/Stats";
@@ -13,19 +18,10 @@ import DataTable from "./DataTable";
 import ManageSavedGarphs from "./ManageSavedGarphs";
 
 const Analysis = () => {
-  const data = [
-    { title: "custom", query: "nodeA+nodeC", date: "12/6/20" },
-    { title: "Darci", query: "nodeB", date: "31/6/20" },
-    { title: "Brooke", query: "nodeC", date: "16/7/20" },
-    { title: "jack", query: "nodeB+nodeC", date: "21/08/21" },
-    { title: "custom", query: "nodeA+nodeC", date: "12/6/20" },
-    { title: "Darci", query: "nodeB", date: "31/6/20" },
-    { title: "Brooke", query: "nodeC", date: "16/7/20" },
-    { title: "jack", query: "nodeB+nodeC", date: "21/08/21" },
-  ];
   const [apiRecords, setApiRecords] = React.useState([]);
   const [recoredsLoading, setRecordsLoading] = React.useState(false);
-  const baseURL = process.env.REACT_APP_BASE_URL;
+  const [keywords, setKeywords] = React.useState([]);
+  const [keywordLoading, setKeywordLoading] = React.useState(false);
   const [loading, records] = useFetch(`dashboardQuery`, true);
   const { keycloak, initialized } = useKeycloak();
   console.log(records);
@@ -36,7 +32,6 @@ const Analysis = () => {
         const response = await getUserRecords({
           userId: keycloak.idTokenParsed.sub,
         });
-        console.log(response.data);
         setApiRecords(response.data);
         setRecordsLoading(false);
       } catch (err) {
@@ -44,18 +39,49 @@ const Analysis = () => {
         console.log(err);
       }
     })();
+    (async () => {
+      try {
+        setKeywordLoading(true);
+        const response = await getKeywords({
+          userId: keycloak.idTokenParsed.sub,
+        });
+        console.log(response.data);
+        setKeywords(response.data);
+        setKeywordLoading(false);
+      } catch (err) {
+        setKeywordLoading(null);
+        console.log(err);
+      }
+    })();
   }, [keycloak.idTokenParsed.sub]);
 
   const conditionalData = records?.query1?.length > 0 ? records.query1[0] : {};
 
-  if (loading && initialized) {
-    return <Loader color={"red"} />;
+  if (loading) {
+    return (
+      <AuthLayout>
+        <Loader />
+      </AuthLayout>
+    );
   }
   if (recoredsLoading === null) {
-    return <h6>got error</h6>;
+    return (
+      <AuthLayout>
+        <Page500 />
+      </AuthLayout>
+    );
   }
-  if (!recoredsLoading && apiRecords.length === 0) {
-    <h5 style={{ textAlign: "center" }}>no records found with this user</h5>;
+  if (
+    (!recoredsLoading && apiRecords.length === 0) ||
+    (!keywordLoading && keywords.length === 0)
+  ) {
+    return (
+      <AuthLayout>
+        <h5 style={{ textAlign: "center" }}>
+          No records associated with this user
+        </h5>
+      </AuthLayout>
+    );
   }
 
   return (
@@ -113,6 +139,7 @@ const Analysis = () => {
             condition={true}
             data={apiRecords}
             setApiRecords={setApiRecords}
+            accessKeys={["query_name", "selected_query", "save_time"]}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -123,8 +150,10 @@ const Analysis = () => {
             colSecondTitle="As"
             colThirdTitle="Date & Time"
             condition={true}
-            data={apiRecords}
-            setApiRecords={setApiRecords}
+            data={keywords}
+            setApiRecords={setKeywords}
+            accessKeys={["keyword", "node", "save_time"]}
+            hideControls={true}
           />
         </Grid>
       </Grid>

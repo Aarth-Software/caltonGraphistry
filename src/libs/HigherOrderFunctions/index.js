@@ -1,7 +1,8 @@
 export const refreshState = (setFunction) => {
   setFunction((prev) => {
     const updatedState = {};
-    for (const [idx, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
       if (prev.hasOwnProperty(key)) {
         updatedState[key] = {
           ...prev[key],
@@ -137,4 +138,53 @@ export const selectDropDownValues = (
       });
     }
   }
+};
+
+export const checkError = (cloneObject, errorCatch) => {
+  for (let x in cloneObject) {
+    if (cloneObject[x].disableInput !== undefined) {
+      if (cloneObject[x].inputValue === "" && cloneObject[x].value === "") {
+        // cloneObject[x].message = "input and select values are mandatory";
+        // valueError = true;
+        // inputValuError = true;
+      } else if (cloneObject[x].inputValue === "") {
+        // cloneObject[x].message = "input value mandatory";
+      }
+      cloneObject[x].error =
+        !cloneObject[x].inputValue || !cloneObject[x].value;
+      errorCatch.push(cloneObject[x].error);
+    } else if (cloneObject[x].disableInput === undefined) {
+      if (cloneObject[x].value === "") {
+        // cloneObject[x].message = "select value mandatory";
+        // valueError = true;
+      }
+      cloneObject[x].error = !cloneObject[x].value;
+      errorCatch.push(cloneObject[x].error);
+    }
+  }
+};
+
+export const mergeObjects = (obj) => {
+  const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
+    (result, key) => {
+      result[key] = obj[key]?.value || null;
+      result[key.replace("node", "keyword")] = obj[key]?.inputValue || null;
+      return result;
+    },
+    {}
+  );
+  if (Object.keys(obj).length === 2) {
+    const getproperMap = [dropDownSelectedValues].map((el, i) => {
+      const data = {
+        ...el,
+        nodeB: el.nodeC,
+        nodeC: el.nodeB,
+        keywordB: el.keywordC,
+        keywordC: el.keywordB,
+      };
+      return data;
+    });
+    return getproperMap[0];
+  }
+  return dropDownSelectedValues;
 };

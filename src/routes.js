@@ -31,6 +31,7 @@ import Landing from "./pages/presentation/Landing";
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import AuthLanding from "./layouts/AuthLanding";
 import FallDashboard from "./pages/dashboards/MainDashboard/FallDashboard";
+import ContactUs from "./pages/auth/ContactUs";
 // import Analysis from "./pages/dashboards/DataAnalysis/Analysis";
 const Analysis = async(() =>
   import("./pages/dashboards/DataAnalysis/Analysis")
@@ -62,6 +63,16 @@ const routes = [
       {
         path: "login",
         element: <SignIn />,
+      },
+    ],
+  },
+  {
+    path: "/contact",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "",
+        element: <ContactUs />,
       },
     ],
   },

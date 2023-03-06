@@ -2,12 +2,14 @@ import { Box } from "@mui/system";
 import React from "react";
 import StandardButton from "../libs/Buttons/StandardButton";
 import { litDigBigLogo } from "../asserts/index";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
-const AuthLanding = () => {
+import { withTheme } from "@emotion/react";
+import Loader from "../components/Loader";
+const AuthLanding = ({ theme }) => {
   const { keycloak, initialized } = useKeycloak();
   const [loading, setLoading] = React.useState(true);
-
+  const navigate = useNavigate();
   console.log(initialized);
 
   React.useEffect(() => {
@@ -21,9 +23,10 @@ const AuthLanding = () => {
     console.log(keycloak.idToken);
   };
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
+
   if (keycloak.authenticated) {
     return <Navigate to={"/generateQuery"} />;
   }
@@ -37,21 +40,23 @@ const AuthLanding = () => {
           py={2}
           varient="outlined"
           mr={5}
-          color="black"
-          onClick={() => keycloak.logout()}
+          color={theme.palette.text.primary}
+          onClick={() => navigate("/contact")}
         />
         <StandardButton
           text="Sign in"
           px={2}
           py={2}
           varient="standard"
-          bgcolor={"#F96167"}
+          // bgcolor={"#F96167"}
           mx={3}
           onClick={navigateToLogin}
+          color={theme.palette.text.primary}
+          bgcolor={theme.palette.secondary.main}
         />
       </Box>
     </>
   );
 };
 
-export default AuthLanding;
+export default withTheme(AuthLanding);

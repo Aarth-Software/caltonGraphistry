@@ -253,7 +253,7 @@ const redVariant = merge(defaultVariant, {
       contrastText: "#FFF",
     },
     secondary: {
-      main: "#ffffff",
+      main: "#F96167",
       contrastText: "#FFF",
     },
   },

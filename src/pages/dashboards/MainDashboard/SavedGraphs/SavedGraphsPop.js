@@ -20,6 +20,7 @@ import { flexCenter } from "../../../../libs/JSS/Jss";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import Loader from "../../../../components/Loader";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -36,110 +37,146 @@ const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
+const SearchInputContainer = styled("div")`
+  width: 100%;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+`;
+const SearchInput = styled("input")`
+  width: 96%;
+  height: 100%;
+  outline: none;
+  border: 0.005rem solid #e0e0e0;
+  border-radius: 0.3rem;
+  paddingleft: 1rem;
+  background: ${(props) => props.theme.palette.background.paper};
+
+  ::placeholder {
+    color: #999;
+    font-style: italic;
+    padding-left: 0.6rem;
+  }
+`;
+
 const SavedGraphsPop = ({ theme, Btn, record, click }) => {
-  const { pageElements, page, pages, prevClick, nextClick } = usePagination(
-    record,
-    6
-  );
-  console.log();
+  const [searchDate, setSearchDate] = React.useState("");
+  console.log(record);
+  const filteredRecords = record.filter((rcds) => {
+    if (!searchDate) {
+      return true; // no search date set, return all records
+    }
+    const date = new Date(rcds.save_time);
+    const recordDate = date.toLocaleDateString("en-CA");
+    const searchDateString = new Date(searchDate).toLocaleDateString("en-CA");
+    return recordDate <= searchDateString;
+  });
+  const { pageElements, page, pages, prevClick, nextClick, setPage } =
+    usePagination(filteredRecords, 6);
+  function handleSearch(event) {
+    setSearchDate(event.target.value);
+  }
+  function handleKeyPress(event) {
+    const keyCode = event.keyCode || event.which;
+    const keyValue = String.fromCharCode(keyCode);
+
+    // Allow only numeric digits and "/"
+    const regex = /[0-9/]/;
+    if (!regex.test(keyValue)) {
+      event.preventDefault();
+    }
+    setPage(1);
+  }
   return (
     <Card mb={6}>
       <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
-      <div
-        style={{
-          width: "100%",
-          height: "2.5rem",
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-        }}
-      >
-        <input
-          style={{
-            width: "96%",
-            height: "100%",
-            outline: "none",
-            border: ".005rem solid #E0E0E0",
-            borderRadius: ".3rem",
-            paddingLeft: "1rem",
-          }}
-          placeholder="Search"
+      <SearchInputContainer>
+        <SearchInput
+          value={searchDate}
+          onChange={handleSearch}
+          onKeyPress={handleKeyPress}
+          placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
+          style={{ color: theme.palette.text.primary, paddingLeft: ".7rem" }}
           type="text"
         />
-      </div>
-
-      <CardContent>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Title</TableCell>
-              <TableCell align="left">Query</TableCell>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {pageElements.map((e, i) => (
-              <TableRow key={i}>
-                <TableCell component="th" scope="row">
-                  {e.query_name}
-                </TableCell>
-                <TableCell>{e.selected_query}</TableCell>
-                <TableCell>{e.save_time}</TableCell>
-                <TableCell align="right">
-                  {!Btn ? (
-                    <MoreVertical />
-                  ) : (
-                    React.cloneElement(Btn, { onClick: () => click(e) })
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        {/* <PagenationControls elements={record} page={page} setPage={setPage} /> */}
-      </CardContent>
-      <Box
-        sx={{
-          width: "100%",
-          height: "auto",
-          ...flexCenter,
-          position: "absolute",
-          bottom: 10,
-        }}
-      >
-        <StandardButton
-          text={<KeyboardArrowLeftIcon />}
-          varient="contained"
-          // px={8}
-          mt={0.8}
-          mr={0.4}
-          fontSize=".7rem"
-          fontWeight={600}
-          onClick={prevClick}
-          disabled={page === 1}
-          color="black"
-          bgcolor="white"
-          hoverColor="white"
-        />
-        <span>
-          {page} / {pages}
-        </span>
-        <StandardButton
-          text={<KeyboardArrowRightIcon />}
-          varient="contained"
-          // px={8}
-          mt={0.8}
-          mr={0.4}
-          fontSize=".7rem"
-          fontWeight={600}
-          onClick={nextClick}
-          disabled={page === pages}
-          color="black"
-          bgcolor="white"
-          hoverColor="white"
-        />
-      </Box>
+      </SearchInputContainer>
+      {!pageElements.length && <Loader />}
+      {pageElements.length !== 0 && (
+        <>
+          <CardContent>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">Title</TableCell>
+                  <TableCell align="left">Query</TableCell>
+                  <TableCell align="left">Date</TableCell>
+                  <TableCell align="right"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {pageElements.map((e, i) => (
+                  <TableRow key={i}>
+                    <TableCell component="th" scope="row">
+                      {e.query_name}
+                    </TableCell>
+                    <TableCell>{e.selected_query}</TableCell>
+                    <TableCell>{e.save_time}</TableCell>
+                    <TableCell align="right">
+                      {!Btn ? (
+                        <MoreVertical />
+                      ) : (
+                        React.cloneElement(Btn, { onClick: () => click(e) })
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <Box
+            sx={{
+              width: "100%",
+              height: "auto",
+              ...flexCenter,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <StandardButton
+              text={<KeyboardArrowLeftIcon />}
+              varient="contained"
+              // px={8}
+              mt={0.8}
+              mr={0.4}
+              fontSize=".7rem"
+              fontWeight={600}
+              onClick={prevClick}
+              disabled={page === 1}
+              color={theme.palette.text.primary}
+              bgcolor={theme.palette.background.paper}
+              hoverColor={theme.palette.background.paper}
+            />
+            <span>
+              {page} / {pages}
+            </span>
+            <StandardButton
+              text={<KeyboardArrowRightIcon />}
+              varient="contained"
+              // px={8}
+              mt={0.8}
+              mr={0.4}
+              fontSize=".7rem"
+              fontWeight={600}
+              onClick={nextClick}
+              disabled={page === pages}
+              color={theme.palette.text.primary}
+              bgcolor={theme.palette.background.paper}
+              hoverColor={theme.palette.background.paper}
+            />
+          </Box>
+        </>
+      )}
     </Card>
   );
 };

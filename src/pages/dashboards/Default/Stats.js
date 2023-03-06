@@ -36,14 +36,17 @@ const CardContent = styled(MuiCardContent)`
     padding-bottom: ${(props) => props.theme.spacing(4)};
   }
 `;
+const HeaderTitle = styled(Typography)`
+  color: ${(props) => props.theme.palette.secondary.main};
+`;
 
 const Stats = ({ title, amount, illustration }) => {
   return (
     <Card illustration={illustration} sx={{ pt: 0, pl: 0 }}>
       <CardContent>
-        <Typography sx={{ color: "#259DF8" }} variant="h6" mb={4}>
+        <HeaderTitle variant="h6" mb={4}>
           {title}
-        </Typography>
+        </HeaderTitle>
         <Typography variant="h3" mb={3} sx={{ pb: 3.6 }}>
           <Box fontWeight="fontWeightRegular">{amount}</Box>
         </Typography>

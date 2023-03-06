@@ -15,7 +15,7 @@ const usePagination = (elements, fixElements) => {
   const nextClick = () => {
     if (page < pages) setPage(page + 1);
   };
-  return { pageElements, page, pages, prevClick, nextClick };
+  return { pageElements, page, pages, prevClick, nextClick, setPage };
 };
 
 export default usePagination;

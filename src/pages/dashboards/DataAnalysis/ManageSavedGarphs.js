@@ -11,7 +11,6 @@ import {
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
-  Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
@@ -43,6 +42,28 @@ const TableCell = styled(MuiTableCell)`
 const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
+const SearchInputContainer = styled("div")`
+  width: 100%;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+`;
+const SearchInput = styled("input")`
+  width: 96%;
+  height: 100%;
+  outline: none;
+  border: 0.005rem solid #e0e0e0;
+  border-radius: 0.3rem;
+  paddingleft: 1rem;
+  background: ${(props) => props.theme.palette.background.paper};
+
+  ::placeholder {
+    color: #999;
+    font-style: italic;
+    padding-left: 0.6rem;
+  }
+`;
 
 const ManagedSavedGraphs = ({
   theme,
@@ -54,16 +75,40 @@ const ManagedSavedGraphs = ({
   colThirdTitle,
   data,
   setApiRecords,
+  accessKeys,
+  hideControls,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const [activeBg, setActiveBg] = React.useState("");
   const [editPannel, setEditPannel] = React.useState(false);
   const [editedValue, setEditedValue] = React.useState("");
-  const { pageElements, page, pages, prevClick, nextClick } = usePagination(
-    data,
-    7
-  );
+  const [searchDate, setSearchDate] = React.useState("");
+  const filteredRecords = data.filter((rcds) => {
+    if (!searchDate) {
+      return true; // no search date set, return all records
+    }
+    const date = new Date(rcds.save_time);
+    const recordDate = date.toLocaleDateString("en-CA");
+    const searchDateString = new Date(searchDate).toLocaleDateString("en-CA");
+    return recordDate <= searchDateString;
+  });
+  const { pageElements, page, pages, prevClick, nextClick, setPage } =
+    usePagination(filteredRecords, 6);
+  function handleSearch(event) {
+    setSearchDate(event.target.value);
+  }
+  function handleKeyPress(event) {
+    const keyCode = event.keyCode || event.which;
+    const keyValue = String.fromCharCode(keyCode);
+
+    // Allow only numeric digits and "/"
+    const regex = /[0-9/]/;
+    if (!regex.test(keyValue)) {
+      event.preventDefault();
+    }
+    setPage(1);
+  }
   const updateRecords = (ele) => {
     console.log(data[ele].query_name);
     setEditPannel(true);
@@ -138,28 +183,16 @@ const ManagedSavedGraphs = ({
     <Card mb={6} sx={{ position: "relative", pb: 14 }}>
       <TitleHeader sx={{ fontSize: "2rem" }} title={title} />
       {condition && (
-        <div
-          style={{
-            width: "100%",
-            height: "2.5rem",
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
-          }}
-        >
-          <input
-            style={{
-              width: "96%",
-              height: "100%",
-              outline: "none",
-              border: ".005rem solid #E0E0E0",
-              borderRadius: ".3rem",
-              paddingLeft: "1rem",
-            }}
-            placeholder="Search"
+        <SearchInputContainer>
+          <SearchInput
+            value={searchDate}
+            onChange={handleSearch}
+            onKeyPress={handleKeyPress}
+            placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
             type="text"
+            style={{ color: theme.palette.text.primary, paddingLeft: ".7rem" }}
           />
-        </div>
+        </SearchInputContainer>
       )}
 
       <CardContent>
@@ -176,10 +209,10 @@ const ManagedSavedGraphs = ({
             {pageElements.map((e, i) => (
               <TableRow key={i}>
                 <TableCell component="th" scope="row">
-                  {e.query_name}
+                  {e[accessKeys[0]]}
                 </TableCell>
-                <TableCell>{e.selected_query}</TableCell>
-                <TableCell>{e.save_time}</TableCell>
+                <TableCell>{e[accessKeys[1]]}</TableCell>
+                <TableCell>{e[accessKeys[2]]}</TableCell>
                 <TableCell align="right">
                   {/* {!btn ? <MoreVertical /> : btn} */}
                   {!btn ? (
@@ -204,6 +237,7 @@ const ManagedSavedGraphs = ({
                         text2={"Delete"}
                         ele={e}
                         activeBg={activeBg}
+                        hideControls={hideControls}
                       />
                     </div>
                   ) : (
@@ -234,9 +268,9 @@ const ManagedSavedGraphs = ({
           fontWeight={600}
           onClick={prevClick}
           disabled={page === 1}
-          color="black"
-          bgcolor="white"
-          hoverColor="white"
+          color={theme.palette.text.primary}
+          bgcolor={theme.palette.background.paper}
+          hoverColor={theme.palette.background.paper}
         />
         <span>
           {page} / {pages}
@@ -251,9 +285,9 @@ const ManagedSavedGraphs = ({
           fontWeight={600}
           onClick={nextClick}
           disabled={page === pages}
-          color="black"
-          bgcolor="white"
-          hoverColor="white"
+          color={theme.palette.text.primary}
+          bgcolor={theme.palette.background.paper}
+          hoverColor={theme.palette.background.paper}
         />
       </Box>
       <PopModal
