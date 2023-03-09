@@ -47,7 +47,13 @@ import {
 } from "../../../libs/HigherOrderFunctions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { setDefaultGraph } from "../../../redux/slices/dashboardSlice";
+import {
+  fetchDefaultGraph,
+  fetchDropdownValues,
+  fetchSavedQuaries,
+  setDefaultGraph,
+  setFetchOnce,
+} from "../../../redux/slices/querySlice";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
@@ -55,7 +61,17 @@ const LoaderContainer = styled(Box)({
 const Card = styled(Box)``;
 const FallDashboard = () => {
   const dispatch = useDispatch();
-  const { defaultGraphStatus } = useSelector((state) => state.dashboard);
+  const {
+    fetchOnce,
+    defaultGraphStatus,
+    dropdownData,
+    dropdownLoading,
+    defaultGraphLoading,
+    defaultDataset,
+    savedRecords,
+    saveRecordsLoading,
+    recordsFetchError,
+  } = useSelector((state) => state.query);
   const { enqueueSnackbar } = useSnackbar();
   const [pattern, setPattern] = React.useState({
     nodeA: true,
@@ -97,16 +113,19 @@ const FallDashboard = () => {
     data: null,
   });
   const { keycloak, initialized } = useKeycloak();
-  const [loading, data, error] = useFetch(`getDropdownValues`, false);
-  const [recordsLoading, records, recordsError, refetch] = useFetch(
-    `userQueries/${keycloak.idTokenParsed.sub}`
-  );
-  const [defaultLoading, defaultGraph, err] = useFetch("defaultGraph");
+  React.useEffect(() => {
+    if (fetchOnce) {
+      dispatch(fetchDropdownValues());
+      dispatch(fetchDefaultGraph());
+      dispatch(fetchSavedQuaries(keycloak));
+    }
+    dispatch(setFetchOnce(false));
+  }, []);
   const getPatternChange = (e) => {
     setNodeState(getAccessPatternVariables(e.code));
     refreshState(setNodeState);
     setPattern(e);
-    const specificObject = data?.data?.find(
+    const specificObject = dropdownData?.data?.find(
       (d) => d.selection_type === e.selection_type
     );
     console.log(specificObject);
@@ -216,7 +235,7 @@ const FallDashboard = () => {
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
-      refetch();
+      dispatch(fetchSavedQuaries(keycloak));
     } catch (err) {
       enqueueSnackbar("Save graph unsuccessfull", {
         variant: "error",
@@ -235,7 +254,7 @@ const FallDashboard = () => {
     setActivePattern(
       activePattern.map((ek, i) => (i === fixPattern ? !ek : false))
     );
-    const specificObject = data?.data?.find(
+    const specificObject = dropdownData?.data?.find(
       (d) => d.selection_type === e.selection_type
     );
     setdropDownOptions(specificObject);
@@ -302,13 +321,13 @@ const FallDashboard = () => {
               <FiltersComponent icon={filterInActive} />
             </Box>
 
-            {loading && (
+            {dropdownLoading && (
               <Box sx={{ ...selectPropContainerStyle, ...flexCenter }}>
                 <Loader />
               </Box>
             )}
             <Box sx={selectPropContainerStyle}>
-              {!loading && (
+              {!dropdownLoading && (
                 <SelectPropertiesContainer
                   pattern={pattern}
                   nodeState={nodeState}
@@ -354,13 +373,13 @@ const FallDashboard = () => {
           </Box>
         </Box>
         {/* /========================== */}
-        {(values?.loading || defaultLoading) && (
+        {(values?.loading || defaultGraphLoading) && (
           <LoaderContainer sx={graphContainerStyle}>
             <Loader />
           </LoaderContainer>
         )}
-        {!defaultLoading && defaultGraphStatus && (
-          <GraphistryGraph name="graph" dataSet={defaultGraph} />
+        {!defaultGraphLoading && defaultGraphStatus && (
+          <GraphistryGraph name="graph" dataSet={defaultDataset} />
         )}
         {!values?.loading &&
           values?.data !== "No records found" &&
@@ -404,7 +423,7 @@ const FallDashboard = () => {
         setAnchorMenu={setAnchorMenu}
         child={
           <SavedGraphsPop
-            record={records}
+            record={savedRecords}
             setAnchorMenu={setAnchorMenu}
             Btn={
               <StandardButton
@@ -418,7 +437,7 @@ const FallDashboard = () => {
               />
             }
             click={retriveGraph}
-            recordStatus={[recordsLoading, recordsError]}
+            recordStatus={[saveRecordsLoading, recordsFetchError]}
           />
         }
         classProp={popModalContainer}

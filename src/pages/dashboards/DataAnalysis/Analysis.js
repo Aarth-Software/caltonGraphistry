@@ -16,37 +16,45 @@ import DoughnutChart from "../Default/DoughnutChart";
 import Stats from "../Default/Stats";
 import DataTable from "./DataTable";
 import ManageSavedGarphs from "./ManageSavedGarphs";
+import {
+  fetchDashboardInfo,
+  fetchKeywords,
+  setDashboardFetchOnce,
+} from "../../../redux/slices/dashboardSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { fetchSavedQuaries } from "../../../redux/slices/querySlice";
 
 const Analysis = () => {
+  const dispatch = useDispatch();
+  const {
+    dashboardFetchOnce,
+    keywords,
+    keywordsLoading,
+    dashboardInfo,
+    dashboardInfoLoading,
+  } = useSelector((state) => state.dashboard);
+  const { savedRecords } = useSelector((state) => state.query);
   const [apiRecords, setApiRecords] = React.useState([]);
   const [recoredsLoading, setRecordsLoading] = React.useState(false);
-  // const [keywords, setKeywords] = React.useState([]);
-  // const [keywordLoading, setKeywordLoading] = React.useState(false);
-  const [loading, records] = useFetch(`dashboardQuery`, true);
   const { keycloak, initialized } = useKeycloak();
-  const [keywordLoading, keywords, keywordError, refetch] = useFetch(
-    `/userKeywords/${keycloak.idTokenParsed.sub}`
-  );
-  console.log(records);
+
   React.useEffect(() => {
-    (async () => {
-      try {
-        setRecordsLoading(true);
-        const response = await getUserRecords({
-          userId: keycloak.idTokenParsed.sub,
-        });
-        setApiRecords(response.data);
-        setRecordsLoading(false);
-      } catch (err) {
-        setRecordsLoading(null);
-        console.log(err);
-      }
-    })();
-  }, [keycloak.idTokenParsed.sub]);
+    if (dashboardFetchOnce) {
+      dispatch(fetchKeywords(keycloak));
+      dispatch(fetchDashboardInfo());
+      dispatch(fetchSavedQuaries(keycloak));
+    }
+    dispatch(setDashboardFetchOnce(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const conditionalData = records?.query1?.length > 0 ? records.query1[0] : {};
+  console.log(savedRecords);
 
-  if (loading) {
+  const conditionalData =
+    dashboardInfo?.query1?.length > 0 ? dashboardInfo.query1[0] : {};
+
+  if (dashboardInfoLoading) {
     return (
       <AuthLayout>
         <Loader />
@@ -62,7 +70,7 @@ const Analysis = () => {
   }
   return (
     <>
-      {!loading && records.length !== 0 && (
+      {!dashboardInfoLoading && dashboardInfo.length !== 0 && (
         <>
           <Helmet title="Analytics Dashboard" />
 
@@ -86,14 +94,14 @@ const Analysis = () => {
               <Grid container spacing={0}>
                 <Grid item xs={12} md={12}>
                   <DataTable
-                    data={records?.query2}
+                    data={dashboardInfo?.query2}
                     title="Journal Details"
                     condition={false}
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
                   <DoughnutChart
-                    graphData={records?.query3}
+                    graphData={dashboardInfo?.query3}
                     title="Construct Statistics"
                   />
                 </Grid>
@@ -108,10 +116,9 @@ const Analysis = () => {
                 colThirdTitle="Date & Time"
                 title="Manage Saved Graphs"
                 condition={true}
-                data={apiRecords}
+                data={savedRecords}
                 setApiRecords={setApiRecords}
                 accessKeys={["query_name", "selected_query", "save_time"]}
-                fetchKeywordsAgain={refetch}
               />
             </Grid>
             <Grid item xs={12} lg={6}>

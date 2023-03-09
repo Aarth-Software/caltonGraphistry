@@ -10,6 +10,7 @@ export const GenerateDataSet = (body) => {
 export const getDropdowns = () => api.get("getDropdownValues");
 
 export const dashBoardData = () => api.get("dashboardQuery");
+export const getDefaultDataSet = () => api.get("defaultGraph");
 
 //  save record
 export const postQuery = (body) => api.post("saveQuery", body);

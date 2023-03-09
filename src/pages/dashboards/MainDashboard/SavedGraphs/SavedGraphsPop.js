@@ -116,7 +116,6 @@ const SavedGraphsPop = ({
         />
       </SearchInputContainer>
       {pageElements.length === 0 && !recordStatus[0] && (
-        // <AuthLayout>
         <h5
           style={{
             textAlign: "center",
@@ -124,7 +123,6 @@ const SavedGraphsPop = ({
         >
           {message}
         </h5>
-        // </AuthLayout>
       )}
       {recordStatus[0] && <Loader />}
       {recordStatus[1] && (

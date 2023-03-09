@@ -32,7 +32,6 @@ const MoreOptions = React.memo((props) => {
     setActiveBg,
     text1,
     text2,
-    activeBg,
     iconCondition,
     hideControls,
   } = props;
@@ -86,12 +85,8 @@ const MoreOptions = React.memo((props) => {
           sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)", pt: 0, mt: -1 }}
         >
           {/* <div class="dropdown-menu"> */}
-          <SaveMenuItem onClick={() => saveOnClick(activeBg)}>
-            {text1}
-          </SaveMenuItem>
-          <MenuItem onClick={() => savedGraphOnClick(activeBg)}>
-            {text2}
-          </MenuItem>
+          <SaveMenuItem onClick={saveOnClick}>{text1}</SaveMenuItem>
+          <MenuItem onClick={savedGraphOnClick}>{text2}</MenuItem>
           {/* </div> */}
         </Menu>
       </div>
