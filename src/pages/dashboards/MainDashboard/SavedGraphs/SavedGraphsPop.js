@@ -21,6 +21,8 @@ import StandardButton from "../../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Loader from "../../../../components/Loader";
+import AuthLayout from "../../../../layouts/Auth";
+import Page500 from "../../../auth/Page500";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -60,8 +62,16 @@ const SearchInput = styled("input")`
   }
 `;
 
-const SavedGraphsPop = ({ theme, Btn, record, click }) => {
+const SavedGraphsPop = ({
+  theme,
+  Btn,
+  record,
+  click,
+  recordStatus,
+  setAnchorMenu,
+}) => {
   const [searchDate, setSearchDate] = React.useState("");
+  const [message, setMessage] = React.useState("there are no records saved");
   console.log(record);
   const filteredRecords = record.filter((rcds) => {
     if (!searchDate) {
@@ -76,6 +86,9 @@ const SavedGraphsPop = ({ theme, Btn, record, click }) => {
     usePagination(filteredRecords, 6);
   function handleSearch(event) {
     setSearchDate(event.target.value);
+    if (pageElements.length === 0) {
+      setMessage("there are no records with this date");
+    }
   }
   function handleKeyPress(event) {
     const keyCode = event.keyCode || event.which;
@@ -88,6 +101,7 @@ const SavedGraphsPop = ({ theme, Btn, record, click }) => {
     }
     setPage(1);
   }
+
   return (
     <Card mb={6}>
       <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
@@ -101,8 +115,24 @@ const SavedGraphsPop = ({ theme, Btn, record, click }) => {
           type="text"
         />
       </SearchInputContainer>
-      {!pageElements.length && <Loader />}
-      {pageElements.length !== 0 && (
+      {pageElements.length === 0 && !recordStatus[0] && (
+        // <AuthLayout>
+        <h5
+          style={{
+            textAlign: "center",
+          }}
+        >
+          {message}
+        </h5>
+        // </AuthLayout>
+      )}
+      {recordStatus[0] && <Loader />}
+      {recordStatus[1] && (
+        <AuthLayout>
+          <Page500 />
+        </AuthLayout>
+      )}
+      {pageElements.length !== 0 && !recordStatus[0] && (
         <>
           <CardContent>
             <Table>

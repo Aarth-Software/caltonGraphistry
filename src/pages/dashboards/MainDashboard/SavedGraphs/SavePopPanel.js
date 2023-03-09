@@ -3,16 +3,16 @@ import { TextField, Typography } from "@mui/material";
 import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import CloseIcon from "@mui/icons-material/Close";
-const SavePopContainer = styled("div")({
-  background: "white",
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  alignItems: "flex-start",
-  justifyContent: "flex-start",
-  flexDirection: "column",
-  color: "black",
-});
+const SavePopContainer = styled("div")`
+  background: ${(props) => props.theme.palette.background.paper} ,
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  color: black;
+`;
 const FlexItems = styled("div")({
   height: "3rem",
   width: "100%",
@@ -42,6 +42,13 @@ const BtnFlex = styled("div")({
   //   marginTop: ".7rem",
 });
 
+const HeaderTitle = styled(Typography)`
+  color: ${(props) => props.theme.palette.text.primary};
+`;
+const CrossIcon = styled(CloseIcon)`
+  color: ${(props) => props.theme.palette.text.primary};
+`;
+
 const SavePopPanel = ({
   getSave,
   inputValue,
@@ -53,13 +60,13 @@ const SavePopPanel = ({
   return (
     <SavePopContainer>
       <FlexItems>
-        <Typography
+        <HeaderTitle
           varient="h3"
           sx={{ fontWeight: "bold", fontSize: "1.2rem" }}
         >
           {headTitle}
-        </Typography>
-        <CloseIcon sx={{ fontSize: "2rem" }} onClick={closeWithCrossICon} />
+        </HeaderTitle>
+        <CrossIcon sx={{ fontSize: "2rem" }} onClick={closeWithCrossICon} />
       </FlexItems>
       <Items>
         <TextField

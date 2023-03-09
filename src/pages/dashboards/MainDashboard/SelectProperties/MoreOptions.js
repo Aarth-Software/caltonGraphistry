@@ -47,7 +47,6 @@ const MoreOptions = React.memo((props) => {
     if (hideControls) {
       return;
     }
-    console.log(idx);
     setActiveBg(idx);
     setAnchorMenu(event.currentTarget);
   };

@@ -132,6 +132,7 @@ export const lineArrowStyles = {
   bgcolor: "transperent",
   p: 0,
   color: "#666666",
+  marginTop: ".01rem",
 };
 export const downArrowStyle = {
   fontSize: "medium",

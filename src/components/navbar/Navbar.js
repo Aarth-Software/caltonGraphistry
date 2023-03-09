@@ -13,9 +13,8 @@ import { Menu as MenuIcon } from "@mui/icons-material";
 
 import borgorIcon from "../../asserts/BurgerIcon.svg";
 import logo from "../../asserts/Logo.svg";
-import TooltipComp from "../../libs/Tooltip/Tooltip";
-import { useKeycloak } from "@react-keycloak/web";
 import NavbarUserDropdown from "./NavbarUserDropdown";
+import { useNavigate } from "react-router-dom";
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -30,7 +29,7 @@ const IconButton = styled(MuiIconButton)`
 `;
 
 const Navbar = ({ onDrawerToggle }) => {
-  const { keycloak } = useKeycloak();
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <AppBar position="sticky" elevation={0}>
@@ -54,8 +53,9 @@ const Navbar = ({ onDrawerToggle }) => {
                   width: "5rem",
                   marginTop: ".2rem",
                   marginLeft: "1rem",
+                  cursor: "pointer",
                 }}
-                onClick={() => keycloak.logout()}
+                onClick={() => navigate("/generateQuery")}
               />
             </Grid>
             <Grid item xs />

@@ -4,25 +4,22 @@ import { withTheme } from "@emotion/react";
 import { Doughnut } from "react-chartjs-2";
 import { MoreVertical } from "react-feather";
 
-import { orange, green, red } from "@mui/material/colors";
+import { orange, green, red, grey } from "@mui/material/colors";
 import {
   Card as MuiCard,
   CardContent,
   CardHeader,
+  Grid,
   IconButton,
-  Table,
-  TableBody,
-  TableCell as MuiTableCell,
-  TableHead,
-  TableRow as MuiTableRow,
   Typography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
+import Stats from "./Stats";
 
 const Card = styled(MuiCard)(spacing);
 
 const ChartWrapper = styled.div`
-  height: 168px;
+  height: 18rem;
   position: relative;
 `;
 
@@ -36,24 +33,24 @@ const DoughnutInner = styled.div`
   z-index: 0;
 `;
 
-const TableRow = styled(MuiTableRow)`
-  height: 42px;
-`;
+// const TableRow = styled(MuiTableRow)`
+//   height: 42px;
+// `;
 
-const TableCell = styled(MuiTableCell)`
-  padding-top: 0;
-  padding-bottom: 0;
-`;
+// const TableCell = styled(MuiTableCell)`
+//   padding-top: 0;
+//   padding-bottom: 0;
+// `;
 
-const GreenText = styled.span`
-  color: ${() => green[400]};
-  font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-`;
+// const GreenText = styled.span`
+//   color: ${() => green[400]};
+//   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
+// `;
 
-const RedText = styled.span`
-  color: ${() => red[400]};
-  font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-`;
+// const RedText = styled.span`
+//   color: ${() => red[400]};
+//   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
+// `;
 const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
@@ -71,7 +68,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
           orange[500],
           theme.palette.grey[200],
         ],
-        borderWidth: 5,
+        borderWidth: 10,
         borderColor: theme.palette.background.paper,
       },
     ],
@@ -99,17 +96,36 @@ const DoughnutChart = ({ theme, title, graphData }) => {
         // sx={{ bgcolor: "red" }}
       />
 
-      <CardContent
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
-        <ChartWrapper>
-          <DoughnutInner>
-            <Typography variant="h4">+27%</Typography>
-            <Typography variant="caption">more visitors</Typography>
-          </DoughnutInner>
-          <Doughnut data={data} options={options} />
-        </ChartWrapper>
-        <Table>
+      <CardContent sx={{ display: "flex" }}>
+        <Grid container spacing={0} justify="center" alignItems="center">
+          <Grid item xs={4} sm={5} md={5} lg={5}>
+            <ChartWrapper>
+              <DoughnutInner>
+                <Typography variant="h4">+27%</Typography>
+                <Typography variant="caption">more visitors</Typography>
+              </DoughnutInner>
+              <Doughnut data={data} options={options} />
+            </ChartWrapper>
+          </Grid>
+          <Grid item xs={8} sm={7} md={7} lg={7}>
+            <Grid container spacing={3}>
+              {graphData.map((el, i) => (
+                <Grid key={i} item xs={6} sm={6} md={6}>
+                  <Stats
+                    title={el.role}
+                    amount={el.count}
+                    chip="Yearly"
+                    percentagetext={el.percentage.toFixed(2)}
+                    percentagecolor={green[500]}
+                    sx={{ border: "1px solid " + grey[300] }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {/* <Table>
           <TableHead>
             <TableRow>
               <TableCell>Source</TableCell>
@@ -128,7 +144,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+        </Table> */}
       </CardContent>
     </Card>
   );

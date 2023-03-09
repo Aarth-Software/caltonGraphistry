@@ -7,7 +7,7 @@ const SelectButtons = React.memo((props) => {
   const SvgButtons = styled("img")({
     color: "darkslategray",
     padding: 4,
-    borderRadius: 4,
+    // borderRadius: 4,
   });
 
   const patternClick = (pos, e) => {

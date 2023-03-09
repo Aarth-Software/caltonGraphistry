@@ -71,93 +71,87 @@ const Analysis = () => {
       </AuthLayout>
     );
   }
-  if (
-    (!recoredsLoading && apiRecords.length === 0) ||
-    (!keywordLoading && keywords.length === 0)
-  ) {
-    return (
-      <AuthLayout>
-        <h5 style={{ textAlign: "center" }}>
-          No records associated with this user
-        </h5>
-      </AuthLayout>
-    );
-  }
+  console.log(keywords);
+  // if (!keywordLoading && keywords.length === 0) {
+  //   return (
+  //     <AuthLayout>
+  //       <h5 style={{ textAlign: "center" }}>
+  //         No records associated with this user
+  //       </h5>
+  //     </AuthLayout>
+  //   );
+  // }
 
   return (
-    <React.Fragment>
-      <Helmet title="Analytics Dashboard" />
+    <>
+      {!loading && records.length !== 0 && (
+        <>
+          <Helmet title="Analytics Dashboard" />
 
-      <Grid container spacing={6}>
-        <Grid item xs={12} lg={5}>
-          {/* <Grid container spacing={6}>
-            <Grid item xs={12} lg={12}> */}
-
-          <Grid container spacing={5}>
-            {Object.entries(conditionalData).map((el, i) => (
-              <Grid key={i} item xs={12} sm={12} md={6}>
-                <Stats
-                  title={el[0]}
-                  amount={el[1]}
-                  chip="Yearly"
-                  percentagetext="+27%"
-                  percentagecolor={green[500]}
-                />
+          <Grid container spacing={6}>
+            <Grid item xs={12} lg={5}>
+              <Grid container spacing={5}>
+                {Object.entries(conditionalData).map((el, i) => (
+                  <Grid key={i} item xs={12} sm={12} md={6}>
+                    <Stats
+                      title={el[0]}
+                      amount={el[1]}
+                      chip="Yearly"
+                      percentagetext="+27%"
+                      percentagecolor={green[500]}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
+            </Grid>
+            <Grid item xs={12} lg={7}>
+              <Grid container spacing={0}>
+                <Grid item xs={12} md={12}>
+                  <DataTable
+                    data={records?.query2}
+                    title="Journal Details"
+                    condition={false}
+                  />
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <DoughnutChart
+                    graphData={records?.query3}
+                    title="Construct Statistics"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12} lg={7}>
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={12}>
-              <DataTable
-                data={records?.query2}
-                title="Journal Details"
-                condition={false}
+          <Grid container spacing={6}>
+            <Grid item xs={12} lg={6}>
+              <ManageSavedGarphs
+                colFirstTitle="Graph Title"
+                colSecondTitle="Query Parameters"
+                colThirdTitle="Date & Time"
+                title="Manage Saved Graphs"
+                condition={true}
+                data={apiRecords}
+                setApiRecords={setApiRecords}
+                accessKeys={["query_name", "selected_query", "save_time"]}
               />
             </Grid>
-            <Grid item xs={12} md={12}>
-              <DoughnutChart
-                graphData={records?.query3}
-                title="Construct Statistics"
+            <Grid item xs={12} lg={6}>
+              <ManageSavedGarphs
+                title="Keyword History"
+                colFirstTitle="Keywords"
+                colSecondTitle="As"
+                colThirdTitle="Date & Time"
+                condition={true}
+                data={keywords}
+                setApiRecords={setKeywords}
+                accessKeys={["keyword", "node", "save_time"]}
+                hideControls={true}
               />
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-
-      {/* {!recoredsLoading && apiRecords.length === 0 && <h3>no records found</h3>} */}
-
-      <Grid container spacing={6}>
-        <Grid item xs={12} lg={6}>
-          {/* <WorldMap /> */}
-          <ManageSavedGarphs
-            colFirstTitle="Graph Title"
-            colSecondTitle="Query Parameters"
-            colThirdTitle="Date & Time"
-            title="Manage Saved Graphs"
-            condition={true}
-            data={apiRecords}
-            setApiRecords={setApiRecords}
-            accessKeys={["query_name", "selected_query", "save_time"]}
-          />
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          {/* <LanguagesTable /> */}
-          <ManageSavedGarphs
-            title="Keyword History"
-            colFirstTitle="Keywords"
-            colSecondTitle="As"
-            colThirdTitle="Date & Time"
-            condition={true}
-            data={keywords}
-            setApiRecords={setKeywords}
-            accessKeys={["keyword", "node", "save_time"]}
-            hideControls={true}
-          />
-        </Grid>
-      </Grid>
-    </React.Fragment>
+        </>
+      )}
+    </>
   );
 };
 

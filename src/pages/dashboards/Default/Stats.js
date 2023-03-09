@@ -40,14 +40,14 @@ const HeaderTitle = styled(Typography)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 
-const Stats = ({ title, amount, illustration }) => {
+const Stats = ({ title, amount, illustration, sx }) => {
   return (
-    <Card illustration={illustration} sx={{ pt: 0, pl: 0 }}>
+    <Card illustration={illustration} sx={{ pt: 0, pl: 0, ...sx }}>
       <CardContent>
         <HeaderTitle variant="h6" mb={4}>
           {title}
         </HeaderTitle>
-        <Typography variant="h3" mb={3} sx={{ pb: 3.6 }}>
+        <Typography variant="h3" mb={3} sx={{ pb: 0 }}>
           <Box fontWeight="fontWeightRegular">{amount}</Box>
         </Typography>
       </CardContent>

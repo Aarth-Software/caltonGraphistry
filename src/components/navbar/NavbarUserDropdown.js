@@ -11,12 +11,16 @@ import {
 
 // import useAuth from "../../hooks/useAuth";
 import keycloak from "../../Keycloak";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const IconButton = styled(MuiIconButton)`
   svg {
     width: 22px;
     height: 22px;
   }
+`;
+const TheamIcon = styled(MenuIcon)`
+  color: ${(props) => props.theme.palette.text.primary};
 `;
 
 function NavbarUserDropdown({ icon, size }) {
@@ -49,7 +53,7 @@ function NavbarUserDropdown({ icon, size }) {
 
   return (
     <React.Fragment>
-      <Tooltip title="Details">
+      <Tooltip title="Menu">
         <IconButton
           aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
           aria-haspopup="true"
@@ -57,11 +61,7 @@ function NavbarUserDropdown({ icon, size }) {
           color="inherit"
           size="large"
         >
-          <img
-            src={icon}
-            alt={"user"}
-            style={{ width: !!size ? size : "1.1rem" }}
-          />
+          <TheamIcon src={icon} alt={"user"} size="medium" />
         </IconButton>
       </Tooltip>
       <Menu

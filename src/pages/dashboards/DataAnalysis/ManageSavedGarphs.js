@@ -27,6 +27,7 @@ import { deleteRecord, updateRecord } from "../../../services/service";
 import { useSnackbar } from "notistack";
 import SavePopPanel from "../MainDashboard/SavedGraphs/SavePopPanel";
 import PopModal from "../../../libs/Modal/PopModal";
+import AuthLayout from "../../../layouts/Auth";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -50,7 +51,7 @@ const SearchInputContainer = styled("div")`
   display: flex;
 `;
 const SearchInput = styled("input")`
-  width: 96%;
+  width: calc(100% - 2.2rem);
   height: 100%;
   outline: none;
   border: 0.005rem solid #e0e0e0;
@@ -196,58 +197,61 @@ const ManagedSavedGraphs = ({
       )}
 
       <CardContent>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">{colFirstTitle}</TableCell>
-              <TableCell align="left">{colSecondTitle}</TableCell>
-              <TableCell align="left">{colThirdTitle}</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {pageElements.map((e, i) => (
-              <TableRow key={i}>
-                <TableCell component="th" scope="row">
-                  {e[accessKeys[0]]}
-                </TableCell>
-                <TableCell>{e[accessKeys[1]]}</TableCell>
-                <TableCell>{e[accessKeys[2]]}</TableCell>
-                <TableCell align="right">
-                  {/* {!btn ? <MoreVertical /> : btn} */}
-                  {!btn ? (
-                    <div
-                      style={{
-                        // width: "4rem",
-                        // boxShadow:
-                        //   activeBg !== i
-                        //     ? ""
-                        //     : "0px .6px 3px rgba(0, 0, 0, 0.06)",
-                        color: activeBg !== i ? "black" : "#e57373",
-                      }}
-                    >
-                      <MoreOptions
-                        saveOnClick={updateRecords}
-                        savedGraphOnClick={deleteRecords}
-                        anchorMenu={anchorMenu}
-                        setAnchorMenu={setAnchorMenu}
-                        setActiveBg={setActiveBg}
-                        index={i}
-                        text1={"Update"}
-                        text2={"Delete"}
-                        ele={e}
-                        activeBg={activeBg}
-                        hideControls={hideControls}
-                      />
-                    </div>
-                  ) : (
-                    btn
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        {pageElements.length === 0 && (
+          <AuthLayout>
+            <h4>There are no records saved</h4>
+          </AuthLayout>
+        )}
+        {pageElements.length !== 0 && (
+          <>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">{colFirstTitle}</TableCell>
+                  <TableCell align="left">{colSecondTitle}</TableCell>
+                  <TableCell align="left">{colThirdTitle}</TableCell>
+                  <TableCell align="right"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {pageElements.map((e, i) => (
+                  <TableRow key={i}>
+                    <TableCell component="th" scope="row">
+                      {e[accessKeys[0]]}
+                    </TableCell>
+                    <TableCell>{e[accessKeys[1]]}</TableCell>
+                    <TableCell>{e[accessKeys[2]]}</TableCell>
+                    <TableCell align="right">
+                      {!btn ? (
+                        <div
+                          style={{
+                            color: activeBg !== i ? "black" : "#e57373",
+                          }}
+                        >
+                          <MoreOptions
+                            saveOnClick={updateRecords}
+                            savedGraphOnClick={deleteRecords}
+                            anchorMenu={anchorMenu}
+                            setAnchorMenu={setAnchorMenu}
+                            setActiveBg={setActiveBg}
+                            index={i}
+                            text1={"Update"}
+                            text2={"Delete"}
+                            ele={e}
+                            activeBg={activeBg}
+                            hideControls={hideControls}
+                          />
+                        </div>
+                      ) : (
+                        btn
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </>
+        )}
       </CardContent>
       <Box
         sx={{
@@ -261,7 +265,6 @@ const ManagedSavedGraphs = ({
         <StandardButton
           text={<KeyboardArrowLeftIcon />}
           varient="contained"
-          // px={8}
           mt={0.8}
           mr={0.4}
           fontSize=".7rem"
@@ -278,7 +281,6 @@ const ManagedSavedGraphs = ({
         <StandardButton
           text={<KeyboardArrowRightIcon />}
           varient="contained"
-          // px={8}
           mt={0.8}
           mr={0.4}
           fontSize=".7rem"

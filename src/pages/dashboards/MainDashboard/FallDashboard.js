@@ -45,12 +45,17 @@ import {
   refreshState,
   retriveSavedGraphValues,
 } from "../../../libs/HigherOrderFunctions";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setDefaultGraph } from "../../../redux/slices/dashboardSlice";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
 });
 const Card = styled(Box)``;
 const FallDashboard = () => {
+  const dispatch = useDispatch();
+  const { defaultGraphStatus } = useSelector((state) => state.dashboard);
   const { enqueueSnackbar } = useSnackbar();
   const [pattern, setPattern] = React.useState({
     nodeA: true,
@@ -93,12 +98,14 @@ const FallDashboard = () => {
   });
   const { keycloak, initialized } = useKeycloak();
 
-  const baseURL = process.env.REACT_APP_BASE_URL;
+  console.log(["defaultGraph", defaultGraphStatus]);
+
   const [loading, data, error] = useFetch(`getDropdownValues`, false);
   const [recordsLoading, records, recordsError, refetch] = useFetch(
     `userQueries/${keycloak.idTokenParsed.sub}`
   );
-
+  const [defaultLoading, defaultGraph, err] = useFetch("defaultGraph");
+  console.log(defaultGraph);
   const getPatternChange = (e) => {
     setNodeState(getAccessPatternVariables(e.code));
     refreshState(setNodeState);
@@ -158,6 +165,7 @@ const FallDashboard = () => {
         });
       }
     }
+    dispatch(setDefaultGraph(false));
   };
   const saveOnClick = () => {
     seOpenSavePanel(true);
@@ -223,6 +231,7 @@ const FallDashboard = () => {
     }
   };
   const retriveGraph = (e) => {
+    dispatch(setDefaultGraph(false));
     setNodeState(getAccessPatternVariables(e.selection_code));
     retriveSavedGraphValues(e, setNodeState);
     const fixPattern = btnArray.findIndex((eg) => eg.code === e.selection_code);
@@ -243,6 +252,7 @@ const FallDashboard = () => {
   };
   const closePannel = () => {
     seOpenSavePanel(false);
+    setAnchorMenu(null);
   };
 
   return (
@@ -347,23 +357,27 @@ const FallDashboard = () => {
             <RunButton onClick={generateGraph} />
           </Box>
         </Box>
-        {values.loading && (
+        {(values?.loading || defaultLoading) && (
           <LoaderContainer sx={graphContainerStyle}>
             <Loader />
           </LoaderContainer>
         )}
-        {!values.loading &&
-          values.data !== "No records found" &&
-          !!values.data.length &&
-          !savedDataSet.status && (
+        {!defaultLoading && defaultGraphStatus && (
+          <GraphistryGraph name="graph" dataSet={defaultGraph} />
+        )}
+        {!values?.loading &&
+          values?.data !== "No records found" &&
+          !!values?.data?.length &&
+          !savedDataSet?.status && (
             <GraphistryGraph name="graph" dataSet={values.data} />
           )}
-        {!!savedDataSet.status && !values.loading && (
-          <GraphistryGraph name="graph" dataSet={savedDataSet.data} />
+        {!!savedDataSet?.status && !values?.loading && (
+          <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
         )}
-        {!values.loading &&
-          !savedDataSet.status &&
-          (!values.data || values.data === "No records found") && (
+        {}
+        {!values?.loading &&
+          !savedDataSet?.status &&
+          (!values?.data || values?.data === "No records found") && (
             <Box sx={{ height: "100%", width: "100%", ...flexCenter }}>
               there is not data available with this{" "}
               <span style={{ color: red[400], padding: "0rem  .2rem" }}>
@@ -390,9 +404,11 @@ const FallDashboard = () => {
       <PopModal
         openModal={open}
         setModalOpen={setOpen}
+        setAnchorMenu={setAnchorMenu}
         child={
           <SavedGraphsPop
             record={records}
+            setAnchorMenu={setAnchorMenu}
             Btn={
               <StandardButton
                 text="Graph"
@@ -405,6 +421,7 @@ const FallDashboard = () => {
               />
             }
             click={retriveGraph}
+            recordStatus={[recordsLoading, recordsError]}
           />
         }
         classProp={popModalContainer}

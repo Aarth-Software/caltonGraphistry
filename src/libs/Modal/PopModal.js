@@ -1,8 +1,19 @@
 import { Box, Modal } from "@mui/material";
 import React from "react";
 
-const PopModal = ({ openModal, setModalOpen, child, classProp }) => {
-  const handleClose = () => setModalOpen(false);
+const PopModal = ({
+  openModal,
+  setModalOpen,
+  child,
+  classProp,
+  setAnchorMenu,
+}) => {
+  const handleClose = () => {
+    setModalOpen(false);
+    if (setAnchorMenu !== undefined) {
+      setAnchorMenu(null);
+    }
+  };
   return (
     <div>
       <Modal

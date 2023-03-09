@@ -14,6 +14,8 @@ import { SnackbarProvider } from "notistack";
 import "./mocks";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -21,16 +23,18 @@ const root = createRoot(container);
 root.render(
   <>
     <ReactKeycloakProvider authClient={keycloak}>
-      <BrowserRouter>
-        <ThemeProvider>
-          <SnackbarProvider
-            maxSnack={1}
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          >
-            <App />
-          </SnackbarProvider>
-        </ThemeProvider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ThemeProvider>
+            <SnackbarProvider
+              maxSnack={1}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <App />
+            </SnackbarProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </Provider>
     </ReactKeycloakProvider>
   </>
 );
