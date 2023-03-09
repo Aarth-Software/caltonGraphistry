@@ -78,6 +78,7 @@ const ManagedSavedGraphs = ({
   setApiRecords,
   accessKeys,
   hideControls,
+  fetchKeywordsAgain,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [anchorMenu, setAnchorMenu] = React.useState(null);
@@ -132,6 +133,7 @@ const ManagedSavedGraphs = ({
         }
       );
       setApiRecords(data.filter((_, i) => i !== ele));
+      fetchKeywordsAgain();
     } catch (err) {
       setAnchorMenu(false);
       setActiveBg(null);

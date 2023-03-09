@@ -97,15 +97,11 @@ const FallDashboard = () => {
     data: null,
   });
   const { keycloak, initialized } = useKeycloak();
-
-  console.log(["defaultGraph", defaultGraphStatus]);
-
   const [loading, data, error] = useFetch(`getDropdownValues`, false);
   const [recordsLoading, records, recordsError, refetch] = useFetch(
     `userQueries/${keycloak.idTokenParsed.sub}`
   );
   const [defaultLoading, defaultGraph, err] = useFetch("defaultGraph");
-  console.log(defaultGraph);
   const getPatternChange = (e) => {
     setNodeState(getAccessPatternVariables(e.code));
     refreshState(setNodeState);
@@ -357,6 +353,7 @@ const FallDashboard = () => {
             <RunButton onClick={generateGraph} />
           </Box>
         </Box>
+        {/* /========================== */}
         {(values?.loading || defaultLoading) && (
           <LoaderContainer sx={graphContainerStyle}>
             <Loader />
@@ -374,7 +371,6 @@ const FallDashboard = () => {
         {!!savedDataSet?.status && !values?.loading && (
           <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
         )}
-        {}
         {!values?.loading &&
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (
@@ -386,6 +382,7 @@ const FallDashboard = () => {
               </span>
             </Box>
           )}
+        {/* =============================== */}
       </Stack>
       <PopModal
         openModal={openSavePanel}

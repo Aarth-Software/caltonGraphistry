@@ -20,10 +20,13 @@ import ManageSavedGarphs from "./ManageSavedGarphs";
 const Analysis = () => {
   const [apiRecords, setApiRecords] = React.useState([]);
   const [recoredsLoading, setRecordsLoading] = React.useState(false);
-  const [keywords, setKeywords] = React.useState([]);
-  const [keywordLoading, setKeywordLoading] = React.useState(false);
+  // const [keywords, setKeywords] = React.useState([]);
+  // const [keywordLoading, setKeywordLoading] = React.useState(false);
   const [loading, records] = useFetch(`dashboardQuery`, true);
   const { keycloak, initialized } = useKeycloak();
+  const [keywordLoading, keywords, keywordError, refetch] = useFetch(
+    `/userKeywords/${keycloak.idTokenParsed.sub}`
+  );
   console.log(records);
   React.useEffect(() => {
     (async () => {
@@ -36,20 +39,6 @@ const Analysis = () => {
         setRecordsLoading(false);
       } catch (err) {
         setRecordsLoading(null);
-        console.log(err);
-      }
-    })();
-    (async () => {
-      try {
-        setKeywordLoading(true);
-        const response = await getKeywords({
-          userId: keycloak.idTokenParsed.sub,
-        });
-        console.log(response.data);
-        setKeywords(response.data);
-        setKeywordLoading(false);
-      } catch (err) {
-        setKeywordLoading(null);
         console.log(err);
       }
     })();
@@ -71,17 +60,6 @@ const Analysis = () => {
       </AuthLayout>
     );
   }
-  console.log(keywords);
-  // if (!keywordLoading && keywords.length === 0) {
-  //   return (
-  //     <AuthLayout>
-  //       <h5 style={{ textAlign: "center" }}>
-  //         No records associated with this user
-  //       </h5>
-  //     </AuthLayout>
-  //   );
-  // }
-
   return (
     <>
       {!loading && records.length !== 0 && (
@@ -133,6 +111,7 @@ const Analysis = () => {
                 data={apiRecords}
                 setApiRecords={setApiRecords}
                 accessKeys={["query_name", "selected_query", "save_time"]}
+                fetchKeywordsAgain={refetch}
               />
             </Grid>
             <Grid item xs={12} lg={6}>
@@ -143,7 +122,7 @@ const Analysis = () => {
                 colThirdTitle="Date & Time"
                 condition={true}
                 data={keywords}
-                setApiRecords={setKeywords}
+                setApiRecords={null}
                 accessKeys={["keyword", "node", "save_time"]}
                 hideControls={true}
               />
