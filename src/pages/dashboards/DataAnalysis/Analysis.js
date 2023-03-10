@@ -24,6 +24,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchSavedQuaries } from "../../../redux/slices/querySlice";
+import KeywordsTable from "./KeywordsTable";
 
 const Analysis = () => {
   const dispatch = useDispatch();
@@ -118,11 +119,10 @@ const Analysis = () => {
                 condition={true}
                 data={savedRecords}
                 setApiRecords={setApiRecords}
-                accessKeys={["query_name", "selected_query", "save_time"]}
               />
             </Grid>
             <Grid item xs={12} lg={6}>
-              <ManageSavedGarphs
+              <KeywordsTable
                 title="Keyword History"
                 colFirstTitle="Keywords"
                 colSecondTitle="As"
@@ -130,7 +130,6 @@ const Analysis = () => {
                 condition={true}
                 data={keywords}
                 setApiRecords={null}
-                accessKeys={["keyword", "node", "save_time"]}
                 hideControls={true}
               />
             </Grid>

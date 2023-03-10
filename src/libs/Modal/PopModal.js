@@ -1,5 +1,6 @@
 import { Box, Modal } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const PopModal = ({
   openModal,
@@ -8,10 +9,11 @@ const PopModal = ({
   classProp,
   setAnchorMenu,
 }) => {
+  const dispatch = useDispatch();
   const handleClose = () => {
-    setModalOpen(false);
+    dispatch(setModalOpen(false));
     if (setAnchorMenu !== undefined) {
-      setAnchorMenu(null);
+      dispatch(setAnchorMenu(null));
     }
   };
   return (

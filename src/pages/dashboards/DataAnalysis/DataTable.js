@@ -18,7 +18,7 @@ import { spacing } from "@mui/system";
 const Card = styled(MuiCard)(spacing);
 
 const TableRow = styled(MuiTableRow)`
-  height: 42px;
+  height: 46px;
 `;
 const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};

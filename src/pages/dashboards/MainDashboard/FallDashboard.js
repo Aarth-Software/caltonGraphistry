@@ -54,6 +54,14 @@ import {
   setDefaultGraph,
   setFetchOnce,
 } from "../../../redux/slices/querySlice";
+import {
+  // setAnchorMenu,
+  setOpen,
+  setOpenSavePannel,
+  setSaveName,
+  setShowStoreOptions,
+} from "../../../redux/slices/serviceSlice";
+import SavePopOptions from "./Save/SavePopOptions";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
@@ -73,6 +81,9 @@ const FallDashboard = () => {
     recordsFetchError,
   } = useSelector((state) => state.query);
   const { enqueueSnackbar } = useSnackbar();
+  const { openSavePanel, open, showStoreOptions, saveName } = useSelector(
+    (state) => state.service
+  );
   const [pattern, setPattern] = React.useState({
     nodeA: true,
     nodeB: true,
@@ -81,11 +92,7 @@ const FallDashboard = () => {
   const [activePattern, setActivePattern] = React.useState(
     new Array(btnArray.length).fill(false)
   );
-  const [open, setOpen] = React.useState(false);
-  const [openSavePanel, seOpenSavePanel] = React.useState(false);
   const [selectParams, setSelectParams] = React.useState({});
-  const [saveName, setSaveName] = React.useState("");
-  const [anchorMenu, setAnchorMenu] = React.useState(null);
   const [dropdownOptions, setdropDownOptions] = React.useState({
     node_1: {
       value: ["Construct (Ind. Var.)"],
@@ -183,17 +190,17 @@ const FallDashboard = () => {
     dispatch(setDefaultGraph(false));
   };
   const saveOnClick = () => {
-    seOpenSavePanel(true);
-    setAnchorMenu(false);
+    dispatch(setOpenSavePannel(true));
+    dispatch(setShowStoreOptions(false));
   };
   const savedGraphOnClick = () => {
-    setOpen(true);
-    setAnchorMenu(false);
+    dispatch(setOpen(true));
+    dispatch(setShowStoreOptions(false));
   };
   const getSave = async () => {
     if (!values?.data || !Object.keys(selectParams).length) {
-      seOpenSavePanel(false);
-      setSaveName(false);
+      dispatch(setOpenSavePannel(false));
+      dispatch(setSaveName(false));
       enqueueSnackbar("Please generate Graph", {
         variant: "error",
         autoHideDuration: 2000,
@@ -228,8 +235,8 @@ const FallDashboard = () => {
 
     try {
       const response = await postQuery(changeKeys);
-      seOpenSavePanel(false);
-      setSaveName(false);
+      dispatch(setOpenSavePannel(false));
+      dispatch(setSaveName(false));
       enqueueSnackbar(response.data.message, {
         variant: "success",
         autoHideDuration: 2000,
@@ -259,15 +266,15 @@ const FallDashboard = () => {
     );
     setdropDownOptions(specificObject);
     setSaveDataSet({ status: true, data: e.dataset });
-    setAnchorMenu(null);
-    setOpen(false);
+    dispatch(setShowStoreOptions(null));
+    dispatch(setOpen(false));
   };
   const closeWithCrossICon = () => {
-    seOpenSavePanel(false);
+    dispatch(setOpenSavePannel(false));
   };
   const closePannel = () => {
-    seOpenSavePanel(false);
-    setAnchorMenu(null);
+    dispatch(setOpenSavePannel(false));
+    dispatch(setShowStoreOptions(null));
   };
 
   return (
@@ -353,19 +360,16 @@ const FallDashboard = () => {
               style={{
                 ...moreOptionStyle,
                 boxShadow:
-                  anchorMenu === null ? "" : "0px .6px 3px rgba(0, 0, 0, 0.06)",
-                color: anchorMenu === null ? "black" : "#e57373",
+                  showStoreOptions === null
+                    ? ""
+                    : "0px .6px 3px rgba(0, 0, 0, 0.06)",
+                color: showStoreOptions === null ? "black" : "#e57373",
                 ...flexCenter,
               }}
             >
-              <MoreOptions
+              <SavePopOptions
                 saveOnClick={saveOnClick}
                 savedGraphOnClick={savedGraphOnClick}
-                anchorMenu={anchorMenu}
-                setAnchorMenu={setAnchorMenu}
-                text1={"Save"}
-                text2={"Saved Graphs"}
-                iconCondition={true}
               />
             </div>
 
@@ -405,7 +409,7 @@ const FallDashboard = () => {
       </Stack>
       <PopModal
         openModal={openSavePanel}
-        setModalOpen={seOpenSavePanel}
+        setModalOpen={setOpenSavePannel}
         child={
           <SavePopPanel
             getSave={getSave}
@@ -420,11 +424,11 @@ const FallDashboard = () => {
       <PopModal
         openModal={open}
         setModalOpen={setOpen}
-        setAnchorMenu={setAnchorMenu}
+        setAnchorMenu={setShowStoreOptions}
         child={
           <SavedGraphsPop
             record={savedRecords}
-            setAnchorMenu={setAnchorMenu}
+            // setAnchorMenu={setAnchorMenu}
             Btn={
               <StandardButton
                 text="Graph"

@@ -3,6 +3,7 @@ import { TextField, Typography } from "@mui/material";
 import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
 const SavePopContainer = styled("div")`
   background: ${(props) => props.theme.palette.background.paper} ,
   width: 100%;
@@ -57,6 +58,7 @@ const SavePopPanel = ({
   headTitle,
   close,
 }) => {
+  const dispatch = useDispatch();
   return (
     <SavePopContainer>
       <FlexItems>
@@ -76,7 +78,7 @@ const SavePopPanel = ({
           variant="standard"
           value={inputValue}
           fullWidth
-          onChange={(e) => setSaveName(e.target.value)}
+          onChange={(e) => dispatch(setSaveName(e.target.value))}
         />
       </Items>
       <BtnFlex>

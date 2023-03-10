@@ -62,14 +62,7 @@ const SearchInput = styled("input")`
   }
 `;
 
-const SavedGraphsPop = ({
-  theme,
-  Btn,
-  record,
-  click,
-  recordStatus,
-  setAnchorMenu,
-}) => {
+const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
   const [searchDate, setSearchDate] = React.useState("");
   const [message, setMessage] = React.useState("there are no records saved");
   console.log(record);

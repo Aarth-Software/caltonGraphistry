@@ -10,10 +10,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import {
-  setActiveBg,
-  setAnchorMenu,
-} from "../../../../redux/slices/serviceSlice";
+import { setShowStoreOptions } from "../../../../redux/slices/serviceSlice";
 
 const IconButton = styled(MuiIconButton)`
   svg {
@@ -24,24 +21,17 @@ const IconButton = styled(MuiIconButton)`
 const SaveMenuItem = styled(MenuItem)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
-const ThreenDotOptions = styled(MoreVertical)`
-  color: ${(props) => props.theme.palette.text.primary};
-`;
-const MoreOptions = React.memo((props) => {
-  const { saveOnClick, savedGraphOnClick, index, hideControls } = props;
+const SavePopOptions = React.memo((props) => {
+  const { saveOnClick, savedGraphOnClick } = props;
   const dispatch = useDispatch();
-  const { anchorMenu } = useSelector((state) => state.service);
-  const multiMenuValue = (event, idx) => {
-    if (hideControls) {
-      return;
-    }
-    dispatch(setActiveBg(idx));
-    dispatch(setAnchorMenu(event.currentTarget));
+  const { showStoreOptions } = useSelector((state) => state.service);
+  const toggleMenu = (event) => {
+    console.log(event.currentTarget);
+    dispatch(setShowStoreOptions(event.currentTarget));
   };
 
   const closeMenu = () => {
-    dispatch(setAnchorMenu(null));
-    dispatch(setActiveBg(""));
+    dispatch(setShowStoreOptions(null));
   };
 
   return (
@@ -49,32 +39,34 @@ const MoreOptions = React.memo((props) => {
       <div className="dropdown-menu-container">
         <div className="icon-container">
           <IconButton
-            aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
+            aria-owns={Boolean(showStoreOptions) ? "menu-appbar" : undefined}
             aria-haspopup="true"
-            onClick={(eve) => hideControls ?? multiMenuValue(eve, index)}
+            onClick={toggleMenu}
             color="inherit"
             size="small"
             className="remove-padding"
             sx={{ mr: 6 }}
           >
-            <Tooltip title={hideControls ? "" : "More options"}>
-              <ThreenDotOptions />
+            <Tooltip title={"More options"}>
+              <MoreVertical />
             </Tooltip>
           </IconButton>
         </div>
         <Menu
           id="menu-appbar"
-          anchorEl={anchorMenu}
-          open={Boolean(anchorMenu)}
+          anchorEl={showStoreOptions}
+          open={Boolean(showStoreOptions)}
           onClose={closeMenu}
           sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)", pt: 0, mt: -1 }}
         >
-          <SaveMenuItem onClick={saveOnClick}>Edit Record</SaveMenuItem>
-          <MenuItem onClick={savedGraphOnClick}>Delete</MenuItem>
+          {/* <div class="dropdown-menu"> */}
+          <SaveMenuItem onClick={saveOnClick}>Save</SaveMenuItem>
+          <MenuItem onClick={savedGraphOnClick}>Saved Graph</MenuItem>
+          {/* </div> */}
         </Menu>
       </div>
     </React.Fragment>
   );
 });
 
-export default MoreOptions;
+export default SavePopOptions;

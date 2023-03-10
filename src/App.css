@@ -109,3 +109,58 @@ html{
      
   }
 
+  /* responsiveness breakpoints */
+
+  /* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  /* your styles here */
+  html{
+    font-size: 9px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  /* your styles here */
+  html{
+    font-size: 9px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  /* your styles here */
+  html{
+    font-size: 11px;
+  }
+}
+
+/* Extra-large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  html{
+    font-size: 12px;
+  }
+}
+
+/* Extra-large devices (large desktops, 1536px and up) */
+@media (min-width: 1536px) {
+  html{
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 1700px) {
+  html{
+    font-size: 15px;
+  }
+}
+@media (min-width: 2300px) {
+  html{
+    font-size: 17px;
+  }
+}
+@media (min-width: 2600px) {
+  html{
+    font-size: 20px;
+  }
+}

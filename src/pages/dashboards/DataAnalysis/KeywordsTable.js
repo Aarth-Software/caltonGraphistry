@@ -43,6 +43,7 @@ import {
   setSearchDate,
 } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
+import { MoreVertical } from "react-feather";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -57,7 +58,6 @@ const TableCell = styled(MuiTableCell)`
 
 const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
-  font-size: 5rem;
 `;
 const SearchInputContainer = styled("div")`
   width: 100%;
@@ -83,7 +83,7 @@ const SearchInput = styled("input")`
   }
 `;
 
-const ManagedSavedGraphs = React.memo(
+const KeywordsTable = React.memo(
   ({
     theme,
     condition,
@@ -96,12 +96,8 @@ const ManagedSavedGraphs = React.memo(
     accessKeys,
     hideControls,
   }) => {
-    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    const { keycloak } = useKeycloak();
-    const { activeBg, editPannel, editedValue, searchDate } = useSelector(
-      (state) => state.service
-    );
+    const { activeBg, searchDate } = useSelector((state) => state.service);
     const filteredRecords = data.filter((rcds) => {
       if (!searchDate) {
         return true; // no search date set, return all records
@@ -127,25 +123,8 @@ const ManagedSavedGraphs = React.memo(
       }
       setPage(1);
     }
-    const updateRecords = () => {
-      dispatch(setEditPannel(true));
-      dispatch(setEditedValue(data[activeBg].query_name));
-      console.log(data[activeBg].query_name);
-    };
-    const deleteRecords = () => {
-      dispatch(getDeleteRecords(keycloak, activeBg, data, enqueueSnackbar));
-    };
-    const getEditSave = () => {
-      dispatch(getEditRecord(activeBg, data, editedValue, enqueueSnackbar));
-    };
-
-    const closeWithCrossICon = () => {
-      dispatch(setEditPannel(false));
-    };
-    const closeEditPannel = () => {
-      dispatch(setEditPannel(false));
-    };
-
+    const save = () => {};
+    const edit = () => {};
     return (
       <Card mb={6} sx={{ position: "relative", pb: 14 }}>
         <TitleHeader sx={{ fontSize: "2rem" }} title={title} />
@@ -186,9 +165,9 @@ const ManagedSavedGraphs = React.memo(
                   {pageElements.map((e, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
-                        {e.query_name}
+                        {e.keyword}
                       </TableCell>
-                      <TableCell>{e.selected_query}</TableCell>
+                      <TableCell>{e.node}</TableCell>
                       <TableCell>{e.save_time}</TableCell>
                       <TableCell align="right">
                         {!btn ? (
@@ -198,8 +177,8 @@ const ManagedSavedGraphs = React.memo(
                             }}
                           >
                             <MoreOptions
-                              saveOnClick={updateRecords}
-                              savedGraphOnClick={deleteRecords}
+                              saveOnClick={save}
+                              savedGraphOnClick={edit}
                               index={i}
                               hideControls={hideControls}
                             />
@@ -254,24 +233,9 @@ const ManagedSavedGraphs = React.memo(
             hoverColor={theme.palette.background.paper}
           />
         </Box>
-        <PopModal
-          openModal={editPannel}
-          setModalOpen={setEditPannel}
-          child={
-            <SavePopPanel
-              getSave={getEditSave}
-              inputValue={editedValue}
-              setSaveName={setEditedValue}
-              closeWithCrossICon={closeWithCrossICon}
-              headTitle="Rename"
-              close={closeEditPannel}
-            />
-          }
-          classProp={{ ...popModalContainer, ...popSaveModalContainer }}
-        />
       </Card>
     );
   }
 );
 
-export default withTheme(ManagedSavedGraphs);
+export default withTheme(KeywordsTable);
