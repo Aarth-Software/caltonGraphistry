@@ -12,7 +12,7 @@ const typography = {
     '"Segoe UI Emoji"',
     '"Segoe UI Symbol"',
   ].join(","),
-  fontSize: 16,
+  fontSize: 15,
   fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightMedium: 500,
@@ -43,12 +43,12 @@ const typography = {
     lineHeight: 1.25,
   },
   h6: {
-    fontSize: "1.2rem",
+    fontSize: "1.3rem",
     fontWeight: 500,
     lineHeight: 1.25,
   },
   body1: {
-    fontSize: 16,
+    fontSize: 15,
   },
   button: {
     textTransform: "none",

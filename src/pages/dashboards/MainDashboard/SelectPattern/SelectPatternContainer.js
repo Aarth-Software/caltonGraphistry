@@ -29,8 +29,9 @@ const SelectPatternContainer = React.memo((props) => {
         <TooltipComp
           className="no-padding-icon-button"
           size="1rem"
-          icon={info}
+          // icon={info}
           message={"this is selected pattern info"}
+          top=".5rem"
         />
       </div>
       <SelectButtons

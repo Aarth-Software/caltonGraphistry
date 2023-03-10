@@ -6,7 +6,7 @@ const SelectButtons = React.memo((props) => {
   const { btnArray, activePattern, setActivePattern, getPatternChange } = props;
   const SvgButtons = styled("img")({
     color: "darkslategray",
-    padding: 4,
+    // padding: 2,
     // borderRadius: 4,
   });
 
@@ -25,7 +25,7 @@ const SelectButtons = React.memo((props) => {
         alignItems: "center",
         justifyContent: "center",
         columnGap: 0.9,
-        rowGap: 0.5,
+        rowGap: 2,
         pt: -2,
       }}
     >

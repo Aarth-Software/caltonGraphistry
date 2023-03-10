@@ -298,7 +298,7 @@ const FallDashboard = () => {
                 fontWeight: "bolder",
               }}
             >
-              2. Select relationship
+              2. Build query
             </Typography>
             <Box
               sx={{
@@ -312,8 +312,9 @@ const FallDashboard = () => {
               <TooltipComp
                 className="no-padding-icon-button"
                 size="1rem"
-                icon={info}
+                // icon={info}
                 message={"this is selected drop info"}
+                top="0rem"
               />
             </Box>
             <Box

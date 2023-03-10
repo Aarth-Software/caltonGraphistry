@@ -15,14 +15,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const IconButton = styled(MuiIconButton)`
   svg {
-    width: 22px;
-    height: 22px;
+    width: 2.2rem;
+    height: 2.2rem;
   }
 `;
 const TheamIcon = styled(MenuIcon)`
   color: ${(props) => props.theme.palette.text.primary};
 `;
-
 function NavbarUserDropdown({ icon, size }) {
   const location = useLocation().pathname.split("/");
   const [anchorMenu, setAnchorMenu] = React.useState(null);
@@ -59,9 +58,11 @@ function NavbarUserDropdown({ icon, size }) {
           aria-haspopup="true"
           onClick={toggleMenu}
           color="inherit"
+          className="menuIconCustom"
           size="large"
         >
-          <TheamIcon src={icon} alt={"user"} size="medium" />
+          <TheamIcon src={icon} alt={"user"} />
+          {/* <img src={icon} style={{ width: "2rem" }} alt={"user"} /> */}
         </IconButton>
       </Tooltip>
       <Menu

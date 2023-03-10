@@ -18,6 +18,7 @@ const StandardButton = ({
   mr,
   sx,
   onClick,
+  colorHover,
 }) => {
   return (
     <Button
@@ -37,6 +38,7 @@ const StandardButton = ({
         textTransform: "capitalize",
         ":hover": {
           bgcolor: hoverColor,
+          color: colorHover,
         },
         ...sx,
       }}

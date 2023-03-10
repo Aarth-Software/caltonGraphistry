@@ -21,6 +21,7 @@ import {
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 import { useSnackbar } from "notistack";
 import { selectDropDownValues } from "../../../../libs/HigherOrderFunctions";
+import { GrFormNext } from "react-icons/gr";
 const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
@@ -77,7 +78,7 @@ const SelectPropertiesContainer = React.memo((props) => {
                 dropdownOptions?.node_2[nodeState?.nodeA?.value]
               }
             />
-            {/* <ArrowDownwardIcon sx={downArrowStyle} /> */}
+            {/* <ArrowDownwardIcon  sx={downArrowStyle} /> */}
           </>
         )}
       </Box>
@@ -102,8 +103,9 @@ const SelectPropertiesContainer = React.memo((props) => {
         )}
         {nodeC && (
           <>
+            {/* <ArrowForwardIcon sx={lineArrowStyles} /> */}
             <Line>
-              <ArrowForwardIcon sx={lineArrowStyles} />
+              <GrFormNext style={{ color: "red" }} size={"1.2rem"} />
             </Line>
             <StandardAffiliationBar
               onselect={selectDropDownValue}

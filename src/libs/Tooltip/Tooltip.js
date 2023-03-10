@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { IconButton, Tooltip } from "@mui/material";
-
-const TooltipComp = ({ icon, message, size, className }) => {
+import { AiOutlineInfoCircle } from "react-icons/ai";
+const TooltipComp = ({ icon, message, size, className, top }) => {
   const ref = useRef(null);
   //   const [isOpen, setOpen] = useState(false);
 
@@ -20,12 +20,9 @@ const TooltipComp = ({ icon, message, size, className }) => {
           ref={ref}
           onClick={handleOpen}
           size="large"
+          style={{ color: "gray", marginTop: top }}
         >
-          <img
-            src={icon}
-            alt={"user"}
-            style={{ width: !!size ? size : "1.1rem" }}
-          />
+          <AiOutlineInfoCircle size={"1rem"} />
         </IconButton>
       </Tooltip>
     </React.Fragment>

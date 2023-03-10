@@ -26,7 +26,7 @@ const RunButton = ({ onClick }) => {
         px={8}
         mt={0.8}
         mr={0.4}
-        fontSize=".7rem"
+        // fontSize=".7rem"
         fontWeight={600}
         onClick={onClick}
       />

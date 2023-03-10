@@ -32,27 +32,28 @@ const AuthLanding = ({ theme }) => {
   }
   return (
     <>
-      <img src={litDigBigLogo} alt="logo" />
+      <img src={litDigBigLogo} style={{ width: "50rem" }} alt="logo" />
       <Box>
         <StandardButton
           text="Contact us"
-          px={2}
-          py={2}
+          px={4}
+          py={1.5}
           varient="outlined"
           mr={5}
-          color={theme.palette.text.primary}
+          color={theme.palette.secondary.main}
           onClick={() => navigate("/contact")}
         />
         <StandardButton
           text="Sign in"
-          px={2}
-          py={2}
+          px={7}
+          py={1.7}
           varient="standard"
-          // bgcolor={"#F96167"}
+          // bgcolor={theme.palette.secondary.main}
           mx={3}
           onClick={navigateToLogin}
-          color={theme.palette.text.primary}
+          color={"white"}
           bgcolor={theme.palette.secondary.main}
+          colorHover="black"
         />
       </Box>
     </>

@@ -145,13 +145,13 @@ export const downArrowStyle = {
 };
 export const horizentalLineStyles = {
   flexGrow: 1,
-  height: ".1rem",
+  height: ".14rem",
   background: "#666666",
   ...flexCenter,
   justifyContent: "flex-end",
   postion: "relative",
   // background: "green",
-  paddingRight: "1.3rem",
+  paddingRight: "1.1rem",
 };
 export const firstInputLineStyles = {
   "&::before": {
