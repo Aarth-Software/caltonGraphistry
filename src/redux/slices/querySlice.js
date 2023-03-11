@@ -90,7 +90,7 @@ export const fetchSavedQuaries = (kc) => async (dispatch) => {
   try {
     dispatch(setSaveRecordsFetchError(false));
     dispatch(setSavedRecordsLoading(true));
-    const response = await getUserRecords({ userId: kc.idTokenParsed.sub });
+    const response = await getUserRecords({ userId: kc });
     console.log(response.data);
     dispatch(setSavedRecords(response.data));
     dispatch(setSavedRecordsLoading(false));

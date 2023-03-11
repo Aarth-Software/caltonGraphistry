@@ -14,19 +14,38 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 import useAuth from "../../hooks/useAuth";
+import Loader from "../Loader";
 
 const Alert = styled(MuiAlert)(spacing);
 
 const TextField = styled(MuiTextField)(spacing);
 
 function SignIn() {
-  // const { signIn } = useAuth();
+  const { signIn, isAuthenticated, isInitialized } = useAuth();
+  const [loading, setLoading] = React.useState(true);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (isInitialized) {
+      setLoading(false);
+    }
+  }, [isInitialized]);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/generateQuery");
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <Formik
       initialValues={{
-        email: "demo@bootlab.io",
-        password: "unsafepassword",
+        email: "",
+        password: "",
         submit: false,
       }}
       validationSchema={Yup.object().shape({
@@ -37,15 +56,15 @@ function SignIn() {
         password: Yup.string().max(255).required("Password is required"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        // try {
-        //   await signIn(values.email, values.password);
-        //   navigate("/private");
-        // } catch (error) {
-        //   const message = error.message || "Something went wrong";
-        //   setStatus({ success: false });
-        //   setErrors({ submit: message });
-        //   setSubmitting(false);
-        // }
+        try {
+          await signIn(values.email, values.password);
+          navigate("/generateQuery");
+        } catch (error) {
+          const message = error.message || "Something went wrong";
+          setStatus({ success: false });
+          setErrors({ submit: message });
+          setSubmitting(false);
+        }
         // ApplicationToken();
       }}
     >

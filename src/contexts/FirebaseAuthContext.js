@@ -12,7 +12,6 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
   firebase.firestore();
 }
-
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
@@ -33,7 +32,7 @@ const reducer = (state, action) => {
   return state;
 };
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [profile, setProfile] = useState();
@@ -92,6 +91,7 @@ function AuthProvider({ children }) {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
+        console.log(res);
         firebase
           .firestore()
           .collection("users")

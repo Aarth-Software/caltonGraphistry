@@ -34,7 +34,7 @@ const dashboardSlice = createSlice({
 export const fetchKeywords = (kc) => async (dispatch) => {
   try {
     dispatch(setKeywordsLoading(true));
-    const response = await getKeywords({ userId: kc.idTokenParsed.sub });
+    const response = await getKeywords({ userId: kc });
     dispatch(setKeywords(response.data));
     dispatch(setKeywordsLoading(false));
   } catch (err) {

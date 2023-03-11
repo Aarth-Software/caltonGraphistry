@@ -43,17 +43,7 @@ const SaaS = async(() => import("./pages/dashboards/SaaS"));
 
 const routes = [
   {
-    path: "/",
-    element: <PresentationLayout />,
-    children: [
-      {
-        path: "",
-        element: <Landing />,
-      },
-    ],
-  },
-  {
-    path: "/userLanding",
+    path: "auth",
     element: <AuthLayout />,
     children: [
       {
@@ -61,28 +51,34 @@ const routes = [
         element: <AuthLanding />,
       },
       {
-        path: "login",
+        path: "sign-in",
         element: <SignIn />,
       },
-    ],
-  },
-  {
-    path: "/contact",
-    element: <AuthLayout />,
-    children: [
       {
-        path: "",
-        element: <ContactUs />,
+        path: "sign-up",
+        element: <SignUp />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "404",
+        element: <Page404 />,
+      },
+      {
+        path: "500",
+        element: <Page500 />,
       },
     ],
   },
   {
-    path: "/signUp",
-    element: <DashboardLayout />,
+    path: "/",
+    element: <PresentationLayout />,
     children: [
       {
         path: "",
-        element: <SignUp />,
+        element: <Landing />,
       },
     ],
   },
@@ -117,32 +113,6 @@ const routes = [
     ],
   },
 
-  {
-    path: "auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "sign-in",
-        element: <SignIn />,
-      },
-      {
-        path: "sign-up",
-        element: <SignUp />,
-      },
-      {
-        path: "reset-password",
-        element: <ResetPassword />,
-      },
-      {
-        path: "404",
-        element: <Page404 />,
-      },
-      {
-        path: "500",
-        element: <Page500 />,
-      },
-    ],
-  },
   {
     path: "changelog",
     element: <DocLayout />,

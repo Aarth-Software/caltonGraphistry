@@ -28,7 +28,6 @@ import SavePopPanel from "../MainDashboard/SavedGraphs/SavePopPanel";
 import PopModal from "../../../libs/Modal/PopModal";
 import AuthLayout from "../../../layouts/Auth";
 import { useDispatch } from "react-redux";
-import { useKeycloak } from "@react-keycloak/web";
 import {
   getDeleteRecords,
   getEditRecord,
@@ -92,7 +91,6 @@ const ManagedSavedGraphs = React.memo(
   }) => {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    const { keycloak } = useKeycloak();
     const { activeBg, editPannel, editedValue, searchDate } = useSelector(
       (state) => state.service
     );
@@ -127,7 +125,14 @@ const ManagedSavedGraphs = React.memo(
       console.log(data[activeBg].query_name);
     };
     const deleteRecords = () => {
-      dispatch(getDeleteRecords(keycloak, activeBg, data, enqueueSnackbar));
+      dispatch(
+        getDeleteRecords(
+          "fd62a31e-1a57-4080-93fe-e90dd0b2c209",
+          activeBg,
+          data,
+          enqueueSnackbar
+        )
+      );
     };
     const getEditSave = () => {
       dispatch(getEditRecord(activeBg, data, editedValue, enqueueSnackbar));

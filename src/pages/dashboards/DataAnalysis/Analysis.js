@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Grid } from "@mui/material";
 import { green } from "@mui/material/colors";
-import { useKeycloak } from "@react-keycloak/web";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import Loader from "../../../components/Loader";
@@ -38,13 +37,12 @@ const Analysis = () => {
   const { savedRecords } = useSelector((state) => state.query);
   const [apiRecords, setApiRecords] = React.useState([]);
   const [recoredsLoading, setRecordsLoading] = React.useState(false);
-  const { keycloak, initialized } = useKeycloak();
 
   React.useEffect(() => {
     if (dashboardFetchOnce) {
-      dispatch(fetchKeywords(keycloak));
+      dispatch(fetchKeywords("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
       dispatch(fetchDashboardInfo());
-      dispatch(fetchSavedQuaries(keycloak));
+      dispatch(fetchSavedQuaries("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
     }
     dispatch(setDashboardFetchOnce(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps

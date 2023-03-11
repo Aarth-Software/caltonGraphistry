@@ -34,7 +34,6 @@ import {
   fetchSavedQuaries,
   removeRecord,
 } from "../../../redux/slices/querySlice";
-import { useKeycloak } from "@react-keycloak/web";
 import {
   getDeleteRecords,
   getEditRecord,

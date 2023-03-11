@@ -1,26 +1,19 @@
-import { useKeycloak } from "@react-keycloak/web";
 import React from "react";
 import { Navigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import Loader from "../Loader";
 
 // For routes that can only be accessed by authenticated users
 
 function AuthGuard({ children }) {
-  const { keycloak, initialized } = useKeycloak();
-  const [loading, setLoading] = React.useState(true);
+  const { user, isInitialized } = useAuth();
 
-  React.useEffect(() => {
-    if (initialized) {
-      setLoading(false);
-    }
-  }, [initialized]);
-
-  if (loading) {
+  if (!isInitialized) {
     return <Loader />;
   }
 
-  if (!keycloak.authenticated) {
-    return <Navigate to="/userLanding" />;
+  if (!user?.id) {
+    return <Navigate to="/auth" />;
   }
   return <>{children}</>;
 }

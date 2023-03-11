@@ -3,45 +3,46 @@ import React from "react";
 import StandardButton from "../libs/Buttons/StandardButton";
 import { litDigBigLogo } from "../asserts/index";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useKeycloak } from "@react-keycloak/web";
 import { withTheme } from "@emotion/react";
 import Loader from "../components/Loader";
+import useAuth from "../hooks/useAuth";
 const AuthLanding = ({ theme }) => {
-  const { keycloak, initialized } = useKeycloak();
   const [loading, setLoading] = React.useState(true);
   const navigate = useNavigate();
-  console.log(initialized);
+  const { isAuthenticated, isInitialized } = useAuth();
 
   React.useEffect(() => {
-    if (initialized) {
+    if (isInitialized) {
       setLoading(false);
     }
-  }, [initialized]);
+  }, [isInitialized]);
 
   const navigateToLogin = async () => {
-    await keycloak.login();
-    console.log(keycloak.idToken);
+    navigate("sign-in");
   };
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/generateQuery");
+    }
+  }, [isAuthenticated, navigate]);
 
   if (loading) {
     return <Loader />;
   }
 
-  if (keycloak.authenticated) {
-    return <Navigate to={"/generateQuery"} />;
-  }
   return (
     <>
       <img src={litDigBigLogo} style={{ width: "50rem" }} alt="logo" />
       <Box>
         <StandardButton
-          text="Contact us"
+          text="Sign up"
           px={4}
           py={1.5}
           varient="outlined"
           mr={5}
           color={theme.palette.secondary.main}
-          onClick={() => navigate("/contact")}
+          onClick={() => navigate("sign-up")}
         />
         <StandardButton
           text="Sign in"

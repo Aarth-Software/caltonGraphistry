@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -12,6 +12,7 @@ import {
 import { spacing } from "@mui/system";
 
 import useAuth from "../../hooks/useAuth";
+import Loader from "../Loader";
 
 const Alert = styled(MuiAlert)(spacing);
 
@@ -19,7 +20,24 @@ const TextField = styled(MuiTextField)(spacing);
 
 function SignUp() {
   const navigate = useNavigate();
-  const { signUp } = useAuth();
+  const { signUp, isAuthenticated, isInitialized } = useAuth();
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (isInitialized) {
+      setLoading(false);
+    }
+  }, [isInitialized]);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/generateQuery");
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <Formik
@@ -52,14 +70,15 @@ function SignUp() {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          signUp(
+          await signUp(
             values.email,
             values.password,
             values.firstName,
             values.lastName
           );
-          navigate("/auth/sign-in");
+          navigate("/generateQuery");
         } catch (error) {
+          console.log(error);
           const message = error.message || "Something went wrong";
 
           setStatus({ success: false });

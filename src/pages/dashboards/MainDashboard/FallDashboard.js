@@ -37,7 +37,7 @@ import { GenerateDataSet, postQuery } from "../../../services/service";
 import { useFetch } from "../../../utils/useFetch";
 import { red } from "@mui/material/colors";
 import FiltersComponent from "./SelectProperties/filters/Filters";
-import { useKeycloak } from "@react-keycloak/web";
+// import { useKeycloak } from "@react-keycloak/web";
 import Loader from "../../../components/Loader";
 import {
   checkError,
@@ -119,12 +119,12 @@ const FallDashboard = () => {
     status: false,
     data: null,
   });
-  const { keycloak, initialized } = useKeycloak();
+  // const { keycloak, initialized } = useKeycloak();
   React.useEffect(() => {
     if (fetchOnce) {
       dispatch(fetchDropdownValues());
       dispatch(fetchDefaultGraph());
-      dispatch(fetchSavedQuaries(keycloak));
+      dispatch(fetchSavedQuaries("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
     }
     dispatch(setFetchOnce(false));
   }, []);
@@ -210,7 +210,7 @@ const FallDashboard = () => {
     }
     const [changeKeys] = [selectParams].map((eg) => {
       return {
-        user_id: keycloak.idTokenParsed.sub,
+        user_id: "fd62a31e-1a57-4080-93fe-e90dd0b2c209",
         node1: eg.nodeA,
         node2: eg.nodeB,
         node3: eg.nodeC,
@@ -242,7 +242,7 @@ const FallDashboard = () => {
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
-      dispatch(fetchSavedQuaries(keycloak));
+      dispatch(fetchSavedQuaries("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
     } catch (err) {
       enqueueSnackbar("Save graph unsuccessfull", {
         variant: "error",

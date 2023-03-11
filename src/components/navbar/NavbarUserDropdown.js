@@ -9,7 +9,7 @@ import {
   IconButton as MuiIconButton,
 } from "@mui/material";
 
-// import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import keycloak from "../../Keycloak";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -26,7 +26,7 @@ function NavbarUserDropdown({ icon, size }) {
   const location = useLocation().pathname.split("/");
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const navigate = useNavigate();
-  // const { signOut } = useAuth();
+  const { signOut } = useAuth();
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
@@ -45,9 +45,8 @@ function NavbarUserDropdown({ icon, size }) {
   };
 
   const handleSignOut = async () => {
-    // await signOut();
-    await keycloak.logout();
-    navigate("/userLanding");
+    await signOut();
+    navigate("/auth/sign-in");
   };
 
   return (
@@ -82,7 +81,7 @@ function NavbarUserDropdown({ icon, size }) {
             },
           }}
         >
-          <MenuItem onClick={closeMenu}>Profile</MenuItem>
+          <MenuItem onClick={closeMenu}>Contact us</MenuItem>
           {location[2] === "analysis" ? (
             <MenuItem onClick={generateQuery}>Query</MenuItem>
           ) : (
