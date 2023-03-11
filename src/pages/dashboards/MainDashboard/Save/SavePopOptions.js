@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { MoreVertical } from "react-feather";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
 import {
   Tooltip,
@@ -14,13 +14,14 @@ import { setShowStoreOptions } from "../../../../redux/slices/serviceSlice";
 
 const IconButton = styled(MuiIconButton)`
   svg {
-    width: 22px;
-    height: 22px;
+    width: 2rem;
+    height: 2rem;
   }
 `;
 const SaveMenuItem = styled(MenuItem)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
+
 const SavePopOptions = React.memo((props) => {
   const { saveOnClick, savedGraphOnClick } = props;
   const dispatch = useDispatch();
@@ -37,27 +38,24 @@ const SavePopOptions = React.memo((props) => {
   return (
     <React.Fragment>
       <div className="dropdown-menu-container">
-        <div className="icon-container">
-          <IconButton
-            aria-owns={Boolean(showStoreOptions) ? "menu-appbar" : undefined}
-            aria-haspopup="true"
-            onClick={toggleMenu}
-            color="inherit"
-            size="small"
-            className="remove-padding"
-            sx={{ mr: 6 }}
-          >
-            <Tooltip title={"More options"}>
-              <MoreVertical />
-            </Tooltip>
-          </IconButton>
-        </div>
+        <Tooltip title={"More options"}>
+          <div className="icon-container" onClick={toggleMenu}>
+            <BiDotsVerticalRounded style={{ cursor: "pointer" }} size="2rem" />
+          </div>
+        </Tooltip>
         <Menu
           id="menu-appbar"
           anchorEl={showStoreOptions}
           open={Boolean(showStoreOptions)}
           onClose={closeMenu}
-          sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)", pt: 0, mt: -1 }}
+          PaperProps={{
+            style: {
+              borderRadius: ".1rem",
+              boxShadow:
+                "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
+              zIndex: "80",
+            },
+          }}
         >
           {/* <div class="dropdown-menu"> */}
           <SaveMenuItem onClick={saveOnClick}>Save</SaveMenuItem>

@@ -56,18 +56,27 @@ html{
 /* ========================================= */
 .dropdown-menu-container {
     position: relative;
-    width : 1rem
   }
   
   .icon-container {
-    width : auto;
+ 
     position: relative;
-    padding : 0rem;
-    /* background-color: green; */
-    width : 3rem;
+
+    width : 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    
+  }
+  .icon-container::after{
+    content: "";
+    height: 40%;
+    width: 40%;
+    background-color: white;
+    top: 85%;
+    left: 30%;
+    position: absolute;
+    z-index: 100;
   }
   
   .icon-container img {
@@ -108,6 +117,31 @@ html{
     width : 1rem
      
   }
+  .navMenu{
+
+  }
+  .navMenuIconContainer{
+    position: relative;
+    width : 3rem;
+    height : 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+  }
+
+  .serviceOptions{
+    position: relative;
+  }
+  .servieIconContainer{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+  }
+
+
  
 
   /* responsiveness breakpoints */
@@ -132,21 +166,22 @@ html{
 @media (min-width: 992px) {
   /* your styles here */
   html{
-    font-size: 11px;
+    font-size: 10px;
   }
 }
 
 /* Extra-large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   html{
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
 /* Extra-large devices (large desktops, 1536px and up) */
 @media (min-width: 1536px) {
   html{
-    font-size: 13px;
+    /* font-size: 13.7px; */
+    font-size: 12px;
   }
 }
 

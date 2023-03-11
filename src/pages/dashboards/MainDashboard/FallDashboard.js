@@ -363,7 +363,7 @@ const FallDashboard = () => {
                 boxShadow:
                   showStoreOptions === null
                     ? ""
-                    : "0px .6px 3px rgba(0, 0, 0, 0.06)",
+                    : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
                 color: showStoreOptions === null ? "black" : "#e57373",
                 ...flexCenter,
               }}

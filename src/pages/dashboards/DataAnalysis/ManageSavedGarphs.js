@@ -23,17 +23,11 @@ import StandardButton from "../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import MoreOptions from "../MainDashboard/SelectProperties/MoreOptions";
-import { deleteRecord, updateRecord } from "../../../services/service";
 import { useSnackbar } from "notistack";
 import SavePopPanel from "../MainDashboard/SavedGraphs/SavePopPanel";
 import PopModal from "../../../libs/Modal/PopModal";
 import AuthLayout from "../../../layouts/Auth";
 import { useDispatch } from "react-redux";
-import {
-  editRecordName,
-  fetchSavedQuaries,
-  removeRecord,
-} from "../../../redux/slices/querySlice";
 import { useKeycloak } from "@react-keycloak/web";
 import {
   getDeleteRecords,

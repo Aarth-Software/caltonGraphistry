@@ -22,6 +22,8 @@ import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 import { useSnackbar } from "notistack";
 import { selectDropDownValues } from "../../../../libs/HigherOrderFunctions";
 import { GrFormNext } from "react-icons/gr";
+import CustomArrow from "../../../../libs/arrows/CustomArrow";
+import ArrowDown from "../../../../libs/arrows/ArrowDown";
 const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
@@ -70,7 +72,10 @@ const SelectPropertiesContainer = React.memo((props) => {
               onselect={selectDropDownValue}
               nodeProp={nodeState?.nodeB}
               name="nodeB"
-              sx={{ ...nodeBComStyles, ...rowNodePattern }}
+              sx={{
+                ...nodeBComStyles,
+                ...(pattern?.series && { top: "1.4rem" }),
+              }}
               change={inputChange}
               unUsed={pattern?.unUsedB}
               options={
@@ -78,7 +83,7 @@ const SelectPropertiesContainer = React.memo((props) => {
                 dropdownOptions?.node_2[nodeState?.nodeA?.value]
               }
             />
-            {/* <ArrowDownwardIcon  sx={downArrowStyle} /> */}
+            {pattern?.series ?? <ArrowDown />}
           </>
         )}
       </Box>
@@ -104,9 +109,10 @@ const SelectPropertiesContainer = React.memo((props) => {
         {nodeC && (
           <>
             {/* <ArrowForwardIcon sx={lineArrowStyles} /> */}
-            <Line>
+            {/* <Line>
               <GrFormNext style={{ color: "red" }} size={"1.2rem"} />
-            </Line>
+            </Line> */}
+            <CustomArrow />
             <StandardAffiliationBar
               onselect={selectDropDownValue}
               nodeProp={nodeState?.nodeC}

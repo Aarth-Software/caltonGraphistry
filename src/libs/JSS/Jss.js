@@ -38,7 +38,7 @@ export const patternContainerStyle = {
   bgcolor: "#FFFFFF",
   height: "8.5rem",
   ml: 5,
-  borderRadius: 1.5,
+  borderRadius: ".4rem",
   px: 2,
   boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
   position: "relative",
@@ -48,21 +48,22 @@ export const graphContainerStyle = {
   mt: 5,
   bgcolor: "#FFFFFF",
   border: ".05rem solid #DBDCDF",
-  borderRadius: 1.5,
+  borderRadius: ".4rem",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
 };
 export const selectPropContainerStyle = {
   width: "100%",
-  height: "7.2rem",
+  height: "105%",
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-start",
+  // borderRadius: ".4rem",
+  // bgcolor: "red",
 };
 export const moreOptionStyle = {
   position: "absolute",
-
   top: "5%",
   left: "80%",
   background: "white",
@@ -77,6 +78,7 @@ export const inputBoxConStyle = {
   flexGraw: 1,
   justifyContent: "center",
   flexDirection: "column",
+  // bgcolor: "red",
 };
 export const firstInputComStyle = {
   position: "relative",
@@ -180,7 +182,7 @@ export const inputAndSelectPlaceContainer = {
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
-  height: "2.2rem",
+  height: "2.8rem",
 };
 export const actualInputStyles = {
   height: "1.6rem",
@@ -226,7 +228,7 @@ export const patternContainerStyles = {
   bgcolor: "#FFFFFF",
   height: "8.5rem",
   width: "14rem",
-  borderRadius: 1.5,
+  borderRadius: ".4rem",
   px: 2,
   boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
   border: ".05rem solid #DBDCDF",
@@ -245,6 +247,7 @@ export const nodeBCircleStyleProp = {
   position: "absolute",
   borderRadius: "50%",
   border: ".05rem solid #DBDCDF",
+  zIndex: "2",
 };
 export const nodeACircleStyleProp = {
   content: '""',
@@ -256,6 +259,7 @@ export const nodeACircleStyleProp = {
   position: "absolute",
   borderRadius: "50%",
   border: ".05rem solid #DBDCDF",
+  zIndex: "3",
 };
 export const nodeCCircleStyleProp = {
   content: '""',
@@ -273,7 +277,7 @@ export const saveAndGraphBtnContainer = {
   bgcolor: "#FFFFFF",
   height: "8.5rem",
   width: "12rem",
-  borderRadius: 1.5,
+  borderRadius: ".4rem",
   px: 2,
   boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
   border: ".05rem solid #DBDCDF",

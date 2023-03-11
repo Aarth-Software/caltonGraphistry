@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { MoreVertical } from "react-feather";
-
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import {
   Tooltip,
   Menu,
@@ -30,7 +30,7 @@ const ThreenDotOptions = styled(MoreVertical)`
 const MoreOptions = React.memo((props) => {
   const { saveOnClick, savedGraphOnClick, index, hideControls } = props;
   const dispatch = useDispatch();
-  const { anchorMenu } = useSelector((state) => state.service);
+  const { anchorMenu, activeBg } = useSelector((state) => state.service);
   const multiMenuValue = (event, idx) => {
     if (hideControls) {
       return;
@@ -43,31 +43,39 @@ const MoreOptions = React.memo((props) => {
     dispatch(setAnchorMenu(null));
     dispatch(setActiveBg(""));
   };
-
+  const active = [activeBg === index, hideControls === undefined].every(
+    (eg) => eg
+  );
   return (
     <React.Fragment>
-      <div className="dropdown-menu-container">
-        <div className="icon-container">
-          <IconButton
-            aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
-            aria-haspopup="true"
-            onClick={(eve) => hideControls ?? multiMenuValue(eve, index)}
-            color="inherit"
-            size="small"
-            className="remove-padding"
-            sx={{ mr: 6 }}
-          >
-            <Tooltip title={hideControls ? "" : "More options"}>
-              <ThreenDotOptions />
-            </Tooltip>
-          </IconButton>
+      <div className="serviceOptions">
+        <div
+          className="servieIconContainer"
+          style={{
+            boxShadow: !active
+              ? ""
+              : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
+            color: !active ? "black" : "#e57373",
+          }}
+          onClick={(eve) => hideControls ?? multiMenuValue(eve, index)}
+        >
+          <Tooltip title={hideControls ? "" : "More options"}>
+            <BiDotsVerticalRounded style={{ cursor: "pointer" }} size="2rem" />
+          </Tooltip>
         </div>
         <Menu
           id="menu-appbar"
           anchorEl={anchorMenu}
           open={Boolean(anchorMenu)}
           onClose={closeMenu}
-          sx={{ boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)", pt: 0, mt: -1 }}
+          PaperProps={{
+            style: {
+              borderRadius: ".1rem",
+              zIndex: "80",
+              boxShadow:
+                "rgba(131, 137, 141, 0.03) 0px .1rem .2rem 0, rgba(131, 137, 141, 0.03) 0px .1rem .3rem 0rem",
+            },
+          }}
         >
           <SaveMenuItem onClick={saveOnClick}>Edit Record</SaveMenuItem>
           <MenuItem onClick={savedGraphOnClick}>Delete</MenuItem>

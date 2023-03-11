@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { FcMenu } from "react-icons/fc";
 import {
   Tooltip,
   Menu,
@@ -19,7 +19,7 @@ const IconButton = styled(MuiIconButton)`
     height: 2.2rem;
   }
 `;
-const TheamIcon = styled(MenuIcon)`
+const TheamIcon = styled(FcMenu)`
   color: ${(props) => props.theme.palette.text.primary};
 `;
 function NavbarUserDropdown({ icon, size }) {
@@ -51,36 +51,48 @@ function NavbarUserDropdown({ icon, size }) {
   };
 
   return (
-    <React.Fragment>
-      <Tooltip title="Menu">
-        <IconButton
-          aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
-          aria-haspopup="true"
-          onClick={toggleMenu}
-          color="inherit"
-          className="menuIconCustom"
-          size="large"
+    <>
+      <div className="navMenu">
+        <Tooltip title="Menu">
+          <div
+            className="navMenuIconContainer"
+            style={{
+              boxShadow:
+                anchorMenu === null
+                  ? ""
+                  : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
+              color: anchorMenu === null ? "black" : "#e57373",
+            }}
+            onClick={toggleMenu}
+          >
+            <TheamIcon style={{ cursor: "pointer" }} size={"2rem"} />
+          </div>
+        </Tooltip>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorMenu}
+          open={Boolean(anchorMenu)}
+          onClose={closeMenu}
+          PaperProps={{
+            style: {
+              borderRadius: ".1rem",
+              boxShadow:
+                "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
+              zIndex: "80",
+            },
+          }}
         >
-          <TheamIcon src={icon} alt={"user"} />
-          {/* <img src={icon} style={{ width: "2rem" }} alt={"user"} /> */}
-        </IconButton>
-      </Tooltip>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorMenu}
-        open={Boolean(anchorMenu)}
-        onClose={closeMenu}
-      >
-        <MenuItem onClick={closeMenu}>Profile</MenuItem>
-        {location[2] === "analysis" ? (
-          <MenuItem onClick={generateQuery}>Query</MenuItem>
-        ) : (
-          <MenuItem onClick={dashboard}>Dashboard</MenuItem>
-        )}
+          <MenuItem onClick={closeMenu}>Profile</MenuItem>
+          {location[2] === "analysis" ? (
+            <MenuItem onClick={generateQuery}>Query</MenuItem>
+          ) : (
+            <MenuItem onClick={dashboard}>Dashboard</MenuItem>
+          )}
 
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
-      </Menu>
-    </React.Fragment>
+          <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        </Menu>
+      </div>
+    </>
   );
 }
 

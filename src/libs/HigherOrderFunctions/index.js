@@ -120,13 +120,11 @@ export const selectDropDownValues = (
       nodeState[name].disableInput === undefined &&
       nodeState[name].inputValue === undefined;
     if (unUsed) {
-      console.log("unSolidNode");
       setNodeState({
         ...nodeState,
         [name]: { ...nodeState[name], value: value, message: "" },
       });
     } else if (!unUsed) {
-      console.log("solidNode");
       setNodeState({
         ...nodeState,
         [name]: {
