@@ -2,6 +2,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import AppendFilter from "./AppendFilter";
 import FilterSet from "./FilterSet";
+import { MdOutlineFilterList } from "react-icons/md";
 
 const FiltersComponent = (props) => {
   const { icon } = props;
@@ -20,14 +21,20 @@ const FiltersComponent = (props) => {
           display: "flex",
           justifyContent: "center",
           mt: 0.6,
-          boxShadow: openFilter ? "0px .6px 3px rgba(0, 0, 0, 0.06)" : "",
+          boxShadow: openFilter
+            ? "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem"
+            : "",
           bgcolor: openFilter ? "white" : "white",
           pt: 0.3,
           pb: 2,
           px: 2,
         }}
       >
-        <img style={{ width: "2rem" }} src={icon} alt={"filter"} />
+        {/* <img style={{ width: "2rem" }} src={icon} alt={"filter"} /> */}
+        <MdOutlineFilterList
+          size="1.7rem"
+          color={openFilter ? "#e57373" : "black"}
+        />
       </Box>
       {openFilter && (
         <Box
@@ -39,7 +46,8 @@ const FiltersComponent = (props) => {
             bgcolor: "white",
             right: "-2rem",
             top: "2.3rem",
-            boxShadow: "0px .6px 3px rgba(0, 0, 0, 0.06)",
+            boxShadow:
+              "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
             p: 2,
           }}
         >

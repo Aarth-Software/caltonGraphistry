@@ -46,7 +46,7 @@ function NavbarUserDropdown({ icon, size }) {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate("/auth/sign-in");
+    navigate("/auth");
   };
 
   return (

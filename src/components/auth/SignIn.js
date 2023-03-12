@@ -125,6 +125,7 @@ function SignIn() {
             Sign in
           </Button>
           <Button
+            sx={{ mt: "1rem" }}
             component={Link}
             to="/auth/reset-password"
             fullWidth

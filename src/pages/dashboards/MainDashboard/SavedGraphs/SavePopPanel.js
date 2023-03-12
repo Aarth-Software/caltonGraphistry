@@ -62,12 +62,15 @@ const SavePopPanel = ({
   return (
     <SavePopContainer>
       <FlexItems>
-        <HeaderTitle
-          varient="h3"
-          sx={{ fontWeight: "bold", fontSize: "1.2rem" }}
+        <Typography
+          sx={{ mb: 2 }}
+          component="h1"
+          variant="h3"
+          align="left"
+          gutterBottom
         >
           {headTitle}
-        </HeaderTitle>
+        </Typography>
         <CrossIcon sx={{ fontSize: "2rem" }} onClick={closeWithCrossICon} />
       </FlexItems>
       <Items>
@@ -85,10 +88,10 @@ const SavePopPanel = ({
         <StandardButton
           text="Cancel"
           varient="outlined"
-          px={8}
+          px={7}
           mt={0.8}
           mr={0.4}
-          fontSize=".7rem"
+          fontSize=".9rem"
           fontWeight={600}
           onClick={close}
         />
@@ -98,7 +101,7 @@ const SavePopPanel = ({
           px={8}
           mt={0.8}
           mr={0.4}
-          fontSize=".7rem"
+          fontSize=".9rem"
           fontWeight={600}
           onClick={getSave}
         />

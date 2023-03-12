@@ -37,7 +37,7 @@ const AuthLanding = ({ theme }) => {
       <Box>
         <StandardButton
           text="Sign up"
-          px={4}
+          px={6}
           py={1.5}
           varient="outlined"
           mr={5}

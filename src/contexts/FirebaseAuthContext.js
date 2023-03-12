@@ -3,6 +3,7 @@ import { createContext, useEffect, useReducer, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/database";
 
 import { firebaseConfig } from "../config";
 
@@ -11,6 +12,7 @@ const INITIALIZE = "INITIALIZE";
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
   firebase.firestore();
+  firebase.database();
 }
 const initialState = {
   isAuthenticated: false,
@@ -94,14 +96,24 @@ function AuthProvider({ children }) {
         console.log(res);
         firebase
           .firestore()
-          .collection("users")
+          .collection("loginUsers")
           .doc(res.user?.uid)
           .set({
             uid: res.user?.uid,
             email,
             displayName: `${firstName} ${lastName}`,
           });
-      });
+        const db = firebase.database();
+        db.ref("users").push({
+          uid: res.user?.uid,
+          firstname: firstName,
+          lastname: lastName,
+          email,
+          displayName: `${firstName} ${lastName}`,
+          timestamp: Date.now(),
+        });
+      })
+      .catch((err) => console.log(err));
 
   const signOut = async () => {
     await firebase.auth().signOut();

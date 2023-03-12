@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import { Button, Paper, Typography } from "@mui/material";
 
-import { Paper, Typography } from "@mui/material";
-
-import { ReactComponent as Logo } from "../../vendor/logo.svg";
 import SignUpComponent from "../../components/auth/SignUp";
+import Logo from "../../asserts/Logo";
 
-const Brand = styled(Logo)`
-  fill: ${(props) => props.theme.palette.primary.main};
-  width: 64px;
-  height: 64px;
-  margin-bottom: 32px;
-`;
+// const Brand = styled(Logo)`
+//   fill: ${(props) => props.theme.palette.primary.main};
+//   width: 64px;
+//   height: 64px;
+//   margin-bottom: 32px;
+// `;
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -25,18 +25,39 @@ const Wrapper = styled(Paper)`
 function SignUp() {
   return (
     <React.Fragment>
-      <Brand />
+      {/* <Brand /> */}
+      <Logo size="18rem" mb="2rem" />
       <Wrapper>
         <Helmet title="Sign Up" />
 
-        <Typography component="h1" variant="h4" align="center" gutterBottom>
-          Get started
+        <Typography
+          sx={{ mb: 2 }}
+          component="h1"
+          variant="h2"
+          align="left"
+          gutterBottom
+        >
+          Sign up
         </Typography>
-        <Typography component="h2" variant="body1" align="center">
+        <Typography
+          sx={{ fontSize: "1rem" }}
+          component="h2"
+          variant="body1"
+          align="left"
+        >
           Start creating the best possible user experience for you customers
         </Typography>
 
         <SignUpComponent />
+        <Button
+          sx={{ mt: 1 }}
+          component={Link}
+          to="/auth/sign-in"
+          fullWidth
+          color="primary"
+        >
+          Alredy have an account sign in
+        </Button>
       </Wrapper>
     </React.Fragment>
   );

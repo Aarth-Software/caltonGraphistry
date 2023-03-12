@@ -36,6 +36,7 @@ import {
   setSearchDate,
 } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
+import useAuth from "../../../hooks/useAuth";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -94,6 +95,7 @@ const ManagedSavedGraphs = React.memo(
     const { activeBg, editPannel, editedValue, searchDate } = useSelector(
       (state) => state.service
     );
+    const { user } = useAuth();
     const filteredRecords = data.filter((rcds) => {
       if (!searchDate) {
         return true; // no search date set, return all records
@@ -125,14 +127,7 @@ const ManagedSavedGraphs = React.memo(
       console.log(data[activeBg].query_name);
     };
     const deleteRecords = () => {
-      dispatch(
-        getDeleteRecords(
-          "fd62a31e-1a57-4080-93fe-e90dd0b2c209",
-          activeBg,
-          data,
-          enqueueSnackbar
-        )
-      );
+      dispatch(getDeleteRecords(user?.id, activeBg, data, enqueueSnackbar));
     };
     const getEditSave = () => {
       dispatch(getEditRecord(activeBg, data, editedValue, enqueueSnackbar));

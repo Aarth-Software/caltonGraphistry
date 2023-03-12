@@ -77,7 +77,7 @@ const MoreOptions = React.memo((props) => {
             },
           }}
         >
-          <SaveMenuItem onClick={saveOnClick}>Edit Record</SaveMenuItem>
+          <SaveMenuItem onClick={saveOnClick}>Edit</SaveMenuItem>
           <MenuItem onClick={savedGraphOnClick}>Delete</MenuItem>
         </Menu>
       </div>

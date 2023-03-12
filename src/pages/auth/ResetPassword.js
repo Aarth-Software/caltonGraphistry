@@ -4,15 +4,15 @@ import { Helmet } from "react-helmet-async";
 
 import { Paper, Typography } from "@mui/material";
 
-import { ReactComponent as Logo } from "../../vendor/logo.svg";
 import ResetPasswordComponent from "../../components/auth/ResetPassword";
+import Logo from "../../asserts/Logo";
 
-const Brand = styled(Logo)`
-  fill: ${(props) => props.theme.palette.primary.main};
-  width: 64px;
-  height: 64px;
-  margin-bottom: 32px;
-`;
+// const Brand = styled(Logo)`
+//   fill: ${(props) => props.theme.palette.primary.main};
+//   width: 64px;
+//   height: 64px;
+//   margin-bottom: 32px;
+// `;
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -25,14 +25,26 @@ const Wrapper = styled(Paper)`
 function ResetPassword() {
   return (
     <React.Fragment>
-      <Brand />
+      {/* <Brand /> */}
+      <Logo size="18rem" mb="2rem" />
       <Wrapper>
         <Helmet title="Reset Password" />
 
-        <Typography component="h1" variant="h4" align="center" gutterBottom>
+        <Typography
+          sx={{ mb: 2 }}
+          component="h1"
+          variant="h2"
+          align="left"
+          gutterBottom
+        >
           Reset Password
         </Typography>
-        <Typography component="h2" variant="body1" align="center">
+        <Typography
+          sx={{ fontSize: "1rem" }}
+          component="h2"
+          variant="body1"
+          align="left"
+        >
           Enter your email to reset your password
         </Typography>
 

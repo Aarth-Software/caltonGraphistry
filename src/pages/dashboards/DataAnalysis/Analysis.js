@@ -4,10 +4,6 @@ import { green } from "@mui/material/colors";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import Loader from "../../../components/Loader";
-import AuthLanding from "../../../layouts/AuthLanding";
-import { getKeywords, getUserRecords } from "../../../services/service";
-import { useFetch } from "../../../utils/useFetch";
-
 import Page500 from "../../auth/Page500";
 import AuthLayout from "../../../layouts/Auth";
 
@@ -24,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchSavedQuaries } from "../../../redux/slices/querySlice";
 import KeywordsTable from "./KeywordsTable";
+import useAuth from "../../../hooks/useAuth";
 
 const Analysis = () => {
   const dispatch = useDispatch();
@@ -34,15 +31,16 @@ const Analysis = () => {
     dashboardInfo,
     dashboardInfoLoading,
   } = useSelector((state) => state.dashboard);
+  const { user } = useAuth();
   const { savedRecords } = useSelector((state) => state.query);
   const [apiRecords, setApiRecords] = React.useState([]);
   const [recoredsLoading, setRecordsLoading] = React.useState(false);
 
   React.useEffect(() => {
     if (dashboardFetchOnce) {
-      dispatch(fetchKeywords("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
+      dispatch(fetchKeywords(user?.id));
       dispatch(fetchDashboardInfo());
-      dispatch(fetchSavedQuaries("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
+      dispatch(fetchSavedQuaries(user?.id));
     }
     dispatch(setDashboardFetchOnce(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps

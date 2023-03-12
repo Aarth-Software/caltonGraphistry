@@ -3,16 +3,15 @@ import styled from "@emotion/styled";
 import { Helmet } from "react-helmet-async";
 
 import { Avatar, Paper, Typography } from "@mui/material";
-
-import { ReactComponent as Logo } from "../../vendor/logo.svg";
 import SignInComponent from "../../components/auth/SignIn";
+import Logo from "../../asserts/Logo";
 
-const Brand = styled(Logo)`
-  fill: ${(props) => props.theme.palette.primary.main};
-  width: 64px;
-  height: 64px;
-  margin-bottom: 32px;
-`;
+// const Brand = styled(Logo)`
+//   fill: ${(props) => props.theme.palette.primary.main};
+//   width: 64px;
+//   height: 64px;
+//   margin-bottom: 32px;
+// `;
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -33,16 +32,28 @@ function SignIn() {
   return (
     <React.Fragment>
       {/* <Brand /> */}
+      <Logo size="18rem" mb="2rem" />
       <Wrapper>
-        {/* <Helmet title="Sign In" />
-        <BigAvatar alt="Lucy" src="/static/img/avatars/avatar-1.jpg" /> */}
+        <Helmet title="Sign In" />
+        {/* <BigAvatar alt="Lucy" src="/static/img/avatars/avatar-1.jpg" /> */}
 
-        {/* <Typography component="h1" variant="h4" align="center" gutterBottom>
-          Welcome back, Lucy!
+        <Typography
+          sx={{ mb: 2 }}
+          component="h1"
+          variant="h2"
+          align="left"
+          gutterBottom
+        >
+          Sign in
         </Typography>
-        <Typography component="h2" variant="body1" align="center">
+        <Typography
+          sx={{ fontSize: "1rem" }}
+          component="h2"
+          variant="body1"
+          align="left"
+        >
           Sign in to your account to continue
-        </Typography> */}
+        </Typography>
 
         <SignInComponent />
       </Wrapper>

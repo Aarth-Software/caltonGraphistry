@@ -62,6 +62,7 @@ import {
   setShowStoreOptions,
 } from "../../../redux/slices/serviceSlice";
 import SavePopOptions from "./Save/SavePopOptions";
+import useAuth from "../../../hooks/useAuth";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
@@ -84,6 +85,8 @@ const FallDashboard = () => {
   const { openSavePanel, open, showStoreOptions, saveName } = useSelector(
     (state) => state.service
   );
+  const { user } = useAuth();
+  console.log(user);
   const [pattern, setPattern] = React.useState({
     nodeA: true,
     nodeB: true,
@@ -124,7 +127,7 @@ const FallDashboard = () => {
     if (fetchOnce) {
       dispatch(fetchDropdownValues());
       dispatch(fetchDefaultGraph());
-      dispatch(fetchSavedQuaries("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
+      dispatch(fetchSavedQuaries(user?.id));
     }
     dispatch(setFetchOnce(false));
   }, []);
@@ -210,7 +213,7 @@ const FallDashboard = () => {
     }
     const [changeKeys] = [selectParams].map((eg) => {
       return {
-        user_id: "fd62a31e-1a57-4080-93fe-e90dd0b2c209",
+        user_id: user?.id,
         node1: eg.nodeA,
         node2: eg.nodeB,
         node3: eg.nodeC,
@@ -242,7 +245,7 @@ const FallDashboard = () => {
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
-      dispatch(fetchSavedQuaries("fd62a31e-1a57-4080-93fe-e90dd0b2c209"));
+      dispatch(fetchSavedQuaries(user?.id));
     } catch (err) {
       enqueueSnackbar("Save graph unsuccessfull", {
         variant: "error",
@@ -271,6 +274,7 @@ const FallDashboard = () => {
   };
   const closeWithCrossICon = () => {
     dispatch(setOpenSavePannel(false));
+    dispatch(setShowStoreOptions(null));
   };
   const closePannel = () => {
     dispatch(setOpenSavePannel(false));
@@ -411,6 +415,7 @@ const FallDashboard = () => {
       <PopModal
         openModal={openSavePanel}
         setModalOpen={setOpenSavePannel}
+        setAnchorMenu={setShowStoreOptions}
         child={
           <SavePopPanel
             getSave={getSave}
@@ -434,10 +439,10 @@ const FallDashboard = () => {
               <StandardButton
                 text="Graph"
                 varient="contained"
-                px={8}
+                px={8.2}
                 mt={0.8}
                 mr={0.4}
-                fontSize=".7rem"
+                fontSize=".9rem"
                 fontWeight={600}
               />
             }

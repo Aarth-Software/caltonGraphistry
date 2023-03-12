@@ -13,6 +13,7 @@ import {
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
+  Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../../hooks/usePagenation";
@@ -41,13 +42,13 @@ const TitleHeader = styled(CardHeader)`
 
 const SearchInputContainer = styled("div")`
   width: 100%;
-  height: 2.5rem;
+  height: 3.5rem;
   align-items: center;
   justify-content: center;
   display: flex;
 `;
 const SearchInput = styled("input")`
-  width: 96%;
+  width: calc(100% - 2.2rem);
   height: 100%;
   outline: none;
   border: 0.005rem solid #e0e0e0;
@@ -59,6 +60,7 @@ const SearchInput = styled("input")`
     color: #999;
     font-style: italic;
     padding-left: 0.6rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -96,8 +98,20 @@ const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
   }
 
   return (
-    <Card mb={6}>
-      <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
+    <>
+      <TitleHeader
+        sx={{ fontSize: "2rem", ml: ".4rem" }}
+        title="Saved Graphs"
+      />
+      {/* <Typography
+        sx={{ mb: 5, ml: 5 }}
+        component="h1"
+        variant="h3"
+        align="left"
+        gutterBottom
+      >
+        Saved Graphs
+      </Typography> */}
       <SearchInputContainer>
         <SearchInput
           value={searchDate}
@@ -198,7 +212,7 @@ const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
           </Box>
         </>
       )}
-    </Card>
+    </>
   );
 };
 

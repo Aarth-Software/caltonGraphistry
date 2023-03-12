@@ -23,10 +23,10 @@ const RunButton = ({ onClick }) => {
       <RunGraphButton
         text="Graph"
         varient="contained"
-        px={8}
+        px={8.2}
         mt={0.8}
         mr={0.4}
-        // fontSize=".7rem"
+        fontSize=".9rem"
         fontWeight={600}
         onClick={onClick}
       />

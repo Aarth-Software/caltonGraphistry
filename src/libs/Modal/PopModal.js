@@ -11,7 +11,7 @@ const PopModal = ({
 }) => {
   const dispatch = useDispatch();
   const handleClose = () => {
-    dispatch(setModalOpen(false));
+    dispatch(setModalOpen(null));
     if (setAnchorMenu !== undefined) {
       dispatch(setAnchorMenu(null));
     }
