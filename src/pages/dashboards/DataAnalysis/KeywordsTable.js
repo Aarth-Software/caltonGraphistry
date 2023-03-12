@@ -39,7 +39,7 @@ import {
   getEditRecord,
   setEditedValue,
   setEditPannel,
-  setSearchDate,
+  setSearchRecordByKeyword,
 } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
 import { MoreVertical } from "react-feather";
@@ -60,7 +60,7 @@ const TitleHeader = styled(CardHeader)`
 `;
 const SearchInputContainer = styled("div")`
   width: 100%;
-  height: 2.5rem;
+  height: 3.5rem;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -96,33 +96,23 @@ const KeywordsTable = React.memo(
     hideControls,
   }) => {
     const dispatch = useDispatch();
-    const { activeBg, searchDate } = useSelector((state) => state.service);
+    const { activeBg, searchKeyword } = useSelector((state) => state.service);
     const filteredRecords = data.filter((rcds) => {
-      if (!searchDate) {
+      if (!searchKeyword) {
         return true; // no search date set, return all records
       }
-      const date = new Date(rcds.save_time);
-      const recordDate = date.toLocaleDateString("en-CA");
-      const searchDateString = new Date(searchDate).toLocaleDateString("en-CA");
-      return recordDate <= searchDateString;
+      return rcds.keyword.toLowerCase().includes(searchKeyword.toLowerCase());
     });
     const { pageElements, page, pages, prevClick, nextClick, setPage } =
       usePagination(filteredRecords, 6);
     function handleSearch(event) {
-      dispatch(setSearchDate(event.target.value));
-    }
-    function handleKeyPress(event) {
-      const keyCode = event.keyCode || event.which;
-      const keyValue = String.fromCharCode(keyCode);
-
-      // Allow only numeric digits and "/"
-      const regex = /[0-9/]/;
-      if (!regex.test(keyValue)) {
-        event.preventDefault();
-      }
+      dispatch(setSearchRecordByKeyword(event.target.value));
       setPage(1);
     }
-    const save = () => {};
+
+    const save = () => {
+      console.log("clicked keyword");
+    };
     const edit = () => {};
     return (
       <Card mb={6} sx={{ position: "relative", pb: 14 }}>
@@ -130,9 +120,8 @@ const KeywordsTable = React.memo(
         {condition && (
           <SearchInputContainer>
             <SearchInput
-              value={searchDate}
+              value={searchKeyword}
               onChange={handleSearch}
-              onKeyPress={handleKeyPress}
               placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
               type="text"
               style={{
@@ -176,8 +165,6 @@ const KeywordsTable = React.memo(
                             }}
                           >
                             <MoreOptions
-                              saveOnClick={save}
-                              savedGraphOnClick={edit}
                               index={i}
                               hideControls={hideControls}
                             />

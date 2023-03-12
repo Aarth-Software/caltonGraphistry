@@ -1,9 +1,19 @@
 import { withTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Paper, TextareaAutosize, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  FormHelperText,
+  Paper,
+  TextareaAutosize,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import Logo from "../../asserts/Logo";
 import StandardButton from "../../libs/Buttons/StandardButton";
+import * as Yup from "yup";
+import { Formik } from "formik";
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -24,64 +34,137 @@ const TextHint = styled(Typography)`
 `;
 const ContactUs = ({ theme }) => {
   return (
-    <React.Fragment>
-      {/* <Brand /> */}
+    <>
+      <Logo size="18rem" mb="2rem" />
       <Wrapper>
-        <Typography variant="h3">Contact Us</Typography>
-        <TextHint variant="p">
+        <Typography
+          sx={{ mb: 2 }}
+          component="h1"
+          variant="h2"
+          align="left"
+          gutterBottom
+        >
+          Contact us
+        </Typography>
+        <Typography
+          sx={{ fontSize: "1rem" }}
+          component="h2"
+          variant="body1"
+          align="left"
+        >
           Please share your feedback or let us know how we can be of help.
-        </TextHint>
-
-        <FlexContainer>
-          <TextField
-            type="text"
-            name="email"
-            label="Name"
-            variant="standard"
-            //   value={values.email}
-            //   error={Boolean(touched.email && errors.email)}
-            fullWidth
-            //   helperText={touched.email && errors.email}
-            //   onBlur={handleBlur}
-            //   onChange={handleChange}
-            sx={{ mr: 3 }}
-          />
-          <TextField
-            type="email"
-            name="password"
-            label="Email Address"
-            variant="standard"
-            //   value={values.password}
-            //   error={Boolean(touched.password && errors.password)}
-            fullWidth
-            //   helperText={touched.password && errors.password}
-            //   onBlur={handleBlur}
-            //   onChange={handleChange}
-            sx={{ ml: 3 }}
-          />
-        </FlexContainer>
-        <TextareaAutosize
-          color="primary"
-          disabled={false}
-          minRows={10}
-          maxRows={10}
-          placeholder="type something"
-          size="lg"
-          style={{ width: "100%", marginTop: 15 }}
-        />
-        <StandardButton
-          text="Sign in"
-          px={2}
-          py={2}
-          varient="standard"
-          // bgcolor={"#F96167"}
-          mx={3}
-          //   onClick={navigateToLogin}
-          color={theme.palette.text.primary}
-          bgcolor={theme.palette.secondary.main}
-        />
+        </Typography>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            submit: false,
+            feedback: "",
+          }}
+          validationSchema={Yup.object().shape({
+            firstName: Yup.string().max(255).required("Username is required"),
+            email: Yup.string()
+              .email("Must be a valid email")
+              .max(255)
+              .required("Email is required"),
+            feedback: Yup.string()
+              .min(10, "Feedback must be at least 10 characters")
+              .max(2000)
+              .required("Feedback content is required"),
+          })}
+          onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+            console.log("clicked");
+            try {
+              // await signIn(values.email, values.password);
+              // navigate("/generateQuery");
+              console.log("clicked");
+            } catch (error) {
+              const message = error.message || "Something went wrong";
+              setStatus({ success: false });
+              setErrors({ submit: message });
+              setSubmitting(false);
+            }
+            // ApplicationToken();
+          }}
+        >
+          {({
+            errors,
+            touched,
+            values,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+            isSubmitting,
+            setFieldTouched,
+          }) => (
+            <form noValidate onSubmit={handleSubmit}>
+              <FlexContainer>
+                <TextField
+                  type="text"
+                  name="firstName"
+                  label="Username"
+                  value={values.firstName}
+                  error={Boolean(touched.firstName && errors.firstName)}
+                  fullWidth
+                  helperText={touched.firstName && errors.firstName}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  my={3}
+                  sx={{ mr: 3 }}
+                />
+                <TextField
+                  type="email"
+                  name="email"
+                  label="Email address"
+                  value={values.email}
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  my={3}
+                  sx={{ ml: 3 }}
+                />
+              </FlexContainer>
+              <TextareaAutosize
+                color="primary"
+                type="textbox"
+                name="feedback"
+                disabled={false}
+                minRows={10}
+                maxRows={7}
+                value={values.feedback}
+                error={touched.feedback && errors.feedback ? "true" : "false"}
+                helperText={touched.feedback && errors.feedback}
+                size="lg"
+                style={{ width: "100%", marginTop: 15, fontSize: "1rem" }}
+                onBlur={(e) => {
+                  handleBlur(e);
+                  setFieldTouched("feedback", true); // use setFieldTouched here
+                }}
+                onChange={handleChange}
+              />
+              <FormHelperText error={touched.feedback && errors.feedback}>
+                {touched.feedback && errors.feedback}
+              </FormHelperText>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                sx={{ mt: 5 }}
+                disabled={isSubmitting}
+              >
+                Send
+              </Button>
+            </form>
+          )}
+        </Formik>
       </Wrapper>
-    </React.Fragment>
+    </>
   );
 };
 

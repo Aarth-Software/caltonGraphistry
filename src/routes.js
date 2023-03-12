@@ -73,6 +73,16 @@ const routes = [
     ],
   },
   {
+    path: "contact-us",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "",
+        element: <ContactUs />,
+      },
+    ],
+  },
+  {
     path: "/",
     element: <PresentationLayout />,
     children: [

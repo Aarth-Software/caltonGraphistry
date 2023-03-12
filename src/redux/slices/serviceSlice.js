@@ -9,10 +9,11 @@ const serviceSlice = createSlice({
     activeBg: "",
     editPannel: false,
     editedValue: "",
-    searchDate: "",
+    searchName: "",
     openSavePanel: false,
     open: false,
     showStoreOptions: null,
+    searchKeyword: "",
   },
   reducers: {
     setAnchorMenu: (state, { payload }) => {
@@ -27,8 +28,8 @@ const serviceSlice = createSlice({
     setEditedValue: (state, { payload }) => {
       state.editedValue = payload;
     },
-    setSearchDate: (state, { payload }) => {
-      state.searchDate = payload;
+    setSearchRecordByName: (state, { payload }) => {
+      state.searchName = payload;
     },
     setOpenSavePannel: (state, { payload }) => {
       state.openSavePanel = payload;
@@ -41,6 +42,9 @@ const serviceSlice = createSlice({
     },
     setSaveName: (state, { payload }) => {
       state.saveName = payload;
+    },
+    setSearchRecordByKeyword: (state, { payload }) => {
+      state.searchKeyword = payload;
     },
   },
 });
@@ -108,11 +112,12 @@ export const {
   setActiveBg,
   setEditPannel,
   setEditedValue,
-  setSearchDate,
+  setSearchRecordByName,
   setOpenSavePannel,
   setOpen,
   setShowStoreOptions,
   setSaveName,
+  setSearchRecordByKeyword,
 } = serviceSlice.actions;
 
 export const serviceReducer = serviceSlice.reducer;

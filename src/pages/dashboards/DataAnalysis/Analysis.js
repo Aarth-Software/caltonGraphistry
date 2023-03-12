@@ -46,7 +46,7 @@ const Analysis = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(savedRecords);
+  console.log(keywords);
 
   const conditionalData =
     dashboardInfo?.query1?.length > 0 ? dashboardInfo.query1[0] : {};

@@ -238,13 +238,14 @@ const FallDashboard = () => {
 
     try {
       const response = await postQuery(changeKeys);
-      dispatch(setOpenSavePannel(false));
       dispatch(setSaveName(false));
       enqueueSnackbar(response.data.message, {
         variant: "success",
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
+      dispatch(setOpenSavePannel(false));
+      dispatch(setShowStoreOptions(null));
       dispatch(fetchSavedQuaries(user?.id));
     } catch (err) {
       enqueueSnackbar("Save graph unsuccessfull", {
@@ -253,6 +254,8 @@ const FallDashboard = () => {
         style: { width: 300, left: "calc(50% - 150px)" },
       });
       console.log(err);
+      dispatch(setOpenSavePannel(false));
+      dispatch(setShowStoreOptions(null));
     }
   };
   const retriveGraph = (e) => {

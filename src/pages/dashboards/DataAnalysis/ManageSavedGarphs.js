@@ -33,7 +33,7 @@ import {
   getEditRecord,
   setEditedValue,
   setEditPannel,
-  setSearchDate,
+  setSearchRecordByName,
 } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
 import useAuth from "../../../hooks/useAuth";
@@ -55,7 +55,7 @@ const TitleHeader = styled(CardHeader)`
 `;
 const SearchInputContainer = styled("div")`
   width: 100%;
-  height: 2.5rem;
+  height: 3.5rem;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -92,39 +92,26 @@ const ManagedSavedGraphs = React.memo(
   }) => {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    const { activeBg, editPannel, editedValue, searchDate } = useSelector(
+    const { activeBg, editPannel, editedValue, searchName } = useSelector(
       (state) => state.service
     );
     const { user } = useAuth();
     const filteredRecords = data.filter((rcds) => {
-      if (!searchDate) {
+      if (!searchName) {
         return true; // no search date set, return all records
       }
-      const date = new Date(rcds.save_time);
-      const recordDate = date.toLocaleDateString("en-CA");
-      const searchDateString = new Date(searchDate).toLocaleDateString("en-CA");
-      return recordDate <= searchDateString;
+      return rcds.query_name.toLowerCase().includes(searchName.toLowerCase());
     });
     const { pageElements, page, pages, prevClick, nextClick, setPage } =
       usePagination(filteredRecords, 6);
     function handleSearch(event) {
-      dispatch(setSearchDate(event.target.value));
-    }
-    function handleKeyPress(event) {
-      const keyCode = event.keyCode || event.which;
-      const keyValue = String.fromCharCode(keyCode);
-
-      // Allow only numeric digits and "/"
-      const regex = /[0-9/]/;
-      if (!regex.test(keyValue)) {
-        event.preventDefault();
-      }
+      dispatch(setSearchRecordByName(event.target.value));
       setPage(1);
     }
+
     const updateRecords = () => {
       dispatch(setEditPannel(true));
       dispatch(setEditedValue(data[activeBg].query_name));
-      console.log(data[activeBg].query_name);
     };
     const deleteRecords = () => {
       dispatch(getDeleteRecords(user?.id, activeBg, data, enqueueSnackbar));
@@ -146,9 +133,8 @@ const ManagedSavedGraphs = React.memo(
         {condition && (
           <SearchInputContainer>
             <SearchInput
-              value={searchDate}
+              value={searchName}
               onChange={handleSearch}
-              onKeyPress={handleKeyPress}
               placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
               type="text"
               style={{
