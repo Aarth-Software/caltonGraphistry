@@ -69,7 +69,7 @@ const Analysis = () => {
     <>
       {!dashboardInfoLoading && dashboardInfo.length !== 0 && (
         <>
-          <Helmet title="Analytics Dashboard" />
+          {/* <Helmet title="Dashboard" /> */}
 
           <Grid container spacing={6}>
             <Grid item xs={12} lg={5}>

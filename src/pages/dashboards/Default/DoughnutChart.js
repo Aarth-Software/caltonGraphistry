@@ -56,7 +56,8 @@ const TitleHeader = styled(CardHeader)`
 `;
 
 const DoughnutChart = ({ theme, title, graphData }) => {
-  console.log(graphData);
+  const [activeSegment, setActiveSegment] = React.useState(null);
+  // console.log(graphData);
   const data = {
     labels: graphData?.map((eg) => eg.role),
     datasets: [
@@ -74,6 +75,15 @@ const DoughnutChart = ({ theme, title, graphData }) => {
     ],
   };
 
+  const handleHover = (event, segments) => {
+    if (segments.length > 0) {
+      const segment = segments[0].index;
+      setActiveSegment(segment);
+    } else {
+      setActiveSegment(null);
+    }
+  };
+
   const options = {
     maintainAspectRatio: false,
     plugins: {
@@ -82,6 +92,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
       },
     },
     cutout: "70%",
+    onHover: handleHover,
   };
 
   return (
@@ -101,8 +112,16 @@ const DoughnutChart = ({ theme, title, graphData }) => {
           <Grid item xs={4} sm={5} md={5} lg={5}>
             <ChartWrapper>
               <DoughnutInner>
-                <Typography variant="h4">+27%</Typography>
-                <Typography variant="caption">more visitors</Typography>
+                <Typography variant="h4">
+                  {activeSegment !== null
+                    ? graphData[activeSegment].count
+                    : "+27%"}
+                </Typography>
+                <Typography variant="caption">
+                  {activeSegment !== null
+                    ? graphData[activeSegment].role
+                    : "more visitors"}
+                </Typography>
               </DoughnutInner>
               <Doughnut data={data} options={options} />
             </ChartWrapper>

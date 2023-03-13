@@ -24,6 +24,13 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Loader from "../../../../components/Loader";
 import AuthLayout from "../../../../layouts/Auth";
 import Page500 from "../../../auth/Page500";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  setContainerSize,
+  setRetriveGraphSearch,
+} from "../../../../redux/slices/serviceSlice";
+import { remToPx } from "../../../../libs/HigherOrderFunctions";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -32,8 +39,8 @@ const TableRow = styled(MuiTableRow)`
 `;
 
 const TableCell = styled(MuiTableCell)`
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
 `;
 
 const TitleHeader = styled(CardHeader)`
@@ -55,69 +62,78 @@ const SearchInput = styled("input")`
   border-radius: 0.3rem;
   paddingleft: 1rem;
   background: ${(props) => props.theme.palette.background.paper};
+  font-size: 0.9rem;
 
   ::placeholder {
     color: #999;
-    font-style: italic;
+    // font-style: italic;
     padding-left: 0.6rem;
     font-size: 0.9rem;
   }
 `;
 
-const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
-  const [searchDate, setSearchDate] = React.useState("");
+const ScrollBox = styled(CardContent)`
+  height: calc(100% - 3.5rem - 0.5rem - 8rem);
+  py: 2;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+`;
+
+const SavedGraphsPop = ({
+  theme,
+  Btn,
+  record,
+  click,
+  recordStatus,
+  containerRef,
+}) => {
+  const dispatch = useDispatch();
+  const { retriveGraphSearch, containerSize } = useSelector(
+    (state) => state.service
+  );
   const [message, setMessage] = React.useState("there are no records saved");
   console.log(record);
   const filteredRecords = record.filter((rcds) => {
-    if (!searchDate) {
+    if (!retriveGraphSearch) {
       return true; // no search date set, return all records
     }
-    const date = new Date(rcds.save_time);
-    const recordDate = date.toLocaleDateString("en-CA");
-    const searchDateString = new Date(searchDate).toLocaleDateString("en-CA");
-    return recordDate <= searchDateString;
+    return rcds.query_name
+      .toLowerCase()
+      .includes(retriveGraphSearch.toLowerCase());
   });
   const { pageElements, page, pages, prevClick, nextClick, setPage } =
-    usePagination(filteredRecords, 6);
+    usePagination(filteredRecords, 6, containerSize, 55);
   function handleSearch(event) {
-    setSearchDate(event.target.value);
-    if (pageElements.length === 0) {
-      setMessage("there are no records with this date");
-    }
-  }
-  function handleKeyPress(event) {
-    const keyCode = event.keyCode || event.which;
-    const keyValue = String.fromCharCode(keyCode);
-
-    // Allow only numeric digits and "/"
-    const regex = /[0-9/]/;
-    if (!regex.test(keyValue)) {
-      event.preventDefault();
-    }
+    dispatch(setRetriveGraphSearch(event.target.value));
     setPage(1);
   }
+  React.useEffect(() => {
+    dispatch(setContainerSize(containerRef.current?.clientHeight));
+    // console.log(containerRef.current?.clientHeight);
+  }, [containerRef, dispatch]);
 
   return (
     <>
-      <TitleHeader
-        sx={{ fontSize: "2rem", ml: ".4rem" }}
-        title="Saved Graphs"
-      />
-      {/* <Typography
-        sx={{ mb: 5, ml: 5 }}
-        component="h1"
-        variant="h3"
-        align="left"
-        gutterBottom
-      >
-        Saved Graphs
-      </Typography> */}
+      <TitleHeader sx={{ fontSize: "2rem" }} title="Saved Graphs" />
       <SearchInputContainer>
         <SearchInput
-          value={searchDate}
+          value={retriveGraphSearch}
           onChange={handleSearch}
-          onKeyPress={handleKeyPress}
-          placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
+          placeholder="Search by title"
           style={{ color: theme.palette.text.primary, paddingLeft: ".7rem" }}
           type="text"
         />
@@ -139,8 +155,8 @@ const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
       )}
       {pageElements.length !== 0 && !recordStatus[0] && (
         <>
-          <CardContent>
-            <Table>
+          <ScrollBox ref={containerRef}>
+            <Table sx={{ padding: 0 }}>
               <TableHead>
                 <TableRow>
                   <TableCell align="left">Title</TableCell>
@@ -168,14 +184,14 @@ const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
+          </ScrollBox>
           <Box
             sx={{
               width: "100%",
               height: "auto",
               ...flexCenter,
-              position: "absolute",
-              bottom: 10,
+              position: "relative",
+              top: "1rem",
             }}
           >
             <StandardButton
@@ -189,10 +205,10 @@ const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
               onClick={prevClick}
               disabled={page === 1}
               color={theme.palette.text.primary}
-              bgcolor={theme.palette.background.paper}
-              hoverColor={theme.palette.background.paper}
+              bgcolor={"transparent"}
+              hoverColor={"transparent"}
             />
-            <span>
+            <span style={{ fontSize: ".9rem" }}>
               {page} / {pages}
             </span>
             <StandardButton
@@ -206,8 +222,8 @@ const SavedGraphsPop = ({ theme, Btn, record, click, recordStatus }) => {
               onClick={nextClick}
               disabled={page === pages}
               color={theme.palette.text.primary}
-              bgcolor={theme.palette.background.paper}
-              hoverColor={theme.palette.background.paper}
+              bgcolor={"transparent"}
+              hoverColor={"transparent"}
             />
           </Box>
         </>

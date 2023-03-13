@@ -1,27 +1,9 @@
 import React from "react";
-import styled from "@emotion/styled";
+
 import { useLocation, useNavigate } from "react-router-dom";
-import { FcMenu } from "react-icons/fc";
-import {
-  Tooltip,
-  Menu,
-  MenuItem,
-  IconButton as MuiIconButton,
-} from "@mui/material";
-
+import { BiMenu } from "react-icons/bi";
+import { Tooltip, Menu, MenuItem } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
-import keycloak from "../../Keycloak";
-import MenuIcon from "@mui/icons-material/Menu";
-
-const IconButton = styled(MuiIconButton)`
-  svg {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-`;
-const TheamIcon = styled(FcMenu)`
-  color: ${(props) => props.theme.palette.text.primary};
-`;
 function NavbarUserDropdown({ icon, size }) {
   const location = useLocation().pathname.split("/");
   const [anchorMenu, setAnchorMenu] = React.useState(null);
@@ -64,7 +46,13 @@ function NavbarUserDropdown({ icon, size }) {
             }}
             onClick={toggleMenu}
           >
-            <TheamIcon style={{ cursor: "pointer" }} size={"2rem"} />
+            {/* <TheamIcon style={{ cursor: "pointer" }} size={"2rem"} /> */}
+            <BiMenu
+              style={{ cursor: "pointer" }}
+              // color="#e57373"
+              size={"2.5rem"}
+            />
+            {/* <HiBars3 style={{ cursor: "pointer" }} color="red" size={"2rem"} /> */}
           </div>
         </Tooltip>
         <Menu
@@ -81,14 +69,22 @@ function NavbarUserDropdown({ icon, size }) {
             },
           }}
         >
-          <MenuItem onClick={closeMenu}>Contact us</MenuItem>
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={closeMenu}>
+            Contact us
+          </MenuItem>
           {location[2] === "analysis" ? (
-            <MenuItem onClick={generateQuery}>Query</MenuItem>
+            <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
+              Query
+            </MenuItem>
           ) : (
-            <MenuItem onClick={dashboard}>Dashboard</MenuItem>
+            <MenuItem sx={{ fontSize: "1.1rem" }} onClick={dashboard}>
+              Dashboard
+            </MenuItem>
           )}
 
-          <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
+            Sign out
+          </MenuItem>
         </Menu>
       </div>
     </>

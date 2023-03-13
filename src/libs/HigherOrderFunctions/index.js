@@ -186,3 +186,7 @@ export const mergeObjects = (obj) => {
   }
   return dropDownSelectedValues;
 };
+
+export function remToPx(rem) {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}

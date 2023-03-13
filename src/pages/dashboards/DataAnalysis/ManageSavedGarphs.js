@@ -71,7 +71,7 @@ const SearchInput = styled("input")`
 
   ::placeholder {
     color: #999;
-    font-style: italic;
+    // font-style: italic;
     padding-left: 0.6rem;
     font-size: 1rem;
   }
@@ -135,7 +135,7 @@ const ManagedSavedGraphs = React.memo(
             <SearchInput
               value={searchName}
               onChange={handleSearch}
-              placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
+              placeholder="Search by title"
               type="text"
               style={{
                 color: theme.palette.text.primary,

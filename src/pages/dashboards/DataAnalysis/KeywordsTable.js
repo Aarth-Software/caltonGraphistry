@@ -14,35 +14,16 @@ import {
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
-import {
-  flexCenter,
-  popModalContainer,
-  popSaveModalContainer,
-} from "../../../libs/JSS/Jss";
+import { flexCenter } from "../../../libs/JSS/Jss";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import MoreOptions from "../MainDashboard/SelectProperties/MoreOptions";
-import { deleteRecord, updateRecord } from "../../../services/service";
-import { useSnackbar } from "notistack";
-import SavePopPanel from "../MainDashboard/SavedGraphs/SavePopPanel";
-import PopModal from "../../../libs/Modal/PopModal";
 import AuthLayout from "../../../layouts/Auth";
 import { useDispatch } from "react-redux";
-import {
-  editRecordName,
-  fetchSavedQuaries,
-  removeRecord,
-} from "../../../redux/slices/querySlice";
-import {
-  getDeleteRecords,
-  getEditRecord,
-  setEditedValue,
-  setEditPannel,
-  setSearchRecordByKeyword,
-} from "../../../redux/slices/serviceSlice";
+
+import { setSearchRecordByKeyword } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
-import { MoreVertical } from "react-feather";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -76,7 +57,7 @@ const SearchInput = styled("input")`
 
   ::placeholder {
     color: #999;
-    font-style: italic;
+    // font-style: italic;
     padding-left: 0.6rem;
     font-size: 1rem;
   }
@@ -110,10 +91,6 @@ const KeywordsTable = React.memo(
       setPage(1);
     }
 
-    const save = () => {
-      console.log("clicked keyword");
-    };
-    const edit = () => {};
     return (
       <Card mb={6} sx={{ position: "relative", pb: 14 }}>
         <TitleHeader sx={{ fontSize: "2rem" }} title={title} />
@@ -122,7 +99,7 @@ const KeywordsTable = React.memo(
             <SearchInput
               value={searchKeyword}
               onChange={handleSearch}
-              placeholder="Search Date(yy/mm/dd or dd/mm/yy)"
+              placeholder="Search by title"
               type="text"
               style={{
                 color: theme.palette.text.primary,

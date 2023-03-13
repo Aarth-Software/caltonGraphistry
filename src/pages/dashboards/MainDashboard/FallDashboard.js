@@ -86,7 +86,7 @@ const FallDashboard = () => {
     (state) => state.service
   );
   const { user } = useAuth();
-  console.log(user);
+  const containerRef = React.useRef(null);
   const [pattern, setPattern] = React.useState({
     nodeA: true,
     nodeB: true,
@@ -428,7 +428,11 @@ const FallDashboard = () => {
             close={closePannel}
           />
         }
-        classProp={{ ...popModalContainer, ...popSaveModalContainer }}
+        classProp={{
+          ...popModalContainer,
+          ...popSaveModalContainer,
+          // p: "1rem",
+        }}
       />
       <PopModal
         openModal={open}
@@ -438,6 +442,7 @@ const FallDashboard = () => {
           <SavedGraphsPop
             record={savedRecords}
             // setAnchorMenu={setAnchorMenu}
+            containerRef={containerRef}
             Btn={
               <StandardButton
                 text="Graph"
@@ -453,7 +458,7 @@ const FallDashboard = () => {
             recordStatus={[saveRecordsLoading, recordsFetchError]}
           />
         }
-        classProp={popModalContainer}
+        classProp={{ ...popModalContainer }}
       />
     </>
   );

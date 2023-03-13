@@ -58,8 +58,12 @@ const SavePopOptions = React.memo((props) => {
           }}
         >
           {/* <div class="dropdown-menu"> */}
-          <SaveMenuItem onClick={saveOnClick}>Save</SaveMenuItem>
-          <MenuItem onClick={savedGraphOnClick}>Saved Graph</MenuItem>
+          <SaveMenuItem sx={{ fontSize: "1.1rem" }} onClick={saveOnClick}>
+            Save
+          </SaveMenuItem>
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={savedGraphOnClick}>
+            Saved Graph
+          </MenuItem>
           {/* </div> */}
         </Menu>
       </div>

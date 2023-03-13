@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { THEMES } from "../constants";
 
 const initialState = {
-  theme: THEMES.DEFAULT,
+  theme: THEMES.RED,
   setTheme: (theme) => {},
 };
 

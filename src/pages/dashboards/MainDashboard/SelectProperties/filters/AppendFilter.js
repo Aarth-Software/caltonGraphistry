@@ -15,13 +15,14 @@ const AppendFilter = ({ appendFilterElement }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          marginTop: "2.4rem",
+          marginTop: "3rem",
+          marginBottom: "1rem",
         }}
       >
         <StandardButton
           onClick={appendFilterElement}
           text="+ Add"
-          fontSize="1rem"
+          fontSize=".8rem"
           fontWeight={600}
           px={6}
         />

@@ -5,7 +5,6 @@ import FilterSet from "./FilterSet";
 import { MdOutlineFilterList } from "react-icons/md";
 
 const FiltersComponent = (props) => {
-  const { icon } = props;
   const [openFilter, setOpenFilter] = React.useState(false);
   const [filterArray, setFilterArray] = React.useState([0, 1, 2]);
   const appendFilterPattern = () => {
@@ -32,7 +31,7 @@ const FiltersComponent = (props) => {
       >
         {/* <img style={{ width: "2rem" }} src={icon} alt={"filter"} /> */}
         <MdOutlineFilterList
-          size="1.7rem"
+          size="1.9rem"
           color={openFilter ? "#e57373" : "black"}
         />
       </Box>

@@ -14,6 +14,8 @@ const serviceSlice = createSlice({
     open: false,
     showStoreOptions: null,
     searchKeyword: "",
+    retriveGraphSearch: "",
+    containerSize: "",
   },
   reducers: {
     setAnchorMenu: (state, { payload }) => {
@@ -45,6 +47,12 @@ const serviceSlice = createSlice({
     },
     setSearchRecordByKeyword: (state, { payload }) => {
       state.searchKeyword = payload;
+    },
+    setRetriveGraphSearch: (state, { payload }) => {
+      state.retriveGraphSearch = payload;
+    },
+    setContainerSize: (state, { payload }) => {
+      state.containerSize = payload;
     },
   },
 });
@@ -118,6 +126,8 @@ export const {
   setShowStoreOptions,
   setSaveName,
   setSearchRecordByKeyword,
+  setRetriveGraphSearch,
+  setContainerSize,
 } = serviceSlice.actions;
 
 export const serviceReducer = serviceSlice.reducer;

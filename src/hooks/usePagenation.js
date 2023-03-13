@@ -1,8 +1,12 @@
 import { useState } from "react";
 
-const usePagination = (elements, fixElements) => {
+const usePagination = (elements, fixElements, containerHeight, itemHeight) => {
+  // console.log(containerHeight);
   const [page, setPage] = useState(1);
-  const itemsPerPage = fixElements;
+  const itemsPerPage = !!containerHeight
+    ? Math.floor(containerHeight / itemHeight)
+    : fixElements;
+  console.log(itemsPerPage);
   const pages = Math.ceil(elements.length / itemsPerPage);
   const pageElements = elements.slice(
     (page - 1) * itemsPerPage,
