@@ -35,9 +35,64 @@
     position: absolute;
     top: 0px;
     left: 50%;
-    margin-left: -1.5px;
+    margin-left: -1.9px;
     width: .15rem;
-    height: 1.575rem;
+    height: 1.5rem;
     background: #666666;
     content: ' ';
 }
+
+@media (min-width: 576px) {
+    #scroll-down::before {
+        margin-left: -.135rem;
+        height: 1.52rem;
+    }
+  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    #scroll-down::before {
+        margin-left: -.14rem;
+        height: 1.52rem;
+    }
+  }
+  
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    #scroll-down::before {
+        margin-left: -.16rem;
+        height: 1.58rem;
+    }
+  }
+  
+  /* Extra-large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+    #scroll-down::before {
+        margin-left: -.16rem;
+        height: 1.52rem;
+    }
+  }
+  
+  /* Extra-large devices (large desktops, 1536px and up) */
+  @media (min-width: 1536px) {
+    #scroll-down::before {
+        margin-left: -.16rem;
+        height: 1.52rem;
+    }
+  }
+  
+  @media (min-width: 1700px) {
+    #scroll-down::before {
+        margin-left: -.12rem;
+        height: 1.52rem;
+    }
+  }
+  @media (min-width: 2300px) {
+    #scroll-down::before {
+        margin-left: -.12rem;
+        height: 1.52rem;
+    }
+  }
+  @media (min-width: 2600px) {
+   
+  }

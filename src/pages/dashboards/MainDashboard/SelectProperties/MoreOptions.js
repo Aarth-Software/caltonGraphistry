@@ -67,6 +67,7 @@ const MoreOptions = React.memo((props) => {
               zIndex: "80",
               boxShadow:
                 "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
+              // transform: "translateX(-.9rem)",
             },
           }}
         >

@@ -24,13 +24,23 @@
   }
   
   .arrow:after{
-    position:absolute;
+    /* position:absolute;
     display:block;
     content:"";
     color:#666666;
     width: 100%;
     height: calc(.6rem + .075rem);
-    border-bottom:solid 0.15rem;
+    border-bottom:solid 0.15rem; */
+
+    position: absolute;
+  display: block;
+  content: "";
+  color: #666666;
+  width: calc(100% - 6px); /* Subtract 6px from the width to make room for the white border */
+  height: calc(.6rem + .075rem);
+  border-bottom: solid  0.15rem ;
+  border-right: solid 10px #fff; /* Add a 6px white border on the right side */
+  right: 0; 
   }
 
   

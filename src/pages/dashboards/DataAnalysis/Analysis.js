@@ -83,7 +83,8 @@ const Analysis = ({ theme }) => {
                       chip="Yearly"
                       percentagetext="+27%"
                       percentagecolor={green[500]}
-                      color={theme.palette.secondary.main}
+                      // color={theme.palette.secondary.main}
+                      color={"#4d96d0"}
                     />
                   </Grid>
                 ))}

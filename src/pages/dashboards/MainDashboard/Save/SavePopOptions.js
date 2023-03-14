@@ -42,6 +42,7 @@ const SavePopOptions = React.memo((props) => {
               boxShadow:
                 "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
               zIndex: "80",
+              transform: "translateX(-.4rem)",
             },
           }}
         >

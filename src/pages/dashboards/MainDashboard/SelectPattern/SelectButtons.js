@@ -7,6 +7,7 @@ const SvgButtons = styled("img")({
   color: "darkslategray",
   // padding: ".5rem",
   // borderRadius: 4,
+  cursor: "pointer",
 });
 const SelectButtons = React.memo((props) => {
   const { theme, btnArray, activePattern, setActivePattern, getPatternChange } =

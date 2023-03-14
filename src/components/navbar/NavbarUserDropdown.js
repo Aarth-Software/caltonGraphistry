@@ -43,18 +43,11 @@ function NavbarUserDropdown({ icon, size }) {
                   ? ""
                   : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
               color: anchorMenu === null ? "black" : "#e57373",
-              // position: "relative",
               zIndex: "2",
             }}
             onClick={toggleMenu}
           >
-            {/* <TheamIcon style={{ cursor: "pointer" }} size={"2rem"} /> */}
-            <BiMenu
-              style={{ cursor: "pointer" }}
-              // color="#e57373"
-              size={"2.5rem"}
-            />
-            {/* <HiBars3 style={{ cursor: "pointer" }} color="red" size={"2rem"} /> */}
+            <BiMenu style={{ cursor: "pointer" }} size={"2.5rem"} />
           </div>
         </Tooltip>
         <Menu
@@ -67,9 +60,8 @@ function NavbarUserDropdown({ icon, size }) {
               borderRadius: ".1rem",
               boxShadow:
                 "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
-              // zIndex: "100",
-              // position: "absolute",
               zIndex: "1",
+              transform: "translateX(-.5rem)",
             },
           }}
         >
