@@ -33,7 +33,7 @@ function NavbarUserDropdown({ icon, size }) {
 
   return (
     <>
-      <div className="navMenu">
+      <div className="navMenu" style={{ position: "relative" }}>
         <Tooltip title="Menu">
           <div
             className="navMenuIconContainer"
@@ -43,6 +43,8 @@ function NavbarUserDropdown({ icon, size }) {
                   ? ""
                   : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
               color: anchorMenu === null ? "black" : "#e57373",
+              // position: "relative",
+              zIndex: "2",
             }}
             onClick={toggleMenu}
           >
@@ -65,7 +67,9 @@ function NavbarUserDropdown({ icon, size }) {
               borderRadius: ".1rem",
               boxShadow:
                 "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
-              zIndex: "80",
+              // zIndex: "100",
+              // position: "absolute",
+              zIndex: "1",
             },
           }}
         >

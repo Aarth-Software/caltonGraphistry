@@ -7,8 +7,6 @@ import { AuthContext } from "../contexts/FirebaseAuthContext";
 
 const useAuth = () => {
   const context = useContext(AuthContext);
-
-  console.log(context);
   if (!context)
     throw new Error("AuthContext must be placed within AuthProvider");
 

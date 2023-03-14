@@ -138,7 +138,6 @@ const FallDashboard = () => {
     const specificObject = dropdownData?.data?.find(
       (d) => d.selection_type === e.selection_type
     );
-    console.log(specificObject);
     setdropDownOptions(specificObject);
   };
 
@@ -162,7 +161,6 @@ const FallDashboard = () => {
         setSaveDataSet({ status: false, data: null });
       }
     } catch (err) {
-      console.log(err);
       setValues({ ...values, loading: false });
       enqueueSnackbar("Generate graph unsuccessfull", {
         variant: "error",
@@ -180,7 +178,6 @@ const FallDashboard = () => {
     setSelectParams(valueObj);
     setNodeState(cloneObject);
     getId(valueObj, errorCatch);
-    console.log(valueObj);
     for (let d in cloneObject) {
       if (cloneObject[d].error) {
         return enqueueSnackbar("please fill mandatory(*) fields", {
@@ -253,7 +250,6 @@ const FallDashboard = () => {
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
-      console.log(err);
       dispatch(setOpenSavePannel(false));
       dispatch(setShowStoreOptions(null));
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Button, Paper, Typography } from "@mui/material";
 
@@ -28,7 +28,7 @@ function SignUp() {
       {/* <Brand /> */}
       <Logo size="18rem" mb="2rem" />
       <Wrapper>
-        <Helmet title="Sign Up" />
+        {/* <Helmet title="Sign Up" /> */}
 
         <Typography
           sx={{ mb: 2 }}

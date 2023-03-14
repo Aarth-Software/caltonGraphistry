@@ -6,7 +6,6 @@ import {
 } from "../../../../libs/JSS/Jss";
 import SelectButtons from "./SelectButtons";
 import TooltipComp from "../../../../libs/Tooltip/Tooltip";
-import info from "../../../../asserts/info.svg";
 
 // const Card = styled(Box)``;
 const SelectPatternContainer = React.memo((props) => {

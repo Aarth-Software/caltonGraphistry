@@ -16,7 +16,6 @@ const GraphistryContainer = styled(Box)({
 });
 const GraphistryGraph = React.memo((props) => {
   const { dataSet } = props;
-  // console.log("donnnn");
   return (
     <GraphistryContainer sx={graphContainerStyle}>
       <Frame

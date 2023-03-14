@@ -21,8 +21,9 @@ import { useSelector } from "react-redux";
 import { fetchSavedQuaries } from "../../../redux/slices/querySlice";
 import KeywordsTable from "./KeywordsTable";
 import useAuth from "../../../hooks/useAuth";
+import { withTheme } from "@emotion/react";
 
-const Analysis = () => {
+const Analysis = ({ theme }) => {
   const dispatch = useDispatch();
   const {
     dashboardFetchOnce,
@@ -46,7 +47,7 @@ const Analysis = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(keywords);
+  console.log(dashboardInfo);
 
   const conditionalData =
     dashboardInfo?.query1?.length > 0 ? dashboardInfo.query1[0] : {};
@@ -82,6 +83,7 @@ const Analysis = () => {
                       chip="Yearly"
                       percentagetext="+27%"
                       percentagecolor={green[500]}
+                      color={theme.palette.secondary.main}
                     />
                   </Grid>
                 ))}
@@ -136,4 +138,4 @@ const Analysis = () => {
   );
 };
 
-export default Analysis;
+export default withTheme(Analysis);

@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { dashBoardData, getKeywords } from "../../services/service";
 
 const dashboardSlice = createSlice({
@@ -19,14 +19,12 @@ const dashboardSlice = createSlice({
     },
     setKeywords: (state, { payload }) => {
       state.keywords = payload;
-      console.log(current(state));
     },
     setDashboardInfoLoading: (state, { payload }) => {
       state.dashboardInfoLoading = payload;
     },
     setDashboardInfo: (state, { payload }) => {
       state.dashboardInfo = payload;
-      console.log(current(state));
     },
   },
 });

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { withTheme } from "@emotion/react";
 
-import { green, red } from "@mui/material/colors";
+// import { red } from "@mui/material/colors";
 import {
   Card as MuiCard,
   CardContent,
@@ -29,15 +29,15 @@ const TableCell = styled(MuiTableCell)`
   padding-bottom: 0;
 `;
 
-const GreenText = styled.span`
-  color: ${() => green[400]};
-  font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-`;
+// const GreenText = styled.span`
+//   color: ${() => green[400]};
+//   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
+// `;
 
-const RedText = styled.span`
-  color: ${() => red[400]};
-  font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-`;
+// const RedText = styled.span`
+//   color: ${() => red[400]};
+//   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
+// `;
 
 const DoughnutChart = ({ theme, condition, title, data }) => {
   return (

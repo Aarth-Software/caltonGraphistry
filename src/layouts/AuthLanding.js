@@ -2,7 +2,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import StandardButton from "../libs/Buttons/StandardButton";
 import { litDigBigLogo } from "../asserts/index";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { withTheme } from "@emotion/react";
 import Loader from "../components/Loader";
 import useAuth from "../hooks/useAuth";

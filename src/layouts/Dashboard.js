@@ -10,7 +10,7 @@ import { spacing } from "@mui/system";
 import GlobalStyle from "../components/GlobalStyle";
 import Navbar from "../components/navbar/Navbar";
 
-import Settings from "../components/Settings";
+// import Settings from "../components/Settings";
 
 const Root = styled.div`
   display: flex;

@@ -1,13 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { MoreVertical } from "react-feather";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import {
-  Tooltip,
-  Menu,
-  MenuItem,
-  IconButton as MuiIconButton,
-} from "@mui/material";
+import { Tooltip, Menu, MenuItem } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -15,12 +9,12 @@ import {
   setAnchorMenu,
 } from "../../../../redux/slices/serviceSlice";
 
-const IconButton = styled(MuiIconButton)`
-  svg {
-    width: 22px;
-    height: 22px;
-  }
-`;
+// const IconButton = styled(MuiIconButton)`
+//   svg {
+//     width: 22px;
+//     height: 22px;
+//   }
+// `;
 const SaveMenuItem = styled(MenuItem)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 
-import { Avatar, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import SignInComponent from "../../components/auth/SignIn";
 import Logo from "../../asserts/Logo";
 
@@ -21,12 +21,12 @@ const Wrapper = styled(Paper)`
   }
 `;
 
-const BigAvatar = styled(Avatar)`
-  width: 92px;
-  height: 92px;
-  text-align: center;
-  margin: 0 auto ${(props) => props.theme.spacing(5)};
-`;
+// const BigAvatar = styled(Avatar)`
+//   width: 92px;
+//   height: 92px;
+//   text-align: center;
+//   margin: 0 auto ${(props) => props.theme.spacing(5)};
+// `;
 
 function SignIn() {
   return (
@@ -34,7 +34,7 @@ function SignIn() {
       {/* <Brand /> */}
       <Logo size="18rem" mb="2rem" />
       <Wrapper>
-        <Helmet title="Sign In" />
+        {/* <Helmet title="Sign In" /> */}
         {/* <BigAvatar alt="Lucy" src="/static/img/avatars/avatar-1.jpg" /> */}
 
         <Typography

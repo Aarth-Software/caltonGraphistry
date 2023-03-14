@@ -73,7 +73,6 @@ export const selectDropDownValues = (
     let nextUnUsed =
       nodeState[nodeState[name].pointer].disableInput === undefined &&
       nodeState[nodeState[name].pointer].inputValue === undefined;
-    console.log(nextUnUsed);
     if (!nextUnUsed && nodeState[name].disableInput === undefined) {
       setNodeState({
         ...nodeState,

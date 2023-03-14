@@ -32,8 +32,6 @@ const SelectButtons = React.memo((props) => {
     ? ["2.8rem", 1.5]
     : ["2rem", 1.5];
 
-  console.log(buttonWidth);
-
   const patternClick = (pos, e) => {
     const getUpdatePattern = activePattern.map((d, i) =>
       i === pos ? !d : false

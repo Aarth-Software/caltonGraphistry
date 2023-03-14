@@ -2,22 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
-import {
-  Tooltip,
-  Menu,
-  MenuItem,
-  IconButton as MuiIconButton,
-} from "@mui/material";
+import { Tooltip, Menu, MenuItem } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setShowStoreOptions } from "../../../../redux/slices/serviceSlice";
 
-const IconButton = styled(MuiIconButton)`
-  svg {
-    width: 2rem;
-    height: 2rem;
-  }
-`;
 const SaveMenuItem = styled(MenuItem)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
@@ -27,7 +16,6 @@ const SavePopOptions = React.memo((props) => {
   const dispatch = useDispatch();
   const { showStoreOptions } = useSelector((state) => state.service);
   const toggleMenu = (event) => {
-    console.log(event.currentTarget);
     dispatch(setShowStoreOptions(event.currentTarget));
   };
 

@@ -5,7 +5,6 @@ import { withTheme } from "@emotion/react";
 import { MoreVertical } from "react-feather";
 
 import {
-  Card as MuiCard,
   CardContent,
   CardHeader,
   Table,
@@ -13,9 +12,8 @@ import {
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
-  Typography,
 } from "@mui/material";
-import { Box, spacing } from "@mui/system";
+import { Box } from "@mui/system";
 import usePagination from "../../../../hooks/usePagenation";
 import { flexCenter } from "../../../../libs/JSS/Jss";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
@@ -30,9 +28,6 @@ import {
   setContainerSize,
   setRetriveGraphSearch,
 } from "../../../../redux/slices/serviceSlice";
-import { remToPx } from "../../../../libs/HigherOrderFunctions";
-
-const Card = styled(MuiCard)(spacing);
 
 const TableRow = styled(MuiTableRow)`
   height: 46px;
@@ -105,8 +100,7 @@ const SavedGraphsPop = ({
   const { retriveGraphSearch, containerSize } = useSelector(
     (state) => state.service
   );
-  const [message, setMessage] = React.useState("there are no records saved");
-  console.log(record);
+  // const [message, setMessage] = React.useState("there are no records saved");
   const filteredRecords = record.filter((rcds) => {
     if (!retriveGraphSearch) {
       return true; // no search date set, return all records
@@ -144,7 +138,7 @@ const SavedGraphsPop = ({
             textAlign: "center",
           }}
         >
-          {message}
+          there are no records saved
         </h5>
       )}
       {recordStatus[0] && <Loader />}

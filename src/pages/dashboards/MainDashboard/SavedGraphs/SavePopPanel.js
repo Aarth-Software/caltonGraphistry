@@ -44,9 +44,9 @@ const BtnFlex = styled("div")({
   //   marginTop: ".7rem",
 });
 
-const HeaderTitle = styled(Typography)`
-  color: ${(props) => props.theme.palette.text.primary};
-`;
+// const HeaderTitle = styled(Typography)`
+//   color: ${(props) => props.theme.palette.text.primary};
+// `;
 const CrossIcon = styled(CloseIcon)`
   color: ${(props) => props.theme.palette.text.primary};
 `;

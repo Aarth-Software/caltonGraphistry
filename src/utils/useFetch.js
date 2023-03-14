@@ -6,7 +6,6 @@ export const useFetch = (endPoint, parse) => {
   const [data, setData] = React.useState([]);
   const [error, setError] = React.useState(false);
   const getFetch = useCallback(() => {
-    console.log("loaded");
     setLoading(true);
     fetch(`${baseURL}/${endPoint}`, {
       method: "GET",

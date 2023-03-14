@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React from "react";
 
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   firstInputComStyle,
   firstInputLineStyles,
@@ -10,7 +10,6 @@ import {
   flexItemCenterStart,
   horizentalLineStyles,
   inputBoxConStyle,
-  lineArrowStyles,
   secondInputComStyle,
   thirdInputComStyles,
   unUsedNodeStyleProp,
@@ -21,7 +20,6 @@ import {
 import StandardAffiliationBar from "./Affiliation/StandardAffiliationBar";
 import { useSnackbar } from "notistack";
 import { selectDropDownValues } from "../../../../libs/HigherOrderFunctions";
-import { GrFormNext } from "react-icons/gr";
 import CustomArrow from "../../../../libs/arrows/CustomArrow";
 import ArrowDown from "../../../../libs/arrows/ArrowDown";
 const Line = styled("span")(horizentalLineStyles);

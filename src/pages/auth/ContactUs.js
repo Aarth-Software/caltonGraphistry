@@ -11,7 +11,6 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import Logo from "../../asserts/Logo";
-import StandardButton from "../../libs/Buttons/StandardButton";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -28,9 +27,6 @@ const FlexContainer = styled(Box)`
   justify-content: space-between;
   width: 50rem;
   margin-top: 0.5rem;
-`;
-const TextHint = styled(Typography)`
-  font-size: 0.8rem;
 `;
 const ContactUs = ({ theme }) => {
   return (
@@ -76,11 +72,9 @@ const ContactUs = ({ theme }) => {
               .required("Feedback content is required"),
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-            console.log("clicked");
             try {
               // await signIn(values.email, values.password);
               // navigate("/generateQuery");
-              console.log("clicked");
             } catch (error) {
               const message = error.message || "Something went wrong";
               setStatus({ success: false });

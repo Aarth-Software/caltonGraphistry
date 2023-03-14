@@ -4,7 +4,7 @@ import { withTheme } from "@emotion/react";
 import { Doughnut } from "react-chartjs-2";
 import { MoreVertical } from "react-feather";
 
-import { orange, green, red, grey } from "@mui/material/colors";
+import { green, grey } from "@mui/material/colors";
 import {
   Card as MuiCard,
   CardContent,
@@ -63,12 +63,13 @@ const DoughnutChart = ({ theme, title, graphData }) => {
     datasets: [
       {
         data: graphData?.map((eg) => eg.count),
-        backgroundColor: [
-          theme.palette.secondary.main,
-          red[500],
-          orange[500],
-          theme.palette.grey[200],
-        ],
+        // backgroundColor: [
+        //   blue[500],
+        //   orange[500],
+        //   theme.palette.secondary.main,
+        //   green[500],
+        // ],
+        backgroundColor: ["#f16067", "#f8e276", "#4d96d0", "#77c47b"],
         borderWidth: 10,
         borderColor: theme.palette.background.paper,
       },
@@ -94,7 +95,8 @@ const DoughnutChart = ({ theme, title, graphData }) => {
     cutout: "70%",
     onHover: handleHover,
   };
-
+  const colors = ["#f16067", "#f8e276", "#4d96d0", "#77c47b"];
+  // red yellow blue green
   return (
     <Card mb={6}>
       <TitleHeader
@@ -114,13 +116,13 @@ const DoughnutChart = ({ theme, title, graphData }) => {
               <DoughnutInner>
                 <Typography variant="h4">
                   {activeSegment !== null
-                    ? graphData[activeSegment].count
-                    : "+27%"}
+                    ? graphData[activeSegment]?.percentage.toFixed(2) + "%"
+                    : graphData[0].total}
                 </Typography>
                 <Typography variant="caption">
                   {activeSegment !== null
                     ? graphData[activeSegment].role
-                    : "more visitors"}
+                    : "total"}
                 </Typography>
               </DoughnutInner>
               <Doughnut data={data} options={options} />
@@ -137,6 +139,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
                     percentagetext={el.percentage.toFixed(2)}
                     percentagecolor={green[500]}
                     sx={{ border: "1px solid " + grey[300] }}
+                    color={colors[i]}
                   />
                 </Grid>
               ))}

@@ -6,7 +6,6 @@ const usePagination = (elements, fixElements, containerHeight, itemHeight) => {
   const itemsPerPage = !!containerHeight
     ? Math.floor(containerHeight / itemHeight)
     : fixElements;
-  console.log(itemsPerPage);
   const pages = Math.ceil(elements.length / itemsPerPage);
   const pageElements = elements.slice(
     (page - 1) * itemsPerPage,

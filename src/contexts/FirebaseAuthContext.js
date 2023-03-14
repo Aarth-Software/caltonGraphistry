@@ -93,7 +93,6 @@ function AuthProvider({ children }) {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log(res);
         firebase
           .firestore()
           .collection("loginUsers")

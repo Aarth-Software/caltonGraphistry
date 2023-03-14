@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   getDefaultDataSet,
   getDropdowns,
@@ -41,7 +41,6 @@ const generateQuerySlice = createSlice({
     },
     setSavedRecords: (state, { payload }) => {
       state.savedRecords = payload;
-      console.log(current(state));
     },
     setSavedRecordsLoading: (state, { payload }) => {
       state.saveRecordsLoading = payload;
@@ -50,7 +49,6 @@ const generateQuerySlice = createSlice({
       state.recordsFetchError = payload;
     },
     removeRecord: (state, { payload }) => {
-      console.log(payload);
       const remaining = state.savedRecords.filter(
         (_, i) => i !== payload.activeBg
       );
@@ -91,7 +89,6 @@ export const fetchSavedQuaries = (kc) => async (dispatch) => {
     dispatch(setSaveRecordsFetchError(false));
     dispatch(setSavedRecordsLoading(true));
     const response = await getUserRecords({ userId: kc });
-    console.log(response.data);
     dispatch(setSavedRecords(response.data));
     dispatch(setSavedRecordsLoading(false));
   } catch (err) {

@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { deleteRecord, updateRecord } from "../../services/service";
 import { fetchKeywords } from "./dashboardSlice";
 import { editRecordName, removeRecord } from "./querySlice";
@@ -88,7 +88,6 @@ export const getDeleteRecords =
 
 export const getEditRecord =
   (activeBg, data, editedValue, enqueueSnackbar) => async (dispatch) => {
-    console.log([activeBg, data, editedValue]);
     try {
       await updateRecord({
         uuid: data[activeBg].uuid,
