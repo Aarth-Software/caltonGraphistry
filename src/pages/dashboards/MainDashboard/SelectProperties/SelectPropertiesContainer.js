@@ -22,6 +22,8 @@ import { useSnackbar } from "notistack";
 import { selectDropDownValues } from "../../../../libs/HigherOrderFunctions";
 import CustomArrow from "../../../../libs/arrows/CustomArrow";
 import ArrowDown from "../../../../libs/arrows/ArrowDown";
+import ArrowDownSvg from "../../../../libs/arrows/ArrowDownSvg";
+import Circle from "../../../../libs/circle/Circle";
 const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
@@ -71,7 +73,8 @@ const SelectPropertiesContainer = React.memo((props) => {
               nodeProp={nodeState?.nodeB}
               name="nodeB"
               sx={{
-                ...nodeBComStyles,
+                // ...nodeBComStyles,
+                ...firstInputComStyle,
                 ...(pattern?.series && { top: "1.4rem" }),
               }}
               change={inputChange}
@@ -81,7 +84,12 @@ const SelectPropertiesContainer = React.memo((props) => {
                 dropdownOptions?.node_2[nodeState?.nodeA?.value]
               }
             />
-            {pattern?.series ?? <ArrowDown />}
+            {/* {pattern?.series ?? <ArrowDown />} */}
+
+            <ArrowDownSvg
+              nodePostionState={pattern?.series}
+              solidState={!pattern?.unUsedB}
+            />
           </>
         )}
       </Box>
@@ -94,22 +102,21 @@ const SelectPropertiesContainer = React.memo((props) => {
         }}
       >
         {nodeA && (
-          <StandardAffiliationBar
-            onselect={selectDropDownValue}
-            nodeProp={nodeState?.nodeA}
-            name="nodeA"
-            sx={nodeAComStyles}
-            change={inputChange}
-            unUsed={pattern?.unUsedA}
-            options={dropdownOptions?.node_1.value}
-          />
+          <>
+            {/* <Circle /> */}
+            <StandardAffiliationBar
+              onselect={selectDropDownValue}
+              nodeProp={nodeState?.nodeA}
+              name="nodeA"
+              sx={nodeAComStyles}
+              change={inputChange}
+              unUsed={pattern?.unUsedA}
+              options={dropdownOptions?.node_1.value}
+            />
+          </>
         )}
         {nodeC && (
           <>
-            {/* <ArrowForwardIcon sx={lineArrowStyles} /> */}
-            {/* <Line>
-              <GrFormNext style={{ color: "red" }} size={"1.2rem"} />
-            </Line> */}
             <CustomArrow />
             <StandardAffiliationBar
               onselect={selectDropDownValue}

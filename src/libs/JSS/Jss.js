@@ -82,17 +82,19 @@ export const inputBoxConStyle = {
 };
 export const firstInputComStyle = {
   position: "relative",
-  "&::after": {
-    content: '""',
-    height: "1.5rem",
-    width: "1.5rem",
-    bgcolor: "#666666",
-    top: "102%",
-    left: `calc(50% - .7rem)`,
-    position: "absolute",
-    borderRadius: "50%",
-    // bgcolor: "green",
-  },
+  top: "-.4rem",
+  zIndex: "10",
+  // "&::after": {
+  //   content: '""',
+  //   height: "1.5rem",
+  //   width: "1.5rem",
+  //   bgcolor: "#666666",
+  //   top: "102%",
+  //   left: `calc(50% - .7rem)`,
+  //   position: "absolute",
+  //   borderRadius: "50%",
+  //   bgcolor: "green",
+  // },
   // "& ::before": {
   //   content: '""',
   //   height: "1.5rem",
@@ -107,7 +109,7 @@ export const firstInputComStyle = {
 };
 export const secondInputComStyle = {
   "&::after": {
-    content: '""',
+    content: "''",
     height: "1.5rem",
     width: "1.5rem",
     bgcolor: "#666666",
