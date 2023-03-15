@@ -41,9 +41,6 @@ const SelectButtons = React.memo((props) => {
     : ["2rem", 1.5];
 
   const patternClick = (pos, e) => {
-    // const getUpdatePattern = activePattern.map((d, i) =>
-    //   i === pos ? !d : false
-    // );
     getPatternChange(e);
     dispatch(setActivePatternWhenRetrive(pos));
   };

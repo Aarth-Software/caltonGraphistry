@@ -51,9 +51,14 @@ import {
   fetchDefaultGraph,
   fetchDropdownValues,
   fetchSavedQuaries,
+  getRetriveSavedDataSet,
   setDefaultGraph,
+  setdropDownOptions,
   setFetchOnce,
+  setPattern,
   setSaveDataSet,
+  setSelectParams,
+  setValues,
 } from "../../../redux/slices/querySlice";
 import {
   setActivePattern,
@@ -67,6 +72,7 @@ import {
 import SavePopOptions from "./Save/SavePopOptions";
 import useAuth from "../../../hooks/useAuth";
 import { fetchKeywords } from "../../../redux/slices/dashboardSlice";
+import useStateContextHook from "../../../libs/StateProvider/useStateContextHook";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
@@ -85,47 +91,16 @@ const FallDashboard = () => {
     saveRecordsLoading,
     recordsFetchError,
     savedDataSet,
+    pattern,
+    values,
+    selectParams,
   } = useSelector((state) => state.query);
   const { enqueueSnackbar } = useSnackbar();
   const { openSavePanel, open, showStoreOptions, saveName, activePattern } =
     useSelector((state) => state.service);
   const { user } = useAuth();
+  const { nodeState, setNodeState } = useStateContextHook();
   const containerRef = React.useRef(null);
-  const [pattern, setPattern] = React.useState({
-    nodeA: true,
-    nodeB: true,
-    nodeC: true,
-  });
-  // const [activePattern, setActivePattern] = React.useState(
-  //   new Array(btnArray.length).fill(false)
-  // );
-  const [selectParams, setSelectParams] = React.useState({});
-  const [dropdownOptions, setdropDownOptions] = React.useState({
-    node_1: {
-      value: ["Construct (Ind. Var.)"],
-    },
-    node_2: {
-      "Construct (Ind. Var.)": [
-        "Construct (Mediator)",
-        "Construct (Moderator)",
-      ],
-    },
-    node_3: {
-      "Construct (Mediator)": ["Construct (Dep. Var.)"],
-      "Construct (Moderator)": ["Construct (Dep. Var.)"],
-    },
-    selection_type: "3node",
-  });
-  const [values, setValues] = React.useState({ data: [], loading: null });
-  const [nodeState, setNodeState] = React.useState({
-    nodeA: { value: "", inputValue: "", disableInput: true },
-    nodeB: { value: "", inputValue: "", disableInput: true },
-    nodeC: { value: "", inputValue: "", disableInput: true },
-  });
-  // const [savedDataSet, setSaveDataSet] = React.useState({
-  //   status: false,
-  //   data: null,
-  // });
   React.useEffect(() => {
     if (fetchOnce) {
       dispatch(setActivePattern(new Array(btnArray.length).fill(false)));
@@ -138,25 +113,22 @@ const FallDashboard = () => {
   const getPatternChange = (e) => {
     setNodeState(getAccessPatternVariables(e.code));
     refreshState(setNodeState);
-    setPattern(e);
-    const specificObject = dropdownData?.data?.find(
-      (d) => d.selection_type === e.selection_type
-    );
-    setdropDownOptions(specificObject);
+    dispatch(setPattern(e));
+    dispatch(setdropDownOptions(e));
   };
 
   const getId = async (obj, errorCatch) => {
     if (errorCatch.some((eg) => eg)) {
       return;
     }
-    setValues({ ...values, loading: true });
+    dispatch(setValues({ ...values, loading: true }));
     try {
       const response = await GenerateDataSet(obj);
       if (response.data === "No records found") {
-        setValues({ data: response.data, loading: false });
+        dispatch(setValues({ data: response.data, loading: false }));
         dispatch(setSaveDataSet({ status: false, data: null }));
       } else {
-        setValues({ data: response.data[0], loading: false });
+        dispatch(setValues({ data: response.data[0], loading: false }));
         enqueueSnackbar("Generate graph successfull", {
           variant: "success",
           autoHideDuration: 2000,
@@ -165,7 +137,7 @@ const FallDashboard = () => {
         dispatch(setSaveDataSet({ status: false, data: null }));
       }
     } catch (err) {
-      setValues({ ...values, loading: false });
+      dispatch(setValues({ ...values, loading: false }));
       enqueueSnackbar("Generate graph unsuccessfull", {
         variant: "error",
         autoHideDuration: 2000,
@@ -179,7 +151,7 @@ const FallDashboard = () => {
     const cloneObject = { ...nodeState };
     checkError(cloneObject, errorCatch);
     const valueObj = mergeObjects(cloneObject);
-    setSelectParams(valueObj);
+    dispatch(setSelectParams(valueObj));
     setNodeState(cloneObject);
     getId(valueObj, errorCatch);
     for (let d in cloneObject) {
@@ -260,20 +232,7 @@ const FallDashboard = () => {
     }
   };
   const retriveGraph = (e) => {
-    dispatch(setDefaultGraph(false));
-    setNodeState(getAccessPatternVariables(e.selection_code));
-    retriveSavedGraphValues(e, setNodeState);
-    const fixPattern = btnArray.findIndex((eg) => eg.code === e.selection_code);
-    setPattern(btnArray[fixPattern]);
-    dispatch(setActivePatternWhenRetrive(fixPattern));
-
-    const specificObject = dropdownData?.data?.find(
-      (d) => d.selection_type === e.selection_type
-    );
-    setdropDownOptions(specificObject);
-    dispatch(setSaveDataSet({ status: true, data: e.dataset }));
-    dispatch(setShowStoreOptions(null));
-    dispatch(setOpen(false));
+    dispatch(getRetriveSavedDataSet(e, setNodeState));
   };
   const closeWithCrossICon = () => {
     dispatch(setOpenSavePannel(false));
@@ -283,6 +242,8 @@ const FallDashboard = () => {
     dispatch(setOpenSavePannel(false));
     dispatch(setShowStoreOptions(null));
   };
+
+  console.log(values);
 
   return (
     <>
@@ -344,10 +305,8 @@ const FallDashboard = () => {
             <Box sx={selectPropContainerStyle}>
               {!dropdownLoading && (
                 <SelectPropertiesContainer
-                  pattern={pattern}
                   nodeState={nodeState}
                   setNodeState={setNodeState}
-                  dropdownOptions={dropdownOptions}
                 />
               )}
             </Box>

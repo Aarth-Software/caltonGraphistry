@@ -15,26 +15,29 @@ import "./mocks";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { AuthProvider } from "./contexts/FirebaseAuthContext";
+import { StateProvider } from "./libs/StateProvider/StateProvider";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <>
-    <AuthProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ThemeProvider>
-            <SnackbarProvider
-              maxSnack={1}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-              <App />
-            </SnackbarProvider>
-          </ThemeProvider>
-        </BrowserRouter>
-      </Provider>
-    </AuthProvider>
+    <StateProvider>
+      <AuthProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <ThemeProvider>
+              <SnackbarProvider
+                maxSnack={1}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              >
+                <App />
+              </SnackbarProvider>
+            </ThemeProvider>
+          </BrowserRouter>
+        </Provider>
+      </AuthProvider>
+    </StateProvider>
   </>
 );
 

@@ -24,12 +24,14 @@ import CustomArrow from "../../../../libs/arrows/CustomArrow";
 import ArrowDown from "../../../../libs/arrows/ArrowDown";
 import ArrowDownSvg from "../../../../libs/arrows/ArrowDownSvg";
 import Circle from "../../../../libs/circle/Circle";
+import { useSelector } from "react-redux";
 const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
-  const { pattern, nodeState, setNodeState, dropdownOptions } = props;
+  const { dropdownOptions, pattern } = useSelector((state) => state.query);
+  const { nodeState, setNodeState } = props;
   const { enqueueSnackbar } = useSnackbar();
-  // console.log(dropdownOptions);
+  console.log(dropdownOptions);
   const { nodeA, nodeB, nodeC } = pattern;
   const rowNodePattern = pattern?.series
     ? { top: "1.7rem" }

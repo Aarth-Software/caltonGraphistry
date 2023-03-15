@@ -1,9 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  refreshState,
+  retriveSavedGraphValues,
+} from "../../libs/HigherOrderFunctions";
+import {
+  btnArray,
+  getAccessPatternVariables,
+} from "../../libs/Switches/SelectionSwitches";
+import {
   getDefaultDataSet,
   getDropdowns,
   getUserRecords,
 } from "../../services/service";
+import {
+  setActivePatternWhenRetrive,
+  setOpen,
+  setShowStoreOptions,
+} from "./serviceSlice";
 
 const generateQuerySlice = createSlice({
   name: "query",
@@ -34,6 +47,13 @@ const generateQuerySlice = createSlice({
       },
       selection_type: "3node",
     },
+    pattern: {
+      nodeA: true,
+      nodeB: true,
+      nodeC: true,
+    },
+    values: { data: [], loading: null },
+    selectParams: {},
   },
   reducers: {
     setFetchOnce: (state, { payload }) => {
@@ -80,9 +100,22 @@ const generateQuerySlice = createSlice({
     setSaveDataSet: (state, { payload }) => {
       state.savedDataSet = payload;
     },
-  },
-  setdropDownOptions: (state, { payload }) => {
-    state.dropdownOptions = payload;
+    setdropDownOptions: (state, { payload }) => {
+      const specificObject = state.dropdownData?.data?.find(
+        (d) => d.selection_type === payload.selection_type
+      );
+      console.log(payload);
+      state.dropdownOptions = specificObject;
+    },
+    setPattern: (state, { payload }) => {
+      state.pattern = payload;
+    },
+    setValues: (state, { payload }) => {
+      state.values = payload;
+    },
+    setSelectParams: (state, { payload }) => {
+      state.selectParams = payload;
+    },
   },
 });
 
@@ -119,6 +152,26 @@ export const fetchSavedQuaries = (kc) => async (dispatch) => {
     dispatch(setSaveRecordsFetchError(true));
   }
 };
+
+export const getRetriveSavedDataSet = (e, setFun) => (dispatch) => {
+  // setFun = setNodeState
+  dispatch(setDefaultGraph(false));
+  setFun(getAccessPatternVariables(e.selection_code));
+  retriveSavedGraphValues(e, setFun);
+  const fixPattern = btnArray.findIndex((eg) => eg.code === e.selection_code);
+  dispatch(setPattern(btnArray[fixPattern]));
+  dispatch(setActivePatternWhenRetrive(fixPattern));
+  dispatch(setdropDownOptions(e));
+  dispatch(setSaveDataSet({ status: true, data: e.dataset }));
+  dispatch(setShowStoreOptions(null));
+  dispatch(setOpen(false));
+};
+// export const getPatternChange = (e) => (dispatch) => {
+//   setNodeState(getAccessPatternVariables(e.code));
+//   refreshState(setNodeState);
+//   dispatch(setPattern(e));
+//   dispatch(setdropDownOptions(e));
+// };
 export const {
   setFetchOnce,
   setDefaultGraph,
@@ -133,5 +186,8 @@ export const {
   removeRecord,
   setSaveDataSet,
   setdropDownOptions,
+  setPattern,
+  setValues,
+  setSelectParams,
 } = generateQuerySlice.actions;
 export const generateQueryReducer = generateQuerySlice.reducer;

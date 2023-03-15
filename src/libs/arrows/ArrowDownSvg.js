@@ -30,7 +30,7 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
           r=".7rem"
           fill={!solidState ? "white" : "#666666"}
           stroke="#666666"
-          stroke-width=".1rem"
+          strokeWidth=".1rem"
         />
         {!nodePostionState && (
           <>
@@ -40,8 +40,8 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
               x2="50%"
               y2="74%"
               stroke="#666666"
-              stroke-width=".13rem"
-              marker-end="url(#arrowhead)"
+              strokeWidth=".13rem"
+              markerEnd="url(#arrowhead)"
             />
             <defs>
               <marker

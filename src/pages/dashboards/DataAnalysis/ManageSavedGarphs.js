@@ -43,6 +43,9 @@ import useAuth from "../../../hooks/useAuth";
 import {
   setDefaultGraph,
   setDropdownData,
+  setdropDownOptions,
+  setPattern,
+  setSaveDataSet,
 } from "../../../redux/slices/querySlice";
 import {
   btnArray,
@@ -139,13 +142,10 @@ const ManagedSavedGraphs = React.memo(
       // const fixPattern = btnArray.findIndex(
       //   (eg) => eg.code === e.selection_code
       // );
-      // setPattern(btnArray[fixPattern]);
+      // dispatch(setPattern(btnArray[fixPattern]));
       // dispatch(setActivePatternWhenRetrive(fixPattern));
-      // const specificObject = setDropdownData?.data?.find(
-      //   (d) => d.selection_type === e.selection_type
-      // );
-      // setdropDownOptions(specificObject);
-      // setSaveDataSet({ status: true, data: e.dataset });
+      // dispatch(setdropDownOptions(e));
+      // dispatch(setSaveDataSet({ status: true, data: e.dataset }));
       // dispatch(setShowStoreOptions(null));
       // dispatch(setOpen(false));
     };
