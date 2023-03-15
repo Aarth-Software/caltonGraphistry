@@ -17,6 +17,9 @@ function NavbarUserDropdown({ icon, size }) {
   const closeMenu = () => {
     setAnchorMenu(null);
   };
+  const contactUs = () => {
+    navigate("/contact-us");
+  };
   const dashboard = () => {
     navigate("/generateQuery/analysis");
     setAnchorMenu(null);
@@ -65,9 +68,6 @@ function NavbarUserDropdown({ icon, size }) {
             },
           }}
         >
-          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={closeMenu}>
-            Contact us
-          </MenuItem>
           {location[2] === "analysis" ? (
             <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
               Query
@@ -77,6 +77,9 @@ function NavbarUserDropdown({ icon, size }) {
               Dashboard
             </MenuItem>
           )}
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={contactUs}>
+            Contact us
+          </MenuItem>
 
           <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
             Sign out

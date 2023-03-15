@@ -9,7 +9,7 @@ import TooltipComp from "../../../../libs/Tooltip/Tooltip";
 
 // const Card = styled(Box)``;
 const SelectPatternContainer = React.memo((props) => {
-  const { btnArray, activePattern, setActivePattern, getPatternChange } = props;
+  const { btnArray, activePattern, setActivePattern } = props;
 
   return (
     <Box sx={patternContainerStyles}>
@@ -37,7 +37,6 @@ const SelectPatternContainer = React.memo((props) => {
         btnArray={btnArray}
         activePattern={activePattern}
         setActivePattern={setActivePattern}
-        getPatternChange={getPatternChange}
       />
     </Box>
   );

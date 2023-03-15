@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  checkError,
+  mergeObjects,
   refreshState,
   retriveSavedGraphValues,
 } from "../../libs/HigherOrderFunctions";
@@ -8,13 +10,18 @@ import {
   getAccessPatternVariables,
 } from "../../libs/Switches/SelectionSwitches";
 import {
+  GenerateDataSet,
   getDefaultDataSet,
   getDropdowns,
   getUserRecords,
+  postQuery,
 } from "../../services/service";
+import { fetchKeywords } from "./dashboardSlice";
 import {
   setActivePatternWhenRetrive,
   setOpen,
+  setOpenSavePannel,
+  setSaveName,
   setShowStoreOptions,
 } from "./serviceSlice";
 
@@ -153,7 +160,60 @@ export const fetchSavedQuaries = (kc) => async (dispatch) => {
   }
 };
 
+// export const getDataSetId =
+//   async (obj, errorCatch, enqueueSnackbar, values) => async (dispatch) => {
+//     if (errorCatch.some((eg) => eg)) {
+//       return;
+//     }
+//     dispatch(setValues({ ...values, loading: true }));
+//     try {
+//       const response = await GenerateDataSet(obj);
+//       if (response.data === "No records found") {
+//         dispatch(setValues({ data: response.data, loading: false }));
+//         dispatch(setSaveDataSet({ status: false, data: null }));
+//       } else {
+//         dispatch(setValues({ data: response.data[0], loading: false }));
+//         enqueueSnackbar("Generate graph successfull", {
+//           variant: "success",
+//           autoHideDuration: 2000,
+//           style: { width: 300, left: "calc(50% - 150px)" },
+//         });
+//         dispatch(setSaveDataSet({ status: false, data: null }));
+//       }
+//     } catch (err) {
+//       dispatch(setValues({ ...values, loading: false }));
+//       enqueueSnackbar("Generate graph unsuccessfull", {
+//         variant: "error",
+//         autoHideDuration: 2000,
+//         style: { width: 300, left: "calc(50% - 150px)" },
+//       });
+//       dispatch(setSaveDataSet({ status: false, data: null }));
+//     }
+//   };
+
+// export const getGenerateGraph =
+//   (globelState, setFun, enqueueSnackbar, values) => async (dispatch) => {
+//     let errorCatch = [];
+//     const cloneObject = { ...globelState };
+//     checkError(cloneObject, errorCatch);
+//     const valueObj = mergeObjects(cloneObject);
+//     dispatch(setSelectParams(valueObj));
+//     setFun(cloneObject);
+//     getDataSetId(valueObj, errorCatch, enqueueSnackbar, values);
+//     for (let d in cloneObject) {
+//       if (cloneObject[d].error) {
+//         return enqueueSnackbar("please fill mandatory(*) fields", {
+//           variant: "error",
+//           autoHideDuration: 2000,
+//           style: { width: 300, left: "calc(50% - 150px)" },
+//         });
+//       }
+//     }
+//     dispatch(setDefaultGraph(false));
+//   };
+
 export const getRetriveSavedDataSet = (e, setFun) => (dispatch) => {
+  console.log(e);
   // setFun = setNodeState
   dispatch(setDefaultGraph(false));
   setFun(getAccessPatternVariables(e.selection_code));
@@ -166,12 +226,73 @@ export const getRetriveSavedDataSet = (e, setFun) => (dispatch) => {
   dispatch(setShowStoreOptions(null));
   dispatch(setOpen(false));
 };
-// export const getPatternChange = (e) => (dispatch) => {
-//   setNodeState(getAccessPatternVariables(e.code));
-//   refreshState(setNodeState);
-//   dispatch(setPattern(e));
-//   dispatch(setdropDownOptions(e));
-// };
+export const getPatternChange = (e, setFun) => (dispatch) => {
+  setFun(getAccessPatternVariables(e.code));
+  refreshState(setFun);
+  dispatch(setPattern(e));
+  dispatch(setdropDownOptions(e));
+};
+
+export const save =
+  (selectParams, values, enqueueSnackbar, user, saveName, nodeState, pattern) =>
+  async (dispatch) => {
+    if (!values?.data || !Object.keys(selectParams).length) {
+      dispatch(setOpenSavePannel(false));
+      dispatch(setSaveName(false));
+      enqueueSnackbar("Please generate Graph", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+      return;
+    }
+    const [changeKeys] = [selectParams].map((eg) => {
+      return {
+        user_id: user?.id,
+        node1: eg.nodeA,
+        node2: eg.nodeB,
+        node3: eg.nodeC,
+        keyword1: eg.keywordA,
+        keyword2: eg.keywordB,
+        keyword3: eg.keywordC,
+        query_name: saveName,
+        dataset: values.data,
+        selection_type: `${Object.keys(nodeState).length}node`,
+        selection_code: pattern.code,
+      };
+    });
+
+    if (saveName.split("").length < 2) {
+      enqueueSnackbar("fill mandatory fields", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+      return;
+    }
+
+    try {
+      const response = await postQuery(changeKeys);
+      dispatch(setSaveName(false));
+      enqueueSnackbar(response.data.message, {
+        variant: "success",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+      dispatch(setOpenSavePannel(false));
+      dispatch(setShowStoreOptions(null));
+      dispatch(fetchSavedQuaries(user?.id));
+      dispatch(fetchKeywords(user?.id));
+    } catch (err) {
+      enqueueSnackbar("Save graph unsuccessfull", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+      dispatch(setOpenSavePannel(false));
+      dispatch(setShowStoreOptions(null));
+    }
+  };
 export const {
   setFetchOnce,
   setDefaultGraph,

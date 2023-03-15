@@ -11,6 +11,7 @@ import {
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
+  Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
@@ -31,27 +32,18 @@ import { useDispatch } from "react-redux";
 import {
   getDeleteRecords,
   getEditRecord,
-  setActivePatternWhenRetrive,
+  setActiveBg,
+  setAnchorMenu,
   setEditedValue,
   setEditPannel,
-  setOpen,
   setSearchRecordByName,
-  setShowStoreOptions,
 } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
 import useAuth from "../../../hooks/useAuth";
-import {
-  setDefaultGraph,
-  setDropdownData,
-  setdropDownOptions,
-  setPattern,
-  setSaveDataSet,
-} from "../../../redux/slices/querySlice";
-import {
-  btnArray,
-  getAccessPatternVariables,
-} from "../../../libs/Switches/SelectionSwitches";
-import { retriveSavedGraphValues } from "../../../libs/HigherOrderFunctions";
+import { getRetriveSavedDataSet } from "../../../redux/slices/querySlice";
+
+import useStateContextHook from "../../../libs/StateProvider/useStateContextHook";
+import { useNavigate } from "react-router-dom";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -91,6 +83,9 @@ const SearchInput = styled("input")`
     font-size: 1rem;
   }
 `;
+const NoOfpages = styled(Typography)`
+  font-size: 15px;
+`;
 
 const ManagedSavedGraphs = React.memo(
   ({
@@ -107,10 +102,12 @@ const ManagedSavedGraphs = React.memo(
   }) => {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { activeBg, editPannel, editedValue, searchName } = useSelector(
       (state) => state.service
     );
     const { user } = useAuth();
+    const { setNodeState } = useStateContextHook();
     const filteredRecords = data.filter((rcds) => {
       if (!searchName) {
         return true; // no search date set, return all records
@@ -135,19 +132,11 @@ const ManagedSavedGraphs = React.memo(
       dispatch(getEditRecord(activeBg, data, editedValue, enqueueSnackbar));
     };
 
-    const retriveGraph = (e) => {
-      // dispatch(setDefaultGraph(false));
-      // setNodeState(getAccessPatternVariables(e.selection_code));
-      // retriveSavedGraphValues(e, setNodeState);
-      // const fixPattern = btnArray.findIndex(
-      //   (eg) => eg.code === e.selection_code
-      // );
-      // dispatch(setPattern(btnArray[fixPattern]));
-      // dispatch(setActivePatternWhenRetrive(fixPattern));
-      // dispatch(setdropDownOptions(e));
-      // dispatch(setSaveDataSet({ status: true, data: e.dataset }));
-      // dispatch(setShowStoreOptions(null));
-      // dispatch(setOpen(false));
+    const retriveGraphFromManagedGraph = () => {
+      dispatch(getRetriveSavedDataSet(data[activeBg], setNodeState));
+      dispatch(setAnchorMenu(null));
+      dispatch(setActiveBg(""));
+      navigate(-1);
     };
 
     const closeWithCrossICon = () => {
@@ -210,6 +199,7 @@ const ManagedSavedGraphs = React.memo(
                             <MoreOptions
                               saveOnClick={updateRecords}
                               savedGraphOnClick={deleteRecords}
+                              graph={retriveGraphFromManagedGraph}
                               index={i}
                               hideControls={hideControls}
                             />
@@ -247,9 +237,11 @@ const ManagedSavedGraphs = React.memo(
             bgcolor={theme.palette.background.paper}
             hoverColor={theme.palette.background.paper}
           />
-          <span>
+
+          <NoOfpages varient="body2">
             {page} / {pages}
-          </span>
+          </NoOfpages>
+
           <StandardButton
             text={<KeyboardArrowRightIcon />}
             varient="contained"

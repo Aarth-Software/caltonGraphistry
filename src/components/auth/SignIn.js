@@ -117,11 +117,12 @@ function SignIn() {
             variant="contained"
             color="primary"
             disabled={isSubmitting}
+            sx={{ fontSize: "1rem" }}
           >
             Sign in
           </Button>
           <Button
-            sx={{ mt: "1rem" }}
+            sx={{ mt: "1rem", fontSize: "1rem" }}
             component={Link}
             to="/auth/reset-password"
             fullWidth

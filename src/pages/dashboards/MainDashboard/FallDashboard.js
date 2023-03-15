@@ -51,7 +51,10 @@ import {
   fetchDefaultGraph,
   fetchDropdownValues,
   fetchSavedQuaries,
+  getDataSetId,
+  getGenerateGraph,
   getRetriveSavedDataSet,
+  save,
   setDefaultGraph,
   setdropDownOptions,
   setFetchOnce,
@@ -110,12 +113,6 @@ const FallDashboard = () => {
     }
     dispatch(setFetchOnce(false));
   }, []);
-  const getPatternChange = (e) => {
-    setNodeState(getAccessPatternVariables(e.code));
-    refreshState(setNodeState);
-    dispatch(setPattern(e));
-    dispatch(setdropDownOptions(e));
-  };
 
   const getId = async (obj, errorCatch) => {
     if (errorCatch.some((eg) => eg)) {
@@ -146,7 +143,7 @@ const FallDashboard = () => {
       dispatch(setSaveDataSet({ status: false, data: null }));
     }
   };
-  const generateGraph = async () => {
+  const generateGraph = () => {
     let errorCatch = [];
     const cloneObject = { ...nodeState };
     checkError(cloneObject, errorCatch);
@@ -164,6 +161,9 @@ const FallDashboard = () => {
       }
     }
     dispatch(setDefaultGraph(false));
+    // dispatch(
+    //   getGenerateGraph(nodeState, setNodeState, enqueueSnackbar, values)
+    // );
   };
   const saveOnClick = () => {
     dispatch(setOpenSavePannel(true));
@@ -173,63 +173,18 @@ const FallDashboard = () => {
     dispatch(setOpen(true));
     dispatch(setShowStoreOptions(false));
   };
-  const getSave = async () => {
-    if (!values?.data || !Object.keys(selectParams).length) {
-      dispatch(setOpenSavePannel(false));
-      dispatch(setSaveName(false));
-      enqueueSnackbar("Please generate Graph", {
-        variant: "error",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
-      return;
-    }
-    const [changeKeys] = [selectParams].map((eg) => {
-      return {
-        user_id: user?.id,
-        node1: eg.nodeA,
-        node2: eg.nodeB,
-        node3: eg.nodeC,
-        keyword1: eg.keywordA,
-        keyword2: eg.keywordB,
-        keyword3: eg.keywordC,
-        query_name: saveName,
-        dataset: values.data,
-        selection_type: `${Object.keys(nodeState).length}node`,
-        selection_code: pattern.code,
-      };
-    });
-
-    if (saveName.split("").length < 2) {
-      enqueueSnackbar("fill mandatory fields", {
-        variant: "error",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
-      return;
-    }
-
-    try {
-      const response = await postQuery(changeKeys);
-      dispatch(setSaveName(false));
-      enqueueSnackbar(response.data.message, {
-        variant: "success",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
-      dispatch(setOpenSavePannel(false));
-      dispatch(setShowStoreOptions(null));
-      dispatch(fetchSavedQuaries(user?.id));
-      dispatch(fetchKeywords(user?.id));
-    } catch (err) {
-      enqueueSnackbar("Save graph unsuccessfull", {
-        variant: "error",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
-      dispatch(setOpenSavePannel(false));
-      dispatch(setShowStoreOptions(null));
-    }
+  const saveRecordFunction = async () => {
+    dispatch(
+      save(
+        selectParams,
+        values,
+        enqueueSnackbar,
+        user,
+        saveName,
+        nodeState,
+        pattern
+      )
+    );
   };
   const retriveGraph = (e) => {
     dispatch(getRetriveSavedDataSet(e, setNodeState));
@@ -243,8 +198,6 @@ const FallDashboard = () => {
     dispatch(setShowStoreOptions(null));
   };
 
-  console.log(values);
-
   return (
     <>
       <Stack sx={{ width: "100%", height: "100%" }}>
@@ -253,7 +206,6 @@ const FallDashboard = () => {
             btnArray={btnArray}
             activePattern={activePattern}
             setActivePattern={setActivePattern}
-            getPatternChange={getPatternChange}
           />
           <Card sx={{ ...patternContainerStyle }}>
             <Typography
@@ -380,7 +332,7 @@ const FallDashboard = () => {
         setAnchorMenu={setShowStoreOptions}
         child={
           <SavePopPanel
-            getSave={getSave}
+            getSave={saveRecordFunction}
             setSaveName={setSaveName}
             closeWithCrossICon={closeWithCrossICon}
             headTitle="Save"

@@ -43,6 +43,7 @@ const AuthLanding = ({ theme }) => {
           mr={5}
           color={theme.palette.secondary.main}
           onClick={() => navigate("sign-up")}
+          fontSize="1rem"
         />
         <StandardButton
           text="Sign in"
@@ -55,6 +56,7 @@ const AuthLanding = ({ theme }) => {
           color={"white"}
           bgcolor={theme.palette.secondary.main}
           colorHover="black"
+          fontSize="1rem"
         />
       </Box>
     </>

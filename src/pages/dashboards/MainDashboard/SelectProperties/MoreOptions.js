@@ -19,7 +19,7 @@ const SaveMenuItem = styled(MenuItem)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
 const MoreOptions = React.memo((props) => {
-  const { saveOnClick, savedGraphOnClick, index, hideControls } = props;
+  const { saveOnClick, savedGraphOnClick, graph, index, hideControls } = props;
   const dispatch = useDispatch();
   const { anchorMenu, activeBg } = useSelector((state) => state.service);
   const multiMenuValue = (event, idx) => {
@@ -77,7 +77,7 @@ const MoreOptions = React.memo((props) => {
           <MenuItem sx={{ fontSize: "1.1rem" }} onClick={savedGraphOnClick}>
             Delete
           </MenuItem>
-          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={savedGraphOnClick}>
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={graph}>
             Graph
           </MenuItem>
         </Menu>
