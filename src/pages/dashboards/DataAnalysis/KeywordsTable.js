@@ -11,6 +11,7 @@ import {
   TableCell as MuiTableCell,
   TableHead,
   TableRow as MuiTableRow,
+  Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
@@ -179,9 +180,9 @@ const KeywordsTable = React.memo(
             bgcolor={theme.palette.background.paper}
             hoverColor={theme.palette.background.paper}
           />
-          <span>
+          <Typography component={"p"} variant="subtitle1">
             {page} / {pages}
-          </span>
+          </Typography>
           <StandardButton
             text={<KeyboardArrowRightIcon />}
             varient="contained"

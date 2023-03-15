@@ -17,6 +17,7 @@ const serviceSlice = createSlice({
     retriveGraphSearch: "",
     containerSize: "",
     activePattern: [],
+    saveName: "",
   },
   reducers: {
     setAnchorMenu: (state, { payload }) => {

@@ -15,11 +15,7 @@ import {
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import usePagination from "../../../hooks/usePagenation";
-import {
-  flexCenter,
-  popModalContainer,
-  popSaveModalContainer,
-} from "../../../libs/JSS/Jss";
+import { flexCenter, popSaveModalContainer } from "../../../libs/JSS/Jss";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -83,9 +79,9 @@ const SearchInput = styled("input")`
     font-size: 1rem;
   }
 `;
-const NoOfpages = styled(Typography)`
-  font-size: 15px;
-`;
+// const NoOfpages = styled(Typography)`
+//   font-size: 15px;
+// `;
 
 const ManagedSavedGraphs = React.memo(
   ({
@@ -238,9 +234,9 @@ const ManagedSavedGraphs = React.memo(
             hoverColor={theme.palette.background.paper}
           />
 
-          <NoOfpages varient="body2">
+          <Typography component={"p"} variant="subtitle1">
             {page} / {pages}
-          </NoOfpages>
+          </Typography>
 
           <StandardButton
             text={<KeyboardArrowRightIcon />}
@@ -269,7 +265,7 @@ const ManagedSavedGraphs = React.memo(
               close={closeEditPannel}
             />
           }
-          classProp={{ ...popModalContainer, ...popSaveModalContainer }}
+          classProp={{ ...popSaveModalContainer }}
         />
       </Card>
     );

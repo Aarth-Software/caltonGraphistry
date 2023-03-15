@@ -97,9 +97,7 @@ const SavedGraphsPop = ({
   containerRef,
 }) => {
   const dispatch = useDispatch();
-  const { retriveGraphSearch, containerSize } = useSelector(
-    (state) => state.service
-  );
+  const { retriveGraphSearch } = useSelector((state) => state.service);
   // const [message, setMessage] = React.useState("there are no records saved");
   const filteredRecords = record.filter((rcds) => {
     if (!retriveGraphSearch) {

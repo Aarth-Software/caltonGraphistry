@@ -30,7 +30,7 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
           r=".7rem"
           fill={!solidState ? "white" : "#666666"}
           stroke="#666666"
-          strokeWidth=".1rem"
+          strokeWidth=".06rem"
         />
         {!nodePostionState && (
           <>
@@ -49,8 +49,8 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
                 viewBox="0 0 10 10"
                 refX="4"
                 refY="5"
-                markerWidth=".45rem"
-                markerHeight=".45rem"
+                markerWidth=".42em"
+                markerHeight=".42em"
                 orient="auto-start-reverse"
               >
                 <polygon points="0,0 10,5 0,10" fill="#666666" />

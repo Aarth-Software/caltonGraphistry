@@ -4,6 +4,7 @@ import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const SavePopContainer = styled("div")`
   background: ${(props) => props.theme.palette.background.paper} ,
   width: 100%;
@@ -62,6 +63,8 @@ const SavePopPanel = ({
   close,
 }) => {
   const dispatch = useDispatch();
+  const { saveName } = useSelector((state) => state.service);
+  console.log(saveName.length);
   return (
     <SavePopContainer>
       <FlexItems>
@@ -74,7 +77,10 @@ const SavePopPanel = ({
         >
           {headTitle}
         </Typography>
-        <CrossIcon sx={{ fontSize: "2rem" }} onClick={closeWithCrossICon} />
+        <CrossIcon
+          sx={{ fontSize: "2rem", cursor: "pointer" }}
+          onClick={closeWithCrossICon}
+        />
       </FlexItems>
       <Items>
         <TextField
@@ -82,9 +88,14 @@ const SavePopPanel = ({
           id="standard-size-large"
           size="large"
           variant="standard"
-          value={inputValue}
+          value={inputValue ? inputValue : saveName}
           fullWidth
-          onChange={(e) => dispatch(setSaveName(e.target.value))}
+          onChange={(e) => {
+            const input = e.target.value;
+            if (input.length <= 140) {
+              dispatch(setSaveName(input));
+            }
+          }}
         />
       </Items>
       <BtnFlex>
