@@ -205,8 +205,8 @@ export const popModalContainer = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "70%",
-  height: "70%",
+  width: "80rem",
+  height: "40rem",
   bgcolor: "background.paper",
   // border: "2px solid #000",
   borderRadius: 1,
@@ -214,8 +214,8 @@ export const popModalContainer = {
   p: 4,
 };
 export const popSaveModalContainer = {
-  width: "27%",
-  height: "27%",
+  width: "30rem",
+  height: "17rem",
 };
 export const Controls = {
   width: "100%",

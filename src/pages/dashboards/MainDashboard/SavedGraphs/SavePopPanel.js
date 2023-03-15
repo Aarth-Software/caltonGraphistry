@@ -16,32 +16,33 @@ const SavePopContainer = styled("div")`
   // background : green;
 `;
 const FlexItems = styled("div")({
-  height: "3rem",
+  // height: "3rem",
   width: "100%",
-  //   background: "red",
+  // background: "red",
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "space-between",
   //   marginTop: "1rem",
 });
 const Items = styled("div")({
-  height: "3rem",
+  // height: "3rem",
   width: "96%",
-  //   background: "green",
+  // background: "green",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  marginTop: ".8rem",
+  // marginTop: ".8rem",
   margin: "auto auto",
 });
 const BtnFlex = styled("div")({
-  height: "3rem",
+  // height: "3rem",
   width: "100%",
   //   background: "green",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-evenly",
   //   marginTop: ".7rem",
+  // background: "yellow",
 });
 
 // const HeaderTitle = styled(Typography)`
@@ -92,7 +93,7 @@ const SavePopPanel = ({
           px={7}
           mt={0.8}
           mr={0.4}
-          fontSize=".9rem"
+          fontSize={12}
           fontWeight={600}
           onClick={close}
         />
@@ -102,7 +103,7 @@ const SavePopPanel = ({
           px={8}
           mt={0.8}
           mr={0.4}
-          fontSize=".9rem"
+          fontSize={12}
           fontWeight={600}
           onClick={getSave}
         />

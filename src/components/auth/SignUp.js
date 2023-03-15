@@ -168,6 +168,7 @@ function SignUp() {
             variant="contained"
             color="primary"
             disabled={isSubmitting}
+            sx={{ fontSize: 12 }}
           >
             Sign up
           </Button>

@@ -50,7 +50,7 @@ function SignUp() {
 
         <SignUpComponent />
         <Button
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, fontSize: 12 }}
           component={Link}
           to="/auth/sign-in"
           fullWidth
