@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import styled from "@emotion/styled";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import React from "react";
 import SelectPropertiesContainer from "./SelectProperties/SelectPropertiesContainer";
@@ -76,12 +76,13 @@ import SavePopOptions from "./Save/SavePopOptions";
 import useAuth from "../../../hooks/useAuth";
 import { fetchKeywords } from "../../../redux/slices/dashboardSlice";
 import useStateContextHook from "../../../libs/StateProvider/useStateContextHook";
+import { withTheme } from "@emotion/react";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
 });
 const Card = styled(Box)``;
-const FallDashboard = () => {
+const FallDashboard = ({ theme }) => {
   const dispatch = useDispatch();
   const {
     fetchOnce,
@@ -171,7 +172,7 @@ const FallDashboard = () => {
   };
   const savedGraphOnClick = () => {
     dispatch(setOpen(true));
-    dispatch(setShowStoreOptions(false));
+    dispatch(setShowStoreOptions(null));
   };
   const saveRecordFunction = async () => {
     dispatch(
@@ -197,6 +198,26 @@ const FallDashboard = () => {
     dispatch(setOpenSavePannel(false));
     dispatch(setShowStoreOptions(null));
   };
+  const xsMatches = useMediaQuery(theme.breakpoints.up("xs"));
+  const smMatches = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdMatches = useMediaQuery(theme.breakpoints.up("md"));
+  const lgMatches = useMediaQuery(theme.breakpoints.up("lg"));
+  const xlMatches = useMediaQuery(theme.breakpoints.up("xl"));
+  const xxlMatches = useMediaQuery(theme.breakpoints.up("xxl"));
+
+  const ModalDimention = xxlMatches
+    ? ["1200px", "auto"]
+    : xlMatches
+    ? ["1000px", "auto"]
+    : lgMatches
+    ? ["900px", "auto"]
+    : mdMatches
+    ? ["850px", "450px"]
+    : smMatches
+    ? ["600px", "100px"]
+    : xsMatches
+    ? ["500px", "30px"]
+    : ["900px", "auto"];
 
   return (
     <>
@@ -340,7 +361,6 @@ const FallDashboard = () => {
           />
         }
         classProp={{
-          ...popModalContainer,
           ...popSaveModalContainer,
           // p: "1rem",
         }}
@@ -358,10 +378,10 @@ const FallDashboard = () => {
               <StandardButton
                 text="Graph"
                 varient="contained"
-                px={8.2}
+                px={7}
                 mt={0.8}
                 mr={0.4}
-                fontSize=".9rem"
+                fontSize={12}
                 fontWeight={600}
               />
             }
@@ -369,10 +389,14 @@ const FallDashboard = () => {
             recordStatus={[saveRecordsLoading, recordsFetchError]}
           />
         }
-        classProp={{ ...popModalContainer }}
+        classProp={{
+          ...popModalContainer,
+          width: ModalDimention[0],
+          height: ModalDimention[1],
+        }}
       />
     </>
   );
 };
 
-export default FallDashboard;
+export default withTheme(FallDashboard);

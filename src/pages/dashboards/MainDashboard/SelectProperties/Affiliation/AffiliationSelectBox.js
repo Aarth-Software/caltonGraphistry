@@ -45,7 +45,7 @@ const AffiliationSelectBox = ({
   return (
     <DropDownContainer>
       <FormControl
-        sx={{ minWidth: 70, height: "1rem", bgcolor: "white" }}
+        sx={{ minWidth: "6rem", height: "1rem", bgcolor: "white" }}
         disabled={dropdownDesable}
         required={true}
       >

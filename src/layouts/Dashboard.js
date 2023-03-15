@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Outlet } from "react-router-dom";
 
-import { CssBaseline, Paper as MuiPaper } from "@mui/material";
+import { Container, CssBaseline, Paper as MuiPaper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { spacing } from "@mui/system";
@@ -54,12 +54,14 @@ const Dashboard = ({ children }) => {
     <Root>
       <CssBaseline />
       <GlobalStyle />
+      {/* <Container maxWidth={"xxl"} sx={{ p: 0 }}> */}
       <AppContent>
         <Navbar onDrawerToggle={handleDrawerToggle} />
         <MainContent p={isLgUp ? 6 : 4}>
           {children}
           <Outlet />
         </MainContent>
+        {/* </Container> */}
       </AppContent>
       {/* <Settings /> */}
     </Root>

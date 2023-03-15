@@ -52,6 +52,8 @@ export const graphContainerStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  height: "100%",
+  // bgcolor: "green",
 };
 export const selectPropContainerStyle = {
   width: "100%",
@@ -179,7 +181,7 @@ export const firstInputLineStyles = {
 };
 export const inputAndSelectPlaceContainer = {
   border: ".005rem solid #DBDCDF",
-  borderRadius: 1,
+  borderRadius: ".3rem",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -205,17 +207,27 @@ export const popModalContainer = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "80rem",
-  height: "40rem",
+  width: "900px",
+  minHeight: "400px",
+  height: "auto",
   bgcolor: "background.paper",
   // border: "2px solid #000",
   borderRadius: 1,
   boxShadow: 24,
   p: 4,
+  pb: 12,
 };
 export const popSaveModalContainer = {
-  width: "30rem",
-  height: "17rem",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "400px",
+  height: "auto",
+  bgcolor: "background.paper",
+  borderRadius: 1,
+  boxShadow: 24,
+  p: 4,
 };
 export const Controls = {
   width: "100%",

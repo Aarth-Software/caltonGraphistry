@@ -110,7 +110,7 @@ const SavedGraphsPop = ({
       .includes(retriveGraphSearch.toLowerCase());
   });
   const { pageElements, page, pages, prevClick, nextClick, setPage } =
-    usePagination(filteredRecords, 6, containerSize, 55);
+    usePagination(filteredRecords, 6);
   function handleSearch(event) {
     dispatch(setRetriveGraphSearch(event.target.value));
     setPage(1);
@@ -184,8 +184,8 @@ const SavedGraphsPop = ({
               width: "100%",
               height: "auto",
               ...flexCenter,
-              position: "relative",
-              top: "1rem",
+              position: "absolute",
+              bottom: "1rem",
             }}
           >
             <StandardButton

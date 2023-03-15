@@ -22,16 +22,17 @@ const FlexItems = styled("div")({
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "space-between",
-  //   marginTop: "1rem",
+  // marginTop: "1rem",
+  marginBottom: "2rem",
 });
 const Items = styled("div")({
-  // height: "3rem",
+  // height: "7rem",
   width: "96%",
   // background: "green",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  // marginTop: ".8rem",
+  marginTop: "6rem",
   margin: "auto auto",
 });
 const BtnFlex = styled("div")({
@@ -41,7 +42,7 @@ const BtnFlex = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-evenly",
-  //   marginTop: ".7rem",
+  marginTop: "2rem",
   // background: "yellow",
 });
 
@@ -93,7 +94,8 @@ const SavePopPanel = ({
           px={7}
           mt={0.8}
           mr={0.4}
-          fontSize={12}
+          py={1.9}
+          fontSize={13}
           fontWeight={600}
           onClick={close}
         />
@@ -103,7 +105,8 @@ const SavePopPanel = ({
           px={8}
           mt={0.8}
           mr={0.4}
-          fontSize={12}
+          py={1.9}
+          fontSize={13}
           fontWeight={600}
           onClick={getSave}
         />

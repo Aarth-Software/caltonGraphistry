@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
   color: ${(props) => props.theme.header.color};
+  // height: 4rem;
 `;
 
 const Navbar = ({ onDrawerToggle }) => {

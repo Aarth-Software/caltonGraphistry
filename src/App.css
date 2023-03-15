@@ -31,6 +31,7 @@ html{
     outline: none;
     padding-left: .7rem ;
     background-color: white;
+    font-size: .9rem;
 }
 .disabledInputClass:disabled{
     cursor: not-allowed;
@@ -150,7 +151,7 @@ html{
 @media (min-width: 576px) {
   /* your styles here */
   html{
-    font-size: 9px;
+    font-size: 5px;
   }
 }
 
@@ -158,7 +159,7 @@ html{
 @media (min-width: 768px) {
   /* your styles here */
   html{
-    font-size: 9px;
+    font-size: 8px;
   }
 }
 

@@ -47,7 +47,7 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
               <marker
                 id="arrowhead"
                 viewBox="0 0 10 10"
-                refX="5"
+                refX="4"
                 refY="5"
                 markerWidth=".45rem"
                 markerHeight=".45rem"

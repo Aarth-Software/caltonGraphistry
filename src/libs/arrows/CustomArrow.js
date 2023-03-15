@@ -18,7 +18,7 @@ const CustomArrow = () => {
               id="arrow"
               markerWidth="10"
               markerHeight="10"
-              refX="4"
+              refX="3.4"
               refY="2.5"
               orient="auto"
             >
