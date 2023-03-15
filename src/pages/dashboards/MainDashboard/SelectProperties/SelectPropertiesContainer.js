@@ -75,7 +75,7 @@ const SelectPropertiesContainer = React.memo((props) => {
               sx={{
                 // ...nodeBComStyles,
                 ...firstInputComStyle,
-                ...(pattern?.series && { top: "1.4rem" }),
+                ...(pattern?.series && { top: "1.3rem" }),
               }}
               change={inputChange}
               unUsed={pattern?.unUsedB}

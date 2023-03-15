@@ -31,12 +31,24 @@ import { useDispatch } from "react-redux";
 import {
   getDeleteRecords,
   getEditRecord,
+  setActivePatternWhenRetrive,
   setEditedValue,
   setEditPannel,
+  setOpen,
   setSearchRecordByName,
+  setShowStoreOptions,
 } from "../../../redux/slices/serviceSlice";
 import { useSelector } from "react-redux";
 import useAuth from "../../../hooks/useAuth";
+import {
+  setDefaultGraph,
+  setDropdownData,
+} from "../../../redux/slices/querySlice";
+import {
+  btnArray,
+  getAccessPatternVariables,
+} from "../../../libs/Switches/SelectionSwitches";
+import { retriveSavedGraphValues } from "../../../libs/HigherOrderFunctions";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -118,6 +130,24 @@ const ManagedSavedGraphs = React.memo(
     };
     const getEditSave = () => {
       dispatch(getEditRecord(activeBg, data, editedValue, enqueueSnackbar));
+    };
+
+    const retriveGraph = (e) => {
+      // dispatch(setDefaultGraph(false));
+      // setNodeState(getAccessPatternVariables(e.selection_code));
+      // retriveSavedGraphValues(e, setNodeState);
+      // const fixPattern = btnArray.findIndex(
+      //   (eg) => eg.code === e.selection_code
+      // );
+      // setPattern(btnArray[fixPattern]);
+      // dispatch(setActivePatternWhenRetrive(fixPattern));
+      // const specificObject = setDropdownData?.data?.find(
+      //   (d) => d.selection_type === e.selection_type
+      // );
+      // setdropDownOptions(specificObject);
+      // setSaveDataSet({ status: true, data: e.dataset });
+      // dispatch(setShowStoreOptions(null));
+      // dispatch(setOpen(false));
     };
 
     const closeWithCrossICon = () => {

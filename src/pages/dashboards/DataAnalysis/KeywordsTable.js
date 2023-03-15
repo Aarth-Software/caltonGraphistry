@@ -99,7 +99,7 @@ const KeywordsTable = React.memo(
             <SearchInput
               value={searchKeyword}
               onChange={handleSearch}
-              placeholder="Search by title"
+              placeholder="Search by keyword"
               type="text"
               style={{
                 color: theme.palette.text.primary,

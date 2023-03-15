@@ -2,6 +2,12 @@ import { Box, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import React from "react";
 import { withTheme } from "@emotion/react";
+import { useSelector } from "react-redux";
+import {
+  setActivePattern,
+  setActivePatternWhenRetrive,
+} from "../../../../redux/slices/serviceSlice";
+import { useDispatch } from "react-redux";
 
 const SvgButtons = styled("img")({
   color: "darkslategray",
@@ -10,8 +16,9 @@ const SvgButtons = styled("img")({
   cursor: "pointer",
 });
 const SelectButtons = React.memo((props) => {
-  const { theme, btnArray, activePattern, setActivePattern, getPatternChange } =
-    props;
+  const dispatch = useDispatch();
+  const { activePattern } = useSelector((state) => state.service);
+  const { theme, btnArray, getPatternChange } = props;
   const xsMatches = useMediaQuery(theme.breakpoints.up("xs"));
   const smMatches = useMediaQuery(theme.breakpoints.up("sm"));
   const mdMatches = useMediaQuery(theme.breakpoints.up("md"));
@@ -34,11 +41,11 @@ const SelectButtons = React.memo((props) => {
     : ["2rem", 1.5];
 
   const patternClick = (pos, e) => {
-    const getUpdatePattern = activePattern.map((d, i) =>
-      i === pos ? !d : false
-    );
+    // const getUpdatePattern = activePattern.map((d, i) =>
+    //   i === pos ? !d : false
+    // );
     getPatternChange(e);
-    setActivePattern(getUpdatePattern);
+    dispatch(setActivePatternWhenRetrive(pos));
   };
   return (
     <Box

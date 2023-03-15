@@ -16,6 +16,7 @@ const serviceSlice = createSlice({
     searchKeyword: "",
     retriveGraphSearch: "",
     containerSize: "",
+    activePattern: [],
   },
   reducers: {
     setAnchorMenu: (state, { payload }) => {
@@ -53,6 +54,15 @@ const serviceSlice = createSlice({
     },
     setContainerSize: (state, { payload }) => {
       state.containerSize = payload;
+    },
+    setActivePattern: (state, { payload }) => {
+      state.activePattern = payload;
+    },
+    setActivePatternWhenRetrive: (state, { payload }) => {
+      const getChangePattern = state.activePattern.map((ek, i) =>
+        i === payload ? !ek : false
+      );
+      state.activePattern = getChangePattern;
     },
   },
 });
@@ -127,6 +137,8 @@ export const {
   setSearchRecordByKeyword,
   setRetriveGraphSearch,
   setContainerSize,
+  setActivePattern,
+  setActivePatternWhenRetrive,
 } = serviceSlice.actions;
 
 export const serviceReducer = serviceSlice.reducer;

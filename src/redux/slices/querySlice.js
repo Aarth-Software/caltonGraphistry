@@ -17,6 +17,23 @@ const generateQuerySlice = createSlice({
     savedRecords: [],
     saveRecordsLoading: false,
     recordsFetchError: false,
+    savedDataSet: { status: false, data: null },
+    dropdownOptions: {
+      node_1: {
+        value: ["Construct (Ind. Var.)"],
+      },
+      node_2: {
+        "Construct (Ind. Var.)": [
+          "Construct (Mediator)",
+          "Construct (Moderator)",
+        ],
+      },
+      node_3: {
+        "Construct (Mediator)": ["Construct (Dep. Var.)"],
+        "Construct (Moderator)": ["Construct (Dep. Var.)"],
+      },
+      selection_type: "3node",
+    },
   },
   reducers: {
     setFetchOnce: (state, { payload }) => {
@@ -60,6 +77,12 @@ const generateQuerySlice = createSlice({
       );
       state.savedRecords = edited;
     },
+    setSaveDataSet: (state, { payload }) => {
+      state.savedDataSet = payload;
+    },
+  },
+  setdropDownOptions: (state, { payload }) => {
+    state.dropdownOptions = payload;
   },
 });
 
@@ -108,5 +131,7 @@ export const {
   setSaveRecordsFetchError,
   editRecordName,
   removeRecord,
+  setSaveDataSet,
+  setdropDownOptions,
 } = generateQuerySlice.actions;
 export const generateQueryReducer = generateQuerySlice.reducer;

@@ -59,7 +59,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
   const [activeSegment, setActiveSegment] = React.useState(null);
   // console.log(graphData);
   const data = {
-    labels: graphData?.map((eg) => eg.role),
+    labels: graphData?.map((eg) => eg.role.replace("Variable", " variable")),
     datasets: [
       {
         data: graphData?.map((eg) => eg.count),
@@ -133,7 +133,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
               {graphData.map((el, i) => (
                 <Grid key={i} item xs={6} sm={6} md={6}>
                   <Stats
-                    title={el.role}
+                    title={el.role.replace("Variable", " variable")}
                     amount={el.count}
                     chip="Yearly"
                     percentagetext={el.percentage.toFixed(2)}

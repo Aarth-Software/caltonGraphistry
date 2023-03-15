@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import React from "react";
-// import Circle from "../../../../../libs/circle/Circle";
 
 import { inputAndSelectPlaceContainer } from "../../../../../libs/JSS/Jss";
 import AffiliationSelectBox from "./AffiliationSelectBox";
@@ -15,17 +14,12 @@ const StandardAffiliationBar = ({
   options,
 }) => {
   const { value, inputValue, disableInput, disableDropDown, error } = nodeProp;
-  // console.log(disableInput);
-
   return (
     <Box
       sx={{
         ...inputAndSelectPlaceContainer,
         ...sx,
-        border: error
-          ? //  && !unUsed
-            ".00005rem solid red"
-          : ".005rem solid #DBDCDF",
+        border: error ? ".00005rem solid red" : ".005rem solid #DBDCDF",
       }}
     >
       <AffiliationSelectBox
@@ -56,7 +50,6 @@ const StandardAffiliationBar = ({
           (!!unUsed || !!disableInput) && "activeInput"
         } ${error && !unUsed && "changePlaceHolderColor"}`}
       />
-      {/* <Circle /> */}
     </Box>
   );
 };

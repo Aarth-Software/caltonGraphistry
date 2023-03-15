@@ -53,8 +53,11 @@ import {
   fetchSavedQuaries,
   setDefaultGraph,
   setFetchOnce,
+  setSaveDataSet,
 } from "../../../redux/slices/querySlice";
 import {
+  setActivePattern,
+  setActivePatternWhenRetrive,
   // setAnchorMenu,
   setOpen,
   setOpenSavePannel,
@@ -63,6 +66,7 @@ import {
 } from "../../../redux/slices/serviceSlice";
 import SavePopOptions from "./Save/SavePopOptions";
 import useAuth from "../../../hooks/useAuth";
+import { fetchKeywords } from "../../../redux/slices/dashboardSlice";
 const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
@@ -80,11 +84,11 @@ const FallDashboard = () => {
     savedRecords,
     saveRecordsLoading,
     recordsFetchError,
+    savedDataSet,
   } = useSelector((state) => state.query);
   const { enqueueSnackbar } = useSnackbar();
-  const { openSavePanel, open, showStoreOptions, saveName } = useSelector(
-    (state) => state.service
-  );
+  const { openSavePanel, open, showStoreOptions, saveName, activePattern } =
+    useSelector((state) => state.service);
   const { user } = useAuth();
   const containerRef = React.useRef(null);
   const [pattern, setPattern] = React.useState({
@@ -92,9 +96,9 @@ const FallDashboard = () => {
     nodeB: true,
     nodeC: true,
   });
-  const [activePattern, setActivePattern] = React.useState(
-    new Array(btnArray.length).fill(false)
-  );
+  // const [activePattern, setActivePattern] = React.useState(
+  //   new Array(btnArray.length).fill(false)
+  // );
   const [selectParams, setSelectParams] = React.useState({});
   const [dropdownOptions, setdropDownOptions] = React.useState({
     node_1: {
@@ -118,13 +122,13 @@ const FallDashboard = () => {
     nodeB: { value: "", inputValue: "", disableInput: true },
     nodeC: { value: "", inputValue: "", disableInput: true },
   });
-  const [savedDataSet, setSaveDataSet] = React.useState({
-    status: false,
-    data: null,
-  });
-  // const { keycloak, initialized } = useKeycloak();
+  // const [savedDataSet, setSaveDataSet] = React.useState({
+  //   status: false,
+  //   data: null,
+  // });
   React.useEffect(() => {
     if (fetchOnce) {
+      dispatch(setActivePattern(new Array(btnArray.length).fill(false)));
       dispatch(fetchDropdownValues());
       dispatch(fetchDefaultGraph());
       dispatch(fetchSavedQuaries(user?.id));
@@ -150,7 +154,7 @@ const FallDashboard = () => {
       const response = await GenerateDataSet(obj);
       if (response.data === "No records found") {
         setValues({ data: response.data, loading: false });
-        setSaveDataSet({ status: false, data: null });
+        dispatch(setSaveDataSet({ status: false, data: null }));
       } else {
         setValues({ data: response.data[0], loading: false });
         enqueueSnackbar("Generate graph successfull", {
@@ -158,7 +162,7 @@ const FallDashboard = () => {
           autoHideDuration: 2000,
           style: { width: 300, left: "calc(50% - 150px)" },
         });
-        setSaveDataSet({ status: false, data: null });
+        dispatch(setSaveDataSet({ status: false, data: null }));
       }
     } catch (err) {
       setValues({ ...values, loading: false });
@@ -167,7 +171,7 @@ const FallDashboard = () => {
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
       });
-      setSaveDataSet({ status: false, data: null });
+      dispatch(setSaveDataSet({ status: false, data: null }));
     }
   };
   const generateGraph = async () => {
@@ -244,6 +248,7 @@ const FallDashboard = () => {
       dispatch(setOpenSavePannel(false));
       dispatch(setShowStoreOptions(null));
       dispatch(fetchSavedQuaries(user?.id));
+      dispatch(fetchKeywords(user?.id));
     } catch (err) {
       enqueueSnackbar("Save graph unsuccessfull", {
         variant: "error",
@@ -260,14 +265,13 @@ const FallDashboard = () => {
     retriveSavedGraphValues(e, setNodeState);
     const fixPattern = btnArray.findIndex((eg) => eg.code === e.selection_code);
     setPattern(btnArray[fixPattern]);
-    setActivePattern(
-      activePattern.map((ek, i) => (i === fixPattern ? !ek : false))
-    );
+    dispatch(setActivePatternWhenRetrive(fixPattern));
+
     const specificObject = dropdownData?.data?.find(
       (d) => d.selection_type === e.selection_type
     );
     setdropDownOptions(specificObject);
-    setSaveDataSet({ status: true, data: e.dataset });
+    dispatch(setSaveDataSet({ status: true, data: e.dataset }));
     dispatch(setShowStoreOptions(null));
     dispatch(setOpen(false));
   };
