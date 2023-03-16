@@ -63,12 +63,6 @@ const DoughnutChart = ({ theme, title, graphData }) => {
     datasets: [
       {
         data: graphData?.map((eg) => eg.count),
-        // backgroundColor: [
-        //   blue[500],
-        //   orange[500],
-        //   theme.palette.secondary.main,
-        //   green[500],
-        // ],
         backgroundColor: ["#f16067", "#f8e276", "#4d96d0", "#77c47b"],
         borderWidth: 10,
         borderColor: theme.palette.background.paper,
@@ -90,6 +84,9 @@ const DoughnutChart = ({ theme, title, graphData }) => {
     plugins: {
       legend: {
         display: false,
+      },
+      tooltip: {
+        displayColors: false,
       },
     },
     cutout: "70%",
