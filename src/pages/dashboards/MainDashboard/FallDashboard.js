@@ -206,18 +206,18 @@ const FallDashboard = ({ theme }) => {
   const xxlMatches = useMediaQuery(theme.breakpoints.up("xxl"));
 
   const ModalDimention = xxlMatches
-    ? ["1200px", "auto"]
+    ? ["1200px", "auto", "12rem"] //80
     : xlMatches
-    ? ["1000px", "auto"]
+    ? ["1000px", "auto", "140px"] //100
     : lgMatches
-    ? ["900px", "auto"]
+    ? ["900px", "auto", "130px"]
     : mdMatches
-    ? ["850px", "450px"]
+    ? ["850px", "450px", "110px"]
     : smMatches
-    ? ["600px", "100px"]
+    ? ["600px", "100px", "100px"]
     : xsMatches
-    ? ["500px", "30px"]
-    : ["900px", "auto"];
+    ? ["500px", "30px", "200px"]
+    : ["900px", "auto", "12rem"];
 
   return (
     <>
@@ -284,7 +284,7 @@ const FallDashboard = ({ theme }) => {
               )}
             </Box>
           </Card>
-          <Box sx={saveAndGraphBtnContainer}>
+          <Box sx={{ ...saveAndGraphBtnContainer, width: ModalDimention[2] }}>
             <Typography
               varient="p"
               sx={{

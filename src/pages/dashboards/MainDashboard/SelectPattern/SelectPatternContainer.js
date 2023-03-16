@@ -12,7 +12,7 @@ const SelectPatternContainer = React.memo((props) => {
   const { btnArray, activePattern, setActivePattern } = props;
 
   return (
-    <Box sx={patternContainerStyles}>
+    <Box sx={{ ...patternContainerStyles }}>
       <div style={{ width: "100%", ...flexSpaceBetween }}>
         <Typography
           varient="p"
