@@ -31,7 +31,7 @@ function App({ emotionCache = clientSideEmotionCache }) {
   return (
     <CacheProvider value={emotionCache}>
       <HelmetProvider>
-        <Helmet defaultTitle="Litdig" />
+        <Helmet defaultTitle="LitDig" />
         <Provider store={store}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <MuiThemeProvider theme={createTheme(theme)}>

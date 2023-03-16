@@ -13,12 +13,13 @@ import { spacing } from "@mui/system";
 
 import useAuth from "../../hooks/useAuth";
 import Loader from "../Loader";
+import { withTheme } from "@emotion/react";
 
 const Alert = styled(MuiAlert)(spacing);
 
 const TextField = styled(MuiTextField)(spacing);
 
-function SignUp() {
+function SignUp({ theme }) {
   const navigate = useNavigate();
   const { signUp, isAuthenticated, isInitialized } = useAuth();
   const [loading, setLoading] = React.useState(true);
@@ -168,7 +169,7 @@ function SignUp() {
             variant="contained"
             color="primary"
             disabled={isSubmitting}
-            sx={{ fontSize: 12 }}
+            sx={{ fontSize: 12, bgcolor: theme.palette.secondary.main }}
           >
             Sign up
           </Button>
@@ -178,4 +179,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default withTheme(SignUp);

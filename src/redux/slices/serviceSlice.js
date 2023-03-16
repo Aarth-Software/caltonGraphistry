@@ -61,7 +61,7 @@ const serviceSlice = createSlice({
     },
     setActivePatternWhenRetrive: (state, { payload }) => {
       const getChangePattern = state.activePattern.map((ek, i) =>
-        i === payload ? !ek : false
+        i === payload ? true : false
       );
       state.activePattern = getChangePattern;
     },

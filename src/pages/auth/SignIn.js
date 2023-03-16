@@ -47,7 +47,7 @@ function SignIn() {
           Sign in
         </Typography>
         <Typography
-          sx={{ fontSize: "1rem" }}
+          sx={{ fontSize: 12 }}
           component="h2"
           variant="body1"
           align="left"

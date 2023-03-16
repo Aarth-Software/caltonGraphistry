@@ -383,6 +383,7 @@ const FallDashboard = ({ theme }) => {
                 mr={0.4}
                 fontSize={12}
                 fontWeight={600}
+                bgcolor={theme.palette.secondary.main}
               />
             }
             click={retriveGraph}

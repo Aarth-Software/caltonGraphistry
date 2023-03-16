@@ -6,6 +6,7 @@ import { Button, Paper, Typography } from "@mui/material";
 
 import SignUpComponent from "../../components/auth/SignUp";
 import Logo from "../../asserts/Logo";
+import { withTheme } from "@emotion/react";
 
 // const Brand = styled(Logo)`
 //   fill: ${(props) => props.theme.palette.primary.main};
@@ -22,7 +23,7 @@ const Wrapper = styled(Paper)`
   }
 `;
 
-function SignUp() {
+function SignUp({ theme }) {
   return (
     <React.Fragment>
       {/* <Brand /> */}
@@ -40,7 +41,7 @@ function SignUp() {
           Sign up
         </Typography>
         <Typography
-          sx={{ fontSize: "1rem" }}
+          sx={{ fontSize: 12 }}
           component="h2"
           variant="body1"
           align="left"
@@ -50,11 +51,10 @@ function SignUp() {
 
         <SignUpComponent />
         <Button
-          sx={{ mt: 1, fontSize: 12 }}
+          sx={{ mt: 1, fontSize: 12, color: theme.palette.secondary.main }}
           component={Link}
           to="/auth/sign-in"
           fullWidth
-          color="primary"
         >
           Alredy have an account sign in
         </Button>
@@ -63,4 +63,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default withTheme(SignUp);

@@ -47,10 +47,10 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
               <marker
                 id="arrowhead"
                 viewBox="0 0 10 10"
-                refX="4"
+                refX="3.5"
                 refY="5"
-                markerWidth=".42em"
-                markerHeight=".42em"
+                markerWidth=".37em"
+                markerHeight=".37em"
                 orient="auto-start-reverse"
               >
                 <polygon points="0,0 10,5 0,10" fill="#666666" />

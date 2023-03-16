@@ -181,7 +181,7 @@ html{
 /* Extra-large devices (large desktops, 1536px and up) */
 @media (min-width: 1536px) {
   html{
-    font-size: 13.7px;
+    font-size: 12px;
     /* font-size: 12px; */
   }
 }

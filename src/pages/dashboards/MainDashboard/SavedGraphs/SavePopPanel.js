@@ -5,6 +5,7 @@ import StandardButton from "../../../../libs/Buttons/StandardButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { withTheme } from "@emotion/react";
 const SavePopContainer = styled("div")`
   background: ${(props) => props.theme.palette.background.paper} ,
   width: 100%;
@@ -55,6 +56,7 @@ const CrossIcon = styled(CloseIcon)`
 `;
 
 const SavePopPanel = ({
+  theme,
   getSave,
   inputValue,
   setSaveName,
@@ -102,28 +104,30 @@ const SavePopPanel = ({
         <StandardButton
           text="Cancel"
           varient="outlined"
-          px={7}
+          px={5}
           mt={0.8}
           mr={0.4}
-          py={1.9}
-          fontSize={13}
+          py={1}
+          fontSize={12}
           fontWeight={600}
           onClick={close}
+          color={theme.palette.secondary.main}
         />
         <StandardButton
           text="Save"
           varient="contained"
-          px={8}
+          px={7}
           mt={0.8}
           mr={0.4}
-          py={1.9}
-          fontSize={13}
+          py={1.3}
+          fontSize={12}
           fontWeight={600}
           onClick={getSave}
+          bgcolor={theme.palette.secondary.main}
         />
       </BtnFlex>
     </SavePopContainer>
   );
 };
 
-export default SavePopPanel;
+export default withTheme(SavePopPanel);

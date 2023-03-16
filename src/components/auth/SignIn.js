@@ -15,12 +15,13 @@ import {
 import { spacing } from "@mui/system";
 import useAuth from "../../hooks/useAuth";
 import Loader from "../Loader";
+import { withTheme } from "@emotion/react";
 
 const Alert = styled(MuiAlert)(spacing);
 
 const TextField = styled(MuiTextField)(spacing);
 
-function SignIn() {
+function SignIn({ theme }) {
   const { signIn, isAuthenticated, isInitialized } = useAuth();
   const [loading, setLoading] = React.useState(true);
   const navigate = useNavigate();
@@ -117,16 +118,20 @@ function SignIn() {
             variant="contained"
             color="primary"
             disabled={isSubmitting}
-            sx={{ fontSize: 12 }}
+            sx={{ fontSize: 12, bgcolor: theme.palette.secondary.main }}
           >
             Sign in
           </Button>
           <Button
-            sx={{ mt: "1rem", fontSize: 12 }}
+            sx={{
+              mt: "1rem",
+              fontSize: 12,
+              color: theme.palette.secondary.main,
+            }}
             component={Link}
             to="/auth/reset-password"
             fullWidth
-            color="primary"
+            // color={theme.palette.secondary.main}
           >
             Forgot password
           </Button>
@@ -136,4 +141,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default withTheme(SignIn);
