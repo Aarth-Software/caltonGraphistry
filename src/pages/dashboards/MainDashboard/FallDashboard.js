@@ -208,11 +208,11 @@ const FallDashboard = ({ theme }) => {
   const ModalDimention = xxlMatches
     ? ["1200px", "auto", "12rem"] //80
     : xlMatches
-    ? ["1000px", "auto", "140px"] //100
+    ? ["1000px", "auto", "134px"] //100
     : lgMatches
     ? ["900px", "auto", "130px"]
     : mdMatches
-    ? ["850px", "450px", "110px"]
+    ? ["850px", "450px", "118px"]
     : smMatches
     ? ["600px", "100px", "100px"]
     : xsMatches
