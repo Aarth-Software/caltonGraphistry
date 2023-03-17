@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import React from "react";
-
 import { inputAndSelectPlaceContainer } from "../../../../../libs/JSS/Jss";
 import AffiliationSelectBox from "./AffiliationSelectBox";
 

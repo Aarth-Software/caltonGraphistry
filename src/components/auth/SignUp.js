@@ -169,7 +169,11 @@ function SignUp({ theme }) {
             variant="contained"
             color="primary"
             disabled={isSubmitting}
-            sx={{ fontSize: 12, bgcolor: theme.palette.secondary.main }}
+            sx={{
+              fontSize: 14.2,
+              bgcolor: theme.palette.secondary.main,
+              fontWeight: 600,
+            }}
           >
             Sign up
           </Button>

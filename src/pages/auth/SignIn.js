@@ -19,6 +19,7 @@ const Wrapper = styled(Paper)`
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
+  zoom: 0.8;
 `;
 
 // const BigAvatar = styled(Avatar)`
@@ -30,34 +31,35 @@ const Wrapper = styled(Paper)`
 
 function SignIn() {
   return (
-    <React.Fragment>
+    <>
       {/* <Brand /> */}
-      <Logo size="18rem" mb="2rem" />
-      <Wrapper>
-        {/* <Helmet title="Sign In" /> */}
-        {/* <BigAvatar alt="Lucy" src="/static/img/avatars/avatar-1.jpg" /> */}
+      {/* <Logo size="18rem" mb="2rem" /> */}
+      {/* <Helmet title="Sign In" /> */}
+      {/* <BigAvatar alt="Lucy" src="/static/img/avatars/avatar-1.jpg" /> */}
+      <React.Fragment>
+        <Wrapper>
+          <Typography
+            sx={{ mb: 2 }}
+            component="h1"
+            variant="h2"
+            align="left"
+            gutterBottom
+          >
+            Sign in
+          </Typography>
+          <Typography
+            sx={{ fontSize: 14.2 }}
+            component="h2"
+            variant="body1"
+            align="left"
+          >
+            Sign in to your account to continue
+          </Typography>
 
-        <Typography
-          sx={{ mb: 2 }}
-          component="h1"
-          variant="h2"
-          align="left"
-          gutterBottom
-        >
-          Sign in
-        </Typography>
-        <Typography
-          sx={{ fontSize: 12 }}
-          component="h2"
-          variant="body1"
-          align="left"
-        >
-          Sign in to your account to continue
-        </Typography>
-
-        <SignInComponent />
-      </Wrapper>
-    </React.Fragment>
+          <SignInComponent />
+        </Wrapper>
+      </React.Fragment>
+    </>
   );
 }
 

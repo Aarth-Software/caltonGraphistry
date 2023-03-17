@@ -1,39 +1,32 @@
+import { withTheme } from "@emotion/react";
+import { useMediaQuery } from "@mui/material";
 import React from "react";
 import "../arrows/CustomArrow.css";
 
-const CustomArrow = () => {
-  const LineRef = React.useRef(null);
-  const [lineWidth, setLineWidth] = React.useState(0);
-  const [x2, setX2] = React.useState(0);
+const CustomArrow = ({ theme, pattern, nodeC }) => {
+  const xsMatches = useMediaQuery(theme.breakpoints.up("xs"));
+  const smMatches = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdMatches = useMediaQuery(theme.breakpoints.up("md"));
+  const lgMatches = useMediaQuery(theme.breakpoints.up("lg"));
+  const xlMatches = useMediaQuery(theme.breakpoints.up("xl"));
+  const xxlMatches = useMediaQuery(theme.breakpoints.up("xxl"));
 
-  React.useEffect(() => {
-    setLineWidth(LineRef.current.offsetWidth);
-
-    function handleResize() {
-      setLineWidth(LineRef.current.offsetWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  React.useEffect(() => {
-    const newX2 =
-      lineWidth -
-      parseFloat(getComputedStyle(document.documentElement).fontSize) * 1.7;
-    setX2(newX2);
-    console.log(newX2);
-  }, [lineWidth]);
-
+  const refX = xxlMatches
+    ? 13.6 //80
+    : xlMatches
+    ? 13.5 //100
+    : lgMatches
+    ? 13.5
+    : mdMatches
+    ? 14
+    : smMatches
+    ? 14.5
+    : xsMatches
+    ? 0
+    : ["900px", "auto", "12rem"];
   return (
     <>
-      <div
-        ref={LineRef}
-        style={{ width: "100%", height: "2rem", position: "relative" }}
-      >
+      <div style={{ width: "100%", height: "2rem", position: "relative" }}>
         <svg
           style={{
             position: "absolute",
@@ -43,32 +36,70 @@ const CustomArrow = () => {
             height: "100%",
           }}
         >
-          <line
-            x1="0"
-            x2={`${x2}`}
-            y1="50%"
-            y2="50%"
-            strokeWidth=".14rem"
-            stroke="#666666"
-            markerEnd="url(#arrow)"
-          />
-          <path
-            d="M0 50% Lcalc(100% - 1.7rem) 50%"
-            stroke="#666666"
-            strokeWidth=".14rem"
-            markerEnd="url(#arrow)"
-          />
+          {nodeC ? (
+            <line
+              x1="0"
+              x2="99.5%"
+              y1="50%"
+              y2="50%"
+              strokeWidth=".14rem"
+              stroke="#666666"
+              markerStart="url(#start-circle)"
+              markerEnd="url(#arrow)"
+            />
+          ) : (
+            <line
+              x1="0"
+              x2="1"
+              y1="50%"
+              y2="50%"
+              strokeWidth=".14rem"
+              stroke="#666666"
+              markerStart="url(#start-circle)"
+            />
+          )}
           <defs>
             <marker
-              id="arrow"
-              markerWidth="10"
-              markerHeight="10"
-              refX="3.4"
-              refY="2.5"
+              id="start-circle"
+              markerWidth="5em"
+              markerHeight="4em"
+              refX=".02em"
+              refY="10"
               orient="auto"
             >
-              <polygon points="0 0, 5 2.5, 0 5" fill="#666666" />
+              <circle
+                cx="5.6"
+                cy="10"
+                r=".33em"
+                fill={pattern.unUsedA ? "white" : "#666666"}
+                stroke="#666666"
+                strokeWidth=".04em"
+              />
             </marker>
+            {nodeC && (
+              <marker
+                id="arrow"
+                markerWidth="4em"
+                markerHeight="5em"
+                refX={refX}
+                refY="10"
+                orient="auto"
+              >
+                <polygon
+                  points="0 0, 5 2.5, 0 5"
+                  fill="#666666"
+                  transform="translate(0,7.5)"
+                />
+                <circle
+                  cx="9.8"
+                  cy="10"
+                  r=".33em"
+                  fill={pattern.unUsedC ? "white" : "#666666"}
+                  stroke="#666666"
+                  strokeWidth=".04em"
+                />
+              </marker>
+            )}
           </defs>
         </svg>
       </div>
@@ -76,4 +107,4 @@ const CustomArrow = () => {
   );
 };
 
-export default CustomArrow;
+export default withTheme(CustomArrow);

@@ -8,7 +8,7 @@ function NavbarUserDropdown({ icon, size }) {
   const location = useLocation().pathname.split("/");
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
@@ -18,6 +18,7 @@ function NavbarUserDropdown({ icon, size }) {
     setAnchorMenu(null);
   };
   const contactUs = () => {
+    setAnchorMenu(null);
     navigate("/contact-us");
   };
   const dashboard = () => {
@@ -68,22 +69,89 @@ function NavbarUserDropdown({ icon, size }) {
             },
           }}
         >
-          {location[2] === "analysis" ? (
-            <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
-              Query
+          {user?.id && (
+            <>
+              {location[2] === "analysis" ? (
+                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
+                  Query
+                </MenuItem>
+              ) : (
+                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={dashboard}>
+                  Dashboard
+                </MenuItem>
+              )}
+              {location[1] === "contact-us" && (
+                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
+                  Query
+                </MenuItem>
+              )}
+            </>
+          )}
+
+          {location[1] !== "contact-us" ? (
+            <MenuItem sx={{ fontSize: "1.1rem" }} onClick={contactUs}>
+              Contact us
             </MenuItem>
           ) : (
-            <MenuItem sx={{ fontSize: "1.1rem" }} onClick={dashboard}>
-              Dashboard
-            </MenuItem>
+            <>
+              {!user?.id && (
+                <>
+                  <MenuItem
+                    sx={{ fontSize: "1.1rem" }}
+                    onClick={() => {
+                      navigate("/auth/sign-up");
+                      setAnchorMenu(null);
+                    }}
+                  >
+                    Sign up
+                  </MenuItem>
+                  <MenuItem
+                    sx={{ fontSize: "1.1rem" }}
+                    onClick={() => {
+                      navigate("/auth/sign-in");
+                      setAnchorMenu(null);
+                    }}
+                  >
+                    Sign in
+                  </MenuItem>
+                </>
+              )}
+            </>
           )}
-          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={contactUs}>
-            Contact us
-          </MenuItem>
+          {!user?.id && (
+            <>
+              {location[2] === "sign-in" && (
+                <MenuItem
+                  sx={{ fontSize: "1.1rem" }}
+                  onClick={() => {
+                    navigate("sign-up");
+                    setAnchorMenu(null);
+                  }}
+                >
+                  Sign up
+                </MenuItem>
+              )}
+              {location[2] === "sign-up" && (
+                <MenuItem
+                  sx={{ fontSize: "1.1rem" }}
+                  onClick={() => {
+                    navigate("sign-in");
+                    setAnchorMenu(null);
+                  }}
+                >
+                  Sign in
+                </MenuItem>
+              )}
+            </>
+          )}
 
-          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
-            Sign out
-          </MenuItem>
+          {user?.id && (
+            <>
+              <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
+                Sign out
+              </MenuItem>
+            </>
+          )}
         </Menu>
       </div>
     </>

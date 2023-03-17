@@ -30,7 +30,7 @@ const ArrowDownSvg = ({ nodePostionState, solidState }) => {
           r=".7rem"
           fill={!solidState ? "white" : "#666666"}
           stroke="#666666"
-          strokeWidth=".06rem"
+          strokeWidth=".07rem"
         />
         {!nodePostionState && (
           <>

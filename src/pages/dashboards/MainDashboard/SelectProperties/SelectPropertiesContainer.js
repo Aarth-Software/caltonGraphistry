@@ -110,21 +110,21 @@ const SelectPropertiesContainer = React.memo((props) => {
               onselect={selectDropDownValue}
               nodeProp={nodeState?.nodeA}
               name="nodeA"
-              sx={nodeAComStyles}
+              // sx={nodeAComStyles}
               change={inputChange}
               unUsed={pattern?.unUsedA}
               options={dropdownOptions?.node_1.value}
             />
+            <CustomArrow pattern={pattern} nodeC={nodeC} />
           </>
         )}
         {nodeC && (
           <>
-            <CustomArrow />
             <StandardAffiliationBar
               onselect={selectDropDownValue}
               nodeProp={nodeState?.nodeC}
               name="nodeC"
-              sx={nodeCComStyles}
+              // sx={nodeCComStyles}
               change={inputChange}
               unUsed={pattern?.unUsedC}
               options={

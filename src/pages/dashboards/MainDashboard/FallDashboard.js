@@ -378,10 +378,11 @@ const FallDashboard = ({ theme }) => {
               <StandardButton
                 text="Graph"
                 varient="contained"
-                px={7}
+                px={6.2}
                 mt={0.8}
                 mr={0.4}
-                fontSize={12}
+                py={1.3}
+                fontSize={11}
                 fontWeight={600}
                 bgcolor={theme.palette.secondary.main}
               />

@@ -44,23 +44,39 @@ const SaaS = async(() => import("./pages/dashboards/SaaS"));
 const routes = [
   {
     path: "auth",
-    element: <AuthLayout />,
+    element: <DashboardLayout />,
     children: [
       {
         path: "",
-        element: <AuthLanding />,
+        element: (
+          <AuthLayout>
+            <AuthLanding />
+          </AuthLayout>
+        ),
       },
       {
         path: "sign-in",
-        element: <SignIn />,
+        element: (
+          <AuthLayout>
+            <SignIn />
+          </AuthLayout>
+        ),
       },
       {
         path: "sign-up",
-        element: <SignUp />,
+        element: (
+          <AuthLayout>
+            <SignUp />
+          </AuthLayout>
+        ),
       },
       {
         path: "reset-password",
-        element: <ResetPassword />,
+        element: (
+          <AuthLayout>
+            <ResetPassword />
+          </AuthLayout>
+        ),
       },
       {
         path: "404",
@@ -74,11 +90,16 @@ const routes = [
   },
   {
     path: "contact-us",
-    element: <AuthLayout />,
+
+    element: <DashboardLayout />,
     children: [
       {
         path: "",
-        element: <ContactUs />,
+        element: (
+          <AuthLayout>
+            <ContactUs />
+          </AuthLayout>
+        ),
       },
     ],
   },

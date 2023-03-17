@@ -118,15 +118,20 @@ function SignIn({ theme }) {
             variant="contained"
             color="primary"
             disabled={isSubmitting}
-            sx={{ fontSize: 12, bgcolor: theme.palette.secondary.main }}
+            sx={{
+              fontSize: 14.2,
+              bgcolor: theme.palette.secondary.main,
+              fontWeight: 600,
+            }}
           >
             Sign in
           </Button>
           <Button
             sx={{
-              mt: "1rem",
-              fontSize: 12,
+              mt: 2,
+              fontSize: 14.2,
               color: theme.palette.secondary.main,
+              fontWeight: 600,
             }}
             component={Link}
             to="/auth/reset-password"

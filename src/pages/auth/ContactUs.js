@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import Logo from "../../asserts/Logo";
+// import Logo from "../../asserts/Logo";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -20,18 +20,19 @@ const Wrapper = styled(Paper)`
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
+  zoom: 0.8;
 `;
 const FlexContainer = styled(Box)`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   width: 50rem;
-  margin-top: 0.5rem;
+  margin-top: 0.7rem;
 `;
 const ContactUs = ({ theme }) => {
   return (
     <>
-      <Logo size="18rem" mb="2rem" />
+      {/* <Logo size="18rem" mb="2rem" /> */}
       <Wrapper>
         <Typography
           sx={{ mb: 2 }}
@@ -43,7 +44,7 @@ const ContactUs = ({ theme }) => {
           Contact us
         </Typography>
         <Typography
-          sx={{ fontSize: "1rem" }}
+          sx={{ fontSize: 14.2 }}
           component="h2"
           variant="body1"
           align="left"
@@ -61,7 +62,7 @@ const ContactUs = ({ theme }) => {
             feedback: "",
           }}
           validationSchema={Yup.object().shape({
-            firstName: Yup.string().max(255).required("Username is required"),
+            firstName: Yup.string().max(255).required("Name is required"),
             email: Yup.string()
               .email("Must be a valid email")
               .max(255)
@@ -99,7 +100,7 @@ const ContactUs = ({ theme }) => {
                 <TextField
                   type="text"
                   name="firstName"
-                  label="Username"
+                  label="Name"
                   value={values.firstName}
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth
@@ -141,7 +142,10 @@ const ContactUs = ({ theme }) => {
                 }}
                 onChange={handleChange}
               />
-              <FormHelperText error={touched.feedback && errors.feedback}>
+              <FormHelperText
+                sx={{ pl: 3.5 }}
+                error={touched.feedback && errors.feedback}
+              >
                 {touched.feedback && errors.feedback}
               </FormHelperText>
               <Button
@@ -149,7 +153,12 @@ const ContactUs = ({ theme }) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                sx={{ mt: 5 }}
+                sx={{
+                  mt: 5,
+                  fontSize: 14.2,
+                  bgcolor: theme.palette.secondary.main,
+                  fontWeight: 600,
+                }}
                 disabled={isSubmitting}
               >
                 Send

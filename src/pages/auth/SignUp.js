@@ -21,13 +21,14 @@ const Wrapper = styled(Paper)`
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
+  zoom: 0.8;
 `;
 
 function SignUp({ theme }) {
   return (
     <React.Fragment>
       {/* <Brand /> */}
-      <Logo size="18rem" mb="2rem" />
+      {/* <Logo size="18rem" mb="2rem" /> */}
       <Wrapper>
         {/* <Helmet title="Sign Up" /> */}
 
@@ -41,8 +42,8 @@ function SignUp({ theme }) {
           Sign up
         </Typography>
         <Typography
-          sx={{ fontSize: 12 }}
-          component="h2"
+          sx={{ fontSize: 14.2 }}
+          component="p"
           variant="body1"
           align="left"
         >
@@ -51,7 +52,12 @@ function SignUp({ theme }) {
 
         <SignUpComponent />
         <Button
-          sx={{ mt: 1, fontSize: 12, color: theme.palette.secondary.main }}
+          sx={{
+            mt: 1,
+            fontSize: 14.2,
+            color: theme.palette.secondary.main,
+            fontWeight: 600,
+          }}
           component={Link}
           to="/auth/sign-in"
           fullWidth

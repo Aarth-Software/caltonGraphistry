@@ -110,16 +110,16 @@ export const firstInputComStyle = {
   // },
 };
 export const secondInputComStyle = {
-  "&::after": {
-    content: "''",
-    height: "1.5rem",
-    width: "1.5rem",
-    bgcolor: "#666666",
-    top: `calc(50% - .75rem)`,
-    right: `-1.55rem`,
-    position: "absolute",
-    borderRadius: "50%",
-  },
+  // "&::after": {
+  //   content: "''",
+  //   height: "1.5rem",
+  //   width: "1.5rem",
+  //   bgcolor: "#666666",
+  //   top: `calc(50% - .75rem)`,
+  //   right: `-1.55rem`,
+  //   position: "absolute",
+  //   borderRadius: "50%",
+  // },
 };
 export const thirdInputComStyles = {
   "&::after": {

@@ -71,14 +71,14 @@ const MoreOptions = React.memo((props) => {
             },
           }}
         >
-          <SaveMenuItem sx={{ fontSize: "1.1rem" }} onClick={saveOnClick}>
-            Edit
-          </SaveMenuItem>
-          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={savedGraphOnClick}>
-            Delete
-          </MenuItem>
           <MenuItem sx={{ fontSize: "1.1rem" }} onClick={graph}>
             Graph
+          </MenuItem>
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={saveOnClick}>
+            Edit
+          </MenuItem>
+          <MenuItem sx={{ fontSize: "1.1rem" }} onClick={savedGraphOnClick}>
+            Delete
           </MenuItem>
         </Menu>
       </div>

@@ -10,6 +10,7 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
+import { addCommas } from "../../../libs/HigherOrderFunctions";
 
 const illustrationCardStyle = (props) => css`
   ${props.illustration &&
@@ -41,6 +42,7 @@ const HeaderTitle = styled(Typography)`
 `;
 
 const Stats = ({ title, amount, illustration, sx, color }) => {
+  const commaAmount = addCommas(amount);
   return (
     <Card illustration={illustration} sx={{ pt: 0, pl: 0, ...sx }}>
       <CardContent>
@@ -48,7 +50,20 @@ const Stats = ({ title, amount, illustration, sx, color }) => {
           {title}
         </HeaderTitle>
         <Typography variant="h3" mb={3} sx={{ pb: 0 }}>
-          <Box fontWeight="fontWeightRegular">{amount}</Box>
+          <Box fontWeight="fontWeightRegular">
+            {isNaN(amount) ? (
+              <Typography
+                sx={{ fontSize: 10 }}
+                component="p"
+                variant="body1"
+                align="left"
+              >
+                No Data
+              </Typography>
+            ) : (
+              commaAmount
+            )}
+          </Box>
         </Typography>
       </CardContent>
     </Card>

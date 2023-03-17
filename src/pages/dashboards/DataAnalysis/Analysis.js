@@ -79,7 +79,7 @@ const Analysis = ({ theme }) => {
                   <Grid key={i} item xs={12} sm={12} md={6}>
                     <Stats
                       title={el[0]}
-                      amount={el[1]}
+                      amount={!el[1] ? "No data" : el[1]}
                       chip="Yearly"
                       percentagetext="+27%"
                       percentagecolor={green[500]}

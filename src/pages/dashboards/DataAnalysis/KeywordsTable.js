@@ -122,35 +122,18 @@ const KeywordsTable = React.memo(
                 <TableHead>
                   <TableRow>
                     <TableCell align="left">{colFirstTitle}</TableCell>
-                    <TableCell align="left">{colSecondTitle}</TableCell>
-                    <TableCell align="left">{colThirdTitle}</TableCell>
-                    <TableCell align="right"></TableCell>
+                    <TableCell align="center">{colSecondTitle}</TableCell>
+                    <TableCell align="center">{colThirdTitle}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {pageElements.map((e, i) => (
                     <TableRow key={i}>
-                      <TableCell component="th" scope="row">
+                      <TableCell align="left" component="th" scope="row">
                         {e.keyword}
                       </TableCell>
-                      <TableCell>{e.node}</TableCell>
-                      <TableCell>{e.save_time}</TableCell>
-                      <TableCell align="right">
-                        {!btn ? (
-                          <div
-                            style={{
-                              color: activeBg !== i ? "black" : "#e57373",
-                            }}
-                          >
-                            <MoreOptions
-                              index={i}
-                              hideControls={hideControls}
-                            />
-                          </div>
-                        ) : (
-                          btn
-                        )}
-                      </TableCell>
+                      <TableCell align="center">{e.node}</TableCell>
+                      <TableCell align="center">{e.save_time}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
