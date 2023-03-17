@@ -46,7 +46,7 @@ const MoreOptions = React.memo((props) => {
             boxShadow: !active
               ? ""
               : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
-            color: !active ? "black" : "#e57373",
+            color: !active ? "black" : "#f16067",
           }}
           onClick={(eve) =>
             hideControls === undefined && multiMenuValue(eve, index)

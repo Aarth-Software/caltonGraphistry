@@ -162,9 +162,24 @@ const ManagedSavedGraphs = React.memo(
 
         <CardContent>
           {pageElements.length === 0 && (
-            <AuthLayout>
-              <h4>There are no records saved</h4>
-            </AuthLayout>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                component="h2"
+                style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                }}
+              >
+                There are no records saved
+              </Typography>
+            </Box>
           )}
           {pageElements.length !== 0 && (
             <>

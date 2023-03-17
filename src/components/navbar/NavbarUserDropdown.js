@@ -46,7 +46,7 @@ function NavbarUserDropdown({ icon, size }) {
                 anchorMenu === null
                   ? ""
                   : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
-              color: anchorMenu === null ? "black" : "#e57373",
+              color: anchorMenu === null ? "black" : "#f16067",
               zIndex: "2",
             }}
             onClick={toggleMenu}

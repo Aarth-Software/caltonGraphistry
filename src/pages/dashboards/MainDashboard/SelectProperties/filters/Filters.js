@@ -32,7 +32,7 @@ const FiltersComponent = (props) => {
         {/* <img style={{ width: "2rem" }} src={icon} alt={"filter"} /> */}
         <MdOutlineFilterList
           size="1.9rem"
-          color={openFilter ? "#e57373" : "black"}
+          color={openFilter ? "#f16067" : "black"}
         />
       </Box>
       {openFilter && (

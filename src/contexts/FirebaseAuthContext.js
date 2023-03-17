@@ -113,6 +113,75 @@ function AuthProvider({ children }) {
         });
       })
       .catch((err) => console.log(err));
+  // const signUp = (email, password, firstName, lastName) =>
+  //   firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((res) => {
+  //       res.user.sendEmailVerification(); // sends verification email
+  //       firebase
+  //         .firestore()
+  //         .collection("loginUsers")
+  //         .doc(res.user?.uid)
+  //         .set({
+  //           uid: res.user?.uid,
+  //           email,
+  //           displayName: `${firstName} ${lastName}`,
+  //         });
+  //       const db = firebase.database();
+  //       db.ref("users").push({
+  //         uid: res.user?.uid,
+  //         firstname: firstName,
+  //         lastname: lastName,
+  //         email,
+  //         displayName: `${firstName} ${lastName}`,
+  //         timestamp: Date.now(),
+  //       });
+  //     })
+  //     .catch((err) => console.log(err));
+  // const signUp = (email, password, firstName, lastName) =>
+  //   firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((res) => {
+  //       const actionCodeSettings = {
+  //         url: "http://localhost:3000/auth/sign-in", // URL to redirect to after email verification is successful
+  //         handleCodeInApp: true, // This must be true for the signInWithEmailLink() method to work
+  //       };
+  //       return res.user.sendEmailVerification(actionCodeSettings); // sends verification email with additional action code settings
+  //     })
+  //     .then(() => {
+  //       // Prompt the user to click on the email verification link and return them to your app
+  //       const emailVerificationLink = prompt(
+  //         "Please check your email and enter the verification link here"
+  //       );
+  //       return firebase
+  //         .auth()
+  //         .signInWithEmailLink(email, emailVerificationLink);
+  //     })
+  //     .then((result) => {
+  //       const user = result.user;
+  //       // User is signed in only after clicking the email verification link
+  //       firebase
+  //         .firestore()
+  //         .collection("loginUsers")
+  //         .doc(user.uid)
+  //         .set({
+  //           uid: user.uid,
+  //           email,
+  //           displayName: `${firstName} ${lastName}`,
+  //         });
+  //       const db = firebase.database();
+  //       db.ref("users").push({
+  //         uid: user.uid,
+  //         firstname: firstName,
+  //         lastname: lastName,
+  //         email,
+  //         displayName: `${firstName} ${lastName}`,
+  //         timestamp: Date.now(),
+  //       });
+  //     })
+  //     .catch((err) => console.log(err));
 
   const signOut = async () => {
     await firebase.auth().signOut();

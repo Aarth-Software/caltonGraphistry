@@ -97,11 +97,11 @@ const DoughnutChart = ({ theme, title, graphData }) => {
   return (
     <Card mb={6}>
       <TitleHeader
-        action={
-          <IconButton aria-label="settings" size="large">
-            <MoreVertical />
-          </IconButton>
-        }
+        // action={
+        //   <IconButton aria-label="settings" size="large">
+        //     <MoreVertical />
+        //   </IconButton>
+        // }
         title={title}
         // sx={{ bgcolor: "red" }}
       />
