@@ -23,12 +23,19 @@ function SignUp({ theme }) {
   const navigate = useNavigate();
   const { signUp, isAuthenticated, isInitialized } = useAuth();
   const [loading, setLoading] = React.useState(true);
+  const [email, setEmail] = React.useState("");
 
   React.useEffect(() => {
     if (isInitialized) {
       setLoading(false);
     }
   }, [isInitialized]);
+
+  React.useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const email = queryParams.get("email");
+    setEmail(email);
+  }, []);
 
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -45,7 +52,7 @@ function SignUp({ theme }) {
       initialValues={{
         firstName: "",
         lastName: "",
-        email: "",
+        email: email || "",
         password: "",
         confirmPassword: "",
         submit: false,
@@ -137,6 +144,7 @@ function SignUp({ theme }) {
             helperText={touched.email && errors.email}
             onBlur={handleBlur}
             onChange={handleChange}
+            disabled={!!email}
             my={3}
           />
           <TextField

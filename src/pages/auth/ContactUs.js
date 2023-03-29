@@ -13,6 +13,8 @@ import React from "react";
 // import Logo from "../../asserts/Logo";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import useAuth from "../../hooks/useAuth";
+// import admin from "../../AdminSDK";
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -30,6 +32,12 @@ const FlexContainer = styled(Box)`
   margin-top: 0.7rem;
 `;
 const ContactUs = ({ theme }) => {
+  // const handleClick = () => {
+  //   const recipient = "srinivasa.chary066@gmail.com";
+  //   sendEmail(recipient);
+  // };
+  const { sendLoginLink } = useAuth();
+
   return (
     <>
       {/* <Logo size="18rem" mb="2rem" /> */}

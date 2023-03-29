@@ -18,6 +18,7 @@ const initialState = {
   isAuthenticated: false,
   isInitialized: false,
   user: null,
+  isAdmin: null,
 };
 
 const reducer = (state, action) => {
@@ -38,17 +39,22 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [profile, setProfile] = useState();
+  const [admin, setAdmin] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(
     () =>
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          const docRef = firebase.firestore().collection("users").doc(user.uid);
+          const docRef = firebase
+            .firestore()
+            .collection("loginUsers")
+            .doc(user.uid);
           docRef
             .get()
             .then((doc) => {
               if (doc.exists) {
+                setAdmin(doc.data().isAdmin);
                 setProfile(doc.data());
               }
             })
@@ -67,6 +73,7 @@ function AuthProvider({ children }) {
           });
         }
       }),
+
     [dispatch]
   );
 
@@ -101,6 +108,7 @@ function AuthProvider({ children }) {
             uid: res.user?.uid,
             email,
             displayName: `${firstName} ${lastName}`,
+            isAdmin: "user",
           });
         const db = firebase.database();
         db.ref("users").push({
@@ -113,75 +121,6 @@ function AuthProvider({ children }) {
         });
       })
       .catch((err) => console.log(err));
-  // const signUp = (email, password, firstName, lastName) =>
-  //   firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((res) => {
-  //       res.user.sendEmailVerification(); // sends verification email
-  //       firebase
-  //         .firestore()
-  //         .collection("loginUsers")
-  //         .doc(res.user?.uid)
-  //         .set({
-  //           uid: res.user?.uid,
-  //           email,
-  //           displayName: `${firstName} ${lastName}`,
-  //         });
-  //       const db = firebase.database();
-  //       db.ref("users").push({
-  //         uid: res.user?.uid,
-  //         firstname: firstName,
-  //         lastname: lastName,
-  //         email,
-  //         displayName: `${firstName} ${lastName}`,
-  //         timestamp: Date.now(),
-  //       });
-  //     })
-  //     .catch((err) => console.log(err));
-  // const signUp = (email, password, firstName, lastName) =>
-  //   firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((res) => {
-  //       const actionCodeSettings = {
-  //         url: "http://localhost:3000/auth/sign-in", // URL to redirect to after email verification is successful
-  //         handleCodeInApp: true, // This must be true for the signInWithEmailLink() method to work
-  //       };
-  //       return res.user.sendEmailVerification(actionCodeSettings); // sends verification email with additional action code settings
-  //     })
-  //     .then(() => {
-  //       // Prompt the user to click on the email verification link and return them to your app
-  //       const emailVerificationLink = prompt(
-  //         "Please check your email and enter the verification link here"
-  //       );
-  //       return firebase
-  //         .auth()
-  //         .signInWithEmailLink(email, emailVerificationLink);
-  //     })
-  //     .then((result) => {
-  //       const user = result.user;
-  //       // User is signed in only after clicking the email verification link
-  //       firebase
-  //         .firestore()
-  //         .collection("loginUsers")
-  //         .doc(user.uid)
-  //         .set({
-  //           uid: user.uid,
-  //           email,
-  //           displayName: `${firstName} ${lastName}`,
-  //         });
-  //       const db = firebase.database();
-  //       db.ref("users").push({
-  //         uid: user.uid,
-  //         firstname: firstName,
-  //         lastname: lastName,
-  //         email,
-  //         displayName: `${firstName} ${lastName}`,
-  //         timestamp: Date.now(),
-  //       });
-  //     })
-  //     .catch((err) => console.log(err));
 
   const signOut = async () => {
     await firebase.auth().signOut();
@@ -189,6 +128,85 @@ function AuthProvider({ children }) {
 
   const resetPassword = async (email) => {
     await firebase.auth().sendPasswordResetEmail(email);
+  };
+
+  // const sendLoginLink = (email) => {
+  //   const actionCodeSettings = {
+  //     url: "http://localhost:3000/auth/sign-in",
+  //     handleCodeInApp: true,
+  //     // Expire the link after 5 minutes
+  //     // expireAfterSeconds: 300,
+  //     singleUse: true,
+  //     oneTimeCode: true,
+  //   };
+
+  //   firebase
+  //     .auth()
+  //     .sendSignInLinkToEmail(email, actionCodeSettings)
+  //     .then(() => {
+  //       // The link was successfully sent
+  //       console.log("link send successfully");
+  //     })
+  //     .catch((error) => {
+  //       // Handle the error
+  //       console.log(`link send unsuccessfully ${error}`);
+  //     });
+  // };
+
+  const sendLoginLink = (email) => {
+    const actionCodeSettings = {
+      url:
+        "http://localhost:3000/auth/sign-up?email=" + encodeURIComponent(email),
+      handleCodeInApp: true,
+      // Expire the link after first use
+      // This is achieved by setting the singleUse and oneTimeCode options to true
+      singleUse: true,
+      oneTimeCode: true,
+      // Set the email subject
+      // This is optional
+      emailSubject: "invitation from litdig",
+      // Set the email body
+      // This is optional
+      emailBody: "please click the this link to sign up into the account",
+    };
+
+    firebase
+      .auth()
+      .sendSignInLinkToEmail(email, actionCodeSettings)
+      .then(() => {
+        // The link was successfully sent
+        console.log("link send successfully");
+      })
+      .catch((error) => {
+        // Handle the error
+        console.log(`link send unsuccessfully ${error}`);
+      });
+  };
+
+  const checkEmailLoginMethod = () => {
+    // if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    //   // Step 6: Sign in with email link
+    //   firebase
+    //     .auth()
+    //     .signInWithEmailLink(
+    //       "srinivasa.chary066@gmail.com",
+    //       window.location.href
+    //     )
+    //     .then((userCredential) => {
+    //       // Signed in successfully, get user data
+    //       const user = userCredential.user;
+    //       const idToken = user.getIdToken();
+    //       const accessToken = user.getIdToken(true);
+    //       // Do something with the user data and authentication tokens
+    //       console.log([`User email:`, user.email]);
+    //       console.log([`ID token:`, idToken]);
+    //       console.log([`Access token:`, accessToken]);
+    //     })
+    //     .catch((error) => {
+    //       // Handle sign-in errors
+    //       console.log(`Sign-in error: ${error}`);
+    //     });
+    // }
   };
 
   const auth = { ...state.user };
@@ -204,7 +222,9 @@ function AuthProvider({ children }) {
           avatar: auth.avatar || profile?.avatar,
           displayName: auth.displayName || profile?.displayName,
           role: "user",
+          isAdmin: admin,
         },
+
         signIn,
         signUp,
         signInWithGoogle,
@@ -212,6 +232,8 @@ function AuthProvider({ children }) {
         signInWithTwitter,
         signOut,
         resetPassword,
+        sendLoginLink,
+        checkEmailLoginMethod,
       }}
     >
       {children}

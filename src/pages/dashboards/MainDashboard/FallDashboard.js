@@ -338,10 +338,10 @@ const FallDashboard = ({ theme }) => {
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (
             <Box sx={{ height: "100%", width: "100%", ...flexCenter }}>
-              there is not data available with this{" "}
+              This query returned{" "}
               <span style={{ color: red[400], padding: "0rem  .2rem" }}>
                 {" "}
-                matching
+                no results.
               </span>
             </Box>
           )}

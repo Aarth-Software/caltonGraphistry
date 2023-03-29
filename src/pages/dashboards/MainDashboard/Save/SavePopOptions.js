@@ -27,7 +27,11 @@ const SavePopOptions = React.memo((props) => {
     <React.Fragment>
       <div className="dropdown-menu-container">
         <Tooltip title={"More options"}>
-          <div className="icon-container" onClick={toggleMenu}>
+          <div
+            className={`icon-container`}
+            // style={{ zIndex: "2000" }}
+            onClick={toggleMenu}
+          >
             <BiDotsVerticalRounded style={{ cursor: "pointer" }} size="2rem" />
           </div>
         </Tooltip>

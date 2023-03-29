@@ -24,19 +24,7 @@ const Presentation = ({ children }) => {
   if (loading) {
     return <Loader />;
   }
-  return (
-    // <MuiThemeProvider theme={createTheme(THEMES.DEFAULT)}>
-    //   <Root>
-    //     <CssBaseline />
-    //     <GlobalStyle />
-    //     <AppContent>
-    //       {children}
-    //       <Outlet />
-    //     </AppContent>
-    //   </Root>
-    // </MuiThemeProvider>
-    <Loader />
-  );
+  return <Loader />;
 };
 
 export default Presentation;

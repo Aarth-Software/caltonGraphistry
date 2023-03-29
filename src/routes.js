@@ -32,6 +32,7 @@ import ProtectedPage from "./pages/protected/ProtectedPage";
 import AuthLanding from "./layouts/AuthLanding";
 import FallDashboard from "./pages/dashboards/MainDashboard/FallDashboard";
 import ContactUs from "./pages/auth/ContactUs";
+import SendInviteEmail from "./components/auth/SendInviteEmail";
 // import Analysis from "./pages/dashboards/DataAnalysis/Analysis";
 const Analysis = async(() =>
   import("./pages/dashboards/DataAnalysis/Analysis")
@@ -79,6 +80,14 @@ const routes = [
         ),
       },
       {
+        path: "invite-user",
+        element: (
+          <AuthLayout>
+            <SendInviteEmail />
+          </AuthLayout>
+        ),
+      },
+      {
         path: "404",
         element: <Page404 />,
       },
@@ -90,7 +99,6 @@ const routes = [
   },
   {
     path: "contact-us",
-
     element: <DashboardLayout />,
     children: [
       {

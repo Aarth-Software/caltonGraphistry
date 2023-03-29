@@ -131,6 +131,25 @@ html{
     margin-right: 1rem;
   }
 
+  /* .afterClass::after {
+    position: absolute;
+    content: "";
+    top: 80%;
+    left: 0;
+    height: 70%;
+    width: 100%;
+    background-color: green;
+  } */
+  /* .maskTheShandow::after{
+    position: absolute;
+    content: "";
+    top: 90%;
+    left: 30%;
+    height: 40%;
+    width: 40%;
+    background-color: white;
+  } */
+
   .serviceOptions{
     position: relative;
   }

@@ -40,14 +40,16 @@ function NavbarUserDropdown({ icon, size }) {
       <div className="navMenu" style={{ position: "relative" }}>
         <Tooltip title="Menu">
           <div
-            className="navMenuIconContainer"
+            className={`navMenuIconContainer ${
+              anchorMenu !== null && "afterClass"
+            }`}
             style={{
               boxShadow:
                 anchorMenu === null
                   ? ""
                   : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
               color: anchorMenu === null ? "black" : "#f16067",
-              zIndex: "2",
+              // zIndex: "10000 !important",
             }}
             onClick={toggleMenu}
           >
@@ -61,10 +63,10 @@ function NavbarUserDropdown({ icon, size }) {
           onClose={closeMenu}
           PaperProps={{
             style: {
+              // zIndex: "1500 !important",
               borderRadius: ".1rem",
               boxShadow:
                 "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
-              zIndex: "1",
               transform: "translateX(-.5rem)",
             },
           }}
@@ -150,6 +152,14 @@ function NavbarUserDropdown({ icon, size }) {
               <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
                 Sign out
               </MenuItem>
+              {user.isAdmin && location[2] !== "invite-user" && (
+                <MenuItem
+                  sx={{ fontSize: "1.1rem" }}
+                  onClick={() => navigate("/auth/invite-user")}
+                >
+                  Invite user
+                </MenuItem>
+              )}
             </>
           )}
         </Menu>
