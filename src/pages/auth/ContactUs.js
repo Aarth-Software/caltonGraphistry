@@ -14,6 +14,8 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import useAuth from "../../hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { askHelp } from "../../redux/slices/contactSlice";
 // import admin from "../../AdminSDK";
 
 const Wrapper = styled(Paper)`
@@ -37,6 +39,7 @@ const ContactUs = ({ theme }) => {
   //   sendEmail(recipient);
   // };
   const { sendLoginLink } = useAuth();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -62,12 +65,10 @@ const ContactUs = ({ theme }) => {
         <Formik
           initialValues={{
             firstName: "",
-            lastName: "",
             email: "",
-            password: "",
-            confirmPassword: "",
             submit: false,
             feedback: "",
+            request_access: true,
           }}
           validationSchema={Yup.object().shape({
             firstName: Yup.string().max(255).required("Name is required"),
@@ -81,9 +82,18 @@ const ContactUs = ({ theme }) => {
               .required("Feedback content is required"),
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+            const { firstName, email, feedback, request_access } = values;
             try {
               // await signIn(values.email, values.password);
               // navigate("/generateQuery");
+              dispatch(
+                askHelp({
+                  name: firstName,
+                  email,
+                  request_access,
+                  message: feedback,
+                })
+              );
             } catch (error) {
               const message = error.message || "Something went wrong";
               setStatus({ success: false });

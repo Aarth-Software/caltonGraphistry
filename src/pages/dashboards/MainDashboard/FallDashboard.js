@@ -33,7 +33,7 @@ import { useSnackbar } from "notistack";
 import GraphistryGraph from "../MainDashboard/Graphistry/GraphistryGraph";
 import TooltipComp from "../../../libs/Tooltip/Tooltip";
 import info from "../../../asserts/info.svg";
-import { GenerateDataSet, postQuery } from "../../../services/service";
+import { GenerateDataSet } from "../../../services/service";
 import { useFetch } from "../../../utils/useFetch";
 import { red } from "@mui/material/colors";
 import FiltersComponent from "./SelectProperties/filters/Filters";

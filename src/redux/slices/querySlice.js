@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  checkError,
-  mergeObjects,
   refreshState,
   retriveSavedGraphValues,
 } from "../../libs/HigherOrderFunctions";
@@ -10,7 +8,6 @@ import {
   getAccessPatternVariables,
 } from "../../libs/Switches/SelectionSwitches";
 import {
-  GenerateDataSet,
   getDefaultDataSet,
   getDropdowns,
   getUserRecords,

@@ -27,3 +27,4 @@ export const updateRecord = (body) => api.post("updateSavedQuery", body);
 
 export const getKeywords = (params) =>
   api.get(`/userKeywords/${params.userId}`);
+export const postContact = (body) => api.post("saveContact", body);
