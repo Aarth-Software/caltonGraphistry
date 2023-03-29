@@ -17,6 +17,14 @@ export const refreshState = (setFunction) => {
 };
 
 export const retriveSavedGraphValues = (e, setFunction) => {
+  // have to make this logic dynamically
+  const {
+    affiliationFilter = "hey",
+    publisherFilter = "don",
+    fromYear = "con",
+    toYear = "ban",
+    publicationFilter = "tan",
+  } = e;
   setFunction((prev) => {
     const updatedState = {};
     for (const [idx, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
@@ -50,7 +58,15 @@ export const retriveSavedGraphValues = (e, setFunction) => {
         };
       }
     }
-    return { ...prev, ...updatedState };
+    return {
+      ...prev,
+      ...updatedState,
+      affiliationFilter,
+      publisherFilter,
+      fromYear,
+      toYear,
+      publicationFilter,
+    };
   });
 };
 
@@ -155,20 +171,29 @@ export const checkError = (cloneObject, errorCatch) => {
         // cloneObject[x].message = "select value mandatory";
         // valueError = true;
       }
-      cloneObject[x].error = !cloneObject[x].value;
+      if (cloneObject[x].error) {
+        cloneObject[x].error = !cloneObject[x]?.value;
+      }
       errorCatch.push(cloneObject[x].error);
     }
   }
 };
 
 export const mergeObjects = (obj) => {
+  const {
+    affiliationFilter,
+    publisherFilter,
+    fromYear,
+    toYear,
+    publicationFilter,
+  } = obj;
   const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
     (result, key) => {
       result[key] = obj[key]?.value || null;
       result[key.replace("node", "keyword")] = obj[key]?.inputValue || null;
       return result;
     },
-    {}
+    { publisherFilter, fromYear, toYear, publicationFilter, affiliationFilter }
   );
   if (Object.keys(obj).length === 2) {
     const getproperMap = [dropDownSelectedValues].map((el, i) => {

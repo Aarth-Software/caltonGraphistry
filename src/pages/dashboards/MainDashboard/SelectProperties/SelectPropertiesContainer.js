@@ -31,7 +31,6 @@ const SelectPropertiesContainer = React.memo((props) => {
   const { dropdownOptions, pattern } = useSelector((state) => state.query);
   const { nodeState, setNodeState } = props;
   const { enqueueSnackbar } = useSnackbar();
-  console.log(dropdownOptions);
   const { nodeA, nodeB, nodeC } = pattern;
   const rowNodePattern = pattern?.series
     ? { top: "1.7rem" }

@@ -22,18 +22,17 @@ const CssTextField = styled(Select)({
   },
 });
 
-export default function FilterSelectBox() {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+export default function FilterSelectBox(props) {
+  const { name, value, handleChange } = props;
+  console.log([value]);
+  // const [age, setAge] = React.useState("");
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <CssTextField
-          value={age}
+          value={value}
+          name={name}
           onChange={handleChange}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
@@ -42,9 +41,9 @@ export default function FilterSelectBox() {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={"con"}>Ten</MenuItem>
+          <MenuItem value={"ban"}>Twenty</MenuItem>
+          <MenuItem value={"tan"}>Thirty</MenuItem>
         </CssTextField>
       </FormControl>
     </div>

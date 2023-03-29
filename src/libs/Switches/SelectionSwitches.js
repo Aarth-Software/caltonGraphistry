@@ -175,6 +175,11 @@ const nodeDesables = {
       disableDropDown: false,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   doubleNrD: {
     nodeA: {
@@ -187,6 +192,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   doubleN: {
     nodeA: {
@@ -206,6 +216,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   doubleNlD: {
     nodeA: {
@@ -223,6 +238,11 @@ const nodeDesables = {
       disableDropDown: true,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   tripleNcD: {
     nodeA: {
@@ -249,6 +269,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   tripleNrD: {
     nodeA: {
@@ -270,6 +295,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   tripleNlD: {
     nodeA: {
@@ -296,6 +326,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   tripleNcA: {
     nodeA: {
@@ -315,6 +350,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: true, error: false, message: "" },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   triplePerNcA: {
     nodeA: {
@@ -334,6 +374,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   triplePerNlD: {
     nodeA: {
@@ -360,6 +405,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   triplePerNrD: {
     nodeA: {
@@ -381,6 +431,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
   triplePerNcD: {
     nodeA: {
@@ -407,6 +462,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
+    fromYear: "string",
+    toYear: "string",
+    publicationFilter: "string",
+    publisherFilter: "string",
+    affiliationFilter: "string",
   },
 };
 

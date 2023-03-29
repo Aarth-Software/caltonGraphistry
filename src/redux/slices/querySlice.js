@@ -108,7 +108,6 @@ const generateQuerySlice = createSlice({
       const specificObject = state.dropdownData?.data?.find(
         (d) => d.selection_type === payload.selection_type
       );
-      console.log(payload);
       state.dropdownOptions = specificObject;
     },
     setPattern: (state, { payload }) => {
@@ -233,6 +232,7 @@ export const getPatternChange = (e, setFun) => (dispatch) => {
 export const save =
   (selectParams, values, enqueueSnackbar, user, saveName, nodeState, pattern) =>
   async (dispatch) => {
+    console.log(selectParams);
     if (!values?.data || !Object.keys(selectParams).length) {
       dispatch(setOpenSavePannel(false));
       dispatch(setSaveName(false));
@@ -254,8 +254,13 @@ export const save =
         keyword3: eg.keywordC,
         query_name: saveName,
         dataset: values.data,
-        selection_type: `${Object.keys(nodeState).length}node`,
+        selection_type: `${Object.keys(nodeState).length - 5}node`,
         selection_code: pattern.code,
+        fromYear: eg.fromYear,
+        toYear: eg.toYear,
+        affiliationFilter: eg.affiliationFilter,
+        publicationFilter: eg.publicationFilter,
+        publisherFilter: eg.publisherFilter,
       };
     });
 

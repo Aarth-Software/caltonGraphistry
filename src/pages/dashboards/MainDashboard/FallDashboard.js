@@ -149,6 +149,7 @@ const FallDashboard = ({ theme }) => {
     const cloneObject = { ...nodeState };
     checkError(cloneObject, errorCatch);
     const valueObj = mergeObjects(cloneObject);
+    console.log(valueObj);
     dispatch(setSelectParams(valueObj));
     setNodeState(cloneObject);
     getId(valueObj, errorCatch);
@@ -204,6 +205,8 @@ const FallDashboard = ({ theme }) => {
   const lgMatches = useMediaQuery(theme.breakpoints.up("lg"));
   const xlMatches = useMediaQuery(theme.breakpoints.up("xl"));
   const xxlMatches = useMediaQuery(theme.breakpoints.up("xxl"));
+
+  console.log(nodeState);
 
   const ModalDimention = xxlMatches
     ? ["1200px", "auto", "12rem"] //80
@@ -322,7 +325,7 @@ const FallDashboard = ({ theme }) => {
             <Loader />
           </LoaderContainer>
         )}
-        {!defaultGraphLoading && defaultGraphStatus && (
+        {/* {!defaultGraphLoading && defaultGraphStatus && (
           <GraphistryGraph name="graph" dataSet={defaultDataset} />
         )}
         {!values?.loading &&
@@ -333,7 +336,7 @@ const FallDashboard = ({ theme }) => {
           )}
         {!!savedDataSet?.status && !values?.loading && (
           <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
-        )}
+        )} */}
         {!values?.loading &&
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (

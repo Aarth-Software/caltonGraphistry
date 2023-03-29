@@ -3,8 +3,16 @@ import { Box } from "@mui/system";
 import React from "react";
 import FilterSelectBox from "./FilterSelectBox";
 import CloseIcon from "@mui/icons-material/Close";
+import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
 
 const FilterSet = ({ filterArray, setFilterArray }) => {
+  const { nodeState, setNodeState } = useStateContextHook();
+  const { fromYear, toYear, publicationFilter } = nodeState;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNodeState({ ...nodeState, [name]: value });
+  };
+  console.log(nodeState);
   return (
     <>
       <Typography
@@ -40,11 +48,23 @@ const FilterSet = ({ filterArray, setFilterArray }) => {
             py: 0.4,
           }}
         >
-          <FilterSelectBox />
-          <FilterSelectBox />
-          <FilterSelectBox />
+          <FilterSelectBox
+            name="fromYear"
+            value={fromYear}
+            handleChange={handleChange}
+          />
+          <FilterSelectBox
+            name="toYear"
+            value={toYear}
+            handleChange={handleChange}
+          />
+          <FilterSelectBox
+            name="publicationFilter"
+            value={publicationFilter}
+            handleChange={handleChange}
+          />
         </Box>
-        {filterArray.map((eg, i) => (
+        {/* {filterArray.map((eg, i) => (
           <Box
             style={{
               // background: "yellow",
@@ -80,7 +100,7 @@ const FilterSet = ({ filterArray, setFilterArray }) => {
               type="text"
             />
           </Box>
-        ))}
+        ))} */}
       </Box>
     </>
   );
