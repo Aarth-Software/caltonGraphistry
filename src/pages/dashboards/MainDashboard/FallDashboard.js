@@ -190,6 +190,7 @@ const FallDashboard = ({ theme }) => {
   };
   const retriveGraph = (e) => {
     dispatch(getRetriveSavedDataSet(e, setNodeState));
+    console.log(nodeState);
   };
   const closeWithCrossICon = () => {
     dispatch(setOpenSavePannel(false));
@@ -205,8 +206,6 @@ const FallDashboard = ({ theme }) => {
   const lgMatches = useMediaQuery(theme.breakpoints.up("lg"));
   const xlMatches = useMediaQuery(theme.breakpoints.up("xl"));
   const xxlMatches = useMediaQuery(theme.breakpoints.up("xxl"));
-
-  console.log(nodeState);
 
   const ModalDimention = xxlMatches
     ? ["1200px", "auto", "12rem"] //80
@@ -267,7 +266,7 @@ const FallDashboard = ({ theme }) => {
                 position: "absolute",
                 color: "#259DF8",
                 right: "2.5rem",
-                zIndex: 2,
+                zIndex: 200,
               }}
             >
               <FiltersComponent icon={filterInActive} />
@@ -357,7 +356,8 @@ const FallDashboard = ({ theme }) => {
         child={
           <SavePopPanel
             getSave={saveRecordFunction}
-            setSaveName={setSaveName}
+            inputValue={saveName}
+            setInputValue={setSaveName}
             closeWithCrossICon={closeWithCrossICon}
             headTitle="Save"
             close={closePannel}

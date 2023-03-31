@@ -98,6 +98,7 @@ const SavedGraphsPop = ({
 }) => {
   const dispatch = useDispatch();
   const { retriveGraphSearch } = useSelector((state) => state.service);
+  const [showText, setShowText] = React.useState("");
   // const [message, setMessage] = React.useState("there are no records saved");
   const filteredRecords = record.filter((rcds) => {
     if (!retriveGraphSearch) {
@@ -117,6 +118,10 @@ const SavedGraphsPop = ({
     dispatch(setContainerSize(containerRef.current?.clientHeight));
     // console.log(containerRef.current?.clientHeight);
   }, [containerRef, dispatch]);
+
+  function handleMouseOver(event) {
+    setShowText(event);
+  }
 
   return (
     <>
@@ -159,11 +164,31 @@ const SavedGraphsPop = ({
               </TableHead>
               <TableBody>
                 {pageElements.map((e, i) => (
-                  <TableRow key={i}>
-                    <TableCell component="th" scope="row">
+                  <TableRow onMouseOver={() => handleMouseOver(i)} key={i}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{
+                        whiteSpace: i !== showText ? "nowrap" : "wrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "15rem",
+                        transition: ".2s ease-in-out",
+                      }}
+                    >
                       {e.query_name}
                     </TableCell>
-                    <TableCell>{e.selected_query}</TableCell>
+                    <TableCell
+                      sx={{
+                        whiteSpace: i !== showText ? "nowrap" : "wrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "27rem",
+                        transition: ".2s ease-in-out",
+                      }}
+                    >
+                      {e.selected_query}
+                    </TableCell>
                     <TableCell>{e.save_time}</TableCell>
                     <TableCell align="right">
                       {!Btn ? (
@@ -195,7 +220,7 @@ const SavedGraphsPop = ({
               fontSize=".7rem"
               fontWeight={600}
               onClick={prevClick}
-              disabled={page === 1}
+              // disabled={page === 1}
               color={theme.palette.text.primary}
               bgcolor={"transparent"}
               hoverColor={"transparent"}
@@ -212,7 +237,7 @@ const SavedGraphsPop = ({
               fontSize=".7rem"
               fontWeight={600}
               onClick={nextClick}
-              disabled={page === pages}
+              // disabled={page === pages}
               color={theme.palette.text.primary}
               bgcolor={"transparent"}
               hoverColor={"transparent"}

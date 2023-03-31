@@ -18,13 +18,7 @@ export const refreshState = (setFunction) => {
 
 export const retriveSavedGraphValues = (e, setFunction) => {
   // have to make this logic dynamically
-  const {
-    affiliationFilter = "hey",
-    publisherFilter = "don",
-    fromYear = "con",
-    toYear = "ban",
-    publicationFilter = "tan",
-  } = e;
+  const { filters } = e;
   setFunction((prev) => {
     const updatedState = {};
     for (const [idx, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
@@ -61,11 +55,7 @@ export const retriveSavedGraphValues = (e, setFunction) => {
     return {
       ...prev,
       ...updatedState,
-      affiliationFilter,
-      publisherFilter,
-      fromYear,
-      toYear,
-      publicationFilter,
+      ...filters,
     };
   });
 };

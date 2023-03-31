@@ -5,6 +5,11 @@ const StateProvider = ({ children }) => {
     nodeA: { value: "", inputValue: "", disableInput: true },
     nodeB: { value: "", inputValue: "", disableInput: true },
     nodeC: { value: "", inputValue: "", disableInput: true },
+    fromYear: "",
+    toYear: "",
+    publicationFilter: "",
+    publisherFilter: "",
+    affiliationFilter: "",
   });
   return (
     <StateContext.Provider value={{ nodeState, setNodeState }}>

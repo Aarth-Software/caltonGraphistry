@@ -173,7 +173,7 @@ const KeywordsTable = React.memo(
             fontSize=".7rem"
             fontWeight={600}
             onClick={prevClick}
-            disabled={page === 1}
+            // disabled={page === 1}
             color={theme.palette.text.primary}
             bgcolor={theme.palette.background.paper}
             hoverColor={theme.palette.background.paper}
@@ -189,7 +189,7 @@ const KeywordsTable = React.memo(
             fontSize=".7rem"
             fontWeight={600}
             onClick={nextClick}
-            disabled={page === pages}
+            // disabled={page === pages}
             color={theme.palette.text.primary}
             bgcolor={theme.palette.background.paper}
             hoverColor={theme.palette.background.paper}

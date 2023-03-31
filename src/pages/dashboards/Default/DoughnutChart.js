@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
 import Stats from "./Stats";
+import { addCommas } from "../../../libs/HigherOrderFunctions";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -57,6 +58,7 @@ const TitleHeader = styled(CardHeader)`
 
 const DoughnutChart = ({ theme, title, graphData }) => {
   const [activeSegment, setActiveSegment] = React.useState(null);
+
   // console.log(graphData);
   const data = {
     labels: graphData?.map((eg) => eg.role.replace("Variable", " Variable")),
@@ -136,7 +138,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
                     <Typography variant="h4">
                       {activeSegment !== null
                         ? graphData[activeSegment]?.percentage.toFixed(2) + "%"
-                        : graphData[0]?.total}
+                        : addCommas(graphData[0]?.total)}
                     </Typography>
                     <Typography variant="caption">
                       {activeSegment !== null

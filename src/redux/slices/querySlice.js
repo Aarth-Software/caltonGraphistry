@@ -10,6 +10,7 @@ import {
 import {
   getDefaultDataSet,
   getDropdowns,
+  getFilters,
   getUserRecords,
   postQuery,
 } from "../../services/service";
@@ -58,6 +59,11 @@ const generateQuerySlice = createSlice({
     },
     values: { data: [], loading: null },
     selectParams: {},
+    queryFilters: {},
+    filterLoading: false,
+    filterError: false,
+    fetchFiltersOnce: true,
+    helperFilterContainer: [],
   },
   reducers: {
     setFetchOnce: (state, { payload }) => {
@@ -118,6 +124,24 @@ const generateQuerySlice = createSlice({
     },
     setSelectParams: (state, { payload }) => {
       state.selectParams = payload;
+    },
+    setFilters: (state, { payload }) => {
+      state.queryFilters = payload;
+    },
+    setFilterLoading: (state, { payload }) => {
+      state.filterLoading = payload;
+    },
+    setFilterError: (state, { payload }) => {
+      state.filterError = payload;
+    },
+    setFetchFiltersOnce: (state, { payload }) => {
+      state.fetchFiltersOnce = payload;
+    },
+    sendToHelperContainer: (state, { payload }) => {
+      const selectFilterElements = [
+        ...new Set([...state.helperFilterContainer, payload]),
+      ];
+      state.helperFilterContainer = selectFilterElements;
     },
   },
 });
@@ -232,7 +256,6 @@ export const getPatternChange = (e, setFun) => (dispatch) => {
 export const save =
   (selectParams, values, enqueueSnackbar, user, saveName, nodeState, pattern) =>
   async (dispatch) => {
-    console.log(selectParams);
     if (!values?.data || !Object.keys(selectParams).length) {
       dispatch(setOpenSavePannel(false));
       dispatch(setSaveName(false));
@@ -253,7 +276,7 @@ export const save =
         keyword2: eg.keywordB,
         keyword3: eg.keywordC,
         query_name: saveName,
-        dataset: values.data,
+        dataset: !values.data || "1234",
         selection_type: `${Object.keys(nodeState).length - 5}node`,
         selection_code: pattern.code,
         fromYear: eg.fromYear,
@@ -263,6 +286,7 @@ export const save =
         publisherFilter: eg.publisherFilter,
       };
     });
+    console.log(changeKeys);
 
     if (saveName.split("").length < 2) {
       enqueueSnackbar("fill mandatory fields", {
@@ -275,6 +299,7 @@ export const save =
 
     try {
       const response = await postQuery(changeKeys);
+      console.log(response.data);
       dispatch(setSaveName(false));
       enqueueSnackbar(response.data.message, {
         variant: "success",
@@ -295,6 +320,17 @@ export const save =
       dispatch(setShowStoreOptions(null));
     }
   };
+export const getFilterOptions = () => async (dispatch) => {
+  try {
+    dispatch(setFilterLoading(true));
+    const response = await getFilters();
+    dispatch(setFilters(JSON.parse(response.data)));
+    dispatch(setFilterLoading(false));
+  } catch (err) {
+    console.log(err);
+    dispatch(setFilterLoading(null));
+  }
+};
 export const {
   setFetchOnce,
   setDefaultGraph,
@@ -312,5 +348,9 @@ export const {
   setPattern,
   setValues,
   setSelectParams,
+  setFilterLoading,
+  setFilters,
+  setFetchFiltersOnce,
+  sendToHelperContainer,
 } = generateQuerySlice.actions;
 export const generateQueryReducer = generateQuerySlice.reducer;

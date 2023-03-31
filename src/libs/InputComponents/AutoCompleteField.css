@@ -1,0 +1,85 @@
+.searchInputInCascadingScreen {
+  /* margin-top: 1.6rem; */
+  padding: 0em 2em;
+  /* margin-bottom: -7em; */
+  z-index: 100;
+  position: relative;
+  /* top: 2.5em; */
+  /* font-family: var(--fontStyle); */
+  font-weight: 400;
+  /* background-color: red; */
+  top: 0;
+  height: 2.3rem;
+  
+}
+.inputDemandForeCast{
+    /* top: .7em; */
+    position: relative;
+    /* top: 1.4rem; */
+    left: .2rem;
+    top: 0;
+    padding: 0 0;
+}
+#custom-input-demo {
+    height: 2rem;
+    outline: none;
+    border: .095rem solid white;
+    border-radius: .3rem;
+    /* margin-top: 1em; */
+    font-size: .65rem;
+    font-family: var(--fontStyle);
+    padding-left: 1em;
+  }
+  #custom-input-demo::-moz-placeholder {
+    padding-left: 0.8em;
+    font-weight: 500;
+    font-family: var(--fontStyle);
+  }
+  
+  #custom-input-demo:-ms-input-placeholder {
+    padding-left: 0.8em;
+    font-weight: 500;
+    font-family: var(--fontStyle);
+  }
+  
+  #custom-input-demo::placeholder {
+    padding-left: 0.8em;
+    font-weight: 500;
+    font-family: var(--fontStyle);
+  }
+  .input-iconflex{
+    position: relative;
+    height: 2rem;
+    /* top: .5em; */
+  }
+  .input-iconflex-Active {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: top;
+  }
+  .iconContainerInInputSearchInInventoryy {
+    color: #fdfdff;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  
+    position: absolute;
+    width: calc(2rem + 2 * .099rem );
+    height: calc(100% + 2 * 1px );
+    top: 0;
+    right: 0;
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
+  .input-materialui {
+    font-size: 0.7em;
+    height: 3rem;
+    /* background-color: red; */
+  }
+  .css-ymawoz-MuiAutocomplete-root input{
+    width: 45rem !important;
+    /* height: 2.3rem !important; */
+    font-weight: 400;
+    font-family: var(--fontStyle);
+  }

@@ -19,6 +19,7 @@ const StandardButton = ({
   sx,
   onClick,
   colorHover,
+  disabled,
 }) => {
   return (
     <Button
@@ -43,6 +44,7 @@ const StandardButton = ({
         ...sx,
       }}
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </Button>

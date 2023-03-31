@@ -59,7 +59,7 @@ const SavePopPanel = ({
   theme,
   getSave,
   inputValue,
-  setSaveName,
+  setInputValue,
   closeWithCrossICon,
   headTitle,
   close,
@@ -90,12 +90,12 @@ const SavePopPanel = ({
           id="standard-size-large"
           size="large"
           variant="standard"
-          value={inputValue ? inputValue : saveName}
+          value={inputValue}
           fullWidth
           onChange={(e) => {
             const input = e.target.value;
             if (input.length <= 140) {
-              dispatch(setSaveName(input));
+              dispatch(setInputValue(input));
             }
           }}
         />

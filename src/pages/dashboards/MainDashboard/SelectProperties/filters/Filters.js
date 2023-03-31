@@ -3,12 +3,49 @@ import React from "react";
 import AppendFilter from "./AppendFilter";
 import FilterSet from "./FilterSet";
 import { MdOutlineFilterList } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import {
+  getFilterOptions,
+  setFetchFiltersOnce,
+} from "../../../../../redux/slices/querySlice";
+import { useSelector } from "react-redux";
+import Loader from "../../../../../components/Loader";
+import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
 
 const FiltersComponent = (props) => {
+  const { fetchFiltersOnce, filterLoading } = useSelector(
+    (state) => state.query
+  );
+  const { setNodeState, nodeState } = useStateContextHook();
   const [openFilter, setOpenFilter] = React.useState(false);
-  const [filterArray, setFilterArray] = React.useState([0, 1, 2]);
+  const [filterArray, setFilterArray] = React.useState([
+    {
+      name: "setOne",
+      value: "",
+      options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
+      autoCompleteValue: "",
+    },
+  ]);
+  const dispatch = useDispatch();
   const appendFilterPattern = () => {
     setFilterArray([...filterArray, filterArray[filterArray.length - 1] + 1]);
+  };
+
+  React.useEffect(() => {
+    if (fetchFiltersOnce) {
+      dispatch(getFilterOptions());
+      dispatch(setFetchFiltersOnce(false));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getApplyFilters = () => {
+    const mergedObj = filterArray.reduce((acc, cur) => {
+      acc[cur.value] = cur.autoCompleteValue;
+      return acc;
+    }, nodeState);
+    console.log(mergedObj);
+    setNodeState(mergedObj);
   };
 
   return (
@@ -27,9 +64,9 @@ const FiltersComponent = (props) => {
           pt: 0.3,
           pb: 2,
           px: 2,
+          position: "relative",
         }}
       >
-        {/* <img style={{ width: "2rem" }} src={icon} alt={"filter"} /> */}
         <MdOutlineFilterList
           size="1.9rem"
           color={openFilter ? "#f16067" : "black"}
@@ -41,20 +78,30 @@ const FiltersComponent = (props) => {
             position: "absolute",
 
             height: "auto",
-            width: "45rem",
+            width: "38rem",
             bgcolor: "white",
             right: "-2rem",
             top: "2.3rem",
             boxShadow:
               "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
             p: 2,
+            zIndex: "1500 !important",
           }}
         >
-          <FilterSet
-            filterArray={filterArray}
-            setFilterArray={setFilterArray}
-          />
-          <AppendFilter appendFilterElement={appendFilterPattern} />
+          {!filterLoading && (
+            <>
+              <FilterSet
+                filterArray={filterArray}
+                setFilterArray={setFilterArray}
+              />
+              <AppendFilter
+                setOpenFilter={setOpenFilter}
+                appendFilterElement={appendFilterPattern}
+                getApplyFilters={getApplyFilters}
+              />
+            </>
+          )}
+          {filterLoading && <Loader />}
         </Box>
       )}
     </>

@@ -1,9 +1,28 @@
 import { api } from "./api";
 
 export const GenerateDataSet = (body) => {
-  const { nodeA, keywordA, nodeB, keywordB, nodeC, keywordC } = body;
+  const {
+    nodeA,
+    keywordA,
+    nodeB,
+    keywordB,
+    nodeC,
+    keywordC,
+    fromYear,
+    toYear,
+    publicationFilter,
+    publisherFilter,
+    affiliationFilter,
+  } = body;
+  console.log(
+    fromYear,
+    toYear,
+    publicationFilter,
+    publisherFilter,
+    affiliationFilter
+  );
   return api.get(
-    `buildQuery?node1=${nodeA}&keyword1=${keywordA}&node2=${nodeB}&keyword2=${keywordB}&node3=${nodeC}&keyword3=${keywordC}`
+    `buildQuery?node1=${nodeA}&keyword1=${keywordA}&node2=${nodeB}&keyword2=${keywordB}&node3=${nodeC}&keyword3=${keywordC}&fromYear=${fromYear}&toYear=${toYear}&publicationFilter=${publicationFilter}&publisherFilter=${publisherFilter}&affiliationFilter=${affiliationFilter}`
   );
 };
 
@@ -28,3 +47,6 @@ export const updateRecord = (body) => api.post("updateSavedQuery", body);
 export const getKeywords = (params) =>
   api.get(`/userKeywords/${params.userId}`);
 export const postContact = (body) => api.post("saveContact", body);
+
+// filters requests
+export const getFilters = () => api.get("getFilterLov");

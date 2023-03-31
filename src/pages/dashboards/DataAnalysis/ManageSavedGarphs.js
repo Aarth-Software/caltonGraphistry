@@ -102,6 +102,7 @@ const ManagedSavedGraphs = React.memo(
     const { activeBg, editPannel, editedValue, searchName } = useSelector(
       (state) => state.service
     );
+    const [showText, setShowText] = React.useState("");
     const { user } = useAuth();
     const { setNodeState } = useStateContextHook();
     const filteredRecords = data.filter((rcds) => {
@@ -141,6 +142,10 @@ const ManagedSavedGraphs = React.memo(
     const closeEditPannel = () => {
       dispatch(setEditPannel(false));
     };
+
+    function handleMouseOver(event) {
+      setShowText(event);
+    }
 
     return (
       <Card mb={6} sx={{ position: "relative", pb: 14 }}>
@@ -194,11 +199,29 @@ const ManagedSavedGraphs = React.memo(
                 </TableHead>
                 <TableBody>
                   {pageElements.map((e, i) => (
-                    <TableRow key={i}>
-                      <TableCell component="th" scope="row">
+                    <TableRow key={i} onMouseOver={() => handleMouseOver(i)}>
+                      <TableCell
+                        sx={{
+                          whiteSpace: i !== showText ? "nowrap" : "wrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          maxWidth: "15rem",
+                        }}
+                        component="th"
+                        scope="row"
+                      >
                         {e.query_name}
                       </TableCell>
-                      <TableCell>{e.selected_query}</TableCell>
+                      <TableCell
+                        sx={{
+                          whiteSpace: i !== showText ? "nowrap" : "wrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          maxWidth: "27rem",
+                        }}
+                      >
+                        {e.selected_query}
+                      </TableCell>
                       <TableCell>{e.save_time}</TableCell>
                       <TableCell align="right">
                         {!btn ? (
@@ -243,7 +266,7 @@ const ManagedSavedGraphs = React.memo(
             fontSize=".7rem"
             fontWeight={600}
             onClick={prevClick}
-            disabled={page === 1}
+            // disabled={page === 1}
             color={theme.palette.text.primary}
             bgcolor={theme.palette.background.paper}
             hoverColor={theme.palette.background.paper}
@@ -261,7 +284,7 @@ const ManagedSavedGraphs = React.memo(
             fontSize=".7rem"
             fontWeight={600}
             onClick={nextClick}
-            disabled={page === pages}
+            // disabled={page === pages}
             color={theme.palette.text.primary}
             bgcolor={theme.palette.background.paper}
             hoverColor={theme.palette.background.paper}
@@ -274,7 +297,7 @@ const ManagedSavedGraphs = React.memo(
             <SavePopPanel
               getSave={getEditSave}
               inputValue={editedValue}
-              setSaveName={setEditedValue}
+              setInputValue={setEditedValue}
               closeWithCrossICon={closeWithCrossICon}
               headTitle="Rename"
               close={closeEditPannel}

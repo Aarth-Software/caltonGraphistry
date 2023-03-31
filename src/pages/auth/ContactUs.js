@@ -2,6 +2,8 @@ import { withTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import {
   Button,
+  Checkbox,
+  FormControlLabel,
   FormHelperText,
   Paper,
   TextareaAutosize,
@@ -148,12 +150,17 @@ const ContactUs = ({ theme }) => {
                 name="feedback"
                 disabled={false}
                 minRows={10}
-                maxRows={7}
+                maxRows={5}
                 value={values.feedback}
                 error={touched.feedback && errors.feedback ? "true" : "false"}
                 helperText={touched.feedback && errors.feedback}
                 size="lg"
-                style={{ width: "100%", marginTop: 15, fontSize: "1rem" }}
+                style={{
+                  width: "100%",
+                  marginTop: 15,
+                  fontSize: "1.4rem",
+                  fontFamily: theme.typography.fontFamily,
+                }}
                 onBlur={(e) => {
                   handleBlur(e);
                   setFieldTouched("feedback", true); // use setFieldTouched here
@@ -166,6 +173,12 @@ const ContactUs = ({ theme }) => {
               >
                 {touched.feedback && errors.feedback}
               </FormHelperText>
+              <FormControlLabel
+                control={
+                  <Checkbox checked={false} value="remember" color="primary" />
+                }
+                label="Access request"
+              />
               <Button
                 type="submit"
                 fullWidth
