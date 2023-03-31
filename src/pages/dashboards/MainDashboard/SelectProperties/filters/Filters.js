@@ -11,25 +11,24 @@ import {
 import { useSelector } from "react-redux";
 import Loader from "../../../../../components/Loader";
 import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
+import { addFilterSet } from "../../../../../redux/slices/filterSlice";
 
 const FiltersComponent = (props) => {
-  const { fetchFiltersOnce, filterLoading } = useSelector(
+  const { fetchFiltersOnce, filterLoading, queryFilters } = useSelector(
     (state) => state.query
   );
   const { setNodeState, nodeState } = useStateContextHook();
   const [openFilter, setOpenFilter] = React.useState(false);
-  const [filterArray, setFilterArray] = React.useState([
-    {
-      name: "setOne",
-      value: "",
-      options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
-      autoCompleteValue: "",
-    },
-  ]);
+  const { filterArray } = useSelector((state) => state.filters);
+  // const [filterArray, setFilterArray] = React.useState([
+  //   {
+  //     name: "setOne",
+  //     value: "",
+  //     options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
+  //     autoCompleteValue: "",
+  //   },
+  // ]);
   const dispatch = useDispatch();
-  const appendFilterPattern = () => {
-    setFilterArray([...filterArray, filterArray[filterArray.length - 1] + 1]);
-  };
 
   React.useEffect(() => {
     if (fetchFiltersOnce) {
@@ -39,6 +38,13 @@ const FiltersComponent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const reqiredSelctions = Object.keys(queryFilters).filter(
+    (el) => !["fromYear", "toYear"].includes(el)
+  );
+
+  const appendFilterPattern = () => {
+    dispatch(addFilterSet(queryFilters, filterArray, reqiredSelctions));
+  };
   const getApplyFilters = () => {
     const mergedObj = filterArray.reduce((acc, cur) => {
       acc[cur.value] = cur.autoCompleteValue;
@@ -90,10 +96,7 @@ const FiltersComponent = (props) => {
         >
           {!filterLoading && (
             <>
-              <FilterSet
-                filterArray={filterArray}
-                setFilterArray={setFilterArray}
-              />
+              <FilterSet />
               <AppendFilter
                 setOpenFilter={setOpenFilter}
                 appendFilterElement={appendFilterPattern}

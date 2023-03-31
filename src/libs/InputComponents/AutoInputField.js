@@ -3,7 +3,12 @@ import { Autocomplete, createFilterOptions } from "@mui/material";
 import { BiSearch } from "react-icons/bi";
 import "./AutoCompleteField.css";
 import { useNavigate } from "react-router";
-const AutoInputField = ({ options = [], getSelect, selectedValue }) => {
+const AutoInputField = ({
+  options = [],
+  getSelect,
+  selectedValue,
+  disabled,
+}) => {
   // console.log(options);
   const navigate = useNavigate();
   const [inputValue, setInputValue] = React.useState("");
@@ -25,6 +30,7 @@ const AutoInputField = ({ options = [], getSelect, selectedValue }) => {
     <div className="searchInputInCascadingScreen inputDemandForeCast">
       <Autocomplete
         value={selectedValue}
+        disabled={disabled}
         ListboxProps={{
           style: {
             maxHeight: "15em",
@@ -35,7 +41,7 @@ const AutoInputField = ({ options = [], getSelect, selectedValue }) => {
         }}
         noOptionsText={
           <span style={{ padding: "-1em", fontSize: ".7em" }}>
-            Search not found
+            select filter
           </span>
         }
         clearOnBlur
@@ -76,29 +82,30 @@ const AutoInputField = ({ options = [], getSelect, selectedValue }) => {
         options={[...new Set(options)]}
         renderInput={(params) => (
           <div className="input-iconflex" ref={params.InputProps.ref}>
-            <div
+            {/* <div
               className="iconContainerInInputSearchInInventoryy"
-              // style={{
-              //   backgroundColor: `${true ? "#79b259" : "#f2f2f2"}`,
-              //   border: ".08rem solid #79b259",
-              // }}
+              style={{
+                backgroundColor: `${true ? "#79b259" : "#f2f2f2"}`,
+                border: ".08rem solid #79b259",
+              }}
             >
-              {/* <BiSearch
+              <BiSearch
                 size={"1.3em"}
                 className="icon"
                 style={{
                   color: `${false ? "#79b259" : "white"}`,
                 }}
-              /> */}
-            </div>
+              />
+            </div> */}
             <input
               className="input-materialui"
               placeholder={`Search...`}
               type="text"
               {...params.inputProps}
               style={{
-                border: `.08rem solid #666666`,
+                border: `.08rem solid #cbcbcb`,
                 fontSize: ".9rem",
+                borderRadius: ".18rem",
               }}
             />
           </div>

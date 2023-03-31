@@ -8,79 +8,28 @@ import { useDispatch } from "react-redux";
 import { sendToHelperContainer } from "../../../../../redux/slices/querySlice";
 import { useSelector } from "react-redux";
 import AutoInputField from "../../../../../libs/InputComponents/AutoInputField";
+import {
+  addFilterSet,
+  getSelectAutoInput,
+  selectBoxHandleChange,
+  setFilterArray,
+} from "../../../../../redux/slices/filterSlice";
 
-const FilterSet = ({ filterArray, setFilterArray }) => {
+const FilterSet = () => {
   const { helperFilterContainer, queryFilters } = useSelector(
     (state) => state.query
   );
+  const { filterArray } = useSelector((state) => state.filters);
+  console.log(filterArray);
   const dispatch = useDispatch();
   const { nodeState, setNodeState } = useStateContextHook();
   const { fromYear, toYear, nodeA } = nodeState;
   const reqiredSelctions = Object.keys(queryFilters).filter(
     (el) => !["fromYear", "toYear"].includes(el)
   );
-  const handleOptionChange = (idx) => {
-    setFilterArray((prev) => {
-      const don = prev.map((eg) => eg.value);
-      return prev.map((set, i) =>
-        i > idx
-          ? {
-              ...set,
-              options: reqiredSelctions.filter((ed) => !don.includes(ed)),
-            }
-          : set
-      );
-    });
-  };
-  const handleChange = (event, setName, idx) => {
-    const { value } = event.target;
-    setFilterArray((prev) =>
-      prev.map((set) => (set.name === setName ? { ...set, value: value } : set))
-    );
-
-    setFilterArray((prev) => {
-      return prev.map((set, i) =>
-        i > idx
-          ? {
-              ...set,
-              value: "",
-              autoCompleteValue: "",
-            }
-          : set
-      );
-    });
-    handleOptionChange(idx);
-  };
-
   const yearHandleHange = (e) => {
     const { name, value } = e.target;
     setNodeState((prev) => ({ ...prev, [name]: value }));
-  };
-  const addSet = (selectedOption) => {
-    if (Object.keys(queryFilters).length - 2 === filterArray.length) {
-      return;
-    }
-    console.log(selectedOption);
-    const setName = `set${filterArray.length + 1}`;
-    setFilterArray((prev) => [
-      ...prev,
-      {
-        name: setName,
-        value: "",
-        options: reqiredSelctions.filter(
-          (ed) => !prev.map((eg) => eg.value).includes(ed)
-        ),
-        autoCompleteValue: "",
-      },
-    ]);
-  };
-  const getSelect = (e, name) => {
-    const { innerText } = e.target;
-    setFilterArray((prev) =>
-      prev.map((set) =>
-        set.name === name ? { ...set, autoCompleteValue: innerText } : set
-      )
-    );
   };
 
   return (
@@ -146,13 +95,16 @@ const FilterSet = ({ filterArray, setFilterArray }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               py: 0.4,
+              baclground: "red",
             }}
             key={index}
           >
             <CloseIcon
               onClick={() => {
                 if (filterArray.length !== 1) {
-                  setFilterArray(filterArray.filter((el, i) => el !== eg));
+                  dispatch(
+                    setFilterArray(filterArray.filter((el, i) => el !== eg))
+                  );
                 }
               }}
               sx={{ px: 0, width: "3rem", color: "gray" }}
@@ -161,8 +113,19 @@ const FilterSet = ({ filterArray, setFilterArray }) => {
               name={eg.name}
               value={eg.value}
               options={eg.options}
-              handleChange={(event) => handleChange(event, eg.name, index)}
+              handleChange={(event) =>
+                dispatch(
+                  selectBoxHandleChange(
+                    event,
+                    eg.name,
+                    index,
+                    filterArray,
+                    reqiredSelctions
+                  )
+                )
+              }
               helperFilterContainer={helperFilterContainer}
+              disabled={!!nodeA?.disableDropDown}
             />
             {/* <input
               style={{
@@ -178,11 +141,13 @@ const FilterSet = ({ filterArray, setFilterArray }) => {
             <AutoInputField
               selectedValue={eg.autoCompleteValue}
               options={queryFilters[eg.value]}
-              getSelect={(e) => getSelect(e, eg.name)}
+              getSelect={(e) =>
+                dispatch(getSelectAutoInput(e, eg.name, filterArray))
+              }
+              disabled={!!nodeA?.disableDropDown}
             />
           </Box>
         ))}
-        <Button onClick={addSet}>AddBaby</Button>
       </Box>
     </>
   );

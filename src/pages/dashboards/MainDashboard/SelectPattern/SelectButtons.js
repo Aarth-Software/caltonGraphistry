@@ -7,6 +7,7 @@ import { setActivePatternWhenRetrive } from "../../../../redux/slices/serviceSli
 import { useDispatch } from "react-redux";
 import useStateContextHook from "../../../../libs/StateProvider/useStateContextHook";
 import { getPatternChange } from "../../../../redux/slices/querySlice";
+import { setFilterArray } from "../../../../redux/slices/filterSlice";
 
 const SvgButtons = styled("img")({
   color: "darkslategray",
@@ -18,6 +19,7 @@ const SelectButtons = React.memo((props) => {
   const dispatch = useDispatch();
   const { setNodeState } = useStateContextHook();
   const { activePattern } = useSelector((state) => state.service);
+  const { filterInitialState } = useSelector((state) => state.filters);
   const { theme, btnArray } = props;
   const xsMatches = useMediaQuery(theme.breakpoints.up("xs"));
   const smMatches = useMediaQuery(theme.breakpoints.up("sm"));
@@ -43,7 +45,10 @@ const SelectButtons = React.memo((props) => {
   const patternClick = (pos, e) => {
     dispatch(getPatternChange(e, setNodeState));
     dispatch(setActivePatternWhenRetrive(pos));
+    dispatch(setFilterArray(filterInitialState));
   };
+
+  console.log(filterInitialState);
   return (
     <Box
       sx={{

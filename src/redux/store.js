@@ -5,6 +5,7 @@ import { generateQueryReducer } from "./slices/querySlice";
 import { dashboardReducer } from "./slices/dashboardSlice";
 import { serviceReducer } from "./slices/serviceSlice";
 import { contactReducer } from "./slices/contactSlice";
+import { filterReducer } from "./slices/filterSlice";
 
 export const store = configureStore(
   {
@@ -14,6 +15,7 @@ export const store = configureStore(
       dashboard: dashboardReducer,
       service: serviceReducer,
       contact: contactReducer,
+      filters: filterReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

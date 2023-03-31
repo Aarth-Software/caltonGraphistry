@@ -102,6 +102,7 @@ const FallDashboard = ({ theme }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { openSavePanel, open, showStoreOptions, saveName, activePattern } =
     useSelector((state) => state.service);
+  const { filterArray } = useSelector((state) => state.filters);
   const { user } = useAuth();
   const { nodeState, setNodeState } = useStateContextHook();
   const containerRef = React.useRef(null);
@@ -190,7 +191,6 @@ const FallDashboard = ({ theme }) => {
   };
   const retriveGraph = (e) => {
     dispatch(getRetriveSavedDataSet(e, setNodeState));
-    console.log(nodeState);
   };
   const closeWithCrossICon = () => {
     dispatch(setOpenSavePannel(false));
@@ -220,6 +220,7 @@ const FallDashboard = ({ theme }) => {
     : xsMatches
     ? ["500px", "30px", "200px"]
     : ["900px", "auto", "12rem"];
+  console.log(filterArray);
 
   return (
     <>

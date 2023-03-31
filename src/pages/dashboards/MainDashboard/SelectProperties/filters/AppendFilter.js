@@ -32,9 +32,11 @@ const AppendFilter = ({
           text="+ Add"
           fontSize="1rem"
           fontWeight={600}
-          px={6}
+          px={5}
           color={theme.palette.secondary.main}
           varient="outlined"
+          py={1.1}
+          ml={3}
         />
         {/* <StandardButton
           text="cancel"
@@ -53,8 +55,8 @@ const AppendFilter = ({
           varient="contained"
           px={5.8}
           mt={0.8}
-          // mr={0.4}
-          py={".35em"}
+          mr={1.5}
+          py={1.4}
           fontSize="1rem"
           fontWeight={600}
           bgcolor={theme.palette.secondary.main}

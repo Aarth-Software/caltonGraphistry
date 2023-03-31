@@ -22,6 +22,7 @@ import {
   setSaveName,
   setShowStoreOptions,
 } from "./serviceSlice";
+import { retriveFilterValues, setInitilFilterState } from "./filterSlice";
 
 const generateQuerySlice = createSlice({
   name: "query",
@@ -233,7 +234,6 @@ export const fetchSavedQuaries = (kc) => async (dispatch) => {
 //   };
 
 export const getRetriveSavedDataSet = (e, setFun) => (dispatch) => {
-  console.log(e);
   // setFun = setNodeState
   dispatch(setDefaultGraph(false));
   setFun(getAccessPatternVariables(e.selection_code));
@@ -245,6 +245,7 @@ export const getRetriveSavedDataSet = (e, setFun) => (dispatch) => {
   dispatch(setSaveDataSet({ status: true, data: e.dataset }));
   dispatch(setShowStoreOptions(null));
   dispatch(setOpen(false));
+  dispatch(retriveFilterValues(e));
 };
 export const getPatternChange = (e, setFun) => (dispatch) => {
   setFun(getAccessPatternVariables(e.code));
@@ -325,6 +326,11 @@ export const getFilterOptions = () => async (dispatch) => {
     dispatch(setFilterLoading(true));
     const response = await getFilters();
     dispatch(setFilters(JSON.parse(response.data)));
+    dispatch(
+      setInitilFilterState(Object.keys(response.data)).filter(
+        (eg) => !["fromYear", "toYear"].includes(eg)
+      )
+    );
     dispatch(setFilterLoading(false));
   } catch (err) {
     console.log(err);
