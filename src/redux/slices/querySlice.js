@@ -326,9 +326,12 @@ export const getFilterOptions = () => async (dispatch) => {
     dispatch(setFilterLoading(true));
     const response = await getFilters();
     dispatch(setFilters(JSON.parse(response.data)));
+    console.log(Object.keys(JSON.parse(response.data)));
     dispatch(
-      setInitilFilterState(Object.keys(response.data)).filter(
-        (eg) => !["fromYear", "toYear"].includes(eg)
+      setInitilFilterState(
+        Object.keys(JSON.parse(response.data)).filter(
+          (eg) => !["fromYear", "toYear"].includes(eg)
+        )
       )
     );
     dispatch(setFilterLoading(false));

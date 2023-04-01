@@ -325,18 +325,22 @@ const FallDashboard = ({ theme }) => {
             <Loader />
           </LoaderContainer>
         )}
-        {/* {!defaultGraphLoading && defaultGraphStatus && (
+        {!defaultGraphLoading && defaultGraphStatus && (
           <GraphistryGraph name="graph" dataSet={defaultDataset} />
         )}
         {!values?.loading &&
           values?.data !== "No records found" &&
           !!values?.data?.length &&
           !savedDataSet?.status && (
-            <GraphistryGraph name="graph" dataSet={values.data} />
+            <GraphistryGraph
+              selectNodeType={pattern.selection_type}
+              name="graph"
+              dataSet={values.data}
+            />
           )}
         {!!savedDataSet?.status && !values?.loading && (
           <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
-        )} */}
+        )}
         {!values?.loading &&
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (
