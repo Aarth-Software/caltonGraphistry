@@ -95,7 +95,8 @@ const FilterSet = () => {
               alignItems: "center",
               justifyContent: "flex-start",
               py: 0.4,
-              baclground: "red",
+              px: 1,
+              // background: "red",
             }}
             key={index}
           >

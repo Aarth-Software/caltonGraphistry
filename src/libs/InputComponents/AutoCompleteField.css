@@ -65,12 +65,17 @@
     display: flex;
   
     position: absolute;
-    width: calc(2rem + 2 * .099rem );
-    height: calc(100% + 2 * 1px );
+    /* width: calc(2rem + 2 * .099rem ); */
+    /* height: calc(100% + 2 * 1px ); */
     top: 0;
     right: 0;
-    border-top-right-radius: .3rem;
-    border-bottom-right-radius: .3rem;
+    /* border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem; */
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-top: .2rem;
+    margin-right: .2rem;
+
   }
   .input-materialui {
     font-size: 0.7em;

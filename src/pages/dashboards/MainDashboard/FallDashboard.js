@@ -325,7 +325,7 @@ const FallDashboard = ({ theme }) => {
             <Loader />
           </LoaderContainer>
         )}
-        {!defaultGraphLoading && defaultGraphStatus && (
+        {/* {!defaultGraphLoading && defaultGraphStatus && (
           <GraphistryGraph name="graph" dataSet={defaultDataset} />
         )}
         {!values?.loading &&
@@ -340,7 +340,7 @@ const FallDashboard = ({ theme }) => {
           )}
         {!!savedDataSet?.status && !values?.loading && (
           <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
-        )}
+        )} */}
         {!values?.loading &&
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (

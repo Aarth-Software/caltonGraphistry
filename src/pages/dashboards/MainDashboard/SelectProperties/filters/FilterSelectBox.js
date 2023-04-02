@@ -48,7 +48,12 @@ export default function FilterSelectBox(props) {
           disabled={disabled}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
-          sx={{ borderRadius: ".2rem", height: "2rem", fontSize: ".9rem" }}
+          sx={{
+            borderRadius: ".2rem",
+            height: "2rem",
+            fontSize: ".9rem",
+            // marginTop: ".1rem",
+          }}
         >
           <MenuItem sx={{ fontSize: ".9rem" }} value="">
             choose
