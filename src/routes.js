@@ -122,7 +122,7 @@ const routes = [
     ],
   },
   {
-    path: "generateQuery",
+    path: "query",
     element: (
       <AuthGuard>
         <DashboardLayout />
@@ -133,24 +133,40 @@ const routes = [
         path: "",
         element: <FallDashboard />,
       },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
+    children: [
       {
-        path: "default",
-        element: <Default />,
-      },
-      {
-        path: "analytics",
-        element: <Analytics />,
-      },
-      {
-        path: "saas",
-        element: <SaaS />,
-      },
-      {
-        path: "analysis",
+        path: "",
         element: <Analysis />,
       },
     ],
   },
+  //     {
+  //       path: "default",
+  //       element: <Default />,
+  //     },
+  //     {
+  //       path: "analytics",
+  //       element: <Analytics />,
+  //     },
+  //     {
+  //       path: "saas",
+  //       element: <SaaS />,
+  //     },
+  //     {
+  //       path: "analysis",
+  //       element: <Analysis />,
+  //     },
+  //   ],
+  // },
 
   {
     path: "changelog",

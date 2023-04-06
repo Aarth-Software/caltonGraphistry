@@ -22,8 +22,6 @@ const GraphistryGraph = React.memo((props) => {
     "3node": `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500&pruneOrphans=true`,
     undefined: `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500`,
   };
-  console.log(selectNodeType);
-  console.log(object[`${selectNodeType}`]);
   return (
     <GraphistryContainer sx={graphContainerStyle}>
       <Frame

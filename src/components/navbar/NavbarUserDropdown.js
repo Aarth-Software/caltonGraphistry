@@ -22,11 +22,11 @@ function NavbarUserDropdown({ icon, size }) {
     navigate("/contact-us");
   };
   const dashboard = () => {
-    navigate("/generateQuery/analysis");
+    navigate("/dashboard");
     setAnchorMenu(null);
   };
   const generateQuery = () => {
-    navigate("/generateQuery");
+    navigate("/query");
     setAnchorMenu(null);
   };
 
@@ -73,18 +73,18 @@ function NavbarUserDropdown({ icon, size }) {
         >
           {user?.id && (
             <>
-              {location[2] === "analysis" ? (
+              {location[1] === "contact-us" && (
+                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
+                  Query
+                </MenuItem>
+              )}
+              {location[1] === "dashboard" ? (
                 <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
                   Query
                 </MenuItem>
               ) : (
                 <MenuItem sx={{ fontSize: "1.1rem" }} onClick={dashboard}>
                   Dashboard
-                </MenuItem>
-              )}
-              {location[1] === "contact-us" && (
-                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
-                  Query
                 </MenuItem>
               )}
             </>
@@ -149,9 +149,6 @@ function NavbarUserDropdown({ icon, size }) {
 
           {user?.id && (
             <>
-              <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
-                Sign out
-              </MenuItem>
               {user.isAdmin && location[2] !== "invite-user" && (
                 <MenuItem
                   sx={{ fontSize: "1.1rem" }}
@@ -160,6 +157,9 @@ function NavbarUserDropdown({ icon, size }) {
                   Invite user
                 </MenuItem>
               )}
+              <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
+                Sign out
+              </MenuItem>
             </>
           )}
         </Menu>

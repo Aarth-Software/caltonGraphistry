@@ -43,12 +43,13 @@ const SelectButtons = React.memo((props) => {
     : ["2rem", 1.5];
 
   const patternClick = (pos, e) => {
+    // console.log(e);
     dispatch(getPatternChange(e, setNodeState));
     dispatch(setActivePatternWhenRetrive(pos));
     dispatch(setFilterArray(filterInitialState));
   };
 
-  console.log(filterInitialState);
+  // console.log(filterInitialState);
   return (
     <Box
       sx={{

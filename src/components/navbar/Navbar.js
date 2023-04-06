@@ -39,7 +39,7 @@ const Navbar = ({ theme, onDrawerToggle }) => {
                   marginLeft: "1rem",
                   cursor: "pointer",
                 }}
-                onClick={() => navigate("/generateQuery")}
+                onClick={() => navigate("/query")}
               />
             </Grid>
             <Grid item xs />

@@ -17,7 +17,7 @@ import { withTheme } from "@emotion/react";
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
-
+  width: 700px;
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
@@ -51,7 +51,7 @@ function SignUp({ theme }) {
         </Typography>
 
         <SignUpComponent />
-        <Button
+        {/* <Button
           sx={{
             mt: 1,
             fontSize: 14.2,
@@ -63,7 +63,7 @@ function SignUp({ theme }) {
           fullWidth
         >
           Alredy have an account sign in
-        </Button>
+        </Button> */}
       </Wrapper>
     </React.Fragment>
   );

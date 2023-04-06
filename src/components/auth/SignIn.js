@@ -41,7 +41,7 @@ function SignIn({ theme }) {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate("/generateQuery");
+      navigate("/query");
     }
   }, [isAuthenticated, navigate]);
 
@@ -66,7 +66,7 @@ function SignIn({ theme }) {
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           await signIn(values.email, values.password);
-          navigate("/generateQuery");
+          navigate("/query");
         } catch (error) {
           const message = error.message || "Something went wrong";
           setStatus({ success: false });

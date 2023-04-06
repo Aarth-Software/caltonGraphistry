@@ -6,11 +6,13 @@ import {
 } from "../../../../libs/JSS/Jss";
 import SelectButtons from "./SelectButtons";
 import TooltipComp from "../../../../libs/Tooltip/Tooltip";
+import { useSelector } from "react-redux";
+import { getInfoContent } from "../../../../libs/Switches/SelectionSwitches";
 
 // const Card = styled(Box)``;
 const SelectPatternContainer = React.memo((props) => {
   const { btnArray, activePattern, setActivePattern } = props;
-
+  const { pattern } = useSelector((s) => s.query);
   return (
     <Box sx={{ ...patternContainerStyles }}>
       <div style={{ width: "100%", ...flexSpaceBetween }}>
@@ -29,7 +31,7 @@ const SelectPatternContainer = React.memo((props) => {
           className="no-padding-icon-button"
           size="1rem"
           // icon={info}
-          message={"this is selected pattern info"}
+          message={getInfoContent(pattern.selection_type || undefined)}
           top=".5rem"
         />
       </div>

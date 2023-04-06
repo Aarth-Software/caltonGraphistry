@@ -66,7 +66,6 @@ const SavePopPanel = ({
 }) => {
   const dispatch = useDispatch();
   const { saveName } = useSelector((state) => state.service);
-  console.log(saveName.length);
   return (
     <SavePopContainer>
       <FlexItems>

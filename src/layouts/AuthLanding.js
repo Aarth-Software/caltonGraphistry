@@ -30,7 +30,7 @@ const AuthLanding = ({ theme }) => {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate("/generateQuery");
+      navigate("/query");
     }
   }, [isAuthenticated, navigate]);
 
@@ -44,20 +44,20 @@ const AuthLanding = ({ theme }) => {
       <Wrapper>
         <Box>
           <StandardButton
-            text="Sign up"
-            px={5}
+            text="Contact us"
+            px={2.6}
             py={1.3}
             varient="outlined"
             mr={5}
             color={theme.palette.secondary.main}
-            onClick={() => navigate("sign-up")}
+            onClick={() => navigate("/contact-us")}
             fontSize={11}
             fontWeight={600}
           />
           <StandardButton
             text="Sign in"
             px={6}
-            py={1.3}
+            py={1.4}
             varient="standard"
             // bgcolor={theme.palette.secondary.main}
             mx={3}

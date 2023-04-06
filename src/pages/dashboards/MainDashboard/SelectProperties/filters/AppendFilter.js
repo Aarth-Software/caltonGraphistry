@@ -37,6 +37,7 @@ const AppendFilter = ({
           varient="outlined"
           py={1.1}
           ml={3}
+          disabled={!!nodeState?.nodeA?.disableDropDown}
         />
         {/* <StandardButton
           text="cancel"

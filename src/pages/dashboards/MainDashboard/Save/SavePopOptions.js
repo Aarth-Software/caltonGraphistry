@@ -26,7 +26,11 @@ const SavePopOptions = React.memo((props) => {
   return (
     <React.Fragment>
       <div className="dropdown-menu-container">
-        <Tooltip title={"More options"}>
+        <Tooltip
+          title={
+            "The Graph button submits your query and produces the corresponding graph from the literature. The drop-down menu gives options to save your graph or to retrieve your already saved graphs."
+          }
+        >
           <div
             className={`icon-container`}
             // style={{ zIndex: "2000" }}

@@ -26,14 +26,14 @@ const Wrapper = styled(Paper)`
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
-  zoom: 0.8;
+  zoom: 0.85;
 `;
 const FlexContainer = styled(Box)`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   width: 50rem;
-  margin-top: 0.7rem;
+  margin-top: 0.9rem;
 `;
 const ContactUs = ({ theme }) => {
   // const handleClick = () => {
@@ -86,8 +86,6 @@ const ContactUs = ({ theme }) => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             const { firstName, email, feedback, request_access } = values;
             try {
-              // await signIn(values.email, values.password);
-              // navigate("/generateQuery");
               dispatch(
                 askHelp({
                   name: firstName,
@@ -153,19 +151,24 @@ const ContactUs = ({ theme }) => {
                 maxRows={5}
                 value={values.feedback}
                 error={touched.feedback && errors.feedback ? "true" : "false"}
-                helperText={touched.feedback && errors.feedback}
+                // helperText={touched.feedback && errors.feedback}
                 size="lg"
                 style={{
                   width: "100%",
                   marginTop: 15,
                   fontSize: "1.4rem",
                   fontFamily: theme.typography.fontFamily,
+                  padding: ".5em",
+                  fontWeight: "normal",
+                  outline: "none",
                 }}
                 onBlur={(e) => {
                   handleBlur(e);
                   setFieldTouched("feedback", true); // use setFieldTouched here
                 }}
                 onChange={handleChange}
+                placeholder="Enter your feedback here"
+                className="feedback-input"
               />
               <FormHelperText
                 sx={{ pl: 3.5 }}
@@ -175,9 +178,15 @@ const ContactUs = ({ theme }) => {
               </FormHelperText>
               <FormControlLabel
                 control={
-                  <Checkbox checked={false} value="remember" color="primary" />
+                  <Checkbox
+                    onChange={handleChange}
+                    checked={values.request_access}
+                    value="remember"
+                    color="primary"
+                    name="request_access"
+                  />
                 }
-                label="Access request"
+                label="Request invitation to sign up for LitDig"
               />
               <Button
                 type="submit"

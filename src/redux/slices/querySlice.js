@@ -22,7 +22,11 @@ import {
   setSaveName,
   setShowStoreOptions,
 } from "./serviceSlice";
-import { retriveFilterValues, setInitilFilterState } from "./filterSlice";
+import {
+  retriveFilterValues,
+  setFilterOptions,
+  setInitilFilterState,
+} from "./filterSlice";
 
 const generateQuerySlice = createSlice({
   name: "query",
@@ -65,6 +69,7 @@ const generateQuerySlice = createSlice({
     filterError: false,
     fetchFiltersOnce: true,
     helperFilterContainer: [],
+    initialYearOptions: { startYear: [], endYear: [] },
   },
   reducers: {
     setFetchOnce: (state, { payload }) => {
@@ -144,14 +149,38 @@ const generateQuerySlice = createSlice({
       ];
       state.helperFilterContainer = selectFilterElements;
     },
+    setInitialYearOptions: (state, { payload }) => {
+      state.initialYearOptions = {
+        startYear: payload?.fromYear,
+        endYear: payload?.toYear?.map(Number).sort((a, b) => a - b),
+      };
+    },
   },
 });
 
-export const fetchDropdownValues = () => async (dispatch) => {
+export const fetchDropdownValues = (setFun) => async (dispatch) => {
   try {
     dispatch(setDropdownLoading(true));
     const response = await getDropdowns();
     dispatch(setDropdownData(response.data));
+    dispatch(
+      getPatternChange(
+        {
+          // btn: tripleNodeD,
+          grow: 3,
+          // active: aTripleNodeD,
+          nodeA: true,
+          nodeB: true,
+          nodeC: true,
+          series: true,
+          unUsedA: true,
+          unUsedC: true,
+          code: "tripleNcA",
+          selection_type: "3node",
+        },
+        setFun
+      )
+    );
     dispatch(setDropdownLoading(false));
   } catch (err) {
     console.log(err);
@@ -180,58 +209,6 @@ export const fetchSavedQuaries = (kc) => async (dispatch) => {
     dispatch(setSaveRecordsFetchError(true));
   }
 };
-
-// export const getDataSetId =
-//   async (obj, errorCatch, enqueueSnackbar, values) => async (dispatch) => {
-//     if (errorCatch.some((eg) => eg)) {
-//       return;
-//     }
-//     dispatch(setValues({ ...values, loading: true }));
-//     try {
-//       const response = await GenerateDataSet(obj);
-//       if (response.data === "No records found") {
-//         dispatch(setValues({ data: response.data, loading: false }));
-//         dispatch(setSaveDataSet({ status: false, data: null }));
-//       } else {
-//         dispatch(setValues({ data: response.data[0], loading: false }));
-//         enqueueSnackbar("Generate graph successfull", {
-//           variant: "success",
-//           autoHideDuration: 2000,
-//           style: { width: 300, left: "calc(50% - 150px)" },
-//         });
-//         dispatch(setSaveDataSet({ status: false, data: null }));
-//       }
-//     } catch (err) {
-//       dispatch(setValues({ ...values, loading: false }));
-//       enqueueSnackbar("Generate graph unsuccessfull", {
-//         variant: "error",
-//         autoHideDuration: 2000,
-//         style: { width: 300, left: "calc(50% - 150px)" },
-//       });
-//       dispatch(setSaveDataSet({ status: false, data: null }));
-//     }
-//   };
-
-// export const getGenerateGraph =
-//   (globelState, setFun, enqueueSnackbar, values) => async (dispatch) => {
-//     let errorCatch = [];
-//     const cloneObject = { ...globelState };
-//     checkError(cloneObject, errorCatch);
-//     const valueObj = mergeObjects(cloneObject);
-//     dispatch(setSelectParams(valueObj));
-//     setFun(cloneObject);
-//     getDataSetId(valueObj, errorCatch, enqueueSnackbar, values);
-//     for (let d in cloneObject) {
-//       if (cloneObject[d].error) {
-//         return enqueueSnackbar("please fill mandatory(*) fields", {
-//           variant: "error",
-//           autoHideDuration: 2000,
-//           style: { width: 300, left: "calc(50% - 150px)" },
-//         });
-//       }
-//     }
-//     dispatch(setDefaultGraph(false));
-//   };
 
 export const getRetriveSavedDataSet = (e, setFun) => (dispatch) => {
   // setFun = setNodeState
@@ -277,7 +254,7 @@ export const save =
         keyword2: eg.keywordB,
         keyword3: eg.keywordC,
         query_name: saveName,
-        dataset: !values.data || "1234",
+        dataset: !values.data,
         selection_type: `${Object.keys(nodeState).length - 5}node`,
         selection_code: pattern.code,
         fromYear: eg.fromYear,
@@ -287,7 +264,6 @@ export const save =
         publisherFilter: eg.publisherFilter,
       };
     });
-    console.log(changeKeys);
 
     if (saveName.split("").length < 2) {
       enqueueSnackbar("fill mandatory fields", {
@@ -326,9 +302,16 @@ export const getFilterOptions = () => async (dispatch) => {
     dispatch(setFilterLoading(true));
     const response = await getFilters();
     dispatch(setFilters(JSON.parse(response.data)));
-    console.log(Object.keys(JSON.parse(response.data)));
+    dispatch(setInitialYearOptions(JSON.parse(response.data)));
     dispatch(
       setInitilFilterState(
+        Object.keys(JSON.parse(response.data)).filter(
+          (eg) => !["fromYear", "toYear"].includes(eg)
+        )
+      )
+    );
+    dispatch(
+      setFilterOptions(
         Object.keys(JSON.parse(response.data)).filter(
           (eg) => !["fromYear", "toYear"].includes(eg)
         )
@@ -361,5 +344,6 @@ export const {
   setFilters,
   setFetchFiltersOnce,
   sendToHelperContainer,
+  setInitialYearOptions,
 } = generateQuerySlice.actions;
 export const generateQueryReducer = generateQuerySlice.reducer;

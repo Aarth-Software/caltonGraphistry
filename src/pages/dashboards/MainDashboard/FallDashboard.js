@@ -53,6 +53,7 @@ import {
   fetchSavedQuaries,
   getDataSetId,
   getGenerateGraph,
+  getPatternChange,
   getRetriveSavedDataSet,
   save,
   setDefaultGraph,
@@ -81,6 +82,24 @@ const LoaderContainer = styled(Box)({
   width: "100%",
   height: "100%",
 });
+const TitleAndFilterFlexBox = styled(Box)({
+  width: `calc(100% - 1.5rem)`,
+  height: "2rem",
+  // background: "red",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  position: "absolute",
+});
+const FilterTooltip = styled(Box)({
+  width: "5rem",
+  height: "2rem",
+  // background: "green",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
 const Card = styled(Box)``;
 const FallDashboard = ({ theme }) => {
   const dispatch = useDispatch();
@@ -109,26 +128,27 @@ const FallDashboard = ({ theme }) => {
   React.useEffect(() => {
     if (fetchOnce) {
       dispatch(setActivePattern(new Array(btnArray.length).fill(false)));
-      dispatch(fetchDropdownValues());
+      dispatch(fetchDropdownValues(setNodeState));
       dispatch(fetchDefaultGraph());
+
       dispatch(fetchSavedQuaries(user?.id));
     }
     dispatch(setFetchOnce(false));
   }, []);
 
-  const getId = async (obj, errorCatch) => {
+  const getId = async (obj, errorCatch, id) => {
     if (errorCatch.some((eg) => eg)) {
       return;
     }
     dispatch(setValues({ ...values, loading: true }));
     try {
-      const response = await GenerateDataSet(obj);
+      const response = await GenerateDataSet({ ...obj, userId: id });
       if (response.data === "No records found") {
         dispatch(setValues({ data: response.data, loading: false }));
         dispatch(setSaveDataSet({ status: false, data: null }));
       } else {
         dispatch(setValues({ data: response.data[0], loading: false }));
-        enqueueSnackbar("Generate graph successfull", {
+        enqueueSnackbar("Graph generated successfully.", {
           variant: "success",
           autoHideDuration: 2000,
           style: { width: 300, left: "calc(50% - 150px)" },
@@ -137,7 +157,7 @@ const FallDashboard = ({ theme }) => {
       }
     } catch (err) {
       dispatch(setValues({ ...values, loading: false }));
-      enqueueSnackbar("Generate graph unsuccessfull", {
+      enqueueSnackbar("Please try again later.", {
         variant: "error",
         autoHideDuration: 2000,
         style: { width: 300, left: "calc(50% - 150px)" },
@@ -150,10 +170,9 @@ const FallDashboard = ({ theme }) => {
     const cloneObject = { ...nodeState };
     checkError(cloneObject, errorCatch);
     const valueObj = mergeObjects(cloneObject);
-    console.log(valueObj);
     dispatch(setSelectParams(valueObj));
     setNodeState(cloneObject);
-    getId(valueObj, errorCatch);
+    getId(valueObj, errorCatch, user?.id);
     for (let d in cloneObject) {
       if (cloneObject[d].error) {
         return enqueueSnackbar("please fill mandatory(*) fields", {
@@ -220,8 +239,8 @@ const FallDashboard = ({ theme }) => {
     : xsMatches
     ? ["500px", "30px", "200px"]
     : ["900px", "auto", "12rem"];
-  console.log(filterArray);
-
+  // console.log(filterArray);
+  // console.log(values?.data);
   return (
     <>
       <Stack sx={{ width: "100%", height: "100%" }}>
@@ -232,46 +251,50 @@ const FallDashboard = ({ theme }) => {
             setActivePattern={setActivePattern}
           />
           <Card sx={{ ...patternContainerStyle }}>
-            <Typography
-              varient="p"
-              sx={{
-                mt: 1,
-                position: "absolute",
-                color: "#259DF8",
-                fontSize: ".9rem",
-                fontWeight: "bolder",
-              }}
-            >
-              2. Build query
-            </Typography>
-            <Box
-              sx={{
-                mt: 1,
-                position: "absolute",
-                color: "#259DF8",
-                right: ".5rem",
-                zIndex: 2,
-              }}
-            >
-              <TooltipComp
-                className="no-padding-icon-button"
-                size="1rem"
-                // icon={info}
-                message={"this is selected drop info"}
-                top="0rem"
-              />
-            </Box>
-            <Box
-              sx={{
-                mt: 1,
-                position: "absolute",
-                color: "#259DF8",
-                right: "2.5rem",
-                zIndex: 200,
-              }}
-            >
-              <FiltersComponent icon={filterInActive} />
-            </Box>
+            <TitleAndFilterFlexBox>
+              <Typography
+                varient="p"
+                sx={{
+                  mt: 1,
+                  // position: "absolute",
+                  color: "#259DF8",
+                  fontSize: ".9rem",
+                  fontWeight: "bolder",
+                  // bgcolor: "red",
+                }}
+              >
+                2. Build query
+              </Typography>
+              <FilterTooltip>
+                <Box
+                  sx={{
+                    mt: 1,
+                    color: "#259DF8",
+                    zIndex: 200,
+                    marginTop: ".9em",
+                  }}
+                >
+                  <FiltersComponent icon={filterInActive} />
+                </Box>
+                <Box
+                  sx={{
+                    mt: 1,
+                    color: "#259DF8",
+                    zIndex: 2,
+                  }}
+                >
+                  <TooltipComp
+                    className="no-padding-icon-button"
+                    size="1rem"
+                    // icon={info}
+                    message={
+                      "Start building query. From the left text box to the right, first choose an asset (node) type from the drop-down menu (construct, hypothesis, author, etc) and then type your keyword where applicable."
+                    }
+                    top="0rem"
+                  />
+                </Box>
+              </FilterTooltip>
+            </TitleAndFilterFlexBox>
 
             {dropdownLoading && (
               <Box sx={{ ...selectPropContainerStyle, ...flexCenter }}>
@@ -345,10 +368,10 @@ const FallDashboard = ({ theme }) => {
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (
             <Box sx={{ height: "100%", width: "100%", ...flexCenter }}>
-              This query returned{" "}
+              No query results to{" "}
               <span style={{ color: red[400], padding: "0rem  .2rem" }}>
                 {" "}
-                no results.
+                graph.
               </span>
             </Box>
           )}

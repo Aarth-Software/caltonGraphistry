@@ -15,7 +15,7 @@ const Presentation = ({ children }) => {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate("/generateQuery");
+      navigate("/query");
     } else {
       navigate("/auth");
     }

@@ -72,6 +72,7 @@ const AutoInputField = ({
         display: "flex",
         flexDirection: "column",
         marginRight: 1,
+        outline: "none",
         width: "100%",
         "& input": {
           bgcolor: "background.paper",
@@ -112,6 +113,7 @@ const AutoInputField = ({
               border: `.1rem solid #cbcbcb`,
               fontSize: ".9rem",
               borderRadius: ".18rem",
+              outline: "none",
             }}
           />
         </InputContainer>

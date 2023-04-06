@@ -7,8 +7,7 @@ import Loader from "../Loader";
 
 function AuthGuard({ children }) {
   const { user, isInitialized } = useAuth();
-  console.log(user);
-  console.log(user.isAdmin);
+
   if (!isInitialized) {
     return <Loader />;
   }

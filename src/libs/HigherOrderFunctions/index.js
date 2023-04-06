@@ -19,6 +19,7 @@ export const refreshState = (setFunction) => {
 export const retriveSavedGraphValues = (e, setFunction) => {
   // have to make this logic dynamically
   const { filters } = e;
+
   setFunction((prev) => {
     const updatedState = {};
     for (const [idx, key] of Object.entries(["nodeA", "nodeB", "nodeC"])) {
@@ -177,15 +178,23 @@ export const mergeObjects = (obj) => {
     toYear,
     publicationFilter,
   } = obj;
+  console.log(obj);
+
   const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
     (result, key) => {
       result[key] = obj[key]?.value || null;
       result[key.replace("node", "keyword")] = obj[key]?.inputValue || null;
       return result;
     },
-    { publisherFilter, fromYear, toYear, publicationFilter, affiliationFilter }
+    {
+      publisherFilter,
+      fromYear,
+      toYear,
+      publicationFilter,
+      affiliationFilter,
+    }
   );
-  if (Object.keys(obj).length === 2) {
+  if (Object.keys(obj).length === 7) {
     const getproperMap = [dropDownSelectedValues].map((el, i) => {
       const data = {
         ...el,

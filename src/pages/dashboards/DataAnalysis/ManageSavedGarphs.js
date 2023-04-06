@@ -217,7 +217,7 @@ const ManagedSavedGraphs = React.memo(
                           whiteSpace: i !== showText ? "nowrap" : "wrap",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
-                          maxWidth: "27rem",
+                          maxWidth: "10rem",
                         }}
                       >
                         {e.selected_query}

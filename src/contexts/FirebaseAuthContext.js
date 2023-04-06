@@ -95,7 +95,14 @@ function AuthProvider({ children }) {
     return firebase.auth().signInWithPopup(provider);
   };
 
-  const signUp = (email, password, firstName, lastName) =>
+  const signUp = (
+    email,
+    password,
+    firstName,
+    lastName,
+    affiliation,
+    organisation
+  ) =>
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -109,6 +116,8 @@ function AuthProvider({ children }) {
             email,
             displayName: `${firstName} ${lastName}`,
             isAdmin: "user",
+            affiliation,
+            organisation,
           });
         const db = firebase.database();
         db.ref("users").push({
@@ -118,6 +127,8 @@ function AuthProvider({ children }) {
           email,
           displayName: `${firstName} ${lastName}`,
           timestamp: Date.now(),
+          affiliation,
+          organisation,
         });
       })
       .catch((err) => console.log(err));

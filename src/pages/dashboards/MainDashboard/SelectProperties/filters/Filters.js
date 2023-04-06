@@ -11,12 +11,16 @@ import {
 import { useSelector } from "react-redux";
 import Loader from "../../../../../components/Loader";
 import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
-import { addFilterSet } from "../../../../../redux/slices/filterSlice";
+import {
+  addFilterSet,
+  applyFilters,
+} from "../../../../../redux/slices/filterSlice";
 
 const FiltersComponent = (props) => {
   const { fetchFiltersOnce, filterLoading, queryFilters } = useSelector(
     (state) => state.query
   );
+  const { filterOptions } = useSelector((s) => s.filters);
   const { setNodeState, nodeState } = useStateContextHook();
   const [openFilter, setOpenFilter] = React.useState(false);
   const { filterArray } = useSelector((state) => state.filters);
@@ -38,20 +42,16 @@ const FiltersComponent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const reqiredSelctions = Object.keys(queryFilters).filter(
-    (el) => !["fromYear", "toYear"].includes(el)
-  );
+  // const reqiredSelctions = Object.keys(queryFilters).filter(
+  //   (el) => !["fromYear", "toYear"].includes(el)
+  // );
 
   const appendFilterPattern = () => {
-    dispatch(addFilterSet(queryFilters, filterArray, reqiredSelctions));
+    dispatch(addFilterSet(queryFilters, filterArray, filterOptions));
   };
   const getApplyFilters = () => {
-    const mergedObj = filterArray.reduce((acc, cur) => {
-      acc[cur.value] = cur.autoCompleteValue;
-      return acc;
-    }, nodeState);
-    console.log(mergedObj);
-    setNodeState(mergedObj);
+    dispatch(applyFilters(filterArray, nodeState, setNodeState));
+    setOpenFilter(false);
   };
 
   return (

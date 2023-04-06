@@ -175,11 +175,11 @@ const nodeDesables = {
       disableDropDown: false,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   doubleNrD: {
     nodeA: {
@@ -192,11 +192,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   doubleN: {
     nodeA: {
@@ -216,11 +216,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   doubleNlD: {
     nodeA: {
@@ -238,11 +238,11 @@ const nodeDesables = {
       disableDropDown: true,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   tripleNcD: {
     nodeA: {
@@ -269,11 +269,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   tripleNrD: {
     nodeA: {
@@ -295,11 +295,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   tripleNlD: {
     nodeA: {
@@ -326,11 +326,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   tripleNcA: {
     nodeA: {
@@ -350,11 +350,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: true, error: false, message: "" },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   triplePerNcA: {
     nodeA: {
@@ -374,11 +374,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   triplePerNlD: {
     nodeA: {
@@ -405,11 +405,11 @@ const nodeDesables = {
       error: false,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   triplePerNrD: {
     nodeA: {
@@ -431,11 +431,11 @@ const nodeDesables = {
       message: "",
     },
     nodeC: { value: "", disableDropDown: false, error: false, message: "" },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
   triplePerNcD: {
     nodeA: {
@@ -462,12 +462,29 @@ const nodeDesables = {
       error: false,
       message: "",
     },
-    fromYear: "",
-    toYear: "",
-    publicationFilter: "",
-    publisherFilter: "",
-    affiliationFilter: "",
+    fromYear: [],
+    toYear: [],
+    publicationFilter: [],
+    publisherFilter: [],
+    affiliationFilter: [],
   },
+};
+
+const selectionNodeInfoObject = {
+  "1node":
+    "For literature queries on a single asset (construct, hypothesis, paper, etc).",
+  "2node":
+    "For literature queries on relationships between two assets (construct-construct, hypothesis-construct, paper-hypothesis, etc) *",
+  "3node":
+    "For literature queries on mediation relationships between constructs (Ind Var – Mediator – Dep Var)*",
+  "4node":
+    "literature queries on moderation relationships between constructs (Ind Var – Moderator – Dep Var) *",
+  undefined:
+    "* A solid node is used to look for an asset by specific keyword. A hollow node is used to look for an asset openly without a keyword.",
+};
+
+export const getInfoContent = (v) => {
+  return selectionNodeInfoObject[v];
 };
 
 export const changeDesable = (v) => {

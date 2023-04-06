@@ -13,17 +13,23 @@ export const GenerateDataSet = (body) => {
     publicationFilter,
     publisherFilter,
     affiliationFilter,
+    userId,
   } = body;
-  console.log(
-    fromYear,
-    toYear,
+  const params = {
+    node1: nodeA,
+    keyword1: keywordA,
+    node2: nodeB,
+    keyword2: keywordB,
+    node3: nodeC,
+    keyword3: keywordC,
+    fromYear: fromYear,
+    toYear: toYear,
     publicationFilter,
     publisherFilter,
-    affiliationFilter
-  );
-  return api.get(
-    `buildQuery?node1=${nodeA}&keyword1=${keywordA}&node2=${nodeB}&keyword2=${keywordB}&node3=${nodeC}&keyword3=${keywordC}&fromYear=${fromYear}&toYear=${toYear}&publicationFilter=${publicationFilter}&publisherFilter=${publisherFilter}&affiliationFilter=${affiliationFilter}`
-  );
+    affiliationFilter,
+    userId,
+  };
+  return api.post(`buildQuery`, params);
 };
 
 export const getDropdowns = () => api.get("getDropdownValues");

@@ -9,7 +9,7 @@ import {
   Button,
   TextField as MuiTextField,
 } from "@mui/material";
-import { spacing } from "@mui/system";
+import { Box, spacing } from "@mui/system";
 
 import useAuth from "../../hooks/useAuth";
 import Loader from "../Loader";
@@ -39,7 +39,7 @@ function SignUp({ theme }) {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate("/generateQuery");
+      navigate("/query");
     }
   }, [isAuthenticated, navigate]);
 
@@ -75,6 +75,8 @@ function SignUp({ theme }) {
             "Both password need to be the same"
           ),
         }),
+        affiliation: Yup.string().max(255).required("Affiliation is required"),
+        organisation: Yup.string().max(255).required("Affiliation is required"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
@@ -82,9 +84,11 @@ function SignUp({ theme }) {
             values.email,
             values.password,
             values.firstName,
-            values.lastName
+            values.lastName,
+            values.affiliation,
+            values.organisation
           );
-          navigate("/generateQuery");
+          navigate("/query");
         } catch (error) {
           console.log(error);
           const message = error.message || "Something went wrong";
@@ -111,30 +115,6 @@ function SignUp({ theme }) {
             </Alert>
           )}
           <TextField
-            type="text"
-            name="firstName"
-            label="First name"
-            value={values.firstName}
-            error={Boolean(touched.firstName && errors.firstName)}
-            fullWidth
-            helperText={touched.firstName && errors.firstName}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            my={3}
-          />
-          <TextField
-            type="text"
-            name="lastName"
-            label="Last name"
-            value={values.lastName}
-            error={Boolean(touched.lastName && errors.lastName)}
-            fullWidth
-            helperText={touched.lastName && errors.lastName}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            my={3}
-          />
-          <TextField
             type="email"
             name="email"
             label="Email address"
@@ -145,32 +125,118 @@ function SignUp({ theme }) {
             onBlur={handleBlur}
             onChange={handleChange}
             disabled={!!email}
-            my={3}
+            my={2}
           />
-          <TextField
-            type="password"
-            name="password"
-            label="Password"
-            value={values.password}
-            error={Boolean(touched.password && errors.password)}
-            fullWidth
-            helperText={touched.password && errors.password}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            my={3}
-          />
-          <TextField
-            type="password"
-            name="confirmPassword"
-            label="Confirm password"
-            value={values.confirmPassword}
-            error={Boolean(touched.confirmPassword && errors.confirmPassword)}
-            fullWidth
-            helperText={touched.confirmPassword && errors.confirmPassword}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            my={3}
-          />
+          <Box
+            sx={{
+              width: "100%",
+              height: "auto",
+              // bgcolor: "red",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextField
+              type="text"
+              name="firstName"
+              label="First name"
+              value={values.firstName}
+              error={Boolean(touched.firstName && errors.firstName)}
+              fullWidth
+              helperText={touched.firstName && errors.firstName}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              mr={2}
+            />
+            <TextField
+              type="text"
+              name="lastName"
+              label="Last name"
+              value={values.lastName}
+              error={Boolean(touched.lastName && errors.lastName)}
+              fullWidth
+              helperText={touched.lastName && errors.lastName}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              ml={2}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextField
+              type="password"
+              name="password"
+              label="Password"
+              value={values.password}
+              error={Boolean(touched.password && errors.password)}
+              fullWidth
+              helperText={touched.password && errors.password}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              mr={2}
+            />
+            <TextField
+              type="password"
+              name="confirmPassword"
+              label="Confirm password"
+              value={values.confirmPassword}
+              error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+              fullWidth
+              helperText={touched.confirmPassword && errors.confirmPassword}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              ml={2}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextField
+              type="text"
+              name="affiliation"
+              label="Affiliation"
+              value={values.affiliation}
+              error={Boolean(touched.affiliation && errors.affiliation)}
+              fullWidth
+              helperText={touched.affiliation && errors.affiliation}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              mr={2}
+            />
+            <TextField
+              type="text"
+              name="organisation"
+              label="Organisation"
+              value={values.organisation}
+              error={Boolean(touched.organisation && errors.organisation)}
+              fullWidth
+              helperText={touched.organisation && errors.organisation}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              ml={2}
+            />
+          </Box>
+
           <Button
             type="submit"
             fullWidth
@@ -181,6 +247,7 @@ function SignUp({ theme }) {
               fontSize: 14.2,
               bgcolor: theme.palette.secondary.main,
               fontWeight: 600,
+              mt: 2,
             }}
           >
             Sign up

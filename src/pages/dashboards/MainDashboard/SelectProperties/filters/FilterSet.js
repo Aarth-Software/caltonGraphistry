@@ -5,22 +5,38 @@ import FilterSelectBox from "./FilterSelectBox";
 import CloseIcon from "@mui/icons-material/Close";
 import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
 import { useDispatch } from "react-redux";
-import { sendToHelperContainer } from "../../../../../redux/slices/querySlice";
+import {
+  sendToHelperContainer,
+  setFilters,
+} from "../../../../../redux/slices/querySlice";
 import { useSelector } from "react-redux";
 import AutoInputField from "../../../../../libs/InputComponents/AutoInputField";
 import {
   addFilterSet,
+  applyFilters,
   getSelectAutoInput,
   selectBoxHandleChange,
   setFilterArray,
 } from "../../../../../redux/slices/filterSlice";
+import styled from "@emotion/styled";
+
+const YearsBox = styled(Box)`
+  height: 2rem;
+  width: 11.7em;
+  border: 0.1rem solid rgb(203, 203, 203);
+  border-radius: 0.2rem;
+  padding-left: 0.5rem;
+  font-size: 0.9rem;
+  align-items: center;
+  display: flex;
+  color: black;
+`;
 
 const FilterSet = () => {
-  const { helperFilterContainer, queryFilters } = useSelector(
-    (state) => state.query
-  );
+  const { helperFilterContainer, queryFilters, initialYearOptions } =
+    useSelector((state) => state.query);
   const { filterArray } = useSelector((state) => state.filters);
-  console.log(filterArray);
+  // console.log(filterArray);
   const dispatch = useDispatch();
   const { nodeState, setNodeState } = useStateContextHook();
   const { fromYear, toYear, nodeA } = nodeState;
@@ -29,7 +45,33 @@ const FilterSet = () => {
   );
   const yearHandleHange = (e) => {
     const { name, value } = e.target;
-    setNodeState((prev) => ({ ...prev, [name]: value }));
+    if (!value) {
+      return;
+    }
+    if (name === "fromYear") {
+      const index = queryFilters.fromYear.indexOf(value);
+      let toYearOptions = [];
+      if (index !== queryFilters.fromYear.length - 1) {
+        toYearOptions = initialYearOptions.endYear.filter((eg) => eg > value);
+      }
+      setNodeState((prev) => ({ ...prev, [name]: [value], toYear: "" }));
+      dispatch(
+        setFilters({
+          ...queryFilters,
+          toYear: toYearOptions,
+        })
+      );
+    } else {
+      setNodeState((prev) => ({ ...prev, [name]: [value] }));
+    }
+  };
+
+  const removeFilterSet = async (id) => {
+    if (filterArray.length !== 1) {
+      const updatedSets = filterArray.filter((el, i) => el !== id);
+      dispatch(setFilterArray(updatedSets));
+      dispatch(applyFilters(updatedSets, nodeState, setNodeState));
+    }
   };
 
   return (
@@ -69,10 +111,24 @@ const FilterSet = () => {
         >
           <FilterSelectBox
             name="fromYear"
+            value={""}
+            handleChange={yearHandleHange}
+            disabled={true}
+            options={queryFilters?.fromYear}
+            showLabel={true}
+            placeholder={"Years"}
+            marginRight={true}
+          />
+          {/* <YearsBox>Years</YearsBox> */}
+
+          <FilterSelectBox
+            name="fromYear"
             value={fromYear}
             handleChange={yearHandleHange}
             disabled={!!nodeA?.disableDropDown}
             options={queryFilters?.fromYear}
+            placeholder={"From year"}
+            showLabel={true}
           />
           <FilterSelectBox
             name="toYear"
@@ -80,6 +136,8 @@ const FilterSet = () => {
             handleChange={yearHandleHange}
             disabled={!!nodeA?.disableDropDown}
             options={queryFilters?.toYear}
+            placeholder={"To year"}
+            showLabel={true}
           />
           {/* <FilterSelectBox
             name="publicationFilter"
@@ -101,14 +159,17 @@ const FilterSet = () => {
             key={index}
           >
             <CloseIcon
-              onClick={() => {
-                if (filterArray.length !== 1) {
-                  dispatch(
-                    setFilterArray(filterArray.filter((el, i) => el !== eg))
-                  );
-                }
+              onClick={() =>
+                !!nodeState?.nodeA?.disableDropDown ? null : removeFilterSet(eg)
+              }
+              sx={{
+                px: 0,
+                width: "3rem",
+                color: "gray",
+                cursor: !!nodeState?.nodeA?.disableDropDown
+                  ? "not-allowed"
+                  : "pointer",
               }}
-              sx={{ px: 0, width: "3rem", color: "gray" }}
             />
             <FilterSelectBox
               name={eg.name}
@@ -128,17 +189,6 @@ const FilterSet = () => {
               helperFilterContainer={helperFilterContainer}
               disabled={!!nodeA?.disableDropDown}
             />
-            {/* <input
-              style={{
-                width: "99%",
-                height: "2rem",
-                borderRadius: "0px",
-                border: ".02rem solid gray",
-                outline: "none",
-                marginLeft: ".5rem",
-              }}
-              type="text"
-            /> */}
             <AutoInputField
               selectedValue={eg.autoCompleteValue}
               options={queryFilters[eg.value]}

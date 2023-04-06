@@ -146,7 +146,7 @@ const DoughnutChart = ({ theme, title, graphData }) => {
                             "Variable",
                             " Variable"
                           )
-                        : "total"}
+                        : "Total"}
                     </Typography>
                   </DoughnutInner>
                   <Doughnut data={data} options={options} />

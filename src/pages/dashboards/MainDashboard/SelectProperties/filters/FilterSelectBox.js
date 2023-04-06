@@ -25,24 +25,26 @@ const CssTextField = styled(Select)({
 export default function FilterSelectBox(props) {
   const {
     name,
-    value = "",
+    value,
     handleChange,
     disabled,
     options,
-    helperFilterContainer,
+    showLabel,
+    placeholder,
+    marginRight,
   } = props;
   // console.log(name, value);
   const jsxOptions = options.map((rg, i) => (
     <MenuItem key={i} sx={{ fontSize: ".9rem" }} value={rg}>
-      {rg}
+      {`${rg}`.replace("Filter", "")}
     </MenuItem>
   ));
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: "14rem" }}>
+      <FormControl sx={{ m: 1, mr: marginRight ? 0 : 1, minWidth: "10.66rem" }}>
         <CssTextField
-          value={value}
+          value={value || ""}
           name={name}
           onChange={handleChange}
           disabled={disabled}
@@ -56,7 +58,7 @@ export default function FilterSelectBox(props) {
           }}
         >
           <MenuItem sx={{ fontSize: ".9rem" }} value="">
-            choose
+            {showLabel ? placeholder : "Choose"}
           </MenuItem>
           {jsxOptions}
         </CssTextField>

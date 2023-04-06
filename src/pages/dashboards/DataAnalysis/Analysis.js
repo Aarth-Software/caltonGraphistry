@@ -47,8 +47,6 @@ const Analysis = ({ theme }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(dashboardInfo);
-
   const conditionalData =
     dashboardInfo?.query1?.length > 0 ? dashboardInfo.query1[0] : {};
 
@@ -78,7 +76,7 @@ const Analysis = ({ theme }) => {
                 {Object.entries(conditionalData).map((el, i) => (
                   <Grid key={i} item xs={12} sm={12} md={6}>
                     <Stats
-                      title={el[0]}
+                      title={el[0].replace("Journals", "Publication")}
                       amount={!el[1] ? "No data" : el[1]}
                       chip="Yearly"
                       percentagetext="+27%"
