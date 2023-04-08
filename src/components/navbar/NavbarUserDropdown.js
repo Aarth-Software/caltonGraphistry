@@ -71,97 +71,97 @@ function NavbarUserDropdown({ icon, size }) {
             },
           }}
         >
-          {user?.id && (
-            <>
-              {location[1] === "contact-us" && (
-                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
-                  Query
-                </MenuItem>
-              )}
-              {location[1] === "dashboard" ? (
-                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={generateQuery}>
-                  Query
-                </MenuItem>
-              ) : (
-                <MenuItem sx={{ fontSize: "1.1rem" }} onClick={dashboard}>
-                  Dashboard
-                </MenuItem>
-              )}
-            </>
-          )}
-
-          {location[1] !== "contact-us" ? (
+          {user?.id && [
+            location[1] === "contact-us" && (
+              <MenuItem
+                key="query"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={generateQuery}
+              >
+                Query
+              </MenuItem>
+            ),
+            location[1] === "dashboard" ? (
+              <MenuItem
+                key="query-db"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={generateQuery}
+              >
+                Query
+              </MenuItem>
+            ) : (
+              <MenuItem
+                key="dashboard"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={dashboard}
+              >
+                Dashboard
+              </MenuItem>
+            ),
+          ]}
+          {location[1] !== "contact-us" && (
             <MenuItem sx={{ fontSize: "1.1rem" }} onClick={contactUs}>
               Contact us
             </MenuItem>
-          ) : (
-            <>
-              {!user?.id && (
-                <>
-                  <MenuItem
-                    sx={{ fontSize: "1.1rem" }}
-                    onClick={() => {
-                      navigate("/auth/sign-up");
-                      setAnchorMenu(null);
-                    }}
-                  >
-                    Sign up
-                  </MenuItem>
-                  <MenuItem
-                    sx={{ fontSize: "1.1rem" }}
-                    onClick={() => {
-                      navigate("/auth/sign-in");
-                      setAnchorMenu(null);
-                    }}
-                  >
-                    Sign in
-                  </MenuItem>
-                </>
-              )}
-            </>
-          )}
-          {!user?.id && (
-            <>
-              {location[2] === "sign-in" && (
-                <MenuItem
-                  sx={{ fontSize: "1.1rem" }}
-                  onClick={() => {
-                    navigate("sign-up");
-                    setAnchorMenu(null);
-                  }}
-                >
-                  Sign up
-                </MenuItem>
-              )}
-              {location[2] === "sign-up" && (
-                <MenuItem
-                  sx={{ fontSize: "1.1rem" }}
-                  onClick={() => {
-                    navigate("sign-in");
-                    setAnchorMenu(null);
-                  }}
-                >
-                  Sign in
-                </MenuItem>
-              )}
-            </>
           )}
 
-          {user?.id && (
-            <>
-              {user.isAdmin && location[2] !== "invite-user" && (
-                <MenuItem
-                  sx={{ fontSize: "1.1rem" }}
-                  onClick={() => navigate("/auth/invite-user")}
-                >
-                  Invite user
-                </MenuItem>
-              )}
-              <MenuItem sx={{ fontSize: "1.1rem" }} onClick={handleSignOut}>
-                Sign out
+          {!user?.id && [
+            location[2] === "sign-in" && (
+              <MenuItem
+                key="sign-in"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={() => {
+                  navigate("sign-up");
+                  setAnchorMenu(null);
+                }}
+              >
+                Sign up
               </MenuItem>
-            </>
-          )}
+            ),
+            location[2] === "sign-up" && (
+              <MenuItem
+                key="sign-up"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={() => {
+                  navigate("sign-in");
+                  setAnchorMenu(null);
+                }}
+              >
+                Sign in
+              </MenuItem>
+            ),
+            location[1] === "contact-us" && (
+              <MenuItem
+                key="sign-in-contact"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={() => {
+                  navigate("/auth/sign-in");
+                  setAnchorMenu(null);
+                }}
+              >
+                Sign in
+              </MenuItem>
+            ),
+          ]}
+
+          {user?.id && [
+            user.isAdmin && location[2] !== "invite-user" && (
+              <MenuItem
+                key="invite-user"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={() => navigate("/auth/invite-user")}
+              >
+                Invite user
+              </MenuItem>
+            ),
+            <MenuItem
+              key="sign-out"
+              sx={{ fontSize: "1.1rem" }}
+              onClick={handleSignOut}
+            >
+              Sign out
+            </MenuItem>,
+          ]}
         </Menu>
       </div>
     </>

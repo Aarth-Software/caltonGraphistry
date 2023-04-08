@@ -20,6 +20,7 @@ const filterSlice = createSlice({
       },
     ],
     filterOptions: [],
+    openFilter: false,
   },
   reducers: {
     setFilterArray: (state, { payload }) => {
@@ -32,6 +33,9 @@ const filterSlice = createSlice({
     },
     setFilterOptions: (state, { payload }) => {
       state.filterOptions = payload;
+    },
+    setOpenFilter: (state, { payload }) => {
+      state.openFilter = payload;
     },
   },
 });
@@ -57,17 +61,6 @@ export const selectBoxHandleChange =
       set.name === name ? { ...set, value: value, autoCompleteValue: "" } : set
     );
     dispatch(setFilterArray(update));
-    // const overrideNextInputs = update.map((set, i) =>
-    //   i > idx
-    //     ? {
-    //         ...set,
-    //         value: "",
-    //         autoCompleteValue: "",
-    //       }
-    //     : set
-    // );
-    // dispatch(setFilterArray(overrideNextInputs));
-    // dispatch(selectBoxDynamicOptions(idx, overrideNextInputs, reference));
   };
 
 export const addFilterSet = (queryFilters, prev, reference) => (dispatch) => {
@@ -77,9 +70,6 @@ export const addFilterSet = (queryFilters, prev, reference) => (dispatch) => {
     {
       name: setName,
       value: "",
-      // options: reference.filter(
-      //   (ed) => !prev.map((eg) => eg.value).includes(ed)
-      // ),
       options: reference,
       autoCompleteValue: "",
     },
@@ -138,6 +128,10 @@ export const applyFilters =
     setNodeState(mergedObj);
   };
 
-export const { setFilterArray, setInitilFilterState, setFilterOptions } =
-  filterSlice.actions;
+export const {
+  setFilterArray,
+  setInitilFilterState,
+  setFilterOptions,
+  setOpenFilter,
+} = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

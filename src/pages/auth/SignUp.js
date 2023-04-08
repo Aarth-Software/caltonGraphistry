@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 // import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Paper, Typography } from "@mui/material";
 
 import SignUpComponent from "../../components/auth/SignUp";
 import Logo from "../../asserts/Logo";
 import { withTheme } from "@emotion/react";
+import useAuth from "../../hooks/useAuth";
+import Loader from "../../components/Loader";
 
 // const Brand = styled(Logo)`
 //   fill: ${(props) => props.theme.palette.primary.main};
@@ -25,13 +27,52 @@ const Wrapper = styled(Paper)`
 `;
 
 function SignUp({ theme }) {
+  const navigate = useNavigate();
+  const [email, setEmail] = React.useState("");
+  const [inviteToken, setInviteToken] = React.useState(null);
+  const [activeLink, setActiveLink] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const { isAuthenticated, isInitialized, checkInvitationDoc } = useAuth();
+  React.useEffect(() => {
+    if (isInitialized) {
+      setLoading(false);
+    }
+  }, [isInitialized]);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/query");
+    }
+  }, [isAuthenticated, navigate]);
+
+  React.useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const email = queryParams.get("email");
+    const token = queryParams.get("token");
+    if (!email && !token) {
+      navigate("/auth");
+    }
+    setInviteToken(token);
+    setEmail(email);
+    if (email && token) {
+      checkInvitationDoc(setActiveLink, token);
+    }
+  }, [inviteToken, checkInvitationDoc, navigate]);
+
+  if (activeLink === null) {
+    return <Loader />;
+  }
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!activeLink && email && inviteToken) {
+    return <h1>link has expired</h1>;
+  }
   return (
     <React.Fragment>
-      {/* <Brand /> */}
-      {/* <Logo size="18rem" mb="2rem" /> */}
       <Wrapper>
-        {/* <Helmet title="Sign Up" /> */}
-
         <Typography
           sx={{ mb: 2 }}
           component="h1"
@@ -50,7 +91,11 @@ function SignUp({ theme }) {
           Start creating the best possible user experience for you customers
         </Typography>
 
-        <SignUpComponent />
+        <SignUpComponent
+          email={email}
+          inviteToken={inviteToken}
+          activeLink={activeLink}
+        />
         {/* <Button
           sx={{
             mt: 1,

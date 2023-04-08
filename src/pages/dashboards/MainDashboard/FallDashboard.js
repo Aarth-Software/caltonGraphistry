@@ -325,11 +325,10 @@ const FallDashboard = ({ theme }) => {
             <div
               style={{
                 ...moreOptionStyle,
-                boxShadow:
-                  showStoreOptions === null
-                    ? ""
-                    : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
-                color: showStoreOptions === null ? "black" : "#f16067",
+                boxShadow: !showStoreOptions
+                  ? ""
+                  : "rgba(60, 64, 67, 0.2) 0px .1rem .2rem 0px, rgba(60, 64, 67, 0.05) 0px .1rem .3rem .1rem",
+                color: !showStoreOptions ? "black" : "#f16067",
                 ...flexCenter,
               }}
             >
@@ -348,7 +347,7 @@ const FallDashboard = ({ theme }) => {
             <Loader />
           </LoaderContainer>
         )}
-        {/* {!defaultGraphLoading && defaultGraphStatus && (
+        {!defaultGraphLoading && defaultGraphStatus && (
           <GraphistryGraph name="graph" dataSet={defaultDataset} />
         )}
         {!values?.loading &&
@@ -363,7 +362,7 @@ const FallDashboard = ({ theme }) => {
           )}
         {!!savedDataSet?.status && !values?.loading && (
           <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
-        )} */}
+        )}
         {!values?.loading &&
           !savedDataSet?.status &&
           (!values?.data || values?.data === "No records found") && (

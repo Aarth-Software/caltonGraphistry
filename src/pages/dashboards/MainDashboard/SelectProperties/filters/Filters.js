@@ -14,15 +14,15 @@ import useStateContextHook from "../../../../../libs/StateProvider/useStateConte
 import {
   addFilterSet,
   applyFilters,
+  setOpenFilter,
 } from "../../../../../redux/slices/filterSlice";
 
 const FiltersComponent = (props) => {
   const { fetchFiltersOnce, filterLoading, queryFilters } = useSelector(
     (state) => state.query
   );
-  const { filterOptions } = useSelector((s) => s.filters);
+  const { filterOptions, openFilter } = useSelector((s) => s.filters);
   const { setNodeState, nodeState } = useStateContextHook();
-  const [openFilter, setOpenFilter] = React.useState(false);
   const { filterArray } = useSelector((state) => state.filters);
   // const [filterArray, setFilterArray] = React.useState([
   //   {
@@ -42,22 +42,22 @@ const FiltersComponent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const reqiredSelctions = Object.keys(queryFilters).filter(
-  //   (el) => !["fromYear", "toYear"].includes(el)
-  // );
-
   const appendFilterPattern = () => {
     dispatch(addFilterSet(queryFilters, filterArray, filterOptions));
   };
   const getApplyFilters = () => {
     dispatch(applyFilters(filterArray, nodeState, setNodeState));
-    setOpenFilter(false);
+    dispatch(setOpenFilter(false));
+  };
+
+  const filterHandle = () => {
+    dispatch(setOpenFilter(!openFilter));
   };
 
   return (
     <>
       <Box
-        onClick={() => setOpenFilter((p) => !p)}
+        onClick={filterHandle}
         sx={{
           alignItems: "center",
           display: "flex",
@@ -98,7 +98,6 @@ const FiltersComponent = (props) => {
             <>
               <FilterSet />
               <AppendFilter
-                setOpenFilter={setOpenFilter}
                 appendFilterElement={appendFilterPattern}
                 getApplyFilters={getApplyFilters}
               />

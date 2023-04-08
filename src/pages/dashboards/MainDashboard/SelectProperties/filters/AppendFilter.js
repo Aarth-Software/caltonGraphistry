@@ -3,14 +3,13 @@ import { Box } from "@mui/system";
 import React from "react";
 import StandardButton from "../../../../../libs/Buttons/StandardButton";
 import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
+import { useSelector } from "react-redux";
 
-const AppendFilter = ({
-  theme,
-  appendFilterElement,
-  setOpenFilter,
-  getApplyFilters,
-}) => {
+const AppendFilter = ({ theme, appendFilterElement, getApplyFilters }) => {
   const { nodeState } = useStateContextHook();
+  const { filterArray } = useSelector((state) => state.filters);
+  const { fromYear, toYear } = nodeState;
+  console.log(nodeState);
   return (
     <>
       <Box
@@ -61,7 +60,12 @@ const AppendFilter = ({
           fontSize="1rem"
           fontWeight={600}
           bgcolor={theme.palette.secondary.main}
-          disabled={!!nodeState?.nodeA?.disableDropDown}
+          disabled={
+            !!nodeState?.nodeA?.disableDropDown ||
+            filterArray.some((eg, i) => !eg.value || !eg.autoCompleteValue) ||
+            !fromYear.length ||
+            !toYear.length
+          }
           onClick={getApplyFilters}
         />
       </Box>

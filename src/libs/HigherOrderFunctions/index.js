@@ -180,6 +180,8 @@ export const mergeObjects = (obj) => {
   } = obj;
   console.log(obj);
 
+  console.log(obj);
+
   const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
     (result, key) => {
       result[key] = obj[key]?.value || null;

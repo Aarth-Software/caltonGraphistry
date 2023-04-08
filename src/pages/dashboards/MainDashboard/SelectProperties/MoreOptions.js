@@ -31,7 +31,7 @@ const MoreOptions = React.memo((props) => {
   };
 
   const closeMenu = () => {
-    dispatch(setAnchorMenu(null));
+    dispatch(setAnchorMenu(false));
     dispatch(setActiveBg(""));
   };
   const active = [activeBg === index, hideControls === undefined].every(
@@ -58,8 +58,8 @@ const MoreOptions = React.memo((props) => {
         </div>
         <Menu
           id="menu-appbar"
-          anchorEl={!!hideControls ? null : active ? anchorMenu : null}
-          open={!!hideControls ? null : active ? Boolean(anchorMenu) : null}
+          anchorEl={!!hideControls ? false : active ? anchorMenu : false}
+          open={!!hideControls ? false : active ? Boolean(anchorMenu) : false}
           onClose={closeMenu}
           PaperProps={{
             style: {

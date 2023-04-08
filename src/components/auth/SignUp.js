@@ -19,33 +19,33 @@ const Alert = styled(MuiAlert)(spacing);
 
 const TextField = styled(MuiTextField)(spacing);
 
-function SignUp({ theme }) {
+function SignUp({ theme, email, inviteToken }) {
   const navigate = useNavigate();
-  const { signUp, isAuthenticated, isInitialized } = useAuth();
-  const [loading, setLoading] = React.useState(true);
-  const [email, setEmail] = React.useState("");
+  const { signUp } = useAuth();
+  // const [email, setEmail] = React.useState("");
+  // const [inviteToken, setInviteToken] = React.useState("");
+  // const [activeLink, setActiveLink] = React.useState(false);
 
-  React.useEffect(() => {
-    if (isInitialized) {
-      setLoading(false);
-    }
-  }, [isInitialized]);
+  // React.useEffect(() => {
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   const email = queryParams.get("email");
+  //   const token = queryParams.get("token");
+  //   setInviteToken(token);
+  //   setEmail(email);
+  //   checkInvitationDoc(setActiveLink, token);
+  // }, [inviteToken, checkInvitationDoc]);
 
-  React.useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const email = queryParams.get("email");
-    setEmail(email);
-  }, []);
+  // console.log(activeLink);
 
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/query");
-    }
-  }, [isAuthenticated, navigate]);
+  // React.useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/query");
+  //   }
+  // }, [isAuthenticated, navigate]);
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   return (
     <Formik
@@ -86,7 +86,8 @@ function SignUp({ theme }) {
             values.firstName,
             values.lastName,
             values.affiliation,
-            values.organisation
+            values.organisation,
+            inviteToken
           );
           navigate("/query");
         } catch (error) {

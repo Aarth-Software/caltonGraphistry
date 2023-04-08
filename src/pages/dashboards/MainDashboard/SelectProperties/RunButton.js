@@ -4,11 +4,13 @@ import { Box } from "@mui/system";
 import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import useStateContextHook from "../../../../libs/StateProvider/useStateContextHook";
+import { useSelector } from "react-redux";
 const RunGraphButton = styled(StandardButton)`
   bgcolor: ${(props) => props.theme.palette.secondary.main};
 `;
 const RunButton = ({ theme, onClick }) => {
   const { nodeState } = useStateContextHook();
+  const { openFilter } = useSelector((state) => state.filters);
   return (
     <Box
       sx={{
@@ -35,7 +37,7 @@ const RunButton = ({ theme, onClick }) => {
         fontWeight={600}
         onClick={onClick}
         bgcolor={theme.palette.secondary.main}
-        disabled={nodeState?.nodeA?.disableDropDown}
+        disabled={nodeState?.nodeA?.disableDropDown || openFilter}
       />
     </Box>
   );

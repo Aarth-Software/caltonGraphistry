@@ -101,7 +101,8 @@ function AuthProvider({ children }) {
     firstName,
     lastName,
     affiliation,
-    organisation
+    organisation,
+    token
   ) =>
     firebase
       .auth()
@@ -130,6 +131,30 @@ function AuthProvider({ children }) {
           affiliation,
           organisation,
         });
+        firebase
+          .firestore()
+          .collection("inviteTokens")
+          .doc(token)
+          .get()
+          .then((doc) => {
+            if (doc.exists && doc.data().activeLink) {
+              firebase
+                .firestore()
+                .collection("inviteTokens")
+                .doc(token)
+                // .update({
+                //   activeLink: false,
+                // });
+                .delete() // use delete() instead of update()
+                .then(() => {
+                  console.log("Document successfully deleted!");
+                })
+                .catch((error) => {
+                  console.error("Error removing document: ", error);
+                });
+            }
+          })
+          .catch((error) => console.log(error));
       })
       .catch((err) => console.log(err));
 
@@ -220,6 +245,24 @@ function AuthProvider({ children }) {
     // }
   };
 
+  const checkInvitationDoc = (setActiveLink, token) => {
+    setActiveLink(null);
+    const docRef = firebase.firestore().collection("inviteTokens").doc(token);
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setActiveLink(doc.data().activeLink);
+        } else {
+          console.log("No such document!");
+          setActiveLink(false);
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  };
+
   const auth = { ...state.user };
 
   return (
@@ -245,6 +288,7 @@ function AuthProvider({ children }) {
         resetPassword,
         sendLoginLink,
         checkEmailLoginMethod,
+        checkInvitationDoc,
       }}
     >
       {children}

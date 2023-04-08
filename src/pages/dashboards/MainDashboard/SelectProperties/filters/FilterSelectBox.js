@@ -42,7 +42,9 @@ export default function FilterSelectBox(props) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, mr: marginRight ? 0 : 1, minWidth: "10.66rem" }}>
+      <FormControl
+        sx={{ m: ".25em", mr: marginRight ? 0 : ".25em", minWidth: "10.66rem" }}
+      >
         <CssTextField
           value={value || ""}
           name={name}
