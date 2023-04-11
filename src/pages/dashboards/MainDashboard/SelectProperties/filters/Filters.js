@@ -24,14 +24,6 @@ const FiltersComponent = (props) => {
   const { filterOptions, openFilter } = useSelector((s) => s.filters);
   const { setNodeState, nodeState } = useStateContextHook();
   const { filterArray } = useSelector((state) => state.filters);
-  // const [filterArray, setFilterArray] = React.useState([
-  //   {
-  //     name: "setOne",
-  //     value: "",
-  //     options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
-  //     autoCompleteValue: "",
-  //   },
-  // ]);
   const dispatch = useDispatch();
 
   React.useEffect(() => {

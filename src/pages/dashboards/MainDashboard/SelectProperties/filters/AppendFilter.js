@@ -18,7 +18,7 @@ const AppendFilter = ({ theme, appendFilterElement, getApplyFilters }) => {
           height: "2rem",
           position: "relative",
           bottom: 0,
-          width: "calc(100% - 1.3rem)",
+          // width: "calc(100% - 1.3rem)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -26,30 +26,18 @@ const AppendFilter = ({ theme, appendFilterElement, getApplyFilters }) => {
           marginBottom: "1rem",
         }}
       >
-        <StandardButton
+        <Box
           onClick={appendFilterElement}
-          text="+ Add"
-          fontSize="1rem"
-          fontWeight={600}
-          px={5}
-          color={theme.palette.secondary.main}
-          varient="outlined"
-          py={1.1}
-          ml={3}
-          disabled={!!nodeState?.nodeA?.disableDropDown}
-        />
-        {/* <StandardButton
-          text="cancel"
-          varient="outlined"
-          px={4}
-          mt={0.8}
-          mr={2}
-          py={".28em"}
-          fontSize="1rem"
-          fontWeight={600}
-          bgcolor={theme.palette.secondary.main}
-          onClick={() => setOpenFilter(false)}
-        /> */}
+          sx={{
+            color: theme.palette.secondary.main,
+            fontWeight: 600,
+            fontSize: "1rem",
+            ml: "3.3rem",
+            cursor: "pointer",
+          }}
+        >
+          + Add
+        </Box>
         <StandardButton
           text="Apply"
           varient="contained"

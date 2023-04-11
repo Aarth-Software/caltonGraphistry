@@ -32,6 +32,7 @@ export default function FilterSelectBox(props) {
     showLabel,
     placeholder,
     marginRight,
+    width,
   } = props;
   // console.log(name, value);
   const jsxOptions = options.map((rg, i) => (
@@ -39,32 +40,34 @@ export default function FilterSelectBox(props) {
       {`${rg}`.replace("Filter", "")}
     </MenuItem>
   ));
-
   return (
-    <div>
-      <FormControl
-        sx={{ m: ".25em", mr: marginRight ? 0 : ".25em", minWidth: "10.66rem" }}
+    <FormControl
+      sx={{
+        display: "flex",
+        m: ".25em",
+        mr: marginRight ? 0 : ".25em",
+        ...(width ? { flex: 1 } : { minWidth: "10.66rem" }),
+      }}
+    >
+      <CssTextField
+        value={value || ""}
+        name={name}
+        onChange={handleChange}
+        disabled={disabled}
+        displayEmpty
+        inputProps={{ "aria-label": "Without label" }}
+        sx={{
+          borderRadius: ".2rem",
+          height: "2rem",
+          fontSize: ".9rem",
+          // marginTop: ".1rem",
+        }}
       >
-        <CssTextField
-          value={value || ""}
-          name={name}
-          onChange={handleChange}
-          disabled={disabled}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-          sx={{
-            borderRadius: ".2rem",
-            height: "2rem",
-            fontSize: ".9rem",
-            // marginTop: ".1rem",
-          }}
-        >
-          <MenuItem sx={{ fontSize: ".9rem" }} value="">
-            {showLabel ? placeholder : "Choose"}
-          </MenuItem>
-          {jsxOptions}
-        </CssTextField>
-      </FormControl>
-    </div>
+        <MenuItem sx={{ fontSize: ".9rem" }} value="">
+          {showLabel ? placeholder : "Choose"}
+        </MenuItem>
+        {jsxOptions}
+      </CssTextField>
+    </FormControl>
   );
 }

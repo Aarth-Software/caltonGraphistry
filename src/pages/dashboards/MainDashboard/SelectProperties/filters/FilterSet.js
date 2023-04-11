@@ -1,36 +1,19 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import FilterSelectBox from "./FilterSelectBox";
 import CloseIcon from "@mui/icons-material/Close";
 import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
 import { useDispatch } from "react-redux";
-import {
-  sendToHelperContainer,
-  setFilters,
-} from "../../../../../redux/slices/querySlice";
+import { setFilters } from "../../../../../redux/slices/querySlice";
 import { useSelector } from "react-redux";
 import AutoInputField from "../../../../../libs/InputComponents/AutoInputField";
 import {
-  addFilterSet,
   applyFilters,
   getSelectAutoInput,
   selectBoxHandleChange,
   setFilterArray,
 } from "../../../../../redux/slices/filterSlice";
-import styled from "@emotion/styled";
-
-const YearsBox = styled(Box)`
-  height: 2rem;
-  width: 11.7em;
-  border: 0.1rem solid rgb(203, 203, 203);
-  border-radius: 0.2rem;
-  padding-left: 0.5rem;
-  font-size: 0.9rem;
-  align-items: center;
-  display: flex;
-  color: black;
-`;
 
 const FilterSet = () => {
   const { helperFilterContainer, queryFilters, initialYearOptions } =
@@ -52,7 +35,7 @@ const FilterSet = () => {
       const index = queryFilters.fromYear.indexOf(value);
       let toYearOptions = [];
       if (index !== queryFilters.fromYear.length - 1) {
-        toYearOptions = initialYearOptions.endYear.filter((eg) => eg > value);
+        toYearOptions = initialYearOptions.endYear.filter((eg) => eg >= value);
       }
       setNodeState((prev) => ({ ...prev, [name]: [value], toYear: "" }));
       dispatch(
@@ -67,11 +50,11 @@ const FilterSet = () => {
   };
 
   const removeFilterSet = async (id) => {
-    if (filterArray.length !== 1) {
-      const updatedSets = filterArray.filter((el, i) => el !== id);
-      dispatch(setFilterArray(updatedSets));
-      dispatch(applyFilters(updatedSets, nodeState, setNodeState));
-    }
+    // if (filterArray.length !== 1) {
+    const updatedSets = filterArray.filter((el, i) => el !== id);
+    dispatch(setFilterArray(updatedSets));
+    dispatch(applyFilters(updatedSets, nodeState, setNodeState));
+    // }
   };
 
   return (
@@ -91,7 +74,7 @@ const FilterSet = () => {
         sx={{
           width: "100%",
           height: "calc(100% - 2rem)",
-          // bgcolor: "red",
+          // bgcolor: "green",
           position: "relative",
           top: "2rem",
           display: "block",
@@ -101,12 +84,14 @@ const FilterSet = () => {
         <Box
           sx={{
             // background: "yellow",
-            width: "100%",
+            width: "calc(100% - 3rem)",
             // height: "100%",
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
+            justifyContent: "flex-start",
             py: 0.4,
+            position: "relative",
+            left: "3rem",
           }}
         >
           <FilterSelectBox
@@ -129,6 +114,7 @@ const FilterSet = () => {
             options={queryFilters?.fromYear}
             placeholder={"From year"}
             showLabel={true}
+            width={true}
           />
           <FilterSelectBox
             name="toYear"
@@ -138,12 +124,8 @@ const FilterSet = () => {
             options={queryFilters?.toYear}
             placeholder={"To year"}
             showLabel={true}
+            width={true}
           />
-          {/* <FilterSelectBox
-            name="publicationFilter"
-            value={publicationFilter}
-            handleChange={handleChange}
-          /> */}
         </Box>
         {filterArray.map((eg, index) => (
           <Box
@@ -154,7 +136,6 @@ const FilterSet = () => {
               justifyContent: "flex-start",
               py: 0.4,
               px: 1,
-              // background: "red",
             }}
             key={index}
           >

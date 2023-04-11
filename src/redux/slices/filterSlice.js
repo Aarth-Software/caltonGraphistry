@@ -4,12 +4,12 @@ const filterSlice = createSlice({
   name: "filter",
   initialState: {
     filterArray: [
-      {
-        name: "set1",
-        value: "",
-        options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
-        autoCompleteValue: "",
-      },
+      // {
+      //   name: "set1",
+      //   value: "",
+      //   options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
+      //   autoCompleteValue: "",
+      // },
     ],
     filterInitialState: [
       {
