@@ -19,8 +19,6 @@ import { flexCenter } from "../../../libs/JSS/Jss";
 import StandardButton from "../../../libs/Buttons/StandardButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import MoreOptions from "../MainDashboard/SelectProperties/MoreOptions";
-import AuthLayout from "../../../layouts/Auth";
 import { useDispatch } from "react-redux";
 
 import { setSearchRecordByKeyword } from "../../../redux/slices/serviceSlice";
@@ -78,7 +76,7 @@ const KeywordsTable = React.memo(
     hideControls,
   }) => {
     const dispatch = useDispatch();
-    const { activeBg, searchKeyword } = useSelector((state) => state.service);
+    const { searchKeyword } = useSelector((state) => state.service);
     const filteredRecords = data.filter((rcds) => {
       if (!searchKeyword) {
         return true; // no search date set, return all records

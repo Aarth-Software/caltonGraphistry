@@ -1,21 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 // import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Paper, Typography } from "@mui/material";
 
 import SignUpComponent from "../../components/auth/SignUp";
-import Logo from "../../asserts/Logo";
 import { withTheme } from "@emotion/react";
 import useAuth from "../../hooks/useAuth";
 import Loader from "../../components/Loader";
-
-// const Brand = styled(Logo)`
-//   fill: ${(props) => props.theme.palette.primary.main};
-//   width: 64px;
-//   height: 64px;
-//   margin-bottom: 32px;
-// `;
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};

@@ -4,7 +4,6 @@ import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { withTheme } from "@emotion/react";
 const SavePopContainer = styled("div")`
   background: ${(props) => props.theme.palette.background.paper} ,
@@ -65,7 +64,6 @@ const SavePopPanel = ({
   close,
 }) => {
   const dispatch = useDispatch();
-  const { saveName } = useSelector((state) => state.service);
   return (
     <SavePopContainer>
       <FlexItems>

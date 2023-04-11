@@ -2,7 +2,6 @@ import React from "react";
 import { Autocomplete, createFilterOptions } from "@mui/material";
 import { BiSearch } from "react-icons/bi";
 import "./AutoCompleteField.css";
-import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 const InputContainer = styled(Box)`
@@ -15,8 +14,6 @@ const AutoInputField = ({
   selectedValue,
   disabled,
 }) => {
-  // console.log(options);
-  const navigate = useNavigate();
   const [inputValue, setInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
@@ -33,7 +30,6 @@ const AutoInputField = ({
   const getFocus = () => {};
 
   return (
-    // <div className="searchInputInCascadingScreen inputDemandForeCast">
     <Autocomplete
       value={selectedValue}
       disabled={disabled}
@@ -41,8 +37,6 @@ const AutoInputField = ({
         style: {
           maxHeight: "15em",
           fontSize: ".8rem",
-          // fontFamily: `'Roboto', sans-serif`,
-          // padding: '0px, 0px',
         },
       }}
       noOptionsText={
@@ -90,8 +84,6 @@ const AutoInputField = ({
           <div
             className="iconContainerInInputSearchInInventoryy"
             style={{
-              // backgroundColor: `${true ? "#79b259" : "#f2f2f2"}`,
-              // border: ".08rem solid #79b259",
               backgroundColor: "white",
             }}
           >
@@ -99,7 +91,6 @@ const AutoInputField = ({
               size={"1.3em"}
               className="icon"
               style={{
-                // color: `${false ? "#79b259" : "white"}`,
                 color: "#cbcbcb",
               }}
             />

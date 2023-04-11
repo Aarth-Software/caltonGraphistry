@@ -23,7 +23,6 @@ import MoreOptions from "../MainDashboard/SelectProperties/MoreOptions";
 import { useSnackbar } from "notistack";
 import SavePopPanel from "../MainDashboard/SavedGraphs/SavePopPanel";
 import PopModal from "../../../libs/Modal/PopModal";
-import AuthLayout from "../../../layouts/Auth";
 import { useDispatch } from "react-redux";
 import {
   getDeleteRecords,

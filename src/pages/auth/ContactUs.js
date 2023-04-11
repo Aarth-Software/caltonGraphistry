@@ -15,7 +15,6 @@ import React from "react";
 // import Logo from "../../asserts/Logo";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import useAuth from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { askHelp } from "../../redux/slices/contactSlice";
 // import admin from "../../AdminSDK";
@@ -36,11 +35,6 @@ const FlexContainer = styled(Box)`
   margin-top: 0.9rem;
 `;
 const ContactUs = ({ theme }) => {
-  // const handleClick = () => {
-  //   const recipient = "srinivasa.chary066@gmail.com";
-  //   sendEmail(recipient);
-  // };
-  const { sendLoginLink } = useAuth();
   const dispatch = useDispatch();
 
   return (

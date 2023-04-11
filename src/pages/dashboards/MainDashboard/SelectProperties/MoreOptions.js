@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Tooltip, Menu, MenuItem } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -8,16 +7,6 @@ import {
   setActiveBg,
   setAnchorMenu,
 } from "../../../../redux/slices/serviceSlice";
-
-// const IconButton = styled(MuiIconButton)`
-//   svg {
-//     width: 22px;
-//     height: 22px;
-//   }
-// `;
-const SaveMenuItem = styled(MenuItem)`
-  color: ${(props) => props.theme.palette.secondary.main};
-`;
 const MoreOptions = React.memo((props) => {
   const { saveOnClick, savedGraphOnClick, graph, index, hideControls } = props;
   const dispatch = useDispatch();

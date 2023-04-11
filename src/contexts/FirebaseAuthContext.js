@@ -6,6 +6,8 @@ import "firebase/firestore";
 import "firebase/database";
 
 import { firebaseConfig } from "../config";
+import { InviteMailBody } from "../libs/Mail/MailContent";
+import { sendMail } from "../services/service";
 
 const INITIALIZE = "INITIALIZE";
 
@@ -166,85 +168,24 @@ function AuthProvider({ children }) {
     await firebase.auth().sendPasswordResetEmail(email);
   };
 
-  // const sendLoginLink = (email) => {
-  //   const actionCodeSettings = {
-  //     url: "http://localhost:3000/auth/sign-in",
-  //     handleCodeInApp: true,
-  //     // Expire the link after 5 minutes
-  //     // expireAfterSeconds: 300,
-  //     singleUse: true,
-  //     oneTimeCode: true,
-  //   };
-
-  //   firebase
-  //     .auth()
-  //     .sendSignInLinkToEmail(email, actionCodeSettings)
-  //     .then(() => {
-  //       // The link was successfully sent
-  //       console.log("link send successfully");
-  //     })
-  //     .catch((error) => {
-  //       // Handle the error
-  //       console.log(`link send unsuccessfully ${error}`);
-  //     });
-  // };
-
-  const sendLoginLink = (email) => {
-    const actionCodeSettings = {
-      url:
-        "http://localhost:3000/auth/sign-up?email=" + encodeURIComponent(email),
-      handleCodeInApp: true,
-      // Expire the link after first use
-      // This is achieved by setting the singleUse and oneTimeCode options to true
-      singleUse: true,
-      oneTimeCode: true,
-      // Set the email subject
-      // This is optional
-      emailSubject: "invitation from litdig",
-      // Set the email body
-      // This is optional
-      emailBody: "please click the this link to sign up into the account",
-    };
-
-    firebase
-      .auth()
-      .sendSignInLinkToEmail(email, actionCodeSettings)
-      .then(() => {
-        // The link was successfully sent
-        console.log("link send successfully");
-      })
-      .catch((error) => {
-        // Handle the error
-        console.log(`link send unsuccessfully ${error}`);
+  const sendLoginLink = async (email, toest) => {
+    const { body, doc } = InviteMailBody(email);
+    try {
+      const response = await sendMail(body);
+      firebase.firestore().collection("inviteTokens").doc(doc?.uuid).set(doc);
+      toest(response.data?.message, {
+        variant: "success",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
       });
+    } catch (err) {
+      toest("Mail sent unsuccessfull", {
+        variant: "error",
+        autoHideDuration: 2000,
+        style: { width: 300, left: "calc(50% - 150px)" },
+      });
+    }
   };
-
-  const checkEmailLoginMethod = () => {
-    // if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-    //   // Step 6: Sign in with email link
-    //   firebase
-    //     .auth()
-    //     .signInWithEmailLink(
-    //       "srinivasa.chary066@gmail.com",
-    //       window.location.href
-    //     )
-    //     .then((userCredential) => {
-    //       // Signed in successfully, get user data
-    //       const user = userCredential.user;
-    //       const idToken = user.getIdToken();
-    //       const accessToken = user.getIdToken(true);
-    //       // Do something with the user data and authentication tokens
-    //       console.log([`User email:`, user.email]);
-    //       console.log([`ID token:`, idToken]);
-    //       console.log([`Access token:`, accessToken]);
-    //     })
-    //     .catch((error) => {
-    //       // Handle sign-in errors
-    //       console.log(`Sign-in error: ${error}`);
-    //     });
-    // }
-  };
-
   const checkInvitationDoc = (setActiveLink, token) => {
     setActiveLink(null);
     const docRef = firebase.firestore().collection("inviteTokens").doc(token);
@@ -287,7 +228,6 @@ function AuthProvider({ children }) {
         signOut,
         resetPassword,
         sendLoginLink,
-        checkEmailLoginMethod,
         checkInvitationDoc,
       }}
     >

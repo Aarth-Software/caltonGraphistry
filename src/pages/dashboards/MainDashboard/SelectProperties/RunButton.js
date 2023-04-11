@@ -1,13 +1,9 @@
 import { withTheme } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import React from "react";
 import StandardButton from "../../../../libs/Buttons/StandardButton";
 import useStateContextHook from "../../../../libs/StateProvider/useStateContextHook";
 import { useSelector } from "react-redux";
-const RunGraphButton = styled(StandardButton)`
-  bgcolor: ${(props) => props.theme.palette.secondary.main};
-`;
 const RunButton = ({ theme, onClick }) => {
   const { nodeState } = useStateContextHook();
   const { openFilter } = useSelector((state) => state.filters);

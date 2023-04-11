@@ -56,3 +56,5 @@ export const postContact = (body) => api.post("saveContact", body);
 
 // filters requests
 export const getFilters = () => api.get("getFilterLov");
+// send mails
+export const sendMail = (body) => api.post("/send-email/asynchronous", body);

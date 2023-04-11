@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { withTheme } from "@emotion/react";
 import { Doughnut } from "react-chartjs-2";
-import { MoreVertical } from "react-feather";
 
 import { green, grey } from "@mui/material/colors";
 import {
@@ -10,7 +9,6 @@ import {
   CardContent,
   CardHeader,
   Grid,
-  IconButton,
   Typography,
 } from "@mui/material";
 import { Box, spacing } from "@mui/system";
@@ -33,25 +31,6 @@ const DoughnutInner = styled.div`
   text-align: center;
   z-index: 0;
 `;
-
-// const TableRow = styled(MuiTableRow)`
-//   height: 42px;
-// `;
-
-// const TableCell = styled(MuiTableCell)`
-//   padding-top: 0;
-//   padding-bottom: 0;
-// `;
-
-// const GreenText = styled.span`
-//   color: ${() => green[400]};
-//   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-// `;
-
-// const RedText = styled.span`
-//   color: ${() => red[400]};
-//   font-weight: ${(props) => props.theme.typography.fontWeightMedium};
-// `;
 const TitleHeader = styled(CardHeader)`
   color: ${(props) => props.theme.palette.secondary.main};
 `;
@@ -59,7 +38,6 @@ const TitleHeader = styled(CardHeader)`
 const DoughnutChart = ({ theme, title, graphData }) => {
   const [activeSegment, setActiveSegment] = React.useState(null);
 
-  // console.log(graphData);
   const data = {
     labels: graphData?.map((eg) => eg.role.replace("Variable", " Variable")),
     datasets: [

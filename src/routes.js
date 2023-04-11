@@ -38,9 +38,6 @@ const Analysis = async(() =>
   import("./pages/dashboards/DataAnalysis/Analysis")
 );
 // Dashboard components
-const Default = async(() => import("./pages/dashboards/Default"));
-const Analytics = async(() => import("./pages/dashboards/Analytics"));
-const SaaS = async(() => import("./pages/dashboards/SaaS"));
 
 const routes = [
   {

@@ -16,7 +16,6 @@ import { spacing } from "@mui/system";
 import useAuth from "../../hooks/useAuth";
 import Loader from "../Loader";
 import { withTheme } from "@emotion/react";
-import firebase from "firebase/app";
 import "firebase/auth";
 
 const Alert = styled(MuiAlert)(spacing);
@@ -24,8 +23,7 @@ const Alert = styled(MuiAlert)(spacing);
 const TextField = styled(MuiTextField)(spacing);
 
 function SignIn({ theme }) {
-  const { signIn, isAuthenticated, isInitialized, checkEmailLoginMethod } =
-    useAuth();
+  const { signIn, isAuthenticated, isInitialized } = useAuth();
   const [loading, setLoading] = React.useState(true);
   const navigate = useNavigate();
 

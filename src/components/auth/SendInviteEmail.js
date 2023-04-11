@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import useAuth from "../../hooks/useAuth";
+import { useSnackbar } from "notistack";
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -17,6 +18,8 @@ const Wrapper = styled(Paper)`
 
 const SendInviteEmail = ({ theme }) => {
   const { sendLoginLink } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
+
   return (
     <Wrapper>
       <Typography
@@ -49,7 +52,7 @@ const SendInviteEmail = ({ theme }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            sendLoginLink(values.email);
+            sendLoginLink(values.email, enqueueSnackbar);
           } catch (error) {
             const message = error.message || "Something went wrong";
             setStatus({ success: false });
