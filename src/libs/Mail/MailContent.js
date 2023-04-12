@@ -1,16 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
-export const InviteMailBody = (email) => {
+export const InviteMailBody = (email, name) => {
   const baseURL = process.env.REACT_APP_CLIENT_URL;
   const uniqueId = uuidv4();
   const now = new Date();
   const doc = {
     email: email,
+    name: name,
     activeLink: true,
     uuid: uniqueId,
     created: now.toISOString(),
   };
-  const body = `<h3>Hello ${email},</h3></br>
-    <p>This is your invitation email to sign up for LitDig. Please click <a href="${baseURL}/auth/sign-up?email=${encodeURIComponent(
+  const body = `<h3>Hello ${name},</h3></br>
+    <p>This is your invitation email to sign up for LitDig. Please <a href="${baseURL}/auth/sign-up?email=${encodeURIComponent(
     email
   )}&token=${encodeURIComponent(uniqueId)}">Click here to sign up</a></br> 
     to complete your sign up and start using LitDig.</p></br>

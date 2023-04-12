@@ -6,6 +6,8 @@ import React from "react";
 import * as Yup from "yup";
 import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -19,6 +21,8 @@ const Wrapper = styled(Paper)`
 const SendInviteEmail = ({ theme }) => {
   const { sendLoginLink } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
@@ -41,10 +45,12 @@ const SendInviteEmail = ({ theme }) => {
       </Typography>
       <Formik
         initialValues={{
+          name: "",
           email: "",
           submit: false,
         }}
         validationSchema={Yup.object().shape({
+          name: Yup.string().max(255).required("Name is required"),
           email: Yup.string()
             .email("Must be a valid email")
             .max(255)
@@ -52,7 +58,7 @@ const SendInviteEmail = ({ theme }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            sendLoginLink(values.email, enqueueSnackbar);
+            sendLoginLink(values.email, values.name, dispatch, navigate);
           } catch (error) {
             const message = error.message || "Something went wrong";
             setStatus({ success: false });
@@ -79,7 +85,7 @@ const SendInviteEmail = ({ theme }) => {
             <TextField
               type="email"
               name="email"
-              label="Email Address"
+              label="Email Address*"
               value={values.email}
               error={Boolean(touched.email && errors.email)}
               fullWidth
@@ -88,6 +94,19 @@ const SendInviteEmail = ({ theme }) => {
               onChange={handleChange}
               my={2}
               sx={{ mt: 2 }}
+            />
+            <TextField
+              type="name"
+              name="name"
+              label="Name*"
+              value={values.name}
+              error={Boolean(touched.name && errors.name)}
+              fullWidth
+              helperText={touched.name && errors.name}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              my={2}
+              sx={{ mt: 4 }}
             />
             <Button
               type="submit"

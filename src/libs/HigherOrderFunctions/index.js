@@ -178,9 +178,6 @@ export const mergeObjects = (obj) => {
     toYear,
     publicationFilter,
   } = obj;
-  console.log(obj);
-
-  console.log(obj);
 
   const dropDownSelectedValues = ["nodeA", "nodeB", "nodeC"].reduce(
     (result, key) => {

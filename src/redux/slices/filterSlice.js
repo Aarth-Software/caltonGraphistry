@@ -4,12 +4,12 @@ const filterSlice = createSlice({
   name: "filter",
   initialState: {
     filterArray: [
-      // {
-      //   name: "set1",
-      //   value: "",
-      //   options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
-      //   autoCompleteValue: "",
-      // },
+      {
+        name: "set1",
+        value: "",
+        options: ["affiliationFilter", "publicationFilter", "publisherFilter"],
+        autoCompleteValue: "",
+      },
     ],
     filterInitialState: [
       {
@@ -125,6 +125,15 @@ export const applyFilters =
         affiliationFilter: [],
       }
     );
+    if (
+      mergedObj.hasOwnProperty("") &&
+      Array.isArray(mergedObj[""]) &&
+      mergedObj[""].length === 1 &&
+      mergedObj[""][0] === ""
+    ) {
+      delete mergedObj[""];
+    }
+    console.log(mergedObj);
     setNodeState(mergedObj);
   };
 

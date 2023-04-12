@@ -5,6 +5,9 @@ const contactSlice = createSlice({
   name: "contact",
   initialState: {
     contactMessages: [],
+    inviteMailStatus: true,
+    invitedMail: "",
+    requestMailStatus: null,
   },
   reducers: {
     setContactMessages: (state, { payload }) => {
@@ -16,18 +19,36 @@ const contactSlice = createSlice({
     approveMessage: (state, { payload }) => {
       state.contactMessages = payload;
     },
+    setInviteMailStatus: (state, { payload }) => {
+      state.inviteMailStatus = payload;
+    },
+    setInvitedMail: (state, { payload }) => {
+      state.invitedMail = payload;
+    },
+    setRequestMailStatus: (state, { payload }) => {
+      state.requestMailStatus = payload;
+    },
   },
 });
 
-export const askHelp = (document) => async (dispatch) => {
+export const askHelp = (document, navigate) => async (dispatch) => {
   try {
-    const response = await postContact(document);
-    console.log(response?.data);
+    const res = await postContact(document);
+    console.log(res.data);
+    dispatch(setRequestMailStatus(true));
+    navigate("/contact-us/status");
   } catch (err) {
-    console.log(err);
+    dispatch(setRequestMailStatus(false));
+    navigate("/contact-us/status");
   }
 };
 
-export const { setContactRequests, removeContactMessage, approveMessage } =
-  contactSlice.actions;
+export const {
+  setContactRequests,
+  removeContactMessage,
+  approveMessage,
+  setInviteMailStatus,
+  setInvitedMail,
+  setRequestMailStatus,
+} = contactSlice.actions;
 export const contactReducer = contactSlice.reducer;

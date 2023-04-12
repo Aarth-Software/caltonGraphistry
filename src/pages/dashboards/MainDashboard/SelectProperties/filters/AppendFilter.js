@@ -48,12 +48,7 @@ const AppendFilter = ({ theme, appendFilterElement, getApplyFilters }) => {
           fontSize="1rem"
           fontWeight={600}
           bgcolor={theme.palette.secondary.main}
-          disabled={
-            !!nodeState?.nodeA?.disableDropDown ||
-            filterArray.some((eg, i) => !eg.value || !eg.autoCompleteValue) ||
-            !fromYear.length ||
-            !toYear.length
-          }
+          disabled={!!nodeState?.nodeA?.disableDropDown}
           onClick={getApplyFilters}
         />
       </Box>

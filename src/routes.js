@@ -33,6 +33,8 @@ import AuthLanding from "./layouts/AuthLanding";
 import FallDashboard from "./pages/dashboards/MainDashboard/FallDashboard";
 import ContactUs from "./pages/auth/ContactUs";
 import SendInviteEmail from "./components/auth/SendInviteEmail";
+import EmailSentStatus from "./pages/auth/EmailSentStatus";
+import RequestMailStatus from "./pages/auth/RequestMailStatus";
 // import Analysis from "./pages/dashboards/DataAnalysis/Analysis";
 const Analysis = async(() =>
   import("./pages/dashboards/DataAnalysis/Analysis")
@@ -77,14 +79,6 @@ const routes = [
         ),
       },
       {
-        path: "invite-user",
-        element: (
-          <AuthLayout>
-            <SendInviteEmail />
-          </AuthLayout>
-        ),
-      },
-      {
         path: "404",
         element: <Page404 />,
       },
@@ -106,6 +100,14 @@ const routes = [
           </AuthLayout>
         ),
       },
+      {
+        path: "status",
+        element: (
+          <AuthLayout>
+            <RequestMailStatus />
+          </AuthLayout>
+        ),
+      },
     ],
   },
   {
@@ -119,7 +121,7 @@ const routes = [
     ],
   },
   {
-    path: "query",
+    path: "",
     element: (
       <AuthGuard>
         <DashboardLayout />
@@ -127,44 +129,31 @@ const routes = [
     ),
     children: [
       {
-        path: "",
+        path: "query",
         element: <FallDashboard />,
       },
-    ],
-  },
-  {
-    path: "dashboard",
-    element: (
-      <AuthGuard>
-        <DashboardLayout />
-      </AuthGuard>
-    ),
-    children: [
       {
-        path: "",
+        path: "invite-user",
+        element: (
+          <AuthLayout>
+            <SendInviteEmail />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "dashboard",
         element: <Analysis />,
+      },
+      {
+        path: "invite-user/status",
+        element: (
+          <AuthLayout>
+            <EmailSentStatus />
+          </AuthLayout>
+        ),
       },
     ],
   },
-  //     {
-  //       path: "default",
-  //       element: <Default />,
-  //     },
-  //     {
-  //       path: "analytics",
-  //       element: <Analytics />,
-  //     },
-  //     {
-  //       path: "saas",
-  //       element: <SaaS />,
-  //     },
-  //     {
-  //       path: "analysis",
-  //       element: <Analysis />,
-  //     },
-  //   ],
-  // },
-
   {
     path: "changelog",
     element: <DocLayout />,
@@ -189,20 +178,6 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: "private1",
-  //   element: (
-  //     <AuthGuard>
-  //       <DashboardLayout />
-  //     </AuthGuard>
-  //   ),
-  //   children: [
-  //     {
-  //       path: "",
-  //       element: <FallDashboard />,
-  //     },
-  //   ],
-  // },
   {
     path: "*",
     element: <AuthLayout />,

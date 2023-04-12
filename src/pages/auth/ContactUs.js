@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { askHelp } from "../../redux/slices/contactSlice";
+import { useNavigate } from "react-router-dom";
 // import admin from "../../AdminSDK";
 
 const Wrapper = styled(Paper)`
@@ -36,6 +37,7 @@ const FlexContainer = styled(Box)`
 `;
 const ContactUs = ({ theme }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -64,7 +66,7 @@ const ContactUs = ({ theme }) => {
             email: "",
             submit: false,
             feedback: "",
-            request_access: true,
+            request_access: false,
           }}
           validationSchema={Yup.object().shape({
             firstName: Yup.string().max(255).required("Name is required"),
@@ -81,12 +83,15 @@ const ContactUs = ({ theme }) => {
             const { firstName, email, feedback, request_access } = values;
             try {
               dispatch(
-                askHelp({
-                  name: firstName,
-                  email,
-                  request_access,
-                  message: feedback,
-                })
+                askHelp(
+                  {
+                    name: firstName,
+                    email,
+                    request_access,
+                    message: feedback,
+                  },
+                  navigate
+                )
               );
             } catch (error) {
               const message = error.message || "Something went wrong";
@@ -161,7 +166,7 @@ const ContactUs = ({ theme }) => {
                   setFieldTouched("feedback", true); // use setFieldTouched here
                 }}
                 onChange={handleChange}
-                placeholder="Enter your feedback here"
+                placeholder="Enter your message here"
                 className="feedback-input"
               />
               <FormHelperText

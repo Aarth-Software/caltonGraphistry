@@ -14,11 +14,11 @@ const CssTextField = styled(Select)({
     borderRadius: "0",
   },
   "& .MuiInputBase-input.Mui-disabled": {
-    WebkitTextFillColor: "gray",
+    WebkitTextFillColor: "black",
     cursor: "not-allowed",
   },
   "& .MuiSvgIcon-root.Mui-disabled": {
-    color: "gray",
+    color: "white",
   },
 });
 

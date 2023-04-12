@@ -45,28 +45,32 @@ const AuthLanding = ({ theme }) => {
         <Box>
           <StandardButton
             text="Contact us"
-            px={2.6}
-            py={1.3}
+            // px={2.6}
+            // py={1.3}
             varient="outlined"
             mr={5}
             color={theme.palette.secondary.main}
             onClick={() => navigate("/contact-us")}
             fontSize={11}
             fontWeight={600}
+            w={"9em"}
+            h="3em"
           />
           <StandardButton
             text="Sign in"
-            px={6}
-            py={1.4}
+            // px={6}
+            // py={1.4}
             varient="standard"
             // bgcolor={theme.palette.secondary.main}
-            mx={3}
+            // mx={3}
             onClick={navigateToLogin}
             color={"white"}
             bgcolor={theme.palette.secondary.main}
             colorHover="black"
             fontSize={11}
             fontWeight={600}
+            w={"9em"}
+            h="3em"
           />
         </Box>
       </Wrapper>

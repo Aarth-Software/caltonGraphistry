@@ -22,16 +22,17 @@ function NavbarUserDropdown({ icon, size }) {
     navigate("/contact-us");
   };
   const dashboard = () => {
-    navigate("/dashboard");
     setAnchorMenu(null);
+    navigate("/dashboard");
   };
   const generateQuery = () => {
-    navigate("/query");
     setAnchorMenu(null);
+    navigate("/query");
   };
 
   const handleSignOut = async () => {
     await signOut();
+    setAnchorMenu(null);
     navigate("/auth");
   };
 
@@ -111,8 +112,8 @@ function NavbarUserDropdown({ icon, size }) {
                 key="sign-in"
                 sx={{ fontSize: "1.1rem" }}
                 onClick={() => {
-                  navigate("sign-up");
                   setAnchorMenu(null);
+                  navigate("sign-up");
                 }}
               >
                 Sign up
@@ -123,8 +124,8 @@ function NavbarUserDropdown({ icon, size }) {
                 key="sign-up"
                 sx={{ fontSize: "1.1rem" }}
                 onClick={() => {
-                  navigate("sign-in");
                   setAnchorMenu(null);
+                  navigate("sign-in");
                 }}
               >
                 Sign in
@@ -135,8 +136,8 @@ function NavbarUserDropdown({ icon, size }) {
                 key="sign-in-contact"
                 sx={{ fontSize: "1.1rem" }}
                 onClick={() => {
-                  navigate("/auth/sign-in");
                   setAnchorMenu(null);
+                  navigate("/auth/sign-in");
                 }}
               >
                 Sign in

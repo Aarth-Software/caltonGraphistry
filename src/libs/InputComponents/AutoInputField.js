@@ -1,5 +1,5 @@
 import React from "react";
-import { Autocomplete, createFilterOptions } from "@mui/material";
+import { Autocomplete, Paper, createFilterOptions } from "@mui/material";
 import { BiSearch } from "react-icons/bi";
 import "./AutoCompleteField.css";
 import styled from "@emotion/styled";
@@ -29,16 +29,25 @@ const AutoInputField = ({
   const getBlur = () => {};
   const getFocus = () => {};
 
+  const CustomPaper = (props) => {
+    return <Paper elevation={8} {...props} />;
+  };
+
   return (
     <Autocomplete
       value={selectedValue}
       disabled={disabled}
       ListboxProps={{
         style: {
-          maxHeight: "15em",
+          maxHeight: "30rem",
           fontSize: ".8rem",
+          // border: "1rem solid #66666 !important",
+          // boxShadow:
+          //   "0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12) !important",
+          // backgroundColor: "red",
         },
       }}
+      PaperComponent={CustomPaper}
       noOptionsText={
         <span style={{ padding: "-1em", fontSize: ".7em" }}>select filter</span>
       }

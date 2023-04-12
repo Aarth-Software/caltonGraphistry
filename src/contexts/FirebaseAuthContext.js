@@ -8,6 +8,10 @@ import "firebase/database";
 import { firebaseConfig } from "../config";
 import { InviteMailBody } from "../libs/Mail/MailContent";
 import { sendMail } from "../services/service";
+import {
+  setInviteMailStatus,
+  setInvitedMail,
+} from "../redux/slices/contactSlice";
 
 const INITIALIZE = "INITIALIZE";
 
@@ -168,22 +172,18 @@ function AuthProvider({ children }) {
     await firebase.auth().sendPasswordResetEmail(email);
   };
 
-  const sendLoginLink = async (email, toest) => {
-    const { body, doc } = InviteMailBody(email);
+  const sendLoginLink = async (email, name, dispatch, redirect) => {
+    const { body, doc } = InviteMailBody(email, name);
+    dispatch(setInvitedMail(email));
     try {
-      const response = await sendMail(body);
+      await sendMail(body);
       firebase.firestore().collection("inviteTokens").doc(doc?.uuid).set(doc);
-      toest(response.data?.message, {
-        variant: "success",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
+      dispatch(setInviteMailStatus(true));
+
+      redirect("/auth/invite-user/status");
     } catch (err) {
-      toest("Mail sent unsuccessfull", {
-        variant: "error",
-        autoHideDuration: 2000,
-        style: { width: 300, left: "calc(50% - 150px)" },
-      });
+      dispatch(setInviteMailStatus(false));
+      redirect("/auth/invite-user/status");
     }
   };
   const checkInvitationDoc = (setActiveLink, token) => {

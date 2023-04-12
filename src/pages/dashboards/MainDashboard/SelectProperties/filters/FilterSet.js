@@ -28,16 +28,13 @@ const FilterSet = () => {
   );
   const yearHandleHange = (e) => {
     const { name, value } = e.target;
-    if (!value) {
-      return;
-    }
     if (name === "fromYear") {
       const index = queryFilters.fromYear.indexOf(value);
       let toYearOptions = [];
       if (index !== queryFilters.fromYear.length - 1) {
         toYearOptions = initialYearOptions.endYear.filter((eg) => eg >= value);
       }
-      setNodeState((prev) => ({ ...prev, [name]: [value], toYear: "" }));
+      setNodeState((prev) => ({ ...prev, [name]: [value], toYear: [] }));
       dispatch(
         setFilters({
           ...queryFilters,
@@ -45,7 +42,7 @@ const FilterSet = () => {
         })
       );
     } else {
-      setNodeState((prev) => ({ ...prev, [name]: [value] }));
+      setNodeState((prev) => ({ ...prev, [name]: [value.toString()] }));
     }
   };
 

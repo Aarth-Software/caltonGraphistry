@@ -16,6 +16,8 @@ import {
   applyFilters,
   setOpenFilter,
 } from "../../../../../redux/slices/filterSlice";
+import styled from "@emotion/styled";
+import { Badge } from "@mui/material";
 
 const FiltersComponent = (props) => {
   const { fetchFiltersOnce, filterLoading, queryFilters } = useSelector(
@@ -34,6 +36,13 @@ const FiltersComponent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(nodeState);
+
+  const getBadgeCount = () => {
+    const count = filterArray.filter((eg) => eg.value).length;
+    return count;
+  };
+
   const appendFilterPattern = () => {
     dispatch(addFilterSet(queryFilters, filterArray, filterOptions));
   };
@@ -45,6 +54,19 @@ const FiltersComponent = (props) => {
   const filterHandle = () => {
     dispatch(setOpenFilter(!openFilter));
   };
+
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      right: "2rem",
+      top: ".5rem",
+      border: `.05rem solid ${theme.palette.background.main}`,
+      padding: "0 .1rem",
+      minWidth: "1.5rem",
+      height: "1.5rem",
+      borderRadius: "50%",
+      background: `${theme.palette.background.main}`,
+    },
+  }));
 
   return (
     <>
@@ -65,10 +87,16 @@ const FiltersComponent = (props) => {
           position: "relative",
         }}
       >
-        <MdOutlineFilterList
-          size="1.9rem"
-          color={openFilter ? "#f16067" : "black"}
-        />
+        <StyledBadge
+          invisible={openFilter}
+          badgeContent={getBadgeCount()}
+          color="secondary"
+        >
+          <MdOutlineFilterList
+            size="1.9rem"
+            color={openFilter ? "#f16067" : "black"}
+          />
+        </StyledBadge>
       </Box>
       {openFilter && (
         <Box

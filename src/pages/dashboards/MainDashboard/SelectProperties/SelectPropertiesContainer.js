@@ -29,6 +29,7 @@ const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
   const { dropdownOptions, pattern } = useSelector((state) => state.query);
+  console.log(dropdownOptions);
   const { nodeState, setNodeState } = props;
   const { enqueueSnackbar } = useSnackbar();
   const { nodeA, nodeB, nodeC } = pattern;
@@ -81,7 +82,7 @@ const SelectPropertiesContainer = React.memo((props) => {
               change={inputChange}
               unUsed={pattern?.unUsedB}
               options={
-                dropdownOptions.selection_type === "3node" &&
+                dropdownOptions?.selection_type === "3node" &&
                 dropdownOptions?.node_2[nodeState?.nodeA?.value]
               }
             />

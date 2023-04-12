@@ -15,7 +15,7 @@ const Wrapper = styled(Paper)`
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
-  zoom: 0.8;
+  transform: scale(0.8);
 `;
 
 function SignUp({ theme }) {
@@ -41,9 +41,9 @@ function SignUp({ theme }) {
     const queryParams = new URLSearchParams(window.location.search);
     const email = queryParams.get("email");
     const token = queryParams.get("token");
-    if (!email && !token) {
-      navigate("/auth");
-    }
+    // if (!email && !token) {
+    //   navigate("/auth");
+    // }
     setInviteToken(token);
     setEmail(email);
     if (email && token) {
@@ -63,32 +63,30 @@ function SignUp({ theme }) {
     return <h1>link has expired</h1>;
   }
   return (
-    <React.Fragment>
-      <Wrapper>
-        <Typography
-          sx={{ mb: 2 }}
-          component="h1"
-          variant="h2"
-          align="left"
-          gutterBottom
-        >
-          Sign up
-        </Typography>
-        <Typography
-          sx={{ fontSize: 14.2 }}
-          component="p"
-          variant="body1"
-          align="left"
-        >
-          Start creating the best possible user experience for you customers
-        </Typography>
-
-        <SignUpComponent
-          email={email}
-          inviteToken={inviteToken}
-          activeLink={activeLink}
-        />
-        {/* <Button
+    <Wrapper>
+      <Typography
+        sx={{ mb: 2 }}
+        component="h1"
+        variant="h2"
+        align="left"
+        gutterBottom
+      >
+        Sign up
+      </Typography>
+      <Typography
+        sx={{ fontSize: 14.2 }}
+        component="p"
+        variant="body1"
+        align="left"
+      >
+        Start creating the best possible user experience for you customers
+      </Typography>
+      <SignUpComponent
+        email={email}
+        inviteToken={inviteToken}
+        activeLink={activeLink}
+      />
+      {/* <Button
           sx={{
             mt: 1,
             fontSize: 14.2,
@@ -101,8 +99,7 @@ function SignUp({ theme }) {
         >
           Alredy have an account sign in
         </Button> */}
-      </Wrapper>
-    </React.Fragment>
+    </Wrapper>
   );
 }
 
