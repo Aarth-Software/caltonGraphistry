@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import {
   refreshState,
   retriveSavedGraphValues,
@@ -43,7 +43,16 @@ const generateQuerySlice = createSlice({
     savedDataSet: { status: false, data: null },
     dropdownOptions: {
       node_1: {
-        value: ["Construct (Ind. Var.)"],
+        value: [
+          // "Construct (Ind. Var.)",
+          // "Hypothesis",
+          // "Proposition",
+          // "Journal Paper",
+          // "Journal Publication",
+          // "Publisher",
+          // "Author",
+          // "Affiliation",
+        ],
       },
       node_2: {
         "Construct (Ind. Var.)": [
@@ -55,7 +64,7 @@ const generateQuerySlice = createSlice({
         "Construct (Mediator)": ["Construct (Dep. Var.)"],
         "Construct (Moderator)": ["Construct (Dep. Var.)"],
       },
-      selection_type: "3node",
+      selection_type: "2node",
     },
     pattern: {
       nodeA: true,
@@ -120,6 +129,8 @@ const generateQuerySlice = createSlice({
       const specificObject = state.dropdownData?.data?.find(
         (d) => d.selection_type === payload.selection_type
       );
+      console.clear();
+      console.log(current(state.dropdownData?.data));
       state.dropdownOptions = specificObject;
     },
     setPattern: (state, { payload }) => {
@@ -170,13 +181,12 @@ export const fetchDropdownValues = (setFun) => async (dispatch) => {
           grow: 3,
           // active: aTripleNodeD,
           nodeA: true,
-          nodeB: true,
+          nodeB: false,
           nodeC: true,
           series: true,
-          unUsedA: true,
-          unUsedC: true,
-          code: "tripleNcA",
-          selection_type: "3node",
+          unUsedA: false,
+          code: "doubleN",
+          selection_type: "2node",
         },
         setFun
       )

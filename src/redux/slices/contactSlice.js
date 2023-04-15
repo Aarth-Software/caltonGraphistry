@@ -8,6 +8,7 @@ const contactSlice = createSlice({
     inviteMailStatus: true,
     invitedMail: "",
     requestMailStatus: null,
+    requestAccess: false,
   },
   reducers: {
     setContactMessages: (state, { payload }) => {
@@ -28,14 +29,19 @@ const contactSlice = createSlice({
     setRequestMailStatus: (state, { payload }) => {
       state.requestMailStatus = payload;
     },
+    setRequestAccess: (state, { payload }) => {
+      state.requestAccess = payload;
+    },
   },
 });
 
 export const askHelp = (document, navigate) => async (dispatch) => {
+  const { request_access } = document;
   try {
     const res = await postContact(document);
     console.log(res.data);
     dispatch(setRequestMailStatus(true));
+    dispatch(setRequestAccess(request_access));
     navigate("/contact-us/status");
   } catch (err) {
     dispatch(setRequestMailStatus(false));
@@ -50,5 +56,6 @@ export const {
   setInviteMailStatus,
   setInvitedMail,
   setRequestMailStatus,
+  setRequestAccess,
 } = contactSlice.actions;
 export const contactReducer = contactSlice.reducer;

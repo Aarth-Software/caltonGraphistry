@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Box } from "@mui/system";
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
@@ -50,7 +51,8 @@ const SendInviteEmail = ({ theme }) => {
           submit: false,
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().max(255).required("Name is required"),
+          firstname: Yup.string().max(255).required("Name is required"),
+          lastname: Yup.string().max(255).required("Name is required"),
           email: Yup.string()
             .email("Must be a valid email")
             .max(255)
@@ -58,7 +60,7 @@ const SendInviteEmail = ({ theme }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            sendLoginLink(values.email, values.name, dispatch, navigate);
+            sendLoginLink(values.email, values.firstname, dispatch, navigate);
           } catch (error) {
             const message = error.message || "Something went wrong";
             setStatus({ success: false });
@@ -82,6 +84,43 @@ const SendInviteEmail = ({ theme }) => {
                 {errors.submit}
               </Alert>
             )}
+            <Box
+              sx={{
+                width: "100%",
+                height: "auto",
+                // bgcolor: "red",
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+              }}
+            >
+              <TextField
+                type="name"
+                name="firstname"
+                label="First name*"
+                value={values.firstname}
+                error={Boolean(touched.firstname && errors.firstname)}
+                fullWidth
+                // helperText={touched.name && errors.name}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                my={2}
+                sx={{ mt: 4, mr: 2 }}
+              />
+              <TextField
+                type="name"
+                name="lastname"
+                label="Last name*"
+                value={values.lastname}
+                error={Boolean(touched.lastname && errors.lastname)}
+                fullWidth
+                // helperText={touched.name && errors.name}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                my={2}
+                sx={{ mt: 4, ml: 2 }}
+              />
+            </Box>
             <TextField
               type="email"
               name="email"
@@ -89,20 +128,7 @@ const SendInviteEmail = ({ theme }) => {
               value={values.email}
               error={Boolean(touched.email && errors.email)}
               fullWidth
-              helperText={touched.email && errors.email}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              my={2}
-              sx={{ mt: 2 }}
-            />
-            <TextField
-              type="name"
-              name="name"
-              label="Name*"
-              value={values.name}
-              error={Boolean(touched.name && errors.name)}
-              fullWidth
-              helperText={touched.name && errors.name}
+              // helperText={touched.email && errors.email}
               onBlur={handleBlur}
               onChange={handleChange}
               my={2}

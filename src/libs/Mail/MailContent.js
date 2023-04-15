@@ -10,12 +10,16 @@ export const InviteMailBody = (email, name) => {
     uuid: uniqueId,
     created: now.toISOString(),
   };
-  const body = `<h3>Hello ${name},</h3></br>
+  const body = `<h4>Hello ${name},</h4></br>
     <p>This is your invitation email to sign up for LitDig. Please <a href="${baseURL}/auth/sign-up?email=${encodeURIComponent(
     email
-  )}&token=${encodeURIComponent(uniqueId)}">Click here to sign up</a></br> 
-    to complete your sign up and start using LitDig.</p></br>
-    LitDig helps researchers and practitioners conduct their research work more effectively literature enables you to access the information faster .`;
+  )}&token=${encodeURIComponent(
+    uniqueId
+  )}">Sign up</a> to start using LitDig.</p></br><p>LitDig helps researchers and practitioners conduct their research work faster and better.</p></br>
+  <p>Please <a href="${baseURL}/contact-us">Contact us</a> for help or feedback.</p></br></br>
+  <div>Happy Digging</div>
+  <div>LitDig Team</div>
+    `;
   let output = {
     body: {
       body: body,

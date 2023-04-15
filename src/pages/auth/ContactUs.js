@@ -58,7 +58,7 @@ const ContactUs = ({ theme }) => {
           variant="body1"
           align="left"
         >
-          Please share your feedback or let us know how we can be of help.
+          Please fill this form for help, feedback, or to request an invitation.
         </Typography>
         <Formik
           initialValues={{
@@ -117,11 +117,11 @@ const ContactUs = ({ theme }) => {
                 <TextField
                   type="text"
                   name="firstName"
-                  label="Name"
+                  label="Name*"
                   value={values.firstName}
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
+                  // helperText={touched.firstName && errors.firstName}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   my={3}
@@ -130,11 +130,11 @@ const ContactUs = ({ theme }) => {
                 <TextField
                   type="email"
                   name="email"
-                  label="Email address"
+                  label="Email address*"
                   value={values.email}
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
-                  helperText={touched.email && errors.email}
+                  // helperText={touched.email && errors.email}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   my={3}
@@ -169,12 +169,12 @@ const ContactUs = ({ theme }) => {
                 placeholder="Enter your message here"
                 className="feedback-input"
               />
-              <FormHelperText
+              {/* <FormHelperText
                 sx={{ pl: 3.5 }}
                 error={touched.feedback && errors.feedback}
               >
                 {touched.feedback && errors.feedback}
-              </FormHelperText>
+              </FormHelperText> */}
               <FormControlLabel
                 control={
                   <Checkbox

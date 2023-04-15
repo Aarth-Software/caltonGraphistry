@@ -82,7 +82,8 @@ const SelectPropertiesContainer = React.memo((props) => {
               change={inputChange}
               unUsed={pattern?.unUsedB}
               options={
-                dropdownOptions?.selection_type === "3node" &&
+                (dropdownOptions?.selection_type === "3anode" ||
+                  dropdownOptions?.selection_type === "3bnode") &&
                 dropdownOptions?.node_2[nodeState?.nodeA?.value]
               }
             />
@@ -130,7 +131,8 @@ const SelectPropertiesContainer = React.memo((props) => {
               options={
                 dropdownOptions?.selection_type === "2node"
                   ? dropdownOptions?.node_2[nodeState?.nodeA?.value]
-                  : dropdownOptions?.selection_type === "3node" &&
+                  : (dropdownOptions?.selection_type === "3anode" ||
+                      dropdownOptions?.selection_type === "3bnode") &&
                     dropdownOptions?.node_3[nodeState?.nodeB?.value]
               }
             />

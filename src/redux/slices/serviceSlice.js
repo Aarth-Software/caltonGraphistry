@@ -57,7 +57,7 @@ const serviceSlice = createSlice({
       state.containerSize = payload;
     },
     setActivePattern: (state, { payload }) => {
-      const defaultPattern = payload.map((_, i) => (i === 7 ? true : false));
+      const defaultPattern = payload.map((_, i) => (i === 2 ? true : false));
       state.activePattern = defaultPattern;
     },
     setActivePatternWhenRetrive: (state, { payload }) => {

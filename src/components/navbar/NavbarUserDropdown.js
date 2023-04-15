@@ -150,7 +150,7 @@ function NavbarUserDropdown({ icon, size }) {
               <MenuItem
                 key="invite-user"
                 sx={{ fontSize: "1.1rem" }}
-                onClick={() => navigate("/auth/invite-user")}
+                onClick={() => navigate("/invite-user")}
               >
                 Invite user
               </MenuItem>

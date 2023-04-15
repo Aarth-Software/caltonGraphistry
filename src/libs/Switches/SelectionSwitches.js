@@ -79,7 +79,7 @@ export const btnArray = [
     series: true,
     unUsedB: true,
     code: "tripleNcD",
-    selection_type: "3node",
+    selection_type: "3anode",
   },
   {
     btn: tripleNodeB,
@@ -91,7 +91,7 @@ export const btnArray = [
     series: true,
     unUsedC: true,
     code: "tripleNrD",
-    selection_type: "3node",
+    selection_type: "3anode",
   },
   {
     btn: tripleNodeC,
@@ -103,7 +103,7 @@ export const btnArray = [
     series: true,
     unUsedA: true,
     code: "tripleNlD",
-    selection_type: "3node",
+    selection_type: "3anode",
   },
   {
     btn: tripleNodeD,
@@ -116,7 +116,7 @@ export const btnArray = [
     unUsedA: true,
     unUsedC: true,
     code: "tripleNcA",
-    selection_type: "3node",
+    selection_type: "3anode",
   },
   {
     btn: pTripleNodeD,
@@ -128,7 +128,7 @@ export const btnArray = [
     unUsedA: true,
     unUsedC: true,
     code: "triplePerNcA",
-    selection_type: "3node",
+    selection_type: "3bnode",
   },
   {
     btn: pTripleNodeC,
@@ -139,7 +139,7 @@ export const btnArray = [
     nodeC: true,
     unUsedA: true,
     code: "triplePerNlD",
-    selection_type: "3node",
+    selection_type: "3bnode",
   },
   {
     btn: pTripleNodeB,
@@ -150,7 +150,7 @@ export const btnArray = [
     nodeC: true,
     unUsedC: true,
     code: "triplePerNrD",
-    selection_type: "3node",
+    selection_type: "3bnode",
   },
   {
     btn: pTripleNodeA,
@@ -161,7 +161,7 @@ export const btnArray = [
     nodeC: true,
     unUsedB: true,
     code: "triplePerNcD",
-    selection_type: "3node",
+    selection_type: "3bnode",
   },
 ];
 
@@ -475,9 +475,9 @@ const selectionNodeInfoObject = {
     "For literature queries on a single asset (construct, hypothesis, paper, etc).",
   "2node":
     "For literature queries on relationships between two assets (construct-construct, hypothesis-construct, paper-hypothesis, etc) *",
-  "3node":
+  "3anode":
     "For literature queries on mediation relationships between constructs (Ind Var – Mediator – Dep Var)*",
-  "4node":
+  "3bnode":
     "literature queries on moderation relationships between constructs (Ind Var – Moderator – Dep Var) *",
   undefined:
     "* A solid node is used to look for an asset by specific keyword. A hollow node is used to look for an asset openly without a keyword.",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Autocomplete, TextField, Box, Paper } from "@mui/material";
+import { Autocomplete, TextField, Box } from "@mui/material";
 import { countries } from "./data";
 export default function CountrySelect({
   name,

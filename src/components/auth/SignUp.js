@@ -14,6 +14,7 @@ import { Box, spacing } from "@mui/system";
 import useAuth from "../../hooks/useAuth";
 import { withTheme } from "@emotion/react";
 import CountrySelect from "../../libs/InputComponents/Country/CountrySelect";
+import SelectTextField from "../../libs/InputComponents/SelectBox/SelectTextField";
 
 const Alert = styled(MuiAlert)(spacing);
 
@@ -104,6 +105,7 @@ function SignUp({ theme, email, inviteToken }) {
         isSubmitting,
         touched,
         values,
+        setFieldValue,
       }) => (
         <form noValidate onSubmit={handleSubmit}>
           {errors.submit && (
@@ -277,7 +279,7 @@ function SignUp({ theme, email, inviteToken }) {
               justifyContent: "space-between",
             }}
           >
-            <TextField
+            <SelectTextField
               type="text"
               name="jobTitle"
               label="Job Title*"
@@ -286,7 +288,8 @@ function SignUp({ theme, email, inviteToken }) {
               fullWidth
               // helperText={touched.jobTitle && errors.jobTitle}
               onBlur={handleBlur}
-              onChange={handleChange}
+              getValue={handleChange}
+              setFieldValue={setFieldValue}
               my={2}
               mr={2}
             />

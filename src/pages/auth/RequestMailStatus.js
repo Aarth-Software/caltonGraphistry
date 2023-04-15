@@ -24,7 +24,9 @@ const MailButton = styled(Button)`
   background: ${({ theme }) => theme.palette.secondary.main};
 `;
 const RequestMailStatus = () => {
-  const { requestMailStatus } = useSelector((state) => state.contact);
+  const { requestMailStatus, requestAccess } = useSelector(
+    (state) => state.contact
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -63,15 +65,17 @@ const RequestMailStatus = () => {
         <Typography
           sx={{ mb: 2 }}
           component="h1"
-          variant="h2"
+          variant="h3"
           align="left"
           gutterBottom
           textAlign={"center"}
           dangerouslySetInnerHTML={{
             __html: requestMailStatus
-              ? `Your request has been sent successfully to` +
-                "<br />" +
-                `Litdig team`
+              ? `${
+                  requestAccess
+                    ? "We received your message. Thank you for contacting us.We will review your request to use LitDig. We can support a limited number of users. If approved, you will receive an invitation by email to sign up."
+                    : "We received your message. Thank you for contacting us."
+                }`
               : `Your sending request failed`,
           }}
         />

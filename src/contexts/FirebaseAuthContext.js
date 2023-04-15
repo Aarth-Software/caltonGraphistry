@@ -180,10 +180,10 @@ function AuthProvider({ children }) {
       firebase.firestore().collection("inviteTokens").doc(doc?.uuid).set(doc);
       dispatch(setInviteMailStatus(true));
 
-      redirect("/auth/invite-user/status");
+      redirect("/invite-user/status");
     } catch (err) {
       dispatch(setInviteMailStatus(false));
-      redirect("/auth/invite-user/status");
+      redirect("/invite-user/status");
     }
   };
   const checkInvitationDoc = (setActiveLink, token) => {

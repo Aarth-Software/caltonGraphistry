@@ -19,7 +19,8 @@ const GraphistryGraph = React.memo((props) => {
   const object = {
     "1node": `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=0&edgeOpacity=0`,
     "2node": `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500`,
-    "3node": `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500&pruneOrphans=true`,
+    "3anode": `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500&pruneOrphans=true`,
+    "3bnode": `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500&pruneOrphans=true`,
     undefined: `https://hub.graphistry.com/graph/graph.html?dataset=${dataSet}&splashAfter=false&strongGravity=true&play=500`,
   };
   return (

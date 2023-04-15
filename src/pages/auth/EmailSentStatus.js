@@ -55,7 +55,7 @@ const EmailSentStatus = () => {
         <Typography
           sx={{ mb: 2 }}
           component="h1"
-          variant="h2"
+          variant="h3"
           align="left"
           gutterBottom
           textAlign={"center"}

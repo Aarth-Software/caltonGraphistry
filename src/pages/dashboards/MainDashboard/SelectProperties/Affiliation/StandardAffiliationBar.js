@@ -30,11 +30,11 @@ const StandardAffiliationBar = ({
       />
       <input
         placeholder={
-          unUsed || disableInput
-            ? "Disable(open ended)"
+          unUsed
+            ? "Open (no keyword)"
             : error && !unUsed
             ? "Required field*"
-            : "keyword"
+            : "Keyword"
         }
         value={!inputValue ? "" : inputValue}
         onChange={change}
