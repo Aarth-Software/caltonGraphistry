@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setInvitedMail } from "../../redux/slices/contactSlice";
+import StandardButton from "../../libs/Buttons/StandardButton";
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)};
   width: 50rem;
@@ -16,13 +17,13 @@ const Wrapper = styled(Paper)`
   }
   transform: scale(0.8);
 `;
-const MailButton = styled(Button)`
-  width: 9em;
-  height: 2.8em;
-  font-weight: 600;
-  font-size: 1.2rem;
-  background: ${({ theme }) => theme.palette.secondary.main};
-`;
+// const MailButton = styled(Button)`
+//   width: 9em;
+//   height: 2.8em;
+//   font-weight: 600;
+//   font-size: 1.2rem;
+//   background: ${({ theme }) => theme.palette.secondary.main};
+// `;
 const RequestMailStatus = () => {
   const { requestMailStatus, requestAccess } = useSelector(
     (state) => state.contact
@@ -86,9 +87,8 @@ const RequestMailStatus = () => {
           justifyContent="center"
           spacing={4}
         >
-          <MailButton onClick={goBack} variant="contained">
-            Back
-          </MailButton>
+          <StandardButton text="Back" onClick={goBack} variant="contained" />
+
           {/* <MailButton onClick={} variant="contained">
             Invite
           </MailButton> */}

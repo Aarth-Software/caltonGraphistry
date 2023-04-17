@@ -1,12 +1,12 @@
-import { Box } from "@mui/system";
+import { Box, Stack } from "@mui/system";
 import React from "react";
-import StandardButton from "../libs/Buttons/StandardButton";
+// import Button from "../libs/Buttons/Button";
 import { litDigBigLogo } from "../asserts/index";
 import { useNavigate } from "react-router-dom";
 import { withTheme } from "@emotion/react";
 import Loader from "../components/Loader";
 import useAuth from "../hooks/useAuth";
-import { Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import styled from "@emotion/styled";
 
 const Wrapper = styled(Paper)`
@@ -42,37 +42,53 @@ const AuthLanding = ({ theme }) => {
     <>
       <img src={litDigBigLogo} style={{ width: "50rem" }} alt="logo" />
       <Wrapper>
-        <Box>
-          <StandardButton
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent={"center"}
+          spacing={5}
+        >
+          <Button
             text="Contact us"
             // px={2.6}
             // py={1.3}
-            varient="outlined"
+            variant="outlined"
             mr={5}
-            color={theme.palette.secondary.main}
+            // color={theme.palette.secondary.main}
             onClick={() => navigate("/contact-us")}
-            fontSize={11}
             fontWeight={600}
-            w={"9em"}
-            h="3em"
-          />
-          <StandardButton
+            // w={"9em"}
+            // h="3em"
+            sx={{ width: "90px", height: "28px", fontSize: "10px" }}
+          >
+            Contact us
+          </Button>
+          <Button
             text="Sign in"
             // px={6}
             // py={1.4}
-            varient="standard"
+            variant="standard"
             // bgcolor={theme.palette.secondary.main}
             // mx={3}
             onClick={navigateToLogin}
             color={"white"}
-            bgcolor={theme.palette.secondary.main}
+            // bgcolor={theme.palette.secondary.main}
             colorHover="black"
-            fontSize={11}
             fontWeight={600}
-            w={"9em"}
-            h="3em"
-          />
-        </Box>
+            sx={{
+              width: "90px",
+              height: "28px",
+              fontSize: "10px",
+              bgcolor: theme.palette.secondary.main,
+              color: "white",
+              "&:hover": {
+                bgcolor: theme.palette.secondary.main,
+              },
+            }}
+          >
+            Sign in
+          </Button>
+        </Stack>
       </Wrapper>
     </>
   );

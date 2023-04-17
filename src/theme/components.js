@@ -1,7 +1,9 @@
 const components = {
   MuiButtonBase: {
     defaultProps: {
-      disableRipple: true,
+      // disableRipple: true,
+      padding: "8px 16px",
+      fontSize: "10rem",
     },
   },
   MuiLink: {
