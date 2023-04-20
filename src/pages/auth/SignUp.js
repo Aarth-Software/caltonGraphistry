@@ -41,9 +41,9 @@ function SignUp({ theme }) {
     const queryParams = new URLSearchParams(window.location.search);
     const email = queryParams.get("email");
     const token = queryParams.get("token");
-    // if (!email && !token) {
-    //   navigate("/auth");
-    // }
+    if (!email && !token) {
+      navigate("/auth");
+    }
     setInviteToken(token);
     setEmail(email);
     if (email && token) {
