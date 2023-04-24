@@ -8,8 +8,21 @@ import SelectButtons from "./SelectButtons";
 import TooltipComp from "../../../../libs/Tooltip/Tooltip";
 import { useSelector } from "react-redux";
 import { getInfoContent } from "../../../../libs/Switches/SelectionSwitches";
+import { Stack } from "@mui/system";
+import styled from "@emotion/styled";
 
-// const Card = styled(Box)``;
+const TootipRow = styled(Stack)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+const TootipColumn = styled(Stack)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flkex-direction: column;
+`;
 const SelectPatternContainer = React.memo((props) => {
   const { btnArray, activePattern, setActivePattern } = props;
   const { pattern } = useSelector((s) => s.query);
@@ -30,8 +43,27 @@ const SelectPatternContainer = React.memo((props) => {
         <TooltipComp
           className="no-padding-icon-button"
           size="1rem"
-          // icon={info}
-          message={getInfoContent(pattern.selection_type || undefined)}
+          message={
+            <>
+              <TootipColumn>
+                <TootipRow>
+                  {getInfoContent(
+                    pattern.selection_type || undefined
+                  ).icons.map((eg, i) => (
+                    <img
+                      key={i}
+                      style={{ width: "3rem" }}
+                      src={eg}
+                      alt="icon"
+                    />
+                  ))}
+                </TootipRow>
+                <p>
+                  {getInfoContent(pattern.selection_type || undefined).info}
+                </p>
+              </TootipColumn>
+            </>
+          }
           top=".5rem"
         />
       </div>

@@ -36,8 +36,6 @@ const FiltersComponent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(nodeState);
-
   const getBadgeCount = () => {
     const count = filterArray.filter((eg) => eg.value).length;
     return count;

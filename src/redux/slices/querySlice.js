@@ -130,7 +130,6 @@ const generateQuerySlice = createSlice({
         (d) => d.selection_type === payload.selection_type
       );
       console.clear();
-      console.log(current(state.dropdownData?.data));
       state.dropdownOptions = specificObject;
     },
     setPattern: (state, { payload }) => {
@@ -264,7 +263,7 @@ export const save =
         keyword2: eg.keywordB,
         keyword3: eg.keywordC,
         query_name: saveName,
-        dataset: !values.data,
+        dataset: values.data,
         selection_type: `${Object.keys(nodeState).length - 5}node`,
         selection_code: pattern.code,
         fromYear: eg.fromYear,
@@ -286,7 +285,6 @@ export const save =
 
     try {
       const response = await postQuery(changeKeys);
-      console.log(response.data);
       dispatch(setSaveName(false));
       enqueueSnackbar(response.data.message, {
         variant: "success",

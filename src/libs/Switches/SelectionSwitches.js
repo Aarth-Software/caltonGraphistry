@@ -471,16 +471,26 @@ const nodeDesables = {
 };
 
 const selectionNodeInfoObject = {
-  "1node":
-    "For literature queries on a single asset (construct, hypothesis, paper, etc).",
-  "2node":
-    "For literature queries on relationships between two assets (construct-construct, hypothesis-construct, paper-hypothesis, etc) *",
-  "3anode":
-    "For literature queries on mediation relationships between constructs (Ind Var – Mediator – Dep Var)*",
-  "3bnode":
-    "literature queries on moderation relationships between constructs (Ind Var – Moderator – Dep Var) *",
-  undefined:
-    "* A solid node is used to look for an asset by specific keyword. A hollow node is used to look for an asset openly without a keyword.",
+  "1node": {
+    icons: [singleNodeA],
+    info: "For literature queries on a single asset (construct, hypothesis, paper, etc).",
+  },
+  "2node": {
+    icons: [doubleNodeA, doubleNodeB, doubleNodeC],
+    info: "For literature queries on relationships between two assets (construct-construct, hypothesis-construct, paper-hypothesis, etc) *",
+  },
+  "3anode": {
+    icons: [tripleNodeA, tripleNodeB, tripleNodeC, tripleNodeD],
+    info: "For literature queries on mediation relationships between constructs (Ind Var – Mediator – Dep Var)*",
+  },
+  "3bnode": {
+    icons: [pTripleNodeA, pTripleNodeB, pTripleNodeC, pTripleNodeD],
+    info: "literature queries on moderation relationships between constructs (Ind Var – Moderator – Dep Var) *",
+  },
+  undefined: {
+    icons: [],
+    info: "* A solid node is used to look for an asset by specific keyword. A hollow node is used to look for an asset openly without a keyword.",
+  },
 };
 
 export const getInfoContent = (v) => {

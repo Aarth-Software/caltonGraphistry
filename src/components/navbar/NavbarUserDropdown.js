@@ -107,18 +107,18 @@ function NavbarUserDropdown({ icon, size }) {
           )}
 
           {!user?.id && [
-            location[2] === "sign-in" && (
-              <MenuItem
-                key="sign-in"
-                sx={{ fontSize: "1.1rem" }}
-                onClick={() => {
-                  setAnchorMenu(null);
-                  navigate("sign-up");
-                }}
-              >
-                Sign up
-              </MenuItem>
-            ),
+            // location[2] === "sign-in" && (
+            //   <MenuItem
+            //     key="sign-in"
+            //     sx={{ fontSize: "1.1rem" }}
+            //     onClick={() => {
+            //       setAnchorMenu(null);
+            //       navigate("sign-up");
+            //     }}
+            //   >
+            //     Sign up
+            //   </MenuItem>
+            // ),
             location[2] === "sign-up" && (
               <MenuItem
                 key="sign-up"

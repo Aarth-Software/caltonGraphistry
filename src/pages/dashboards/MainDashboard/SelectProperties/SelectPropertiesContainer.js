@@ -29,7 +29,6 @@ const Line = styled("span")(horizentalLineStyles);
 
 const SelectPropertiesContainer = React.memo((props) => {
   const { dropdownOptions, pattern } = useSelector((state) => state.query);
-  console.log(dropdownOptions);
   const { nodeState, setNodeState } = props;
   const { enqueueSnackbar } = useSnackbar();
   const { nodeA, nodeB, nodeC } = pattern;

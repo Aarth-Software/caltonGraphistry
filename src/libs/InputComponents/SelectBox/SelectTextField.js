@@ -29,7 +29,6 @@ const SelectTextField = ({
         error={error}
         label={label}
         onChange={(e) => {
-          console.log(e.target.value);
           setFieldValue(name, e.target.value); // set the formik value when an option is selected
           getValue(e);
         }}

@@ -240,7 +240,6 @@ const FallDashboard = ({ theme }) => {
     ? ["500px", "30px", "200px"]
     : ["900px", "auto", "12rem"];
   // console.log(filterArray);
-  // console.log(values?.data);
   return (
     <>
       <Stack sx={{ width: "100%", height: "100%" }}>
@@ -361,7 +360,11 @@ const FallDashboard = ({ theme }) => {
             />
           )}
         {!!savedDataSet?.status && !values?.loading && (
-          <GraphistryGraph name="graph" dataSet={savedDataSet?.data} />
+          <GraphistryGraph
+            name="graph"
+            selectNodeType={pattern.selection_type}
+            dataSet={savedDataSet?.data}
+          />
         )}
         {!values?.loading &&
           !savedDataSet?.status &&

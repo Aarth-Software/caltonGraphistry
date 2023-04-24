@@ -9,7 +9,10 @@ const AppendFilter = ({ theme, appendFilterElement, getApplyFilters }) => {
   const { nodeState } = useStateContextHook();
   const { filterArray } = useSelector((state) => state.filters);
   const { fromYear, toYear } = nodeState;
-  console.log(nodeState);
+  const disableButton =
+    filterArray.some((eg) => eg.autoCompleteValue) ||
+    fromYear.some((eg) => eg) ||
+    toYear.some((eg) => eg);
   return (
     <>
       <Box
@@ -48,7 +51,7 @@ const AppendFilter = ({ theme, appendFilterElement, getApplyFilters }) => {
           fontSize="1rem"
           fontWeight={600}
           bgcolor={theme.palette.secondary.main}
-          disabled={!!nodeState?.nodeA?.disableDropDown}
+          disabled={!disableButton || !!nodeState?.nodeA?.disableDropDown}
           onClick={getApplyFilters}
         />
       </Box>

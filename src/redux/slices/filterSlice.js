@@ -133,7 +133,6 @@ export const applyFilters =
     ) {
       delete mergedObj[""];
     }
-    console.log(mergedObj);
     setNodeState(mergedObj);
   };
 

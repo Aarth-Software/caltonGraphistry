@@ -146,8 +146,8 @@ const ContactUs = ({ theme }) => {
                 type="textbox"
                 name="feedback"
                 disabled={false}
-                minRows={10}
-                maxRows={5}
+                minRows={16}
+                maxRows={9}
                 value={values.feedback}
                 error={touched.feedback && errors.feedback ? "true" : "false"}
                 // helperText={touched.feedback && errors.feedback}

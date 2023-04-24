@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import FilterSelectBox from "./FilterSelectBox";
 import CloseIcon from "@mui/icons-material/Close";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import useStateContextHook from "../../../../../libs/StateProvider/useStateContextHook";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../../../../redux/slices/querySlice";
@@ -34,7 +35,11 @@ const FilterSet = () => {
       if (index !== queryFilters.fromYear.length - 1) {
         toYearOptions = initialYearOptions.endYear.filter((eg) => eg >= value);
       }
-      setNodeState((prev) => ({ ...prev, [name]: [value], toYear: [] }));
+      setNodeState((prev) => ({
+        ...prev,
+        [name]: value === "" ? [] : [value],
+        toYear: [],
+      }));
       dispatch(
         setFilters({
           ...queryFilters,
@@ -42,16 +47,21 @@ const FilterSet = () => {
         })
       );
     } else {
-      setNodeState((prev) => ({ ...prev, [name]: [value.toString()] }));
+      setNodeState((prev) => ({
+        ...prev,
+        [name]: value === "" ? [] : [value.toString()],
+      }));
     }
   };
 
   const removeFilterSet = async (id) => {
-    // if (filterArray.length !== 1) {
     const updatedSets = filterArray.filter((el, i) => el !== id);
     dispatch(setFilterArray(updatedSets));
     dispatch(applyFilters(updatedSets, nodeState, setNodeState));
-    // }
+  };
+
+  const resetSelectYear = () => {
+    setNodeState((prev) => ({ ...prev, fromYear: [], toYear: [] }));
   };
 
   return (
@@ -81,16 +91,27 @@ const FilterSet = () => {
         <Box
           sx={{
             // background: "yellow",
-            width: "calc(100% - 3rem)",
+            width: "calc(100%)",
             // height: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-start",
             py: 0.4,
             position: "relative",
-            left: "3rem",
+            // left: "3rem",
           }}
         >
+          <RestartAltIcon
+            onClick={resetSelectYear}
+            sx={{
+              px: 0,
+              width: "3rem",
+              color: "gray",
+              cursor: !!nodeState?.nodeA?.disableDropDown
+                ? "not-allowed"
+                : "pointer",
+            }}
+          />
           <FilterSelectBox
             name="fromYear"
             value={""}
@@ -183,32 +204,3 @@ const FilterSet = () => {
 };
 
 export default FilterSet;
-
-/* <Box
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            py: 0.4,
-          }}
-        >
-          <FilterSelectBox
-            name="affiliationFilter"
-            value={affiliationFilter}
-            handleChange={handleChange}
-            disabled={!!nodeA?.disableDropDown}
-          />
-          <FilterSelectBox
-            name="publisherFilter"
-            value={publisherFilter}
-            handleChange={handleChange}
-            disabled={!!nodeA?.disableDropDown}
-          />
-          <FilterSelectBox
-            name="publicationFilter"
-            value={publicationFilter}
-            handleChange={handleChange}
-            disabled={!!nodeA?.disableDropDown}
-          />
-        </Box> */
