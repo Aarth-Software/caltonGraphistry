@@ -75,9 +75,12 @@ const ContactUs = ({ theme }) => {
               .max(255)
               .required("Email is required"),
             feedback: Yup.string()
-              .min(10, "Feedback must be at least 10 characters")
+              .min(
+                15,
+                "Please enter at least 15 characters in the message field to submit your message"
+              )
               .max(2000)
-              .required("Feedback content is required"),
+              .required("Message content is required"),
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             const { firstName, email, feedback, request_access } = values;
@@ -160,6 +163,9 @@ const ContactUs = ({ theme }) => {
                   padding: ".5em",
                   fontWeight: "normal",
                   outline: "none",
+                  border: `1px solid ${
+                    touched.feedback && errors.feedback ? "#d32f2f" : "#c4c4c4"
+                  }`,
                 }}
                 onBlur={(e) => {
                   handleBlur(e);
@@ -169,12 +175,12 @@ const ContactUs = ({ theme }) => {
                 placeholder="Enter your message here"
                 className="feedback-input"
               />
-              {/* <FormHelperText
-                sx={{ pl: 3.5 }}
+              <FormHelperText
+                sx={{ pl: 3.5, fontSize: 12 }}
                 error={touched.feedback && errors.feedback}
               >
                 {touched.feedback && errors.feedback}
-              </FormHelperText> */}
+              </FormHelperText>
               <FormControlLabel
                 control={
                   <Checkbox

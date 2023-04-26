@@ -26,6 +26,7 @@ const FiltersComponent = (props) => {
   const { filterOptions, openFilter } = useSelector((s) => s.filters);
   const { setNodeState, nodeState } = useStateContextHook();
   const { filterArray } = useSelector((state) => state.filters);
+  const { fromYear, toYear } = nodeState;
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -35,10 +36,9 @@ const FiltersComponent = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const getBadgeCount = () => {
-    const count = filterArray.filter((eg) => eg.value).length;
-    return count;
+    const count = filterArray.filter((eg) => eg.autoCompleteValue).length;
+    return count + fromYear.length + toYear.length;
   };
 
   const appendFilterPattern = () => {
