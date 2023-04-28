@@ -76,7 +76,7 @@ const ContactUs = ({ theme }) => {
               .required("Email is required"),
             feedback: Yup.string()
               .min(
-                15,
+                20,
                 "Please enter at least 15 characters in the message field to submit your message"
               )
               .max(2000)
@@ -144,7 +144,7 @@ const ContactUs = ({ theme }) => {
                   sx={{ ml: 3 }}
                 />
               </FlexContainer>
-              <TextareaAutosize
+              {/* <TextareaAutosize
                 color="primary"
                 type="textbox"
                 name="feedback"
@@ -180,7 +180,22 @@ const ContactUs = ({ theme }) => {
                 error={touched.feedback && errors.feedback}
               >
                 {touched.feedback && errors.feedback}
-              </FormHelperText>
+              </FormHelperText> */}
+              <TextField
+                // placeholder="MultiLine with rows: 2 and rowsMax: 4"
+                multiline
+                rows={9}
+                maxRows={10}
+                fullWidth
+                label="Message (min 20 characters)*"
+                type="text"
+                name="feedback"
+                sx={{ mt: 3 }}
+                value={values.feedback}
+                error={Boolean(touched.feedback && errors.feedback)}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
               <FormControlLabel
                 control={
                   <Checkbox

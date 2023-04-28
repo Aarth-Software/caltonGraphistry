@@ -15,7 +15,7 @@ const Wrapper = styled(Paper)`
   ${(props) => props.theme.breakpoints.up("md")} {
     padding: ${(props) => props.theme.spacing(10)};
   }
-  transform: scale(0.8);
+  transform: scale(0.9);
 `;
 // const MailButton = styled(Button)`
 //   width: 9em;
@@ -48,11 +48,11 @@ const RequestMailStatus = () => {
         justifyContent="center"
         spacing={4}
       >
-        <img
+        {/* <img
           src={requestMailStatus ? successLogo : errorLogo}
           style={{ width: "8rem" }}
           alt="sentImage"
-        />
+        /> */}
         <Typography
           sx={{ mb: 2 }}
           component="h1"
@@ -65,8 +65,8 @@ const RequestMailStatus = () => {
         </Typography>
         <Typography
           sx={{ mb: 2 }}
-          component="h1"
-          variant="h3"
+          // component="h1"
+          variant="body1"
           align="left"
           gutterBottom
           textAlign={"center"}
@@ -87,7 +87,12 @@ const RequestMailStatus = () => {
           justifyContent="center"
           spacing={4}
         >
-          <StandardButton text="Back" onClick={goBack} variant="contained" />
+          <StandardButton
+            sx={{ fontSize: 14.2 }}
+            text="Back"
+            onClick={goBack}
+            variant="contained"
+          />
 
           {/* <MailButton onClick={} variant="contained">
             Invite
