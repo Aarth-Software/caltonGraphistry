@@ -61,7 +61,7 @@ const RequestMailStatus = () => {
           gutterBottom
           textAlign={"center"}
         >
-          {requestMailStatus ? "Thank you!!" : "Opps!!"}
+          {requestMailStatus ? "Thank you" : "Opps"}
         </Typography>
         <Typography
           sx={{ mb: 2 }}
@@ -74,7 +74,7 @@ const RequestMailStatus = () => {
             __html: requestMailStatus
               ? `${
                   requestAccess
-                    ? "We received your message. Thank you for contacting us.We will review your request to use LitDig. We can support a limited number of users. If approved, you will receive an invitation by email to sign up."
+                    ? "We received your message. Thank you for contacting us. We will review your request to use LitDig. We can support a limited number of users. If approved, you will receive an invitation by email to sign up."
                     : "We received your message. Thank you for contacting us."
                 }`
               : `Your sending request failed`,
