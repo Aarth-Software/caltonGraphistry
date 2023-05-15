@@ -17,6 +17,8 @@ import { store } from "./redux/store";
 import createEmotionCache from "./utils/createEmotionCache";
 
 import { AuthProvider } from "./contexts/JWTContext";
+import { useMediaQuery } from "@mui/material";
+import AuthLayout from "./layouts/Auth";
 // import { AuthProvider } from "./contexts/FirebaseAuthContext";
 // import { AuthProvider } from "./contexts/Auth0Context";
 // import { AuthProvider } from "./contexts/CognitoContext";
@@ -24,9 +26,29 @@ import { AuthProvider } from "./contexts/JWTContext";
 const clientSideEmotionCache = createEmotionCache();
 
 function App({ emotionCache = clientSideEmotionCache }) {
-  const content = useRoutes(routes);
+  const appContent = useRoutes(routes);
+
+  const isMobile = useMediaQuery(
+    "(max-width: 500px) and (orientation: portrait)"
+  );
+
+  const content = isMobile ? (
+    // Render information screen for mobile
+
+    <AuthLayout>
+      <div style={{ textAlign: "center" }}>
+        <h3>Please use this application on landscope screens</h3>
+        <p>This is the content to show on landscope screens.</p>
+      </div>
+    </AuthLayout>
+  ) : (
+    // Render your normal routes for desktop
+    appContent
+  );
 
   const { theme } = useTheme();
+
+  // const xsMatches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <CacheProvider value={emotionCache}>
